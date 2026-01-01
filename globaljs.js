@@ -4,19 +4,23 @@
 
 document.addEventListener("DOMContentLoaded", function() {
     const slides = document.querySelectorAll(".kb-slide");
+    
+    // अगर स्लाइड्स नहीं मिली तो एरर न आए
+    if (slides.length === 0) return;
+
     let currentSlide = 0;
 
     function nextSlide() {
-        // पुरानी स्लाइड से 'active' हटाओ
+        // पुरानी स्लाइड से active हटाओ
         slides[currentSlide].classList.remove("active");
 
-        // अगली स्लाइड पर जाओ
+        // अगली स्लाइड का नंबर निकालो
         currentSlide = (currentSlide + 1) % slides.length;
 
-        // नई स्लाइड में 'active' जोड़ो
+        // नई स्लाइड में active जोड़ो
         slides[currentSlide].classList.add("active");
     }
 
-    // हर 5 सेकंड (5000ms) में फोटो बदलेगी
-    setInterval(nextSlide, 5000);
+    // रफ्तार 2 सेकंड (2000ms) सेट की गई है
+    setInterval(nextSlide, 2000);
 });
