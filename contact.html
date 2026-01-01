@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Contact - KASUMALGARH</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="royal_global.css">
+
+    <style>
+        /* ✅ GLOBAL FIX */
+        * { box-sizing: border-box; }
+
+        /* --- Page Specific Styles --- */
+        /* Hero Section Override for Contact Image */
+        .hero-section {
+            height: 350px;
+            background: linear-gradient(rgba(0,0,51,0.6), rgba(0,0,51,0.9)), url('1.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            border-bottom: 5px solid #b38728;
+        }
+
+        /* ✅ ROYAL MAROON TITLE (Consistent) */
+        .hero-title { 
+            font-family: 'Cinzel', serif; 
+            font-size: 3.5em; 
+            font-weight: 900;
+            
+            /* शाही मरून रंग */
+            color: #600000; 
+            background: none;
+            -webkit-text-fill-color: initial;
+            
+            /* सुनहरी बॉर्डर और चमक */
+            -webkit-text-stroke: 1px #fcf6ba; 
+            text-shadow: 0 0 25px #bf953f; 
+            
+            margin: 0;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .hero-welcome {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5em;
+            color: #fcf6ba;
+            margin-bottom: -5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .divider-ornament { font-size: 30px; color: #bf953f; margin: 10px 0; }
+
+        /* --- Contact Form Styles --- */
+        .contact-wrapper {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 40px 20px;
+        }
+
+        .contact-card {
+            background: var(--paper-bg);
+            border: 4px double var(--maroon-text);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 0 30px rgba(191, 149, 63, 0.3);
+            text-align: center;
+            position: relative;
+        }
+
+        /* कोने की सजावट (Corner Ornaments) */
+        .contact-card::before, .contact-card::after {
+            content: "✦";
+            position: absolute;
+            font-size: 30px;
+            color: #b38728;
+        }
+        .contact-card::before { top: 10px; left: 10px; }
+        .contact-card::after { bottom: 10px; right: 10px; }
+
+        .form-heading {
+            font-family: 'Cinzel', serif;
+            color: var(--maroon-text);
+            font-size: 2em;
+            margin-bottom: 10px;
+            font-weight: 900;
+            border-bottom: 2px solid #b38728;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .info-item {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 10px 20px;
+            border: 1px solid #b38728;
+            border-radius: 50px;
+            font-size: 0.9em;
+            color: #000033;
+            font-weight: bold;
+        }
+        .info-item i { color: var(--maroon-text); margin-right: 5px; }
+
+        /* Form Fields */
+        .form-group { margin-bottom: 20px; text-align: left; }
+
+        .form-label {
+            display: block;
+            font-family: 'Cinzel', serif;
+            color: var(--maroon-text);
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #b38728;
+            background: #fff;
+            border-radius: 5px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            color: #333;
+            box-sizing: border-box; /* Fix for width */
+            transition: 0.3s;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--maroon-text);
+            box-shadow: 0 0 10px rgba(128, 0, 0, 0.2);
+            background: #fffbf0;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c); /* Gold Gradient */
+            color: #2c0e0e;
+            font-family: 'Cinzel', serif;
+            font-weight: 900;
+            padding: 12px 50px;
+            border: 2px solid #fff;
+            border-radius: 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: scale(1.05);
+            background: var(--maroon-text);
+            color: #fff;
+            border-color: #ffd700;
+        }
+
+        /* Mobile Fixes */
+        @media (max-width: 600px) {
+            .hero-title { font-size: 2.2em; }
+            .hero-welcome { font-size: 1.8em; }
+            .contact-card { padding: 20px 15px; }
+            .form-heading { font-size: 1.5em; }
+            .info-item { font-size: 0.8em; width: 100%; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="royal-frame">
+        <span></span> <span></span> <span></span> <span></span>
+    </div>
+
+    <nav class="navbar">
+        <div class="navbar-brand-container">
+            <img id="menu-logo" src="menulogo.png" alt="Kasumalgarh Logo"> 
+            <a class="navbar-brand" href="index.html">KASUMALGARH</a>
+        </div>
+        
+        <div class="menu-toggle" onclick="toggleMobilePopup()">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+
+        <ul class="navbar-links">
+            <li><a href="index.html">HOME</a></li>
+            
+            <li class="dropdown">
+                <a href="index.html" class="brand-name" style="text-decoration:none; color:inherit; font-weight: bold; cursor: pointer;">VANSHAWALI</a>
+                <div class="dropdown-content">
+                    <a href="vanshawali.html">Kasumalgarh Vanshawali</a>
+                    <a href="rathorevanshawali.html">Rathore Vanshawali</a>
+                </div>
+            </li>
+
+            <li><a href="history.html">HISTORY</a></li>
+            <li><a href="gallery.html">GALLERY</a></li>
+            <li><a href="about.html">ABOUT</a></li>
+            <li><a href="contact.html" class="active">CONTACT</a></li>
+            
+            <li><button id="lang-btn" class="lang-btn" onclick="toggleLanguage()">🌐 EN</button></li>
+        </ul>
+    </nav>
+
+    <div id="mobile-popup" class="mobile-menu-overlay">
+        <ul class="mobile-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#" style="background:rgba(0,0,0,0.3); cursor:default;">-- Vanshawali --</a></li>
+            <li><a href="vanshawali.html" class="mobile-sub-link">Kasumalgarh Tree</a></li>
+            <li><a href="rathorevanshawali.html" class="mobile-sub-link">Rathore Chart</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            
+            
+        </ul>
+    </div>
+
+    <header class="hero-section" id="hero-slider">
+        <div class="hero-welcome">Get in Touch</div>
+        <h1 class="hero-title">CONTACT</h1>
+        <div class="divider-ornament">⚜️ ⚜️ ⚜️</div>
+    </header>
+
+    <main class="main-content">
+        <div class="contact-wrapper">
+            <div class="contact-card">
+                <h2 class="form-heading">संपर्क सूत्र</h2>
+                <p style="margin-bottom: 25px; color: #555; font-style: italic;">
+                    अगर आपके पास ठिकाना कसुम्बी के इतिहास या वंशावली से जुड़ी कोई जानकारी है, तो कृपया हमसे साझा करें।
+                </p>
+
+                <div class="contact-info">
+                    <div class="info-item"><i class="fas fa-map-marker-alt"></i> Kasumalgarh, Rajasthan</div>
+                    <div class="info-item"><i class="fas fa-envelope"></i> kasumalgarh@gmail.com</div>
+                </div>
+
+               <form action="https://formsubmit.co/kasumalgarh@gmail.com" method="POST">
+                    <div class="form-group">
+                        <label class="form-label">आपका शुभ नाम (Full Name)</label>
+                        <input type="text" name="name" class="form-input" placeholder="Enter your name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">ईमेल पता (Email Address)</label>
+                        <input type="email" name="email" class="form-input" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">मोबाइल नंबर (Mobile No.)</label>
+                        <input type="tel" name="phone" class="form-input" placeholder="Enter mobile number">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">संदेश (Message)</label>
+                        <textarea name="message" class="form-textarea" rows="5" placeholder="Write your message here..." required></textarea>
+                    </div>
+
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_next" value="https://kasumalgarh.netlify.app/contact.html">
+
+                    <button type="submit" class="submit-btn">Send Message <i class="fas fa-paper-plane"></i></button>
+                </form>
+                </div>
+        </div>
+    </main>
+
+    <footer class="royal-footer">
+        <address class="developer-info" style="font-style: normal;">
+            <div style="font-size: 0.9em; color: #888; margin-bottom: 5px;">Developed & Designed By:</div>
+            
+            <span class="royal-name" translate="no" style="cursor: default;">
+                Yuvraj Gajraj Singh
+            </span>
+            
+            <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" rel="noopener noreferrer" class="fb-link">
+                <i class="fab fa-facebook"></i> Connect on Facebook
+            </a>
+            
+            <div style="font-size: 0.8em; margin-top: 15px; color: #666;">
+                © <span id="current-year">2025</span> | All Rights Reserved.
+            </div>
+        </address>
+    </footer>
+
+    <script type="module" src="mainscript.js"></script>
+
+    <script>
+        // 1. Auto Update Year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // 2. Mobile Popup Menu Toggle
+        function toggleMobilePopup() {
+            const menu = document.getElementById('mobile-popup');
+            if(menu.classList.contains('open')) {
+                menu.classList.remove('open');
+            } else {
+                menu.classList.add('open');
+            }
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('mobile-popup');
+            const toggleBtn = document.querySelector('.menu-toggle');
+            if (menu && menu.classList.contains('open')) {
+                if (!menu.contains(event.target) && !toggleBtn.contains(event.target)) {
+                    menu.classList.remove('open');
+                }
+            }
+        });
+
+        // 3. Language Toggle (UI Only)
+        let currentLang = localStorage.getItem('lang') || 'hi'; 
+        function updateLangButton() {
+            const btn = document.getElementById('lang-btn');
+            const mobileBtn = document.getElementById('mobile-lang-btn');
+            if(currentLang === 'hi') {
+                if(btn) btn.innerText = "🌐 EN";
+                if(mobileBtn) mobileBtn.innerText = "🌐 Switch to English";
+            } else {
+                if(btn) btn.innerText = "🌐 HI";
+                if(mobileBtn) mobileBtn.innerText = "🌐 Switch to Hindi";
+            }
+        }
+        function toggleLanguage() {
+            currentLang = currentLang === 'hi' ? 'en' : 'hi';
+            localStorage.setItem('lang', currentLang);
+            updateLangButton();
+        }
+        window.addEventListener('DOMContentLoaded', updateLangButton);
+    </script>
+</body>
+</html>

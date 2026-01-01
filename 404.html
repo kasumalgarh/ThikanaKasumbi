@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | KASUMALGARH</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        /* ----------------------------- */
+        /* ✨ शाही वेरियबल्स */
+        /* ----------------------------- */
+        :root {
+            --royal-bg: #000033;        
+            --paper-bg: #fffbf0;        
+            --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            --maroon-text: #800000;
+            --dark-gold-line: #aa8c2c; 
+        }
+
+        body { 
+            margin: 0; 
+            background-color: var(--royal-bg); 
+            color: #333;
+            font-family: 'Playfair Display', serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        /* ✨ शाही सिल्वर टेक्सचर */
+        body::before {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/black-scales.png');
+            filter: invert(1); opacity: 0.4; pointer-events: none; z-index: -1; 
+        }
+
+        /* ----------------------------- */
+        /* 🏰 404 BOX DESIGN */
+        /* ----------------------------- */
+        .error-container {
+            background: var(--paper-bg);
+            border: 4px double var(--maroon-text);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 50px rgba(191, 149, 63, 0.4);
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .error-code {
+            font-family: 'Cinzel', serif;
+            font-size: 8em;
+            margin: 0;
+            line-height: 1;
+            font-weight: 900;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.5));
+            animation: pulse 2s infinite;
+        }
+
+        .error-heading {
+            font-family: 'Cinzel', serif;
+            color: var(--maroon-text);
+            font-size: 1.8em;
+            margin-top: 10px;
+            border-bottom: 2px solid var(--dark-gold-line);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        .error-msg {
+            font-size: 1.2em;
+            color: #555;
+            margin: 20px 0;
+            font-style: italic;
+        }
+
+        .home-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 35px;
+            background: linear-gradient(to right, #000033, #000066); 
+            color: #fcf6ba;
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            border: 2px solid #b38728;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .home-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(191, 149, 63, 0.6);
+            background: #b38728;
+            color: #000;
+        }
+
+        /* ----------------------------- */
+        /* 🖼️ ROYAL FRAME (BORDER) */
+        /* ----------------------------- */
+        .royal-frame { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999; }
+        .royal-frame span { position: absolute; display: block; background: var(--dark-gold-line); }
+        
+        .royal-frame span:nth-child(1) { top: 0; left: 0; width: 100%; height: 5px; } /* Top */
+        .royal-frame span:nth-child(2) { bottom: 0; left: 0; width: 100%; height: 5px; } /* Bottom */
+        .royal-frame span:nth-child(3) { top: 0; left: 0; width: 5px; height: 100%; } /* Left */
+        .royal-frame span:nth-child(4) { top: 0; right: 0; width: 5px; height: 100%; } /* Right */
+
+        /* Corners */
+        .corner { width: 50px; height: 50px; position: absolute; border: 5px solid var(--dark-gold-line); z-index: 1000; }
+        .c-tl { top: 10px; left: 10px; border-right: none; border-bottom: none; }
+        .c-tr { top: 10px; right: 10px; border-left: none; border-bottom: none; }
+        .c-bl { bottom: 10px; left: 10px; border-right: none; border-top: none; }
+        .c-br { bottom: 10px; right: 10px; border-left: none; border-top: none; }
+
+        footer {
+            margin-top: 30px;
+            color: #897148;
+            font-size: 0.9em;
+            font-family: 'Cinzel', serif;
+        }
+
+        /* MOBILE FIX */
+        @media (max-width: 600px) {
+            .error-code { font-size: 5em; }
+            .error-container { padding: 20px; width: 85%; }
+            .error-heading { font-size: 1.4em; }
+        }
+
+        /* ----------------------------- */
+        /* ☀️ PRELOADER (Copy from Index) */
+        /* ----------------------------- */
+        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000033; z-index: 10000; display: flex; justify-content: center; align-items: center; flex-direction: column; transition: opacity 0.8s ease; }
+        .sun-container { position: relative; width: 100px; height: 100px; margin-bottom: 20px; filter: drop-shadow(0 0 25px rgba(255, 140, 0, 0.8)); }
+        .sun-svg { width: 100%; height: 100%; animation: spinSun 8s linear infinite; }
+        @keyframes spinSun { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .loading-text { font-family: 'Cinzel', serif; color: #fcf6ba; font-size: 1.2em; letter-spacing: 4px; font-weight: 900; }
+    </style>
+</head>
+<body>
+
+    <div id="preloader">
+        <div class="sun-container">
+            <svg class="sun-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs><linearGradient id="sunGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#ffff00;stop-opacity:1" /><stop offset="50%" style="stop-color:#ff9900;stop-opacity:1" /><stop offset="100%" style="stop-color:#ff0000;stop-opacity:1" /></linearGradient></defs>
+                <path fill="url(#sunGrad)" stroke="#b30000" stroke-width="0.5" d="M50 0 L55 15 L68 5 L65 20 L80 15 L72 28 L90 28 L78 40 L95 48 L80 55 L95 68 L78 72 L88 85 L70 80 L65 95 L55 82 L50 100 L45 82 L35 95 L30 80 L12 85 L22 72 L5 68 L20 55 L5 48 L22 40 L10 28 L28 28 L20 15 L35 20 L32 5 L45 15 Z" />
+            </svg>
+        </div>
+        <div class="loading-text">KASUMALGARH</div>
+    </div>
+
+    <div class="royal-frame">
+        <span></span><span></span><span></span><span></span>
+        <div class="corner c-tl"></div>
+        <div class="corner c-tr"></div>
+        <div class="corner c-bl"></div>
+        <div class="corner c-br"></div>
+    </div>
+
+    <div class="error-container animate__animated animate__fadeInUp">
+        <h1 class="error-code">404</h1>
+        
+        <div class="error-heading">मार्ग भटक गए हैं?</div>
+        <div class="error-heading" style="font-size: 1em; border: none; display: block; margin-top:5px;">Page Not Found</div>
+
+        <p class="error-msg">
+            खम्मा घणी! जिस पृष्ठ को आप खोज रहे हैं, वह इतिहास के पन्नों में कहीं खो गया है।<br>
+            (The page you are looking for does not exist.)
+        </p>
+
+        <a href="index.html" class="home-btn">
+            <i class="fas fa-fort-awesome"></i> मुख्य द्वार पर लौटें (HOME)
+        </a>
+    </div>
+
+    <footer>
+        &copy; 2025 Yuvraj Gajraj Singh | Fort Kasumbi
+        <div style="margin-top: 10px; opacity: 0.7;">
+            <script data-cfasync="false" type="text/javascript" src="//whos.amung.us/pingjs/?k=kasumalgarh&t=Kasumalgarh Live"></script>
+            <script type="text/javascript" src="//whos.amung.us/swidget/kasumalgarh/7.js"></script>
+        </div>
+    </footer>
+
+    <script>
+        // PAGE LOADER LOGIC
+        window.addEventListener("load", function() {
+            const loader = document.getElementById("preloader");
+            setTimeout(() => {
+                loader.style.opacity = "0";
+                setTimeout(() => { loader.style.display = "none"; }, 800);
+            }, 2000); 
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ठिकाना - विभिन्न झरोखे</title>
+    
+    <link rel="stylesheet" href="mainstyle.css">
+    
+    <style>
+        body {
+            background-color: var(--royal-bg);
+            /* अगर var काम न करे तो डिफ़ॉल्ट */
+            background-color: #000033;
+        }
+        
+        /* ✅ STAMP CSS (नया जोड़ा गया) */
+        .royal-stamp {
+            position: absolute !important;
+            opacity: 0.7;
+            transform: rotate(-15deg);
+            pointer-events: none;
+            z-index: 5;
+            filter: sepia(100%) hue-rotate(5deg) saturate(150%); /* थोड़ा गोल्ड/पुराना लुक */
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            position: relative; /* स्टैम्प के लिए */
+        }
+        
+        h1 {
+            text-align: center;
+            font-family: 'Cinzel', serif;
+            color: #fcf6ba;
+            font-size: 3.2em;
+            margin-bottom: 50px;
+            text-shadow: 0 0 15px rgba(191, 149, 63, 0.6);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+        
+        .jharokha-card {
+            width: 150px;
+            min-height: 200px;
+            padding: 90px 12px 20px 12px;
+            
+            /* SVG Background */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 420'%3E%3Cpath d='M10,410 L10,180 C10,180 10,140 40,145 C60,150 75,125 65,105 C55,85 95,65 115,75 C135,85 140,50 150,40 C160,50 165,85 185,75 C205,65 245,85 235,105 C225,125 240,150 260,145 C290,140 290,180 290,180 L290,410 Z' fill='%23fffbf0' stroke='%23b38728' stroke-width='5' /%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            
+            filter: drop-shadow(0px 5px 5px rgba(0,0,0,0.5));
+            margin: 0 auto;
+            transition: all 0.4s ease;
+            
+            /* ✅ बदलाव: स्टैम्प को कार्ड के अंदर रखने के लिए */
+            position: relative; 
+        }
+        
+        .jharokha-card:hover {
+            transform: translateY(-10px);
+            filter: drop-shadow(0px 8px 12px rgba(191, 149, 63, 0.7));
+        }
+        
+        .card-icon {
+            font-size: 35px;
+            display: block;
+            margin-bottom: 8px;
+            color: #800000; /* Maroon text fallback */
+        }
+        
+        .card-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1em;
+            color: #1a0505;
+            margin: 8px 0;
+            font-weight: 700;
+        }
+        
+        .card-desc {
+            font-size: 0.85em;
+            color: #444;
+            margin: 6px 0 12px;
+            line-height: 1.4;
+        }
+        
+        .card-btn {
+            display: inline-block;
+            padding: 6px 20px;
+            background: linear-gradient(to right, #000033, #000066);
+            color: #897148;
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            border: 1px solid #897148;
+            border-radius: 50px;
+            transition: 0.3s;
+            font-weight: bold;
+            font-size: 0.85em;
+        }
+        
+        .card-btn:hover {
+            background: #b38728;
+            color: #000033;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="seal.png" class="royal-stamp" style="top: 20px; right: 10%; width: 120px; opacity: 0.9;">
+
+        <h1>ठिकाना कसुम्बी</h1>
+        
+        <div class="card-grid">
+            
+            <div class="jharokha-card">
+                <img src="seal.png" class="royal-stamp" style="bottom: 10px; right: 5px; width: 50px; opacity: 0.8;">
+                
+                <span class="card-icon">📜</span>
+                <h3 class="card-title">Vanshawali 1</h3>
+                <p class="card-desc">ठिकाने की विस्तृत वंशावली।</p>
+                <a href="vanshawali.html" class="card-btn">VIEW TREE</a>
+            </div>
+            
+            <div class="jharokha-card">
+                <span class="card-icon">🏰</span>
+                <h3 class="card-title">History 1</h3>
+                <p class="card-desc">ठिकाने का गौरवशाली इतिहास।</p>
+                <a href="history.html" class="card-btn">READ HISTORY</a>
+            </div>
+            
+            <div class="jharokha-card">
+                <img src="seal.png" class="royal-stamp" style="top: 80px; left: 5px; width: 60px; transform: rotate(10deg); opacity: 0.6;">
+                
+                <span class="card-icon">📜</span>
+                <h3 class="card-title">Vanshawali 2</h3>
+                <p class="card-desc">ठिकाने की विस्तृत वंशावली।</p><br>
+                <a href="#" class="card-btn">VIEW TREE</a>
+            </div>
+            
+            <div class="jharokha-card">
+                <span class="card-icon">🏰</span>
+                <h3 class="card-title">History 2</h3>
+                <p class="card-desc">ठिकाने का गौरवशाली इतिहास।</p>
+                <a href="#" class="card-btn">READ HISTORY</a>
+            </div>
+            
+            <div class="jharokha-card">
+                <img src="seal.png" class="royal-stamp" style="top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-10deg); width: 80px; opacity: 0.15;">
+                
+                <span class="card-icon">📜</span>
+                <h3 class="card-title">Vanshawali 3</h3>
+                <p class="card-desc">ठिकाने की विस्तृत वंशावली।</p>
+                <a href="#" class="card-btn">VIEW TREE</a>
+            </div>
+            
+            <div class="jharokha-card">
+                <img src="seal.png" class="royal-stamp" style="bottom: 40px; left: 10px; width: 45px; opacity: 0.9;">
+                
+                <span class="card-icon">🏰</span>
+                <h3 class="card-title">History 3</h3>
+                <p class="card-desc">ठिकाने का गौरवशाली इतिहास।</p>
+                <a href="#" class="card-btn">READ HISTORY</a>
+            </div>
+            
+        </div>
+    </div>
+
+</body>
+</html>

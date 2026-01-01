@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>About Us - KASUMALGARH</title>
+    <link rel="canonical" href="https://kasumalgarh.site/about.html" />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;1,400&family=Yatra+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="royal_global.css">
+
+    <style>
+        /* ✅ GLOBAL FIX */
+        * { box-sizing: border-box; }
+
+        /* --- Page Specific Styles --- */
+        .about-header {
+            height: 400px;
+            background: linear-gradient(rgba(0,0,51,0.7), rgba(0,0,51,0.9)), url('1.jpg'); 
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            border-bottom: 5px solid #b38728;
+        }
+
+        /* ✅ ROYAL MAROON STYLE (Matched with History Page) */
+        .about-title {
+            font-family: 'Cinzel', serif;
+            font-size: 4em;
+            font-weight: 900;
+            
+            /* शाही मरून रंग */
+            color: #600000; 
+            background: none;
+            -webkit-text-fill-color: initial;
+            
+            /* सुनहरी बॉर्डर और चमक */
+            -webkit-text-stroke: 1px #fcf6ba; 
+            text-shadow: 0 0 25px #bf953f; 
+            
+            margin: 0;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .about-subtitle {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5em;
+            color: #fcf6ba;
+            margin-top: 10px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+        }
+
+        /* --- Main Content Layout --- */
+        .container { max-width: 1000px; margin: 0 auto; padding: 50px 20px; }
+
+        /* --- The Narrative Card (Our Story) --- */
+        .story-card {
+            background: var(--paper-bg);
+            padding: 40px;
+            border-radius: 10px;
+            border: 2px solid #b38728;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            text-align: justify;
+            position: relative;
+            margin-bottom: 50px;
+        }
+        .story-card::before {
+            content: "⚜️"; position: absolute; top: -25px; left: 50%; transform: translateX(-50%);
+            font-size: 40px; background: #000033; padding: 0 10px; border-radius: 50%; border: 2px solid #b38728;
+        }
+        .drop-cap {
+            float: left; font-size: 4em; line-height: 0.8; padding-right: 15px; padding-top: 5px;
+            color: var(--maroon-text); font-family: 'Yatra One', serif;
+        }
+        
+        /* --- 3 Pillars Section --- */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        .pillar-card {
+            background: rgba(0, 0, 30, 0.8);
+            border: 1px solid #b38728;
+            padding: 30px 20px;
+            text-align: center;
+            color: #e0e0e0;
+            transition: transform 0.3s;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .pillar-card:hover { transform: translateY(-10px); background: rgba(0, 0, 50, 0.9); border-color: #fcf6ba; }
+        .pillar-icon { font-size: 2.5em; color: #fcf6ba; margin-bottom: 15px; }
+        .pillar-title { font-family: 'Cinzel', serif; font-size: 1.4em; color: #b38728; margin-bottom: 15px; text-transform: uppercase; }
+        .pillar-desc { font-size: 0.95em; line-height: 1.6; }
+
+        /* --- Positive Message (Sandesh) --- */
+        .message-section {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, #2c0a0a, #000);
+            border: 2px dashed #b38728;
+            color: #fcf6ba;
+            margin-top: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(179, 135, 40, 0.2);
+        }
+        .message-heading { font-family: 'Yatra One', serif; font-size: 2em; margin-bottom: 20px; color: #ff9933; }
+        .message-body { font-size: 1.2em; font-style: italic; line-height: 1.8; max-width: 800px; margin: 0 auto; }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            .about-title { font-size: 2.5em; }
+            .about-subtitle { font-size: 1.8em; }
+            .story-card { padding: 25px 15px; padding-top: 40px; }
+            .drop-cap { font-size: 3.5em; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="royal-frame">
+        <span></span> <span></span> <span></span> <span></span>
+    </div>
+
+    <nav class="navbar">
+        <div class="navbar-brand-container">
+            <img id="menu-logo" src="menulogo.png" alt="Kasumalgarh Logo"> 
+            <a class="navbar-brand" href="index.html">KASUMALGARH</a>
+        </div>
+        
+        <div class="menu-toggle" onclick="toggleMobilePopup()">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+
+        <ul class="navbar-links">
+            <li><a href="index.html">HOME</a></li>
+            
+            <li class="dropdown">
+                <a href="index.html" class="brand-name" style="text-decoration:none; color:inherit; font-weight: bold; cursor: pointer;">VANSHAWALI</a>
+                <div class="dropdown-content">
+                    <a href="vanshawali.html">Kasumalgarh Vanshawali</a>
+                    <a href="rathorevanshawali.html">Rathore Vanshawali</a>
+                </div>
+            </li>
+
+            <li><a href="history.html">HISTORY</a></li>
+            <li><a href="gallery.html">GALLERY</a></li>
+            <li><a href="about.html" class="active">ABOUT</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+            
+            <li><button id="lang-btn" class="lang-btn" onclick="toggleLanguage()">🌐 EN</button></li>
+        </ul>
+    </nav>
+
+    <div id="mobile-popup" class="mobile-menu-overlay">
+        <ul class="mobile-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#" style="background:rgba(0,0,0,0.3); cursor:default;">-- Vanshawali --</a></li>
+            <li><a href="vanshawali.html" class="mobile-sub-link">Kasumalgarh Tree</a></li>
+            <li><a href="rathorevanshawali.html" class="mobile-sub-link">Rathore Chart</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            
+            
+        </ul>
+    </div>
+
+    <header class="about-header">
+        <div class="about-subtitle">The Soul of</div>
+        <h1 class="about-title">OUR HERITAGE</h1>
+        <div style="font-size: 30px; color: #bf953f; margin-top: 10px;">⚜️ ⚜️ ⚜️</div>
+    </header>
+
+    <main class="container">
+        
+        <div class="story-card">
+            <h2 style="font-family: 'Cinzel', serif; text-align: center; color: var(--maroon-text); border-bottom: 2px solid #aa8c2c; padding-bottom: 10px; display: table; margin: 0 auto 20px auto;">
+                हम कौन हैं? (Who We Are)
+            </h2>
+            <p style="font-size: 1.1em; line-height: 1.8;">
+                <span class="drop-cap">ह</span>म <strong>'ठिकाना कसुम्बी'</strong> (Fort Kasumbi) के संरक्षक और सूर्यवंशी राठौड़ वंश की <strong>केशरी सिंघोत</strong> शाखा के वंशज हैं। हमारी पहचान केवल पत्थरों से बने गढ़ या जागीर से नहीं, बल्कि उन मूल्यों (Values) से है जो हमारे पूर्वजों ने अपने रक्त से सींचे हैं।
+                <br><br>
+                सन् <strong>1841 ई.</strong> में ठाकुर नारायण सिंह जी द्वारा स्थापित यह ठिकाना, वीरता, भक्ति और त्याग का साक्षी रहा है। जोधपुर दरबार की वफादारी और अपनी प्रजा की रक्षा हमारा परम धर्म रहा है। आज, हम उसी विरासत के आधुनिक प्रहरी (Guardians) हैं।
+            </p>
+        </div>
+
+        <div class="pillars-grid">
+            
+            <div class="pillar-card">
+                <div class="pillar-icon"><i class="fas fa-globe"></i></div>
+                <h3 class="pillar-title">उद्देश्य (Mission)</h3>
+                <p class="pillar-desc">
+                    समय की धूल में अक्सर इतिहास धुंधला हो जाता है। इस वेबसाइट का मुख्य उद्देश्य <strong>'डिजिटल संरक्षण'</strong> है। हम अपने बुजुर्गों के बलिदान, वंशावली और परंपराओं को इंटरनेट पर अमर करना चाहते हैं ताकि दुनिया के किसी भी कोने में बैठा हमारा भाई-बंधु अपनी जड़ों से जुड़ा रहे।
+                </p>
+            </div>
+
+            <div class="pillar-card">
+                <div class="pillar-icon"><i class="fas fa-eye"></i></div>
+                <h3 class="pillar-title">दृष्टिकोण (Vision)</h3>
+                <p class="pillar-desc">
+                    हमारा सपना एक ऐसे समाज का है जो <strong>'आधुनिक'</strong> होते हुए भी <strong>'संस्कारी'</strong> हो। हम चाहते हैं कि हमारी आने वाली पीढ़ियाँ (Next Generation) यह जानें कि उनके पूर्वज कौन थे, ताकि वे गर्व के साथ सिर उठा सकें और समाज में एक आदर्श नागरिक बन सकें।
+                </p>
+            </div>
+
+            <div class="pillar-card">
+                <div class="pillar-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                <h3 class="pillar-title">मूल्य (Values)</h3>
+                <p class="pillar-desc">
+                    हमारी विरासत हमें सिखाती है कि असली राजपुताना शान महलों में नहीं, बल्कि <strong>चरित्र (Character)</strong> में होती है।
+                    <br>
+                    <strong>सेवा, वचन और स्वाभिमान</strong>—यही कसुमलगढ़ का मूल मंत्र है।
+                </p>
+            </div>
+
+        </div>
+
+        <div class="message-section">
+            <h2 class="message-heading">|| समाज के लिए संदेश ||</h2>
+            <p class="message-body">
+                "वृक्ष वही हरा रहता है, जिसकी जड़ें गहरी हों। <br>
+                हमारा अतीत हमें बांधने के लिए नहीं, बल्कि हमें मजबूत बनाने के लिए है। <br>
+                आइए, हम अपनी विरासत (Heritage) को केवल 'प्रदर्शन' की वस्तु न समझें, <br>
+                बल्कि इसके वीरता और त्याग के गुणों को अपने जीवन में उतारें। <br>
+                एक-दूसरे का सहयोग करें, बड़ों का सम्मान करें और धर्म की रक्षा करें।"
+            </p>
+            <div style="margin-top: 20px; color: #b38728; font-weight: bold;">
+                — युवराज गजराज सिंह (कसुमलगढ़)
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="royal-footer">
+        <address class="developer-info" style="font-style: normal;">
+            <div style="font-size: 0.9em; color: #888; margin-bottom: 5px;">Developed & Designed By:</div>
+            
+            <span class="royal-name" translate="no" style="cursor: default;">
+                Yuvraj Gajraj Singh
+            </span>
+            
+            <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" rel="noopener noreferrer" class="fb-link">
+                <i class="fab fa-facebook"></i> Connect on Facebook
+            </a>
+            
+            <div style="font-size: 0.8em; margin-top: 15px; color: #666;">
+                © <span id="current-year">2025</span> | All Rights Reserved.
+            </div>
+        </address>
+    </footer>
+
+    <script type="module" src="mainscript.js"></script>
+
+    <script>
+        // 1. Auto Update Year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // 2. Mobile Popup Menu Toggle
+        function toggleMobilePopup() {
+            const menu = document.getElementById('mobile-popup');
+            if(menu.classList.contains('open')) {
+                menu.classList.remove('open');
+            } else {
+                menu.classList.add('open');
+            }
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('mobile-popup');
+            const toggleBtn = document.querySelector('.menu-toggle');
+            if (menu && menu.classList.contains('open')) {
+                if (!menu.contains(event.target) && !toggleBtn.contains(event.target)) {
+                    menu.classList.remove('open');
+                }
+            }
+        });
+
+        // 3. Language Toggle (UI Only)
+        let currentLang = localStorage.getItem('lang') || 'hi'; 
+        function updateLangButton() {
+            const btn = document.getElementById('lang-btn');
+            const mobileBtn = document.getElementById('mobile-lang-btn');
+            if(currentLang === 'hi') {
+                if(btn) btn.innerText = "🌐 EN";
+                if(mobileBtn) mobileBtn.innerText = "🌐 Switch to English";
+            } else {
+                if(btn) btn.innerText = "🌐 HI";
+                if(mobileBtn) mobileBtn.innerText = "🌐 Switch to Hindi";
+            }
+        }
+        function toggleLanguage() {
+            currentLang = currentLang === 'hi' ? 'en' : 'hi';
+            localStorage.setItem('lang', currentLang);
+            updateLangButton();
+        }
+        window.addEventListener('DOMContentLoaded', updateLangButton);
+    </script>
+</body>
+</html>

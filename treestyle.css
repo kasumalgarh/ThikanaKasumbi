@@ -1,0 +1,746 @@
+/* --- Royal Theme Variables --- */
+:root {
+    --bg-color: #fffbf0;        
+    --text-main: #350404;       
+    --maroon-text: #800000;     
+    --gold-border: #b8860b;     
+    --gold-line: #5c4033;       
+    --sidebar-bg: #f4ecd8;      
+    --highlight-green: #006400; 
+    
+    --royal-dark-gold: #996515; 
+    --tooltip-bg: #b8860b;      
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: 'Cinzel', serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh; 
+    overflow: hidden; 
+}
+/* --- MAIN MENU WITH BACKGROUND IMAGE --- */
+.royal-navbar {
+    position: fixed;
+    top: 0; left: 0; width: 100%;
+    height: 40px;
+    
+    /* 1. यहाँ अपनी फोटो का नाम लिखें */
+    background-image: url('bg.png' background-color: transparent:80%;) !important; 
+    background-color: #3b38bd;
+    /* 2. फोटो को सही से सेट करने के लिए */
+    background-size: cover !important;      /* पूरी पट्टी को कवर करे */
+    
+    background-repeat: no-repeat !important;
+
+    /* 3. अगर फोटो बहुत ब्राइट है, तो टेक्स्ट के पीछे हल्का काला पर्दा (Overlay) */
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.6); /* 0.6 को कम-ज्यादा कर सकते हैं */
+
+    border-bottom: 3px double #b8860b;      /* गोल्डन बॉर्डर */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-sizing: border-box;
+    z-index: 3500;
+}
+.nav-logo {
+    font-family: 'Great Vibes', cursive;
+    font-size: 1.rem;
+    color: #fff;
+    text-shadow: 1px 1px 2px #000;
+    text-decoration: none;
+}
+
+.nav-buttons {
+    display: flex; gap: 15px;
+}
+
+.nav-btn {
+    background-color: var(--bg-color);
+    color: var(--maroon-text);
+    border: 1px solid var(--gold-border);
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-family: 'Merriweather', serif;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex; align-items: center; gap: 5px;
+}
+.nav-btn:hover {
+    background-color: var(--gold-border);
+    color: #fff;
+}
+
+/* --- 2. DESKTOP MENU LINKS --- */
+.desktop-menu-links {
+    list-style: none; display: flex; gap: 20px; margin: 0; padding: 0;
+}
+.desktop-menu-links li {
+    padding: 0; margin: 0; border: none; /* Reset */
+}
+/* लाइनें हटाने के लिए */
+.desktop-menu-links li::before, .desktop-menu-links li::after {
+    content: none !important; display: none !important;
+}
+.desktop-menu-links li a {
+    text-decoration: none; color: #fff; 
+    font-family: 'Merriweather', serif; font-size: 14px; text-transform: uppercase;
+    transition: 0.3s; padding-bottom: 5px; border-bottom: 2px solid transparent;
+}
+.desktop-menu-links li a:hover, .active-page {
+    color: var(--gold-border) !important;
+    border-bottom: 2px solid var(--gold-border) !important;
+}
+
+/* --- 3. HAMBURGER ICON (Mobile Only) --- */
+.hamburger-icon {
+    display: none; font-size: 24px; color: #fff; cursor: pointer;
+}
+
+/* --- 4. LEFT SIDEBAR (Search) --- */
+.sidebar-left {
+    position: fixed;
+    top: 60px; left: -320px;
+    width: 300px;
+    height: calc(100vh - 60px);
+    background-color: var(--sidebar-bg);
+    border-right: 3px double var(--gold-line);
+    display: flex; flex-direction: column; 
+    box-shadow: 5px 0 15px rgba(0,0,0,0.3);
+    z-index: 3000;
+    transition: left 0.3s ease-in-out;
+}
+.sidebar-left.open { left: 0; }
+
+.search-container {
+    padding: 20px 15px;
+    background-color: var(--sidebar-bg);
+    border-bottom: 2px solid var(--gold-border);
+    flex-shrink: 0; position: relative;
+}
+.close-btn-side {
+    position: absolute; top: 10px; right: 15px;
+    font-size: 20px; cursor: pointer; color: var(--maroon-text);
+}
+.search-container h3 {
+    text-align: center; margin: 5px 0 15px 0;
+    color: var(--maroon-text); font-family: 'Merriweather', serif; font-size: 1.2rem;
+}
+.search-wrapper { position: relative; width: 100%; }
+#search-box {
+    width: 100%; padding: 10px 35px 10px 15px;
+    background-color: var(--royal-dark-gold); 
+    border: 2px solid var(--maroon-text); border-radius: 25px;                       
+    font-family: 'Merriweather', serif; color: #fff; outline: none; box-sizing: border-box;
+}
+#search-box::placeholder { color: #e0e0e0; }
+#clear-search {
+    position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+    color: #fff; cursor: pointer; display: none; 
+}
+.index-scroll-area { flex-grow: 1; overflow-y: auto; padding-bottom: 20px; }
+.name-list { list-style: none; padding: 0; margin: 0; }
+.name-list li a {
+    display: block; padding: 12px 20px;
+    text-decoration: none; color: var(--maroon-text);
+    font-family: 'Merriweather', serif; font-size: 14px; font-weight: bold;
+    border-bottom: 1px solid rgba(184, 134, 11, 0.3);
+    cursor: pointer; transition: 0.2s;
+}
+.name-list li a:hover {
+    background-color: var(--maroon-text); color: #fff; padding-left: 25px;
+}
+
+/* --- 5. RIGHT SIDEBAR (Lineage) --- */
+.sidebar-right {
+    position: fixed; top: 60px; right: -400px; 
+    width: 320px; height: calc(100vh - 60px);
+    background-color: var(--bg-color); 
+    border-left: 3px double var(--gold-line);
+    box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+    z-index: 3000; transition: right 0.3s ease-in-out;
+    padding: 20px; overflow-y: auto; display: flex; flex-direction: column;
+}
+.sidebar-right.open { right: 0; } 
+
+.lineage-header-box {
+    text-align: center; border-bottom: 2px solid var(--gold-border);
+    margin-bottom: 20px; padding-bottom: 15px; position: relative;
+}
+.lineage-title-name {
+    font-family: 'Great Vibes', cursive; font-size: 2rem;
+    color: var(--maroon-text); margin: 0; line-height: 1.2; padding-top: 10px;
+}
+.lineage-details {
+    font-family: 'Merriweather', serif; font-size: 0.85rem;
+    color: var(--text-main); margin-top: 10px; font-style: italic;
+    background: rgba(212, 175, 55, 0.1); padding: 10px;
+    border-radius: 5px; border: 1px dashed var(--gold-line);
+}
+.lineage-list { list-style: none; padding: 0; position: relative; margin-top: 10px; }
+.lineage-list::before {
+    content: ''; position: absolute; top: 10px; left: 15px;
+    width: 2px; height: 95%; background: var(--gold-line); z-index: 0;
+}
+.lineage-item { position: relative; margin-bottom: 15px; padding-left: 40px; z-index: 1; }
+.lineage-item::before {
+    content: ''; position: absolute; top: 8px; left: 11px;
+    width: 10px; height: 10px; background: var(--maroon-text);
+    border-radius: 50%; border: 2px solid #fff;
+}
+.lineage-name {
+    font-family: 'Merriweather', serif; font-size: 13px;
+    color: var(--text-main); font-weight: bold;
+    background: #fff; padding: 4px 10px; border: 1px solid var(--gold-border);
+    border-radius: 4px; display: inline-block;
+}
+.lineage-item:last-child .lineage-name {
+    background-color: var(--highlight-green); color: #fff;
+    border-color: var(--highlight-green);
+}
+
+/* --- 6. MAIN TREE STYLES --- */
+.main-content {
+    margin-top: 90px; height: calc(100vh - 60px); 
+    overflow: auto; background-color: var(--bg-color); position: relative;
+}
+h1 {
+    text-align: center; font-family: 'Merriweather', serif;
+    color: var(--maroon-text); font-size: 2.5rem;
+    margin-top: 50px; margin-bottom: 40px; 
+    border-bottom: 2px dotted var(--maroon-text); padding-bottom: 10px;
+    display: inline-block;
+}
+.header-container { text-align: left; }
+.tree-container {
+    padding-left: 10px; padding-bottom: 0px; min-width: 800px;
+    display: flex; justify-content: center;
+}
+
+/* Tree Lines */
+ul { list-style: none; padding-left: 20px; }
+li { position: relative; padding-left: 20px; margin: 0; padding-top: 5px; padding-bottom: 5px; }
+li::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    border-left: 2px solid var(--gold-line); height: 100%;
+}
+li::after {
+    content: ''; position: absolute; top: 15px; left: 0;
+    width: 20px; border-top: 2px solid var(--gold-line);
+}
+ul ul li::before { border-left-color: #006400; } ul ul li::after { border-top-color: #006400; }
+ul ul ul li::before { border-left-color: #00008B; } ul ul ul li::after { border-top-color: #00008B; }
+li:last-child::before { height: 17px; }
+.tree-container > ul { padding-left: 0; }
+.tree-container > ul > li { padding-left: 0; padding-top: 0; }
+.tree-container > ul > li::before, .tree-container > ul > li::after { display: none; }
+
+/* Member Boxes */
+.member-text {
+    display: inline-flex; align-items: center; 
+    color: var(--maroon-text); font-family: 'Merriweather', serif;
+    font-size: 13px; font-weight: bold;
+    padding: 4px 10px; border: 2px solid var(--gold-border);
+    background-color: #fff; cursor: pointer;
+    transition: 0.3s; white-space: nowrap; border-radius: 4px;
+}
+.member-text:hover { box-shadow: 0 0 8px rgba(184, 134, 11, 0.6); }
+.root-text {
+    background-color: var(--maroon-text) !important;
+    border: 2px solid var(--gold-border) !important;
+    padding: 8px 30px; border-radius: 5px;
+    font-size: 20px; font-weight: bold; color: #fff !important;
+    display: inline-block;
+}
+.social-link {
+    display: inline-flex; justify-content: center; align-items: center;
+    width: 20px; height: 20px; background-color: #996515; color: #fff;
+    border-radius: 50%; margin-left: 5px; font-size: 10px;
+    text-decoration: none; transition: 0.3s;
+}
+.social-link:hover { transform: scale(1.2); background-color: #b8860b; }
+
+/* Tooltip & Highlights */
+#hover-tooltip {
+    position: fixed; display: none; background-color: var(--tooltip-bg); color: #fff; 
+    padding: 10px; border-radius: 6px; font-family: 'Merriweather', serif; font-size: 12px;
+    border: 1px solid #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    z-index: 5000; pointer-events: none; min-width: 200px; text-align: left; line-height: 1.5;
+}
+#hover-tooltip strong { color: #ffffcc; display: block; border-bottom: 1px solid rgba(255,255,255,0.3); margin-bottom: 4px; }
+.highlight-green {
+    background-color: var(--highlight-green) !important; color: #fff !important;
+    border-color: #004d00 !important; box-shadow: 0 0 10px #00ff00;
+}
+.active-click { transform: scale(1.1); }
+
+
+/* Modal */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7); z-index: 6000; display: none; align-items: center; justify-content: center;
+}
+.modal-box {
+    background: var(--bg-color); width: 90%; max-width: 400px;
+    padding: 25px; border-radius: 10px; border: 3px double var(--maroon-text);
+    box-shadow: 0 0 20px rgba(184, 134, 11, 0.5); position: relative;
+}
+.modal-header { text-align: center; margin-bottom: 15px; }
+.modal-header h2 { margin: 0; font-family: 'Cinzel', serif; color: var(--maroon-text); }
+.modal-close {
+    position: absolute; top: 10px; right: 15px; font-size: 24px; cursor: pointer; color: var(--maroon-text);
+}
+.form-group { margin-bottom: 15px; }
+.form-group label { display: block; font-family: 'Merriweather', serif; font-weight: bold; margin-bottom: 5px; }
+.form-group input, .form-group textarea {
+    width: 100%; padding: 8px; border: 1px solid var(--gold-border);
+    border-radius: 4px; font-family: 'Merriweather', serif; box-sizing: border-box;
+}
+.send-btn {
+    width: 100%; background-color: var(--highlight-green); color: white; border: none; padding: 10px;
+    font-size: 16px; font-family: 'Cinzel', serif; cursor: pointer; border-radius: 5px;
+}
+.send-btn:hover { background-color: #004d00; }
+.close-btn, .close-btn-side {
+    position: absolute !important; top: 10px !important; right: 15px !important;
+    font-size: 28px !important; font-weight: bold !important; color: #800000 !important;
+    cursor: pointer !important; z-index: 5000 !important; display: block !important; line-height: 1 !important;
+}
+
+/* --- 7. MOBILE MENU DROPDOWN (SMALL BOX) --- */
+.mobile-menu-overlay {
+    position: fixed !important;
+    top: 65px !important;        /* Navbar के नीचे */
+    left: 10px !important;       
+    width: 200px !important;     /* छोटा बॉक्स */
+    height: auto !important;     
+    
+    /* शाही रंग (Royal Red/Blue) */
+    background-color: #350404 !important; 
+    border: 2px solid #b8860b !important;
+    border-radius: 10px !important;       
+    
+    transform: scale(0);         
+    transform-origin: top left;  
+    transition: transform 0.2s ease-out !important;
+    
+    padding: 10px 0 !important;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5) !important;
+    display: block !important;
+    z-index: 4000;
+}
+.mobile-menu-overlay.open {
+    transform: scale(1) !important;
+    left: 10px !important;
+}
+.mobile-links { list-style: none; padding: 0; margin: 0; }
+.mobile-links li { 
+    margin: 0 !important; padding: 0 !important; 
+    border: none !important; /* लाइनें हटाईं */
+}
+/* लाइनें हटाने के लिए एक्स्ट्रा सुरक्षा */
+.mobile-links li::before, .mobile-links li::after {
+    content: none !important; display: none !important;
+}
+.mobile-links li a {
+    font-size: 14px !important;      
+    text-align: left !important;
+    padding: 10px 20px !important;   
+    width: auto !important;
+    border-bottom: 1px solid rgba(184, 134, 11, 0.2) !important;
+    display: block !important;
+    color: #f4ecd8 !important; /* क्रीम टेक्स्ट */
+    font-family: 'Merriweather', serif !important;
+    text-decoration: none !important;
+}
+.mobile-links li a:hover {
+    background-color: #5c4033 !important;
+}
+.mobile-menu-overlay .close-btn-side, .mobile-menu-footer { display: none !important; }
+
+/* --- 8. MOBILE RESPONSIVE RULES (COMPACT TREE INCLUDED) --- */
+@media (max-width: 768px) {
+    .desktop-menu-links { display: none; }
+    .hamburger-icon { display: block; margin-right: 15px; }
+    .desktop-only { display: none; }
+    .nav-logo { font-size: 1.5rem; }
+    .royal-navbar { justify-content: flex-start; }
+    .nav-buttons { margin-left: auto; }
+    
+    .sidebar-left, .sidebar-right {
+        width: 85% !important; 
+        height: calc(100vh - 60px) !important; 
+        padding: 15px 10px 80px 10px !important;
+    }
+    .sidebar-left { left: -120%; }
+    .sidebar-right { right: -120%; }
+    
+    /* COMPACT TREE CSS (सघन वंशावली) */
+    .member-text {
+        font-size: 9px !important;       /* नाम छोटा */
+        padding: 2px 4px !important;     /* बॉक्स छोटा */
+        border-width: 1px !important;    
+        border-radius: 3px !important;
+        line-height: 1.1 !important;
+    }
+    .root-text {
+        font-size: 10px !important;
+        padding: 4px 10px !important;
+    }
+    /* पीढ़ियों का गैप कम करना */
+    ul { padding-left: 14px !important; }
+    li {
+        padding-left: 19px !important;
+        padding-top: 1px !important;
+        padding-bottom: 1px !important;
+    }
+    /* जोड़ने वाली लाइनें छोटी करना */
+    li::after {
+        width: 16px !important;
+        top: 13px !important;
+    }
+    li::before {
+        top: -4px !important;
+    }
+    /* हेडिंग एडजस्टमेंट */
+    h1 {
+        font-size: 1.1rem !important;
+        margin-top: 70px !important;
+        margin-bottom: 10px !important;
+        padding: 0 5px !important;
+    }
+    .tree-container {
+        padding-left: 2px !important;
+        min-width: auto !important;
+        justify-content: flex-start; /* लेफ्ट में चिपकेगा */
+    }
+    .close-btn, .close-btn-side {
+        font-size: 30px !important; top: 5px !important; right: 10px !important;
+    }
+}
+/* --- SUPER COMPACT MOBILE TREE (सबसे अंत में पेस्ट करें) --- */
+
+@media (max-width: 768px) {
+    /* डेस्कटॉप लिंक छुपाएं */
+    .desktop-menu-links { display: none; }
+    
+    /* मोबाइल बटन दिखाएं */
+    .hamburger-icon { display: block; margin-right: 15px; }
+    
+    /* "Search" और "Request" का टेक्स्ट छुपाएं (सिर्फ आइकॉन दिखेगा) */
+    .desktop-only { display: none; }
+    
+    /* लोगो का साइज़ थोड़ा छोटा करें */
+    .nav-logo { font-size: 1.5rem; }
+    
+    /* नेविगेशन बार को एडजस्ट करें */
+    .royal-navbar { justify-content: flex-start; }
+    .nav-buttons { margin-left: auto; } /* बटन राइट साइड में */
+}   /* --- FIX: REMOVE TREE LINES FROM MENU --- */
+
+/* 1. लाइनें हटाएँ (Lines Removal) */
+.desktop-menu-links li::before, 
+.desktop-menu-links li::after,
+.mobile-links li::before, 
+.mobile-links li::after {
+    content: none !important;
+    display: none !important;
+    border: none !important;
+}
+
+/* 2. पैडिंग हटाएँ (Reset Padding) */
+/* ताकि मेनू आइटम सीधे दिखें, टेढ़े नहीं */
+.desktop-menu-links li, 
+.mobile-links li {
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+}
+
+/* 3. मोबाइल मेनू को सेंटर में रखना */
+.mobile-links li {
+    margin: 20px 0 !important; /* मोबाइल पर थोड़ा गैप ठीक रहे */
+}
+/* --- SMALL DROPDOWN MENU FIX (सबसे नीचे पेस्ट करें) --- */
+
+.mobile-menu-overlay {
+    position: fixed !important;
+    top: 65px !important;        /* Navbar के ठीक नीचे */
+    left: 10px !important;       /* लेफ्ट साइड में */
+    width: 200px !important;     /* बस 200px चौड़ा (बहुत छोटा) */
+    height: auto !important;     /* जितनी लिस्ट है उतना ही बड़ा */
+    
+    background-color: #0a073d !important; /* गहरा लाल */
+    border: 2px solid #553e03 !important; /* गोल्डन बॉर्डर */
+    border-radius: 10px !important;       /* कोनों को गोल किया */
+    
+    /* एनीमेशन (खुलने का तरीका) */
+    transform: scale(0);         /* पहले गायब (छोटा) रहेगा */
+    transform-origin: top left;  /* बटन की तरफ से खुलेगा */
+    transition: transform 0.2s ease-out !important;
+    
+    /* पुराने स्टाइल्स को रीसेट करें */
+    padding: 10px 0 !important;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5) !important;
+    display: block !important;
+    align-items: unset !important;
+    justify-content: unset !important;
+}
+
+/* जब खुलेगा तब ऐसा दिखेगा */
+.mobile-menu-overlay.open {
+    transform: scale(1) !important; /* पूरा दिखेगा */
+    left: 10px !important;
+}
+
+/* अंदर के लिंक्स को छोटा करें */
+.mobile-links li {
+    margin: 0 !important;
+}
+.mobile-links li a {
+    font-size: 14px !important;      /* फॉन्ट छोटा */
+    text-align: left !important;
+    padding: 10px 20px !important;   /* थोड़ा गैप */
+    width: auto !important;
+    border-bottom: 1px solid rgba(184, 134, 11, 0.2) !important;
+}
+.mobile-links li a:hover {
+    background-color: #5c4033 !important; /* होवर पर रंग बदले */
+}
+
+/* छोटे मेनू में क्रॉस (X) बटन और फूटर की जरूरत नहीं है, उन्हें हटा दें */
+.mobile-menu-overlay .close-btn-side,
+.mobile-menu-footer {
+    display: none !important;
+}
+/* --- FIX EXTRA WHITE SPACE AT BOTTOM --- */
+@media (max-width: 768px) {
+    .tree-container {
+        padding-bottom: 50px !important; /* नीचे की खाली जगह कम की */
+    }
+    
+    body {
+        height: auto !important; /* स्क्रीन की ऊंचाई फिक्स न हो */
+        overflow: auto !important; /* स्क्रॉल सही से हो */
+    }
+    
+    .main-content {
+        height: auto !important; /* कंटेंट के हिसाब से ऊंचाई ले */
+        padding-bottom: 20px !important;
+    }
+}
+/* --- HIDE TOOLTIP ON MOBILE --- */
+@media (max-width: 768px) {
+    #hover-tooltip {
+        display: none !important; /* मोबाइल पर टूलटिप कभी नहीं दिखेगा */
+        pointer-events: none !important;
+        opacity: 0 !important;
+    }
+}
+/* --- HIDE TOOLTIP ON MOBILE --- */
+@media (max-width: 768px) {
+    #hover-tooltip {
+        display: none !important; /* मोबाइल पर टूलटिप कभी नहीं दिखेगा */
+        pointer-events: none !important;
+        opacity: 0 !important;
+    }
+}
+/* --- REDUCE NAVBAR HEIGHT ON MOBILE --- */
+@media (max-width: 768px) {
+    
+    /* 1. पट्टी की ऊंचाई कम करें (60px से 45px) */
+    .royal-navbar {
+        height: 45px !important; 
+        padding: 0 10px !important; /* साइड से जगह थोड़ी कम की */
+    }
+
+    /* 2. लोगो (नाम) का साइज़ थोड़ा छोटा करें ताकि इसमें समा जाए */
+    .nav-logo {
+        font-size: 1.3rem !important;
+    }
+
+    /* 3. हैमबर्गर (Menu) बटन को सेट करें */
+    .hamburger-icon {
+        font-size: 20px !important;
+        margin-right: 10px !important;
+    }
+
+    /* 4. पेज के कंटेंट को थोड़ा ऊपर खिसकाएं (ताकि गैप न दिखे) */
+    .main-content {
+        margin-top: 45px !important;
+    }
+
+    /* 5. साइड पैनल्स की पोजीशन अपडेट करें */
+    .sidebar-left, .sidebar-right {
+        top: 45px !important;
+        height: calc(100vh - 45px) !important;
+    }
+
+    /* 6. मोबाइल मेनू (Dropdown) को पट्टी के ठीक नीचे लाएं */
+    .mobile-menu-overlay {
+        top: 50px !important; /* पट्टी (45) से थोड़ा सा नीचे */
+    }
+}
+/* --- LOGO SETTINGS --- */
+
+/* 1. लोगो और नाम को एक लाइन में लाने के लिए */
+.nav-logo {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px; /* लोगो और नाम के बीच थोड़ी जगह */
+}
+
+/* 2. लोगो का साइज (डेस्कटॉप पर) */
+.title-logo {
+    height: 40px;  /* लोगो की ऊंचाई */
+    width: auto;   /* चौड़ाई अपने आप सेट होगी */
+}
+
+/* 3. मोबाइल पर लोगो छोटा करें (ताकि पतली पट्टी में फिट आए) */
+@media (max-width: 768px) {
+    .title-logo {
+        height: 30px !important; /* मोबाइल पर छोटा साइज */
+        gap: 5px !important;
+    }
+    
+    .nav-logo {
+        font-size: 1.2rem !important; /* नाम का फॉन्ट भी थोड़ा एडजस्ट */
+    }
+}
+/* --- MOVE MENU TO RIGHT & CHANGE COLOR --- */
+@media (max-width: 768px) {
+    
+    /* 1. नेविगेशन बार की सेटिंग बदलें */
+    .royal-navbar {
+        justify-content: space-between !important; /* चीजों को दोनों कोनों पर फैलाएं */
+    }
+
+    /* 2. लोगो (नाम) को सबसे पहले (Left) रखें */
+    .nav-logo {
+        order: 1 !important; 
+        margin-right: auto !important; /* बाकी चीजों को राइट साइड धक्का दें */
+    }
+
+    /* 3. सर्च बटन (अगर है) को बीच में सेट करें */
+    .nav-buttons {
+        order: 2 !important;
+        margin-right: 15px !important; /* मेनू बटन से थोड़ा दूर */
+    }
+
+    /* 4. मेनू बटन (3 लाइनें) को सबसे आखिरी (Right) में रखें */
+    .hamburger-icon {
+        order: 3 !important; 
+        margin-right: 5px !important; /* कोने से थोड़ा गैप */
+        
+        /* --- रंग बदलने के लिए (COLOR) --- */
+        color: #463c04 !important;  /* शाही गोल्डन (Gold) */
+        /* अगर सफ़ेद चाहिए तो ऊपर वाली लाइन हटाकर नीचे वाली लिखें: */
+        /* color: #ffffff !important; */
+        
+        font-size: 22px !important; /* साइज */
+    }
+}
+
+/* =========================================
+   🌟 ULTRA ROYAL UI ENHANCEMENTS
+   ========================================= */
+
+/* 1. Custom Scrollbar (शाही स्क्रॉल बार) */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #000022; /* डार्क बैकग्राउंड */
+    border-left: 1px solid #b38728;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #b38728, #fcf6ba, #b38728); /* गोल्डन ग्रेडिएंट */
+    border-radius: 6px;
+    border: 2px solid #000022;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #fcf6ba; /* होवर पर चमकेगा */
+}
+
+/* 2. Custom Text Selection (टेक्स्ट सेलेक्ट करने का अंदाज़) */
+::selection {
+    background: #800000; /* मरून बैकग्राउंड */
+    color: #fcf6ba; /* क्रीम टेक्स्ट */
+    text-shadow: none;
+}
+
+/* Firefox के लिए */
+::-moz-selection {
+    background: #800000;
+    color: #fcf6ba;
+}
+/* =========================================
+   ✅ ROYAL FOOTER FIX (For Vanshawali Page)
+   ========================================= */
+footer { 
+    text-align: center; 
+    color: #b38728; 
+    background-color: #000033 !important; 
+    
+    /* किले की दीवार जैसा स्टाइल (Top Rounded) */
+    border-radius: 30px 30px 0 0 !important; 
+    
+    /* ऊपर गोल्डन बॉर्डर */
+    border-top: 3px solid #b8860b !important;
+    
+    margin-top: 30px !important;
+    padding: 20px 15px 20px 15px !important;
+    
+    font-size: 0.9em; 
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    box-sizing: border-box; /* ताकी पैडिंग से चौड़ाई न बिगड़े */
+}
+
+/* डेवलपर का नाम */
+.royal-name { 
+    display: block;
+    font-family: 'Cinzel', serif; 
+    font-size: 1.4em; 
+    font-weight: 900; 
+    background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c); 
+    -webkit-background-clip: text; 
+    background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+    margin-bottom: 8px; 
+    letter-spacing: 1px; 
+    text-decoration: none; 
+}
+
+/* फेसबुक लिंक बटन */
+.fb-link { 
+    color: #fff; 
+    text-decoration: none; 
+    font-size: 1em; 
+    display: inline-flex; 
+    align-items: center; 
+    gap: 8px; 
+    margin-top: 5px; 
+    padding: 5px 12px; 
+    border: 1px solid #b38728; 
+    border-radius: 20px; 
+}
+
+/* मोबाइल पर थोड़ा एडजस्टमेंट */
+@media (max-width: 768px) { 
+    footer { 
+        padding: 15px 10px !important; 
+        border-radius: 20px 20px 0 0 !important;
+        margin-bottom: 0px !important;
+    }
+    .royal-name { font-size: 1.1em !important; }
+}

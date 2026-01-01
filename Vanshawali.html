@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thikana Kasumalgarh - Royal Vanshawali</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="vstyle.css">
+    <style>
+        /* Kala Background */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 5000; 
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.6); 
+            backdrop-filter: blur(3px);
+        }
+
+        /* Box Design */
+        .modal-content {
+            background-color: #fffbf0; /* Royal Cream */
+            margin: 15% auto; 
+            padding: 20px;
+            border: 2px solid #d4af37; /* Gold Border */
+            width: 90%; 
+            max-width: 400px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            position: relative;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        /* Close Button (X) */
+        .close-modal {
+            color: #800000;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close-modal:hover { color: red; }
+
+        /* Animation */
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Inputs */
+        .modal input, .modal textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; /* Width fix */
+        }
+    </style>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            emailjs.init("J3okpk4omjrkmUnwz");
+        })();
+    </script>
+</head>
+<body>
+
+    <div class="watermark">Thikana Kasumalgarh Yuvraj Gajraj Singh</div>
+
+    <nav class="navbar">
+        <div class="logo">
+            <img src="menulogo.png" alt="Logo" style="height: 30px; margin-right: 5px;"> 
+            Kasumalgarh
+        </div>
+        
+        <div class="hamburger" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <ul class="nav-links" id="mobileMenu">
+            <li><a href="index.html">Home</a></li>
+            
+            <li class="dropdown">
+                <a href="#">Vanshawali <i class="fas fa-caret-down"></i></a>
+                <ul class="dropdown-content">
+                    <li><a href="vanshawali.html">Kasumalgarh</a></li>
+                    <li><a href="rathorevanshawali.html">Rathore</a></li>
+                </ul>
+            </li>
+
+            <li><a href="history.html">History</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+
+        <div style="display:flex; gap:10px; align-items:center;">
+            <button class="menu-search-btn" onclick="openRequestModal()" title="Request Add">
+    <i class="fas fa-user-plus"></i>
+</button>
+            
+            <button class="menu-search-btn" onclick="toggleLeftPanel()">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </nav>
+
+    <aside class="sidebar-left" id="left-panel">
+        <div class="panel-header">
+            <span>Member Index</span>
+            <span class="close-btn" onclick="toggleLeftPanel()">&times;</span>
+        </div>
+        
+        <div class="search-wrapper">
+            <input type="text" id="search-box" placeholder="Search name..." onkeyup="filterNames()">
+            <i class="fas fa-times search-clear-btn" id="clear-btn" onclick="clearSearch()"></i>
+        </div>
+
+        <div class="list-area"><ul id="index-list"></ul></div>
+    </aside>
+
+    <aside class="sidebar-right" id="right-panel">
+        <span class="close-btn" style="float:right;" onclick="closeRightPanel()">&times;</span>
+        <div id="panel-content"></div>
+        <h4 style="border-bottom:1px solid #ccc; padding-bottom:5px;">Ancestral Path</h4>
+        <ul id="lineage-path" style="padding-left:0; list-style:none;"></ul>
+    </aside>
+
+    <div id="hover-tooltip"></div>
+
+    <div class="tree-scroll-wrapper" id="capture-area" onclick="closePanelsOutside(event)">
+        <div id="tree-root">Loading Tree...</div>
+    </div>
+<div class="smart-tools-container">
+        
+        <button class="tools-toggle-btn" onclick="toggleSmartMenu()" title="Tools">
+            <i class="fas fa-cog fa-spin-hover"></i> </button>
+
+        <div class="smart-options" id="smartOptions">
+            <button class="smart-btn" onclick="toggleFullScreen()" title="Full Screen"><i class="fas fa-expand"></i></button>
+            <button class="smart-btn" onclick="resetZoom()" title="Reset"><i class="fas fa-sync-alt"></i></button>
+            <button class="smart-btn" onclick="zoomIn()" title="Zoom In"><i class="fas fa-plus"></i></button>
+            <button class="smart-btn" onclick="zoomOut()" title="Zoom Out"><i class="fas fa-minus"></i></button>
+            <button class="smart-btn" onclick="downloadImage()" title="Download" style="background:#2ecc71; color:white;"><i class="fas fa-camera"></i></button>
+        </div>
+
+    </div>
+
+    <footer class="footer">
+        Developed & Designed by <span>Yuvraj GajRaj Singh</span><br><br>
+           
+            <button class="menu-search-btn" onclick="openRequestModal()" title="Request Add">Click for corrections
+    <i class="fas fa-user-plus"></i>
+</button>
+            
+
+        
+        <br>
+        <a href="https://facebook.com/yourid" target="_blank" class="fb-btn">
+            <i class="fab fa-facebook"></i> Connect on Facebook
+        </a>
+        <br>
+        <span id="footer-count" style="font-size:10px; color:#fff;">Total Members: 0</span>
+    </footer>
+
+<div id="requestModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeRequestModal()">&times;</span>
+        <h3>Request to Add Member</h3>
+        
+        <label>Your Name:</label>
+        <input type="text" id="req-name" placeholder="Enter name...">
+        
+        <label>Details / Message:</label>
+        <textarea id="req-msg" rows="4" placeholder="Father's name, relation, etc..."></textarea>
+        
+        <button class="send-btn" onclick="sendEmailNow()" style="background:#2ecc71; color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer; margin-top:10px; width:100%;">
+            Send Request <i class="fas fa-paper-plane"></i>
+        </button>
+    </div>
+</div>
+
+    <script src="family-data.js"></script>
+    <script src="vscript.js"></script>
+    <script>
+    // 1. Popup Kholo
+    function openRequestModal() {
+        console.log("Button Clicked!"); // Check karne ke liye
+        var modal = document.getElementById('requestModal');
+        if(modal) {
+            modal.style.display = "block";
+        } else {
+            alert("Error: Modal box nahi mila!");
+        }
+    }
+
+    // 2. Popup Band Karo
+    function closeRequestModal() {
+        document.getElementById('requestModal').style.display = "none";
+    }
+
+    // 3. Email Bhejo (Direct Function)
+    function sendEmailNow() {
+        let name = document.getElementById('req-name').value;
+        let msg = document.getElementById('req-msg').value;
+
+        if(name === "" || msg === "") {
+            alert("Hukum, please write your name and message first.");
+            return;
+        }
+
+        let btn = document.querySelector(".send-btn");
+        let originalText = btn.innerHTML;
+        btn.innerHTML = "Sending...";
+        btn.disabled = true;
+
+        var templateParams = { from_name: name, message: msg, reply_to: "User" };
+
+        // EmailJS Send
+        emailjs.send("service_vdnox8p", "template_xx3a4tt", templateParams)
+            .then(function() {
+                alert("Message sent successfully!");
+                document.getElementById('req-name').value = "";
+                document.getElementById('req-msg').value = "";
+                closeRequestModal();
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }, function(error) {
+                alert("Failed: " + JSON.stringify(error));
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            });
+    }
+
+    // 4. Bahar click karne par band ho
+    window.onclick = function(event) {
+        let modal = document.getElementById('requestModal');
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+</body>
+</html>

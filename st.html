@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ultimate TV Studio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Hind:wght@500;700&family=Poppins:wght@400;600&display=swap');
+
+        :root {
+            --bg: #121212; --panel: #1e1e1e; --accent: #ff9800; --text: #fff; --border: #333;
+        }
+        body { margin:0; background:var(--bg); color:var(--text); font-family:'Hind','Poppins',sans-serif; overflow:hidden; display:flex; flex-direction:column; height:100vh; }
+        
+        /* HEADER */
+        header { background:var(--panel); padding:10px 15px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; }
+        h1 { margin:0; font-size:16px; color:var(--accent); text-transform:uppercase; letter-spacing:1px; }
+        .save-btn { background:#e53935; color:#fff; border:none; padding:8px 20px; border-radius:20px; font-weight:bold; font-size:12px; cursor:pointer; display:flex; align-items:center; gap:5px; box-shadow:0 0 10px rgba(229, 57, 53, 0.5); }
+        .save-btn.processing { background:#555; pointer-events:none; }
+
+        /* PREVIEW AREA */
+        #preview-area { flex:1; background:#000; position:relative; display:flex; justify-content:center; align-items:center; overflow:hidden; }
+        canvas { max-width:100%; max-height:100%; box-shadow:0 0 20px #000; }
+        
+        #progress-overlay { position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); display:none; flex-direction:column; justify-content:center; align-items:center; z-index:100; }
+        .spinner { width:40px; height:40px; border:4px solid #333; border-top:4px solid var(--accent); border-radius:50%; animation:spin 1s linear infinite; margin-bottom:15px; }
+        @keyframes spin { 0% { transform:rotate(0deg); } 100% { transform:rotate(360deg); } }
+
+        /* TOOLS PANEL */
+        #tools-panel { height:50vh; background:var(--panel); border-top:1px solid var(--border); display:flex; flex-direction:column; }
+        
+        .tabs { display:flex; overflow-x:auto; background:#252525; border-bottom:1px solid var(--border); }
+        .tab-btn { flex:1; min-width:70px; background:none; border:none; color:#aaa; padding:12px 5px; font-size:12px; font-weight:600; border-bottom:3px solid transparent; cursor:pointer; }
+        .tab-btn.active { color:var(--accent); border-bottom-color:var(--accent); background:#2a2a2a; }
+
+        .settings-box { flex:1; overflow-y:auto; padding:15px; display:none; }
+        .settings-box.active { display:block; }
+
+        /* CONTROLS */
+        .control-row { margin-bottom:15px; border-bottom:1px solid #333; padding-bottom:10px; }
+        .control-label { display:block; font-size:12px; color:#ccc; margin-bottom:8px; font-weight:bold; }
+        
+        /* Plus/Minus Inputs */
+        .pm-group { display:flex; align-items:center; gap:5px; background:#333; border-radius:5px; padding:3px; }
+        .pm-btn { background:#444; border:none; color:#fff; width:40px; height:35px; border-radius:4px; font-size:18px; cursor:pointer; }
+        .pm-btn:active { background:var(--accent); color:#000; }
+        .pm-val { flex:1; text-align:center; background:none; border:none; color:#fff; font-size:14px; font-weight:bold; }
+
+        /* Buttons Grid */
+        .btn-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; }
+        .action-btn { background:#333; border:1px solid #444; color:#ddd; padding:10px 5px; border-radius:5px; font-size:11px; cursor:pointer; text-align:center; transition:background 0.2s; }
+        .action-btn.active { background:var(--accent); color:#000; border-color:var(--accent); font-weight:bold; }
+        .file-label { display:block; background:#444; color:white; padding:12px; text-align:center; border-radius:5px; cursor:pointer; font-size:12px; border:1px dashed #666; margin-bottom:5px; }
+
+        /* Hidden Elements */
+        video, audio, img { display:none; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>📺 Studio Pro</h1>
+        <button class="save-btn" onclick="startExport()">🔴 SAVE VIDEO</button>
+    </header>
+
+    <div id="preview-area">
+        <canvas id="mainCanvas"></canvas>
+        <div id="progress-overlay">
+            <div class="spinner"></div>
+            <div style="font-size:16px; color:white; font-weight:bold;">Saving Video... <span id="progress-text">0%</span></div>
+            <div style="font-size:12px; color:#aaa; margin-top:5px;">Please wait...</div>
+            <button onclick="cancelExport()" style="margin-top:20px; background:none; border:1px solid #fff; color:#fff; padding:8px 20px; border-radius:20px; cursor:pointer;">Cancel</button>
+        </div>
+    </div>
+
+    <div id="tools-panel">
+        <div class="tabs">
+            <button class="tab-btn active" onclick="setTab('files')">📂 फाइल्स</button>
+            <button class="tab-btn" onclick="setTab('edit')">✂️ एडिट</button>
+            <button class="tab-btn" onclick="setTab('frame')">🛕 फ्रेम</button>
+            <button class="tab-btn" onclick="setTab('bars')">📰 पट्टी</button>
+            <button class="tab-btn" onclick="setTab('text')">📝 टेक्स्ट</button>
+            <button class="tab-btn" onclick="setTab('fx')">✨ FX</button>
+        </div>
+
+        <!-- 1. FILES -->
+        <div id="tab-files" class="settings-box active">
+            <div class="control-row">
+                <span class="control-label">1. मुख्य वीडियो (Main Video)</span>
+                <label class="file-label">🎥 वीडियो चुनें<input type="file" accept="video/*" onchange="loadMedia(this, 'main')"></label>
+            </div>
+            <div class="control-row">
+                <span class="control-label">2. बैकग्राउंड (Background - Optional)</span>
+                <label class="file-label">🌌 फोटो/वीडियो चुनें<input type="file" accept="video/*,image/*" onchange="loadMedia(this, 'bg')"></label>
+            </div>
+            <div class="control-row">
+                <span class="control-label">3. ऑडियो (Music - Optional)</span>
+                <label class="file-label">🎵 गाना चुनें<input type="file" accept="audio/*" onchange="loadMedia(this, 'audio')"></label>
+            </div>
+        </div>
+
+        <!-- 2. EDIT -->
+        <div id="tab-edit" class="settings-box">
+            <div class="control-row">
+                <span class="control-label">स्क्रीन साइज (Size) & फ्लिप</span>
+                <div class="btn-grid">
+                    <button class="action-btn active" onclick="setRatio(9/16, this)">📱 9:16</button>
+                    <button class="action-btn" onclick="setRatio(16/9, this)">📺 16:9</button>
+                    <button class="action-btn" onclick="toggleFlip(this)">🔄 Flip</button>
+                </div>
+            </div>
+            <div class="control-row">
+                <span class="control-label">स्पीड (Speed - असली फाइल बदलेगी)</span>
+                <div class="btn-grid">
+                    <button class="action-btn" onclick="setSpeed(0.5, this)">0.5x Slow</button>
+                    <button class="action-btn active" onclick="setSpeed(1.0, this)">1.0x Normal</button>
+                    <button class="action-btn" onclick="setSpeed(2.0, this)">2.0x Fast</button>
+                </div>
+            </div>
+            <div class="control-row">
+                <span class="control-label">ट्रिमर (शुरू - अंत सेकंड में)</span>
+                <div style="display:flex; gap:10px;">
+                    <div class="pm-group" style="flex:1;">
+                        <span style="font-size:10px; color:#aaa; margin-left:5px;">Start:</span>
+                        <input type="number" id="trim-start" class="pm-val" value="0" onchange="updateTrim()">
+                    </div>
+                    <div class="pm-group" style="flex:1;">
+                        <span style="font-size:10px; color:#aaa; margin-left:5px;">End:</span>
+                        <input type="number" id="trim-end" class="pm-val" value="0" placeholder="Auto" onchange="updateTrim()">
+                    </div>
+                </div>
+            </div>
+            <div class="control-row">
+                <span class="control-label">क्रोमा की (बैकग्राउंड हटाएं)</span>
+                <div class="btn-grid">
+                    <button class="action-btn" onclick="setChroma('off', this)">OFF</button>
+                    <button class="action-btn" onclick="setChroma('green', this)">🟢 Green</button>
+                    <button class="action-btn" onclick="setChroma('black', this)">⚫ Black</button>
+                </div>
+                <div class="pm-group" style="margin-top:8px;">
+                    <button class="pm-btn" onclick="adjVal('chromaSens', -5)">-</button>
+                    <span class="pm-val">सफाई: <span id="val-chromaSens">40</span></span>
+                    <button class="pm-btn" onclick="adjVal('chromaSens', 5)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. FRAME -->
+        <div id="tab-frame" class="settings-box">
+            <div class="control-row">
+                <span class="control-label">मास्किंग (Masking - काटना)</span>
+                <div class="btn-grid">
+                    <button class="action-btn active" onclick="setMask('none', this)">None</button>
+                    <button class="action-btn" onclick="setMask('circle', this)">⚪ Circle</button>
+                    <button class="action-btn" onclick="setMask('square', this)">⬜ Square</button>
+                </div>
+            </div>
+            <div class="control-row">
+                <span class="control-label">वीडियो एडजस्ट (खिसकाएं)</span>
+                <div class="btn-grid" style="margin-bottom:5px;">
+                    <button class="action-btn" onclick="moveVid('x', -10)">⬅️ Left</button>
+                    <button class="action-btn" onclick="moveVid('y', -10)">⬆️ Up</button>
+                    <button class="action-btn" onclick="moveVid('x', 10)">Right ➡️</button>
+                </div>
+                <div class="btn-grid">
+                    <button class="action-btn" onclick="moveVid('s', -0.1)">➖ Zoom Out</button>
+                    <button class="action-btn" onclick="moveVid('y', 10)">⬇️ Down</button>
+                    <button class="action-btn" onclick="moveVid('s', 0.1)">➕ Zoom In</button>
+                </div>
+            </div>
+            <div class="control-row">
+                <span class="control-label">फ्रेम चुनें (Frames)</span>
+                <div class="btn-grid">
+                    <button class="action-btn" onclick="setFrame('gold')">🥇 Gold</button>
+                    <button class="action-btn" onclick="setFrame('flower')">🌸 Flower</button>
+                    <button class="action-btn" onclick="setFrame('red')">🔴 Red</button>
+                </div>
+                <label class="file-label" style="margin-top:5px; padding:8px;">📂 अपनी फ्रेम अपलोड करें<input type="file" accept="image/*" onchange="loadMedia(this, 'frame')"></label>
+            </div>
+        </div>
+
+        <!-- 4. BARS (Patti) -->
+        <div id="tab-bars" class="settings-box">
+            <div class="control-row">
+                <span class="control-label">पट्टी सेटिंग्स (Cover Bars)</span>
+                <div class="btn-grid" style="margin-bottom:10px;">
+                    <button class="action-btn" onclick="toggleBar('top', this)">Top ON/OFF</button>
+                    <button class="action-btn" onclick="toggleBar('bottom', this)">Bottom ON/OFF</button>
+                    <button class="action-btn" onclick="changeBarColor()">🎨 Color</button>
+                </div>
+                
+                <span class="control-label" style="margin-top:10px; color:#aaa;">⬆️ ऊपर की पट्टी का साइज</span>
+                <div class="pm-group">
+                    <button class="pm-btn" onclick="adjBarSize('top', -5)">-</button>
+                    <span class="pm-val"><span id="val-barTop">80</span>px</span>
+                    <button class="pm-btn" onclick="adjBarSize('top', 5)">+</button>
+                </div>
+
+                <span class="control-label" style="margin-top:10px; color:#aaa;">⬇️ नीचे की पट्टी का साइज</span>
+                <div class="pm-group">
+                    <button class="pm-btn" onclick="adjBarSize('bottom', -5)">-</button>
+                    <span class="pm-val"><span id="val-barBottom">80</span>px</span>
+                    <button class="pm-btn" onclick="adjBarSize('bottom', 5)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. TEXT -->
+        <div id="tab-text" class="settings-box">
+            <div class="control-row">
+                <span class="control-label">टेक्स्ट (Text)</span>
+                <input type="text" id="inp-text" placeholder="यहाँ लिखें..." style="width:100%; padding:10px; background:#333; color:white; border:none; border-radius:5px; margin-bottom:5px; box-sizing:border-box;" oninput="updateText()">
+                <div class="btn-grid">
+                    <button class="action-btn active" onclick="setTextMode('static', this)">Static</button>
+                    <button class="action-btn" onclick="setTextMode('scroll', this)">Scroll</button>
+                    <button class="action-btn" onclick="toggleTextBg()">Bg Color</button>
+                </div>
+            </div>
+            <div class="control-row">
+                <span class="control-label">टेक्स्ट पोजीशन (ऊपर/नीचे करें)</span>
+                <div class="pm-group">
+                    <button class="pm-btn" onclick="moveText(-10)">⬆️ Up</button>
+                    <span class="pm-val">Move</span>
+                    <button class="pm-btn" onclick="moveText(10)">⬇️ Down</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. FX -->
+        <div id="tab-fx" class="settings-box">
+            <div class="control-row">
+                <span class="control-label">पार्टिकल्स (Particles)</span>
+                <select onchange="setParticle(this.value)" style="width:100%; padding:10px; background:#333; color:white; border:none; border-radius:5px;">
+                    <option value="none">None</option>
+                    <option value="flower">🌸 गुलाब (Rose)</option>
+                    <option value="om">🕉️ ॐ (Om)</option>
+                    <option value="star">✨ तारे (Sparkles)</option>
+                </select>
+            </div>
+            <div class="control-row">
+                <span class="control-label">ऑडियो विजुअलाइज़र (Audio Waves)</span>
+                <button class="action-btn" style="width:100%;" onclick="toggleViz(this)">Turn ON</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- RESOURCES -->
+    <video id="vid-main" playsinline loop crossorigin="anonymous"></video>
+    <video id="vid-bg" playsinline loop muted crossorigin="anonymous"></video>
+    <audio id="aud-track" crossorigin="anonymous"></audio>
+    <img id="img-frame" crossorigin="anonymous">
+
+    <script>
+        // --- CORE ---
+        const canvas = document.getElementById('mainCanvas');
+        const ctx = canvas.getContext('2d');
+        const assets = {
+            main: document.getElementById('vid-main'),
+            bg: document.getElementById('vid-bg'),
+            audio: document.getElementById('aud-track'),
+            frame: document.getElementById('img-frame'),
+            hasBg: false, hasFrame: false
+        };
+        
+        let state = {
+            ratio: 9/16, speed: 1.0, flip: false,
+            trimStart: 0, trimEnd: 0,
+            chroma: 'off', chromaSens: 40,
+            mask: 'none', vidX: 0, vidY: 0, vidScale: 1.0,
+            frameType: 'none',
+            barTop: false, barBottom: false, barSizeTop: 80, barSizeBottom: 80, barColor: '#000000',
+            text: '', textY: 50, textMode: 'static', textBg: false, scrollX: 0,
+            particle: 'none', viz: false
+        };
+
+        // --- INIT ---
+        function resize() {
+            canvas.width = 720; 
+            canvas.height = 720 / state.ratio; 
+            if(state.ratio < 1) state.textY = canvas.height - 150; 
+        }
+        resize();
+
+        // --- TABS ---
+        window.setTab = (id) => {
+            document.querySelectorAll('.settings-box').forEach(e => e.classList.remove('active'));
+            document.getElementById('tab-'+id).classList.add('active');
+            document.querySelectorAll('.tab-btn').forEach(e => e.classList.remove('active'));
+            event.target.classList.add('active');
+        };
+
+        // --- LOADERS ---
+        window.loadMedia = (el, type) => {
+            if(!el.files[0]) return;
+            const url = URL.createObjectURL(el.files[0]);
+            if(type=='main') { 
+                assets.main.src = url; 
+                assets.main.onloadedmetadata = () => {
+                    document.getElementById('trim-end').value = assets.main.duration.toFixed(1);
+                    state.trimEnd = assets.main.duration;
+                    assets.main.play(); 
+                    draw(); 
+                };
+            }
+            if(type=='bg') { assets.bg.src = url; assets.bg.play(); assets.hasBg = true; }
+            if(type=='audio') { assets.audio.src = url; initAudio(); }
+            if(type=='frame') { assets.frame.src = url; assets.hasFrame = true; state.frameType = 'custom'; }
+        };
+
+        // --- CONTROLS ---
+        window.setRatio = (r, btn) => { state.ratio = r; resize(); toggleBtnGroup(btn); };
+        window.toggleFlip = (btn) => { state.flip = !state.flip; btn.classList.toggle('active'); };
+        window.setSpeed = (s, btn) => { state.speed = s; assets.main.playbackRate = s; if(assets.hasBg) assets.bg.playbackRate = s; toggleBtnGroup(btn); };
+        window.updateTrim = () => {
+            state.trimStart = parseFloat(document.getElementById('trim-start').value);
+            state.trimEnd = parseFloat(document.getElementById('trim-end').value);
+            assets.main.currentTime = state.trimStart;
+        };
+        window.setChroma = (mode, btn) => { state.chroma = mode; toggleBtnGroup(btn); };
+        window.adjVal = (key, delta) => { state[key] += delta; document.getElementById('val-'+key).innerText = state[key]; };
+
+        // --- MASK & MOVE ---
+        window.setMask = (m, btn) => { state.mask = m; toggleBtnGroup(btn); };
+        window.moveVid = (axis, val) => {
+            if(axis=='x') state.vidX += val;
+            if(axis=='y') state.vidY += val;
+            if(axis=='s') state.vidScale += val;
+        };
+        window.setFrame = (type) => {
+            const cvs = document.createElement('canvas'); cvs.width=720; cvs.height=1280;
+            const c = cvs.getContext('2d'); c.lineWidth = 40;
+            if(type=='gold') c.strokeStyle = '#FFD700';
+            if(type=='red') c.strokeStyle = '#D32F2F';
+            if(type=='flower') c.strokeStyle = '#E91E63';
+            c.strokeRect(0,0,720,1280);
+            assets.frame.src = cvs.toDataURL(); assets.hasFrame = true; state.frameType = 'builtin';
+        };
+
+        // --- BARS & TEXT (UPDATED) ---
+        window.toggleBar = (pos, btn) => {
+            if(pos=='top') state.barTop = !state.barTop;
+            if(pos=='bottom') state.barBottom = !state.barBottom;
+            btn.classList.toggle('active');
+        };
+        window.changeBarColor = () => {
+            const colors = ['#000000', '#D32F2F', '#FFFFFF', '#1976D2', '#FFC107'];
+            const curr = colors.indexOf(state.barColor);
+            state.barColor = colors[(curr+1)%colors.length];
+        };
+        window.adjBarSize = (pos, d) => {
+            if(pos=='top') { state.barSizeTop += d; document.getElementById('val-barTop').innerText = state.barSizeTop; }
+            if(pos=='bottom') { state.barSizeBottom += d; document.getElementById('val-barBottom').innerText = state.barSizeBottom; }
+        };
+        window.updateText = () => state.text = document.getElementById('inp-text').value;
+        window.setTextMode = (m, btn) => { state.textMode = m; toggleBtnGroup(btn); };
+        window.toggleTextBg = () => state.textBg = !state.textBg;
+        window.moveText = (d) => state.textY += d;
+
+        // --- FX ---
+        window.setParticle = (v) => state.particle = v;
+        window.toggleViz = (btn) => {
+            state.viz = !state.viz; btn.innerText = state.viz ? 'ON' : 'Turn ON'; btn.classList.toggle('active');
+            if(state.viz && assets.audio.src) { assets.audio.play(); initAudio(); }
+        };
+
+        // --- AUDIO ENGINE ---
+        let ac, an, da, dest;
+        function initAudio() {
+            if(!ac) {
+                ac = new (window.AudioContext || window.webkitAudioContext)();
+                dest = ac.createMediaStreamDestination();
+                an = ac.createAnalyser(); an.fftSize = 64;
+                an.connect(ac.destination); 
+                da = new Uint8Array(an.frequencyBinCount);
+            }
+            if(ac.state === 'suspended') ac.resume();
+        }
+        function linkAudio(el) {
+            initAudio();
+            try {
+                // Check if source already exists? For simplicity, we wrap in try-catch.
+                const src = ac.createMediaElementSource(el);
+                src.connect(an); src.connect(dest);
+            } catch(e) {}
+        }
+
+        // --- DRAW LOOP ---
+        let particles = [];
+        function draw() {
+            requestAnimationFrame(draw);
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+
+            // 1. BG
+            if(assets.hasBg) drawFit(assets.bg, false);
+            else { ctx.fillStyle = '#000'; ctx.fillRect(0,0,canvas.width,canvas.height); }
+
+            // 2. VIDEO + MASK
+            if(assets.main.readyState >= 2) {
+                ctx.save();
+                if(assets.main.currentTime >= state.trimEnd) assets.main.currentTime = state.trimStart;
+
+                if(state.mask !== 'none') {
+                    ctx.beginPath(); const cx = canvas.width/2; const cy = canvas.height/2;
+                    if(state.mask == 'circle') ctx.arc(cx, cy, 300, 0, Math.PI*2);
+                    if(state.mask == 'square') ctx.rect(cx-300, cy-300, 600, 600);
+                    ctx.clip();
+                }
+
+                ctx.translate(canvas.width/2 + state.vidX, canvas.height/2 + state.vidY);
+                ctx.scale(state.vidScale, state.vidScale);
+                if(state.flip) ctx.scale(-1, 1);
+                ctx.translate(-canvas.width/2, -canvas.height/2);
+                
+                drawFit(assets.main, true);
+                ctx.restore();
+            }
+
+            // 3. FRAME
+            if(assets.hasFrame) ctx.drawImage(assets.frame, 0,0, canvas.width, canvas.height);
+
+            // 4. BARS (Separate Sizes)
+            ctx.fillStyle = state.barColor;
+            if(state.barTop) ctx.fillRect(0, 0, canvas.width, state.barSizeTop);
+            if(state.barBottom) ctx.fillRect(0, canvas.height - state.barSizeBottom, canvas.width, state.barSizeBottom);
+
+            // 5. VISUALIZER
+            if(state.viz && an) {
+                an.getByteFrequencyData(da);
+                const bw = canvas.width / da.length; ctx.fillStyle = 'rgba(255, 152, 0, 0.7)';
+                da.forEach((v, i) => { const h = v * 2; ctx.fillRect(i*bw, canvas.height - h, bw-2, h); });
+            }
+
+            // 6. PARTICLES
+            if(state.particle !== 'none') {
+                if(Math.random()<0.1) particles.push({x:Math.random()*canvas.width, y:-50, s:Math.random()*5+2});
+                particles.forEach((p, i) => {
+                    p.y += p.s; ctx.font = (p.s*5)+'px Arial';
+                    ctx.fillText(state.particle=='om'?'🕉️':'🌸', p.x, p.y);
+                    if(p.y>canvas.height) particles.splice(i,1);
+                });
+            }
+
+            // 7. TEXT
+            if(state.text) {
+                ctx.font = 'bold 50px Hind'; let txtW = ctx.measureText(state.text).width; let tx = canvas.width/2;
+                if(state.textMode == 'scroll') {
+                    state.scrollX -= 4; if(state.scrollX < -txtW) state.scrollX = canvas.width; tx = state.scrollX;
+                } else tx = (canvas.width - txtW)/2;
+
+                if(state.textBg) { ctx.fillStyle = 'rgba(200, 0, 0, 0.8)'; ctx.fillRect(0, state.textY - 60, canvas.width, 80); }
+                ctx.fillStyle = '#fff'; ctx.strokeStyle = '#000'; ctx.lineWidth = 4;
+                ctx.strokeText(state.text, tx, state.textY); ctx.fillText(state.text, tx, state.textY);
+            }
+        }
+
+        function drawFit(vid, cover) {
+            const vr = vid.videoWidth/vid.videoHeight; const cr = canvas.width/canvas.height;
+            let w, h;
+            if(cover ? vr>cr : vr<cr) { h=canvas.height; w=h*vr; } else { w=canvas.width; h=w/vr; }
+            ctx.drawImage(vid, (canvas.width-w)/2, (canvas.height-h)/2, w, h);
+        }
+
+        // --- EXPORT ---
+        let recorder, chunks = [], exportInterval;
+        function startExport() {
+            initAudio(); linkAudio(assets.main); if(assets.audio.src) linkAudio(assets.audio);
+            assets.main.currentTime = state.trimStart; assets.main.play();
+            if(assets.hasBg) assets.bg.play(); if(assets.audio.src) assets.audio.play();
+
+            let stream = canvas.captureStream(30);
+            if(dest) { let tracks = [...stream.getVideoTracks(), ...dest.stream.getAudioTracks()]; stream = new MediaStream(tracks); }
+
+            recorder = new MediaRecorder(stream, { mimeType: 'video/webm;codecs=vp9' });
+            chunks = [];
+            recorder.ondataavailable = e => { if(e.data.size>0) chunks.push(e.data); };
+            recorder.onstop = saveFile;
+            
+            recorder.start();
+            document.querySelector('.save-btn').classList.add('processing');
+            document.getElementById('progress-overlay').style.display = 'flex';
+
+            exportInterval = setInterval(() => {
+                const cur = assets.main.currentTime; const end = state.trimEnd || assets.main.duration;
+                const pct = Math.floor(((cur - state.trimStart) / (end - state.trimStart)) * 100);
+                document.getElementById('progress-text').innerText = pct + '%';
+                if(cur >= end || assets.main.ended) stopExport();
+            }, 100);
+        }
+
+        function stopExport() { clearInterval(exportInterval); recorder.stop(); assets.main.pause(); assets.bg.pause(); assets.audio.pause(); }
+        function saveFile() {
+            const blob = new Blob(chunks, { type: 'video/webm' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a'); a.href = url; a.download = `tv_studio_${Date.now()}.webm`; a.click();
+            document.getElementById('progress-overlay').style.display = 'none';
+            document.querySelector('.save-btn').classList.remove('processing');
+            alert('Saved to Gallery!');
+        }
+        function cancelExport() {
+            clearInterval(exportInterval); if(recorder.state !== 'inactive') recorder.stop();
+            document.getElementById('progress-overlay').style.display = 'none';
+            document.querySelector('.save-btn').classList.remove('processing');
+        }
+        function toggleBtnGroup(btn) {
+            btn.parentNode.querySelectorAll('.action-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+    </script>
+</body>
+</html>
+
