@@ -383,7 +383,7 @@
         <input type="hidden" id="instaLink" value="instagram.com/gajsa.kasumbifort">
 
         <button class="btn" onclick="refreshCard()">🔄 अपडेट कार्ड (Refresh)</button>
-        <button class="btn btn-download" onclick="downloadCard()">⬇️ Full HD डाउनलोड (Download)</button>
+        <button class="btn btn-download" onclick="downloadCard()">⬇️ 4K Ultra HD डाउनलोड (Download)</button>
     </div>
 
     <div id="card-capture-area">
@@ -568,17 +568,23 @@
         }
     }
 
-    // --- 4. FULL HD DOWNLOAD ---
+    // --- 4. ULTRA HD DOWNLOAD LOGIC ---
     function downloadCard() {
         const captureArea = document.getElementById('card-capture-area');
         
-        html2canvas(captureArea, {
-            backgroundColor: null, 
-            scale: 4, 
-            useCORS: true
-        }).then(canvas => {
+        // Force settings for High Quality even on Mobile
+        const options = {
+            backgroundColor: null,
+            scale: 6, // Extremely High Quality (Scale 6x)
+            useCORS: true,
+            allowTaint: true,
+            windowWidth: 1920, // Forces Desktop width simulation
+            windowHeight: 1080 
+        };
+
+        html2canvas(captureArea, options).then(canvas => {
             const link = document.createElement('a');
-            link.download = 'Royal-Card-HD.png';
+            link.download = 'Royal-Card-UltraHD.png';
             link.href = canvas.toDataURL("image/png", 1.0);
             link.click();
         });
