@@ -5,12 +5,12 @@
 
 /* 1. ADVANCED RESET & VARIABLES */
 :root {
-    --royal-bg: #090e4b;
+    --royal-bg: #91590c;
     --paper-bg: #fffbf0;
     --gold-main: #b8860b;
     --gold-text: #d4af37;
     --maroon: #350404;
-    --royal-texture: url('black-scales.png');
+    --royal-texture: url('black-scales.png') ;
     --font-heading: 'Cinzel', serif;
     --font-body: 'Playfair Display', serif;
     --safe-area-top: env(safe-area-inset-top);
@@ -47,7 +47,7 @@ body::before {
     background-repeat: repeat, no-repeat;
     background-position: center, center;
     background-size: auto, 300px;
-    opacity: 0.2;
+    opacity: 0.8;
 }
 
 /* Selection & Scrollbar */
@@ -224,18 +224,64 @@ body::before {
 
 /* 6. HERO & SECTIONS */
 .hero-section {
-    min-height: 100vh;
-    background: linear-gradient(rgba(0,0,51,0.6), rgba(0,0,51,0.8)), url('1.jpg');
-    background-size: cover; background-position: center; background-attachment: fixed;
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    text-align: center; color: #fff; margin-top: -70px; padding: 20px;
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
-.hero-welcome::after { content: '|'; animation: blink 1s infinite; color: var(--gold-text); }
-@keyframes blink { 50% { opacity: 0; } }
 
-.hero-title { 
-    font-family: var(--font-heading); font-size: clamp(2.5rem, 8vw, 5rem); 
-    color: var(--gold-text); text-shadow: 2px 2px 10px #000; margin: 15px 0;
+/* एनीमेशन वाली स्लाइड की सेटिंग */
+.ken-burns-slides {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 1;
+}
+
+.kb-slide {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out; /* स्मूथ ट्रांजेक्शन */
+    transform: scale(1);
+}
+
+/* जो स्लाइड एक्टिव होगी वो ज़ूम होगी */
+.kb-slide.active {
+    opacity: 1;
+    animation: kenburns 6s infinite alternate;
+}
+
+@keyframes kenburns {
+    from { transform: scale(1); }
+    to { transform: scale(1.15); } /* हल्का ज़ूम */
+}
+
+/* टेक्स्ट को स्लाइड के ऊपर रखने के लिए */
+.hero-content {
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(rgba(0,0,51,0.4), rgba(0,0,51,0.6));
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+#hero-subtitle {
+    color: #e0e0e0; 
+    font-size: 1.1em; 
+    letter-spacing: 2px; 
+    text-transform: uppercase; 
+    font-family: var(--font-heading); /* 'Cinzel' उपयोग करेगा */
 }
 .divider-ornament { color: var(--gold-main); font-size: 2rem; margin: 15px 0; }
 
