@@ -1,11 +1,11 @@
 /* =======================================================
-   KASUMALGARH: GOD MODE EDITION (vFinal)
-   Fixed: 80+ Micro-Details, Royal Theme, Mobile Perfection
+   KASUMALGARH: GOD MODE EDITION (vFinal - Compact Mobile)
+   Fixed: Mobile Scroll Removed, PC Clean Menu, Royal Theme
    ======================================================= */
 
 /* 1. ADVANCED RESET & VARIABLES */
 :root {
-    --royal-bg: #e67e1d;
+    --royal-bg: #090e4b;
     --paper-bg: #fffbf0;
     --gold-main: #b8860b;
     --gold-text: #d4af37;
@@ -43,18 +43,11 @@ body::before {
     top: 0; left: 0; width: 100%; height: 100%;
     z-index: -1;
     pointer-events: none;
-
-    /* यहाँ दोनों चीजें एक साथ लगा दी हैं */
-    background-image: 
-        url('black-scales.png'), /* 1. टेक्सचर */
-        url('klogo1.png'); /* 2. वाटरमार्क लोगो */
-
-    /* टेक्सचर रिपीट होगा, लोगो बीच में फिक्स रहेगा */
+    background-image: url('black-scales.png'), url('klogo1.png');
     background-repeat: repeat, no-repeat;
     background-position: center, center;
-    background-size: auto, 300px; /* वाटरमार्क का साइज */
-
-    opacity: 0.2; /* हल्का फीका दिखेगा */
+    background-size: auto, 300px;
+    opacity: 0.2;
 }
 
 /* Selection & Scrollbar */
@@ -64,26 +57,20 @@ body::before {
 ::-webkit-scrollbar-thumb { background: var(--gold-main); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: #ffd700; }
 
-/* 2. ROYAL FRAME (Animated Corners) */
-
 /* 3. NAVBAR (Glassmorphism & Notch Safe) */
 .navbar {
     position: fixed; top: 0; left: 0; width: 100%;
     height: 40px !important;
-    
-    /* --- बस यहाँ बदलाव करना है --- */
-    background-image: url('0bg.png') !important;
-    background-size: auto !important;   /* इसे Cover नहीं, Auto रखें ताकि असली साइज़ रहे */
-    background-repeat: repeat !important; /* इसे Repeat करें ताकि जाली पूरी पट्टी पर बने */
-    background-position: top left;
-    
-    /* --- बाकी सब वैसा ही --- */
+    background: linear-gradient(rgba(0, 0, 40, 0.8), rgba(0, 0, 40, 0.8)), url('footerbg.png') !important;
+    background-repeat: repeat !important;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
     border-radius: 0 0 10px 10px;
     border-bottom: 2px solid var(--gold-main);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.8);
-    z-index: 1000;
     display: flex; align-items: center; justify-content: space-between;
     padding: 0 10px !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    z-index: 1000;
 }
 
 .navbar-brand-container { display: flex; align-items: center; gap: 10px; }
@@ -109,68 +96,127 @@ body::before {
 }
 .lang-btn:hover { background: var(--gold-main); color: #000; }
 
-/* 4. MOBILE DRAWER (Glass & Physics) */
+/* =========================================
+   4. MOBILE DRAWER (COMPACT & NO SCROLL)
+   ========================================= */
 .mobile-menu-overlay, #mobile-popup {
-    position: fixed; top: 42px; right: 10px; width: 270px;
-    background: linear-gradient(rgba(0, 0, 80, 0.98), rgba(0, 0, 80, 0.95)), var(--royal-texture);
-    border: 1px solid var(--gold-main); border-radius: 15px;
-    padding: 15px 0; transform: translateX(120%);
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: -10px 10px 30px rgba(0,0,0,0.8); z-index: 999;
-    max-height: 80vh; overflow-y: auto;
+    position: fixed; 
+    top: 40px !important; /* Header se chipka hua */
+    right: 0 !important;
+    
+    /* WIDTH: Chota kar diya taaki jagah na ghere */
+    width: 170px !important; 
+    
+    background: linear-gradient(rgba(0, 0, 50, 0.98), rgba(0, 0, 50, 0.98));
+    border-left: 1px solid var(--gold-main); 
+    border-bottom: 1px solid var(--gold-main);
+    border-radius: 0 0 0 15px;
+    
+    /* Padding kam ki */
+    padding: 5px 0 !important; 
+    
+    transform: translateX(120%);
+    transition: transform 0.3s ease;
+    box-shadow: -5px 5px 15px rgba(0,0,0,0.5); 
+    z-index: 9999;
+    
+    /* Scroll hata diya */
+    overflow: hidden !important;
+    height: auto !important;
 }
+
 .mobile-menu-overlay.open, #mobile-popup.open { transform: translateX(0); }
 
 /* Backdrop Dimming */
 .mobile-menu-overlay::before {
-    content: ''; position: fixed; top: -75px; left: calc(-100vw + 270px); 
+    content: ''; position: fixed; top: -75px; left: calc(-100vw + 170px); 
     width: 100vw; height: 100vh;
     background: rgba(0,0,0,0.6); opacity: 0; transition: 0.3s; 
     pointer-events: none; z-index: -1;
 }
 .mobile-menu-overlay.open::before { opacity: 1; pointer-events: auto; }
 
-.mobile-links li a {
-    display: block; padding: 14px 25px; color: #fff;
-    font-family: var(--font-heading); border-bottom: 1px solid rgba(184, 134, 11, 0.2);
-    font-size: 1rem; transition: 0.2s;
+.mobile-links li {
+    list-style: none !important; margin: 0 !important; padding: 0 !important; display: block !important;
 }
-.mobile-links li a:hover { background: rgba(184, 134, 11, 0.2); color: var(--gold-text); padding-left: 30px; }
-.mobile-links li a.active { color: var(--gold-text); border-left: 4px solid var(--gold-main); }
+
+/* Links Compact Styling */
+.mobile-links li a {
+    display: block !important;
+    padding: 8px 15px !important; /* Padding kam ki */
+    color: #fff !important;
+    font-family: var(--font-heading); 
+    font-size: 12px !important; /* Font chota kiya */
+    font-weight: normal !important;
+    text-transform: uppercase;
+    text-decoration: none !important;
+    border-bottom: 1px solid rgba(184, 134, 11, 0.15) !important;
+}
+
+.mobile-links li a:hover {
+    background: rgba(184, 134, 11, 0.1);
+    color: var(--gold-text) !important;
+}
 
 .mobile-sub-link {
-    padding-left: 40px !important; font-size: 0.9rem !important;
+    padding-left: 25px !important; font-size: 11px !important;
     color: #e0c060 !important; background: rgba(0,0,0,0.25);
 }
 
-/* 5. DESKTOP NAV */
+/* =========================================
+   5. DESKTOP NAV (CLEAN - No Dots/Lines)
+   ========================================= */
 .navbar-links { display: none; }
 @media (min-width: 769px) {
     .menu-toggle, #mobile-popup { display: none !important; }
-    .navbar-links { display: flex; gap: 30px; }
+    
+    /* List Style None se DOTS hat jayenge */
+    .navbar-links { 
+        display: flex; gap: 30px; 
+        list-style: none !important; 
+        margin: 0; padding: 0; 
+    }
+    
     .navbar-links > li { position: relative; }
+    
+    /* Clean Links (No Underline) */
+ /* 5. DESKTOP NAV (Color Fix) */
     .navbar-links a {
-        color: #fcf6ba; font-family: var(--font-heading); font-size: 0.9rem;
-        text-transform: uppercase; padding: 10px 0; display: block; position: relative;
+        color: #fcf6ba !important; /* यह लाइन उस नाम को दिखने लायक बनाएगी */
+        font-family: var(--font-heading); 
+        font-size: 0.9rem;
+        text-transform: uppercase; 
+        padding: 10px 0; 
+        display: block; 
+        position: relative;
+        text-decoration: none !important;
+        border: none !important;
     }
-    /* Link Hover Effect */
-    .navbar-links a::after {
-        content: ''; display: block; width: 0; height: 2px;
-        background: var(--gold-main); transition: width 0.3s;
+    
+    /* अगर वंशावली ड्रॉपडाउन है, तो उसे खास तौर पर टारगेट करें */
+    .dropdown > a {
+        color: #fcf6ba !important;
+        opacity: 1 !important;
     }
-    .navbar-links a:hover::after, .navbar-links a.active::after { width: 100%; }
+
+    /* होवर करने पर गोल्डन हो जाए */
+    .navbar-links a:hover, 
+    .navbar-links a.active,
+    .dropdown:hover > a { 
+        color: var(--gold-main) !important; 
+    }
     
     /* Dropdown */
     .dropdown-content {
         display: none; position: absolute; top: 100%; left: 0;
         background: linear-gradient(rgba(0, 0, 34, 0.98), rgba(0, 0, 34, 0.98)), var(--royal-texture);
-        min-width: 240px; box-shadow: 0px 10px 20px rgba(0,0,0,0.8);
+        min-width: 200px; box-shadow: 0px 10px 20px rgba(0,0,0,0.8);
         border: 1px solid var(--gold-main); border-top: 3px solid var(--gold-main);
         z-index: 2000; border-radius: 0 0 10px 10px;
         animation: fadeIn 0.3s ease;
     }
     .dropdown:hover .dropdown-content { display: block; }
-    .dropdown-content a { padding: 15px 20px; border-bottom: 1px solid rgba(184, 134, 11, 0.2); font-size: 0.85rem; }
+    .dropdown-content a { padding: 10px 15px; border-bottom: 1px solid rgba(184, 134, 11, 0.2); font-size: 0.8rem; }
     .dropdown-content a:hover { background-color: var(--gold-main); color: #000 !important; }
     .dropdown > a::after { content: ' ▾'; font-size: 0.8em; }
     .navbar { padding: 0 50px; }
@@ -278,43 +324,79 @@ body::before {
 input, textarea, select {
     width: 100%; padding: 12px; margin-bottom: 20px;
     border: 1px solid var(--gold-main); background: rgba(255, 255, 255, 0.9);
-    border-radius: 5px; font-family: var(--font-body); font-size: 16px; /* Prevents Zoom on iPhone */
+    border-radius: 5px; font-family: var(--font-body); font-size: 16px;
     box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
 }
 input:focus, textarea:focus { 
     background: #fff; border-color: #ffd700; outline: none; 
     box-shadow: 0 0 10px var(--gold-main); 
 }
-/* Autocomplete Fix */
 input:-webkit-autofill { -webkit-box-shadow: 0 0 0 30px white inset !important; }
 
-/* 8. FOOTER (Complete Royal Look) */
+/* =========================================
+   FINAL ADJUSTED FOOTER (Shine + Compact + Hover Fix)
+   ========================================= */
 .royal-footer {
-    /* --- साइज सेटिंग्स (जो आपने छोटा करवाया था) --- */
-    padding: 20px 10px !important;
-    margin-top: 30px !important;
-    border-top: 2px solid var(--gold-main);
-    border-radius: 20px 20px 0 0 !important;
-    text-align: center;
-    color: var(--gold-text);
-
-    /* --- बैकग्राउंड टेक्सचर सेटिंग --- */
-    /* पुराने Gradient को हटाकर सीधा इमेज लगाया */
-    background: url('menu_bg.png') !important;
-    
-    /* टेक्सचर को रिपीट करें ताकि डिजाइन दिखे */
+    padding: 2px 10px 10px 10px !important; 
+    margin-top: 20px !important;
+    background: #030230 !important; 
+    background-image: url('footerbg.png') !important; 
     background-repeat: repeat !important;
-    background-size: auto !important; 
+    background-size: 2% !important;
+    border-top: 3px solid #d4af37 !important;
+    border-radius: 40px 40px 0 0 !important;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.8) !important;
+    color: #d4af37 !important;
+    text-align: center;
+    font-family: 'Cinzel', serif !important;
+    position: relative !important;
+    width: 100% !important;
+    z-index: 100;
 }
-.fb-link, .royal-footer a {
-    display: inline-block; margin-top: 15px; padding: 10px 25px;
-    background: linear-gradient(135deg, #1cb5e0, #000046); color: #fff;
-    border: 1px solid var(--gold-main); border-radius: 50px;
-    font-family: var(--font-heading); font-size: 0.9rem; transition: 0.3s;
+
+.royal-footer::before {
+    content: '⚜'; 
+    display: block;
+    font-size: 20px !important;
+    color: #ffd700 !important;
+    margin-top: 2px !important; 
+    margin-bottom: 0px !important;
+    text-shadow: 0 0 5px #ffd700, 0 0 10px #b8860b !important;
+    line-height: 1 !important;
 }
-.fb-link:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 5px 15px var(--gold-main); color: #ffd700; }
-.royal-name { font-family: 'Great Vibes', cursive; font-size: 1.8rem; color: #ffd700; display: block; margin: 10px 0; }
-#total-visitors-count { background: #222; padding: 3px 10px; border-radius: 4px; border: 1px solid #444; font-family: monospace; }
+
+.developer-info > div:first-child {
+    margin-top: 2px !important;
+    font-size: 0.8rem !important;
+    color: #aaa !important;
+}
+.royal-name {
+    font-size: 1.1rem !important;
+    margin-bottom: 5px !important;
+}
+
+.fb-link {
+    display: inline-flex !important;
+    align-items: center; justify-content: center; gap: 8px;
+    background: linear-gradient(45deg, #b8860b, #ffd700, #b8860b) !important;
+    color: #2a0a0a !important; 
+    padding: 6px 20px !important;
+    border-radius: 50px !important;
+    text-decoration: none !important;
+    font-weight: bold !important;
+    font-size: 12px !important;
+    font-family: 'Merriweather', serif !important;
+    border: 1px solid #fff !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5) !important;
+    transition: all 0.3s ease-in-out !important;
+}
+
+.fb-link:hover {
+    background: linear-gradient(to bottom, #fff 0%, #ffd700 100%) !important;
+    box-shadow: 0 0 15px #ffd700, 0 0 30px #b8860b !important;
+    transform: translateY(-3px) scale(1.05) !important;
+    cursor: pointer !important;
+}
 
 /* 9. PRELOADER & SUN */
 #preloader {
