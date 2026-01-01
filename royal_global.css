@@ -5,12 +5,12 @@
 
 /* 1. ADVANCED RESET & VARIABLES */
 :root {
-    --royal-bg: #000033;
+    --royal-bg: #e67e1d;
     --paper-bg: #fffbf0;
     --gold-main: #b8860b;
     --gold-text: #d4af37;
     --maroon: #350404;
-    --royal-texture: url('https://www.transparenttextures.com/patterns/black-scales.png');
+    --royal-texture: url('black-scales.png');
     --font-heading: 'Cinzel', serif;
     --font-body: 'Playfair Display', serif;
     --safe-area-top: env(safe-area-inset-top);
@@ -30,7 +30,7 @@ body {
     color: #333;
     font-family: var(--font-body);
     overflow-x: hidden;
-    padding-top: calc(70px + var(--safe-area-top));
+    padding-top: calc(45px + var(--safe-area-top));
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     line-height: 1.6;
@@ -38,8 +38,23 @@ body {
 
 /* Background Texture */
 body::before {
-    content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background-image: var(--royal-texture); opacity: 0.3; z-index: -1; pointer-events: none;
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1;
+    pointer-events: none;
+
+    /* यहाँ दोनों चीजें एक साथ लगा दी हैं */
+    background-image: 
+        url('black-scales.png'), /* 1. टेक्सचर */
+        url('klogo1.png'); /* 2. वाटरमार्क लोगो */
+
+    /* टेक्सचर रिपीट होगा, लोगो बीच में फिक्स रहेगा */
+    background-repeat: repeat, no-repeat;
+    background-position: center, center;
+    background-size: auto, 300px; /* वाटरमार्क का साइज */
+
+    opacity: 0.2; /* हल्का फीका दिखेगा */
 }
 
 /* Selection & Scrollbar */
@@ -50,36 +65,29 @@ body::before {
 ::-webkit-scrollbar-thumb:hover { background: #ffd700; }
 
 /* 2. ROYAL FRAME (Animated Corners) */
-.royal-frame {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    border: 5px double var(--gold-main);
-    pointer-events: none; z-index: 9990;
-    box-shadow: inset 0 0 50px rgba(0,0,0,0.8);
-}
-.royal-frame span {
-    position: absolute; width: 40px; height: 40px;
-    border: 4px solid var(--gold-main); transition: 0.5s; opacity: 0.8;
-}
-.royal-frame span:nth-child(1) { top: 10px; left: 10px; border-right: 0; border-bottom: 0; }
-.royal-frame span:nth-child(2) { top: 10px; right: 10px; border-left: 0; border-bottom: 0; }
-.royal-frame span:nth-child(3) { bottom: 10px; right: 10px; border-left: 0; border-top: 0; }
-.royal-frame span:nth-child(4) { bottom: 10px; left: 10px; border-right: 0; border-top: 0; }
 
 /* 3. NAVBAR (Glassmorphism & Notch Safe) */
 .navbar {
-    position: fixed; top: 0; left: 0; width: 100%; height: 70px;
-    background: linear-gradient(rgba(0, 0, 34, 0.95), rgba(0, 0, 34, 0.95)), var(--royal-texture);
-    border-radius: 0 0 20px 20px;
+    position: fixed; top: 0; left: 0; width: 100%;
+    height: 40px !important;
+    
+    /* --- बस यहाँ बदलाव करना है --- */
+    background-image: url('0bg.png') !important;
+    background-size: auto !important;   /* इसे Cover नहीं, Auto रखें ताकि असली साइज़ रहे */
+    background-repeat: repeat !important; /* इसे Repeat करें ताकि जाली पूरी पट्टी पर बने */
+    background-position: top left;
+    
+    /* --- बाकी सब वैसा ही --- */
+    border-radius: 0 0 10px 10px;
     border-bottom: 2px solid var(--gold-main);
     box-shadow: 0 4px 15px rgba(0,0,0,0.8);
     z-index: 1000;
     display: flex; align-items: center; justify-content: space-between;
-    padding: var(--safe-area-top) 20px 0 20px; /* Notch Fix */
-    backdrop-filter: blur(10px);
+    padding: 0 10px !important;
 }
 
 .navbar-brand-container { display: flex; align-items: center; gap: 10px; }
-#menu-logo { height: 45px; width: auto; object-fit: contain; filter: drop-shadow(0 2px 4px #000); }
+#menu-logo { height: 30px; width: auto; object-fit: contain; filter: drop-shadow(0 2px 4px #000); }
 .navbar-brand { 
     font-family: var(--font-heading); color: #fcf6ba; font-size: 1.2rem; 
     font-weight: 900; letter-spacing: 1px; text-shadow: 0 2px 5px #000;
@@ -103,7 +111,7 @@ body::before {
 
 /* 4. MOBILE DRAWER (Glass & Physics) */
 .mobile-menu-overlay, #mobile-popup {
-    position: fixed; top: 75px; right: 10px; width: 270px;
+    position: fixed; top: 42px; right: 10px; width: 270px;
     background: linear-gradient(rgba(0, 0, 80, 0.98), rgba(0, 0, 80, 0.95)), var(--royal-texture);
     border: 1px solid var(--gold-main); border-radius: 15px;
     padding: 15px 0; transform: translateX(120%);
@@ -282,9 +290,21 @@ input:-webkit-autofill { -webkit-box-shadow: 0 0 0 30px white inset !important; 
 
 /* 8. FOOTER (Complete Royal Look) */
 .royal-footer {
-    background: linear-gradient(rgba(0, 0, 20, 0.95), rgba(0, 0, 20, 0.95)), var(--royal-texture);
-    color: var(--gold-text); text-align: center; padding: 50px 20px; margin-top: 80px;
-    border-top: 5px double var(--gold-main); border-radius: 50px 50px 0 0;
+    /* --- साइज सेटिंग्स (जो आपने छोटा करवाया था) --- */
+    padding: 20px 10px !important;
+    margin-top: 30px !important;
+    border-top: 2px solid var(--gold-main);
+    border-radius: 20px 20px 0 0 !important;
+    text-align: center;
+    color: var(--gold-text);
+
+    /* --- बैकग्राउंड टेक्सचर सेटिंग --- */
+    /* पुराने Gradient को हटाकर सीधा इमेज लगाया */
+    background: url('menu_bg.png') !important;
+    
+    /* टेक्सचर को रिपीट करें ताकि डिजाइन दिखे */
+    background-repeat: repeat !important;
+    background-size: auto !important; 
 }
 .fb-link, .royal-footer a {
     display: inline-block; margin-top: 15px; padding: 10px 25px;
