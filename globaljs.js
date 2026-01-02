@@ -21,6 +21,6 @@ document.addEventListener("DOMContentLoaded", function() {
         slides[currentSlide].classList.add("active");
     }
 
-    // रफ्तार 2 सेकंड (2000ms) सेट की गई है
-    setInterval(nextSlide, 2000);
+    // रफ्तार 2 सेकंड (3500ms) सेट की गई है
+    setInterval(nextSlide, 3500);
 });
