@@ -242,50 +242,111 @@ body::before {
 }
 /* --- SLIDER FIX (NO BLANK GAP) --- */
 
-.hero-section {
+/* --- 1. PARALLAX EFFECT (जादुई कोड) --- */
+/* =========================================
+   PARALLAX SCROLL EFFECT (New Addition)
+   ========================================= */
+
+/* 1. Background Image Wrapper (Fixed Position) */
+.parallax-bg {
     position: relative;
-    height: 100vh;
-    width: 100%;
-    overflow: hidden;
-    background-color: #000; /* बैकग्राउंड काला किया ताकि सफ़ेद चमक न दिखे */
-}
-
-.kb-slide {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background-size: cover;
+    background-attachment: fixed; /* जादुई कोड: फोटो चिपकी रहेगी */
     background-position: center;
-    
-    opacity: 0;
-    z-index: 1; /* यह नीचे रहेगी */
-    
-    /* 🛠️ जादुई लाइन: पुरानी फोटो 3 सेकंड तक धीरे-धीरे गायब होगी */
-    transition: opacity 3s ease-in-out, transform 3s ease-in-out; 
-    
-    transform: scale(1);
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh; /* पूरी स्क्रीन */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 1;
 }
 
-.kb-slide.active {
-    opacity: 1 !important;
-    z-index: 2; /* जो एक्टिव है वो ऊपर रहेगी */
+/* 2. Content Box (Black Box Scrolls Over Image) */
+/* --- VINTAGE PAPER LOOK (As per your Image) --- */
+/* --- VINTAGE PAPER LOOK (Updated with !important) --- */
+
+.p-content {
+    /* 1. बैकग्राउंड: हल्का क्रीम */
+    background-color: #fffbf0 !important; 
     
-    /* 🛠️ नई फोटो 0.5 सेकंड में जल्दी आ जाएगी */
-    transition: opacity 0.5s ease-in-out, transform 3s ease-in-out;
+    /* 2. टेक्स्ट का रंग: गहरा भूरा (ताकि साफ दिखे) */
+    color: #3e2723 !important; 
     
-    /* ज़ूम एनीमेशन */
-    animation: kenburns 5s infinite alternate; 
+    /* 3. फोंट: हिंदी के लिए साफ़ और शाही */
+    font-family: 'Playfair Display', 'Noto Serif Devanagari', 'Mangal', serif !important;
+    font-weight: 500 !important; /* थोड़ा मोटा ताकि धुंधला न दिखे */
+    font-size: 1.2rem !important;
+    line-height: 1.8 !important;
+    
+    /* सजावट */
+    padding: 60px 30px;
+    text-align: justify !important;
+    border-top: 3px double #b8860b;
+    border-bottom: 3px double #b8860b;
 }
 
-@keyframes kenburns {
-    0% { transform: scale(1); }
-    100% { transform: scale(1.15); }
-}
-@keyframes kenburns {
-    from { transform: scale(1); }
-    to { transform: scale(1.1); }
+/* पैराग्राफ के लिए खास नियम */
+.p-content p {
+    color: #3e2723 !important;
+    text-shadow: none !important; /* चमक हटाएं */
 }
 
-/* --- 2. GOLDEN SHINE FOR TEXT & ORNAMENTS --- */
+/* हेडिंग (!!! जय माता दी !!!) */
+.p-content h2, .p-content h3, .section-heading {
+    color: #350404 !important; /* गहरा मैरून */
+    font-family: 'Cinzel', serif !important;
+    font-weight: 900 !important;
+    text-shadow: none !important;
+}
+
+/* बड़ा अक्षर (Drop Cap) - "ख" */
+.drop-cap {
+    float: left;
+    font-size: 4rem !important;
+    line-height: 0.8 !important;
+    padding-right: 15px;
+    margin-top: 5px;
+    color: #350404 !important; /* गहरा मैरून */
+    font-weight: 900 !important;
+}
+/* 3. Images Setup */
+.img-1 { background-image: url('kasumi_fort.png'); }
+.img-2 { background-image: url('fort_kasumbi_full_view.png'); }
+.img-3 { background-image: url('fort_kasumbi_2.png'); }
+.img-4 { background-image: url('4.jpg'); }
+
+/* 4. Text Styles inside Parallax */
+.p-title-main {
+    font-size: 4rem; 
+    color: #ffd700;
+    text-shadow: 0 0 20px #000, 0 0 40px #b8860b;
+    margin: 0;
+    letter-spacing: 5px;
+    animation: titleShine 3s infinite;
+}
+
+.p-subtitle-strip {
+    background: rgba(0,0,0,0.6);
+    padding: 10px 40px;
+    border: 1px solid #ffd700;
+    color: #ffd700;
+    font-size: 2rem;
+    backdrop-filter: blur(5px);
+    margin-top: 20px;
+    display: inline-block;
+}
+
+/* 5. Mobile Fix (Fixed Bg mobile pe smooth nahi chalta) */
+@media (max-width: 768px) {
+    .parallax-bg {
+        background-attachment: scroll; /* मोबाइल पर नार्मल चलेगा */
+        min-height: 60vh; /* हाइट थोड़ी कम ताकि कंटेंट जल्दी दिखे */
+    }
+    .p-title-main { font-size: 2.5rem; }
+    .p-subtitle-strip { font-size: 1.5rem; padding: 5px 20px; }
+}/* --- 2. GOLDEN SHINE FOR TEXT & ORNAMENTS --- */
 .hero-content {
     position: relative;
     z-index: 2;
@@ -499,3 +560,27 @@ input:-webkit-autofill { -webkit-box-shadow: 0 0 0 30px white inset !important; 
 }
 
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); }  }
+/* --- MOBILE SPECIFIC IMAGES (Option 1) --- */
+@media (max-width: 768px) {
+    
+    .parallax-bg {
+        background-attachment: scroll; /* मोबाइल पर स्मूथ स्क्रॉल */
+        min-height: 100vh; /* पूरी स्क्रीन भरेगा */
+        background-position: center top;
+    }
+
+    /* यहाँ मोबाइल वाली लंबी फोटो का नाम लिखें */
+    .img-1 { 
+        background-image: url('mobile_hero.jpg'); /* अपनी मोबाइल फोटो 1 */
+    }
+
+    .img-2 { 
+        background-image: url('mobile_profile.jpg'); /* अपनी मोबाइल फोटो 2 */
+    }
+
+    .img-3 { 
+        background-image: url('mobile_gallery.jpg'); /* अपनी मोबाइल फोटो 3 */
+    }
+    
+    /* अगर और भी सेक्शन्स हैं तो ऐसे ही जोड़ते जाएं */
+}
