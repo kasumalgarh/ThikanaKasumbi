@@ -68,7 +68,8 @@
 
         label { display: block; margin-bottom: 5px; color: #ccc; font-size: 13px; }
 
-        input, select {
+        /* Updated to include textarea */
+        input, select, textarea {
             width: 100%;
             padding: 8px;
             background: #333;
@@ -76,9 +77,16 @@
             color: white;
             border-radius: 4px;
             box-sizing: border-box;
+            font-family: inherit;
         }
+        
+        textarea {
+            resize: vertical;
+            line-height: 1.4;
+        }
+
         input[type="color"] { height: 40px; padding: 2px; cursor: pointer; }
-        input:focus, select:focus { border-color: #d4af37; outline: none; }
+        input:focus, select:focus, textarea:focus { border-color: #d4af37; outline: none; }
 
         /* Sliders */
         input[type="range"] { width: 100%; accent-color: #d4af37; cursor: pointer; }
@@ -226,10 +234,9 @@
 
         .seal {
             width: 80px; height: 80px;
-            background-image: url('seal.png'); /* small s */
+            background-image: url('seal.png');
             background-size: contain; background-repeat: no-repeat; background-position: center;
             margin-bottom: 10px;
-            /* Filter will be applied here dynamically */
             transition: filter 0.3s ease;
         }
         
@@ -245,17 +252,17 @@
             text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
         }
 
-        /* Social Footer - SINGLE LINE */
+        /* Social Footer */
         .social-footer {
             border-top: 1px solid rgba(255,255,255, 0.2);
             margin-top: 20px;
             padding-top: 15px;
             width: 100%;
             display: flex;
-            flex-direction: row; /* Horizontal Line */
+            flex-direction: row;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 15px; /* Spacing between items */
+            gap: 15px;
             font-size: 13px;
         }
         
@@ -330,14 +337,34 @@
                     <option value="General">सामान्य (General)</option>
                     <option value="Kids">बच्चे (Kids)</option>
                     <option value="Friends">मित्र (Friends)</option>
-                    <option value="Elders">बड़े-बुजुर्ग (Elders)</option>
+                    <option value="Elders">बड़े-बुजुर्ग (Elders)</option>
                 </select>
             </div>
         </div>
+
         <div class="row">
+            <div class="col">
+                <label>संबोधन (Salutation):</label>
+                <select id="salutation" onchange="updateMessage()">
+                    <option value="Priya">प्रिय (Priya)</option>
+                    <option value="Aadarniya">आदरणीय (Aadarniya)</option>
+                    <option value="Shri">श्री (Shri)</option>
+                    <option value="Shrimati">श्रीमती (Shrimati)</option>
+                    <option value="Shrimaan">श्रीमान (Shrimaan)</option>
+                    <option value="Chiranjeev">चिरंजीव (Chiranjeev)</option>
+                    <option value="">(कुछ नहीं/None)</option>
+                </select>
+            </div>
             <div class="col">
                 <label>Receiver Name (प्राप्तकर्ता):</label>
                 <input type="text" id="receiver" placeholder="Ex: Rahul Banna" oninput="updateMessage()">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <label>संदेश एडिट करें (Edit Message Here):</label>
+                <textarea id="customMessage" rows="4" oninput="manualMessageUpdate()"></textarea>
             </div>
         </div>
     </div>
@@ -383,12 +410,13 @@
         <input type="hidden" id="instaLink" value="instagram.com/gajsa.kasumbifort">
 
         <button class="btn" onclick="refreshCard()">🔄 अपडेट कार्ड (Refresh)</button>
-        <button class="btn btn-download" onclick="downloadCard()">⬇️ 4K Ultra HD डाउनलोड (Download)</button>
+        <button class="btn btn-download" onclick="downloadCard()">⬇️ Full HD डाउनलोड (Download)</button>
     </div>
 
     <div id="card-capture-area">
         <div class="card-preview">
-            <div class="bg-texture" id="textureLayer"></div> <div class="inner-frame">
+            <div class="bg-texture" id="textureLayer"></div>
+            <div class="inner-frame">
                 <div class="corner tl"></div><div class="corner tr"></div>
                 <div class="corner bl"></div><div class="corner br"></div>
 
@@ -403,7 +431,8 @@
                 <div class="message-text" id="cardMessage">Loading...</div>
 
                 <div class="footer-area">
-                    <div class="seal" id="cardSeal"></div> <div class="signature" id="cardSignature">Yuvraj GajRaj Singh</div>
+                    <div class="seal" id="cardSeal"></div>
+                    <div class="signature" id="cardSignature">Yuvraj GajRaj Singh</div>
                 </div>
 
                 <div class="social-footer" id="socialFooter">
@@ -524,21 +553,42 @@
         document.getElementById('cardSignature').innerText = document.getElementById('sender').value;
     }
 
+    // UPDATED MESSAGE FUNCTION
     function updateMessage() {
         const occasion = document.getElementById('occasion').value;
         const receiver = document.getElementById('receiver').value.trim();
         const category = document.getElementById('subCategory').value;
+        const salutation = document.getElementById('salutation').value;
         
         let msgObj = messages[occasion] || messages["General"];
         let baseMsg = msgObj[category] || msgObj["General"]; 
 
+        let fullMessage = baseMsg;
+
         if (receiver) {
-            let prefix = (category === 'Elders') ? `आदरणीय ${receiver} जी` : `प्रिय ${receiver} जी`;
-            if (category === 'Kids' || category === 'Friends') prefix = `प्रिय ${receiver}`;
-            baseMsg = `${prefix},\n\n${baseMsg}`;
+            let prefixStr = "";
+            switch(salutation) {
+                case "Priya": prefixStr = `प्रिय ${receiver}`; break;
+                case "Aadarniya": prefixStr = `आदरणीय ${receiver} जी`; break;
+                case "Shri": prefixStr = `श्री ${receiver} जी`; break;
+                case "Shrimati": prefixStr = `श्रीमती ${receiver} जी`; break;
+                case "Shrimaan": prefixStr = `श्रीमान ${receiver} जी`; break;
+                case "Chiranjeev": prefixStr = `चिरंजीव ${receiver}`; break;
+                default: prefixStr = receiver; 
+            }
+
+            if(salutation === "") {
+                fullMessage = `${receiver},\n\n${baseMsg}`;
+            } else {
+                fullMessage = `${prefixStr},\n\n${baseMsg}`;
+            }
         }
 
-        document.getElementById('cardMessage').innerText = baseMsg;
+        // Update Edit Box
+        document.getElementById('customMessage').value = fullMessage;
+        
+        // Update Card
+        document.getElementById('cardMessage').innerText = fullMessage;
         
         let title = occasion;
         if(occasion === "Nav Varsh") title = "Happy New Year";
@@ -546,12 +596,18 @@
         document.getElementById('cardTitle').innerText = title;
     }
 
+    // NEW MANUAL UPDATE FUNCTION
+    function manualMessageUpdate() {
+        const customText = document.getElementById('customMessage').value;
+        document.getElementById('cardMessage').innerText = customText;
+    }
+
     function refreshCard() {
         updateMessage();
         updateSender();
         updateTexture();
         updateColor();
-        updateSeal(); // Apply Bronze filter if selected
+        updateSeal(); 
         
         // Social Toggle
         const socialOn = document.getElementById('socialToggle').checked;
@@ -568,28 +624,21 @@
         }
     }
 
-    // --- 4. ULTRA HD DOWNLOAD LOGIC ---
+    // --- 4. FULL HD DOWNLOAD ---
     function downloadCard() {
         const captureArea = document.getElementById('card-capture-area');
         
-        // Force settings for High Quality even on Mobile
-        const options = {
-            backgroundColor: null,
-            scale: 6, // Extremely High Quality (Scale 6x)
-            useCORS: true,
-            allowTaint: true,
-            windowWidth: 1920, // Forces Desktop width simulation
-            windowHeight: 1080 
-        };
-
-        html2canvas(captureArea, options).then(canvas => {
+        html2canvas(captureArea, {
+            backgroundColor: null, 
+            scale: 4, 
+            useCORS: true
+        }).then(canvas => {
             const link = document.createElement('a');
-            link.download = 'Royal-Card-UltraHD.png';
+            link.download = 'Royal-Card-HD.png';
             link.href = canvas.toDataURL("image/png", 1.0);
             link.click();
         });
     }
 </script>
-
 </body>
 </html>
