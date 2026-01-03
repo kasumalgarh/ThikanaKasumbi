@@ -274,29 +274,69 @@
     </div>
 </section>
 
-            <div class="updates-container">
-                <h3 style="color:var(--maroon-text); font-family:var(--font-heading); border-bottom:1px solid #ccc; padding-bottom:10px;">RECENTLY ADDED</h3>
-                <div class="update-row">
-                    <div style="flex:1;">
-                        <strong>📸 New Images:</strong><br><br>
-                        <div style="display:flex;">
-                            <img src="mobile_gallery.jpg" class="u-img">
-                            <img src="fort_kasumbi_2.png" class="u-img">
-                        </div>
-                    </div>
-                    <div style="flex:1;">
-                        <strong>📜 New Names:</strong>
-                        <ul style="margin-top:10px; color:var(--brown-text);">
-                            <li>✦ भंवर सा. [नया नाम]</li>
-                            <li>✦ कुंवर सा. [नया नाम]</li>
-                        </ul>
-                    </div>
+           <section class="cream-section">
+    <div class="container">
+        
+        <h2 class="section-heading" style="text-align:center;">
+            Thikana Updates
+        </h2>
+
+        <div class="royal-wide-panel">
+            
+            <h3 class="panel-title">
+                <i class="fas fa-camera" style="color:var(--gold-main);"></i> 
+                नवीन छायाचित्र (New Images)
+            </h3>
+            
+            <div class="update-gallery">
+                <div class="u-img-frame lightbox-trigger" 
+                     data-img-url="mobile_gallery.jpg" 
+                     data-unique-id="photo_1">
+                    <img src="mobile_gallery.jpg" alt="Update 1">
+                </div>
+                
+                <div class="u-img-frame lightbox-trigger" 
+                     data-img-url="fort_kasumbi_2.png" 
+                     data-unique-id="photo_2">
+                    <img src="fort_kasumbi_2.png" alt="Update 2">
+                </div>
+
+                 <div class="u-img-frame lightbox-trigger" 
+                     data-img-url="event1.jpg" 
+                     data-unique-id="photo_3">
+                    <img src="event1.jpg" alt="Update 3">
+                </div>
+
+                 <div class="u-img-frame lightbox-trigger" 
+                     data-img-url="event2.jpg" 
+                     data-unique-id="photo_4">
+                    <img src="event2.jpg" alt="Update 4">
                 </div>
             </div>
-            
 
-        </div>
-    </section>
+            <h3 class="panel-title" style="margin-top: 40px;">
+                <i class="fas fa-feather-pointed" style="color:var(--gold-main);"></i> 
+                वंशावली अपडेट (New Names)
+            </h3>
+
+            <ul class="update-name-list">
+                <li class="u-name-item">
+                    <a href="vanshawali.html" class="u-name-link">✦ भंवर सा. [View Tree]</a>
+                </li>
+                <li class="u-name-item">
+                    <a href="vanshawali.html" class="u-name-link">✦ कुंवर सा. [View Tree]</a>
+                </li>
+                <li class="u-name-item">
+                    <a href="vanshawali.html" class="u-name-link">✦ बन्ना सा. [View Tree]</a>
+                </li>
+                <li class="u-name-item">
+                    <a href="vanshawali.html" class="u-name-link">✦ बाई सा. [View Tree]</a>
+                </li>
+            </ul>
+
+        </div> 
+    </div>
+</section>
 
     <footer class="royal-footer">
         <div style="font-size: 0.9em; color: #ccc;">Developed & Designed By:</div>
@@ -326,5 +366,95 @@
             }
         });
     </script>
+    <div id="fb-root"></div>
+
+<div class="lightbox-overlay" id="lightboxOverlay">
+    
+    <span class="lightbox-close" id="lightboxClose">&times;</span>
+
+    <div class="lightbox-wrapper">
+        <img src="" alt="Full View" id="lightboxImage" class="lightbox-main-img">
+        
+        <div class="fb-actions-container">
+            <div id="fb-like-placeholder"></div>
+        </div>
+
+        <div class="fb-comments-container">
+            <h4><i class="fas fa-comments"></i> चर्चा (Comments)</h4>
+            <div id="fb-comments-placeholder"></div>
+        </div>
+    </div>
+</div>
+<script>
+    // --- 1. FACEBOOK SDK LOADING (Official Code) ---
+    // यह कोड फेसबुक से कनेक्ट करता है
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v18.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+
+    // --- 2. LIGHTBOX LOGIC ---
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        const triggers = document.querySelectorAll('.lightbox-trigger');
+        const overlay = document.getElementById('lightboxOverlay');
+        const lightboxImg = document.getElementById('lightboxImage');
+        const closeBtn = document.getElementById('lightboxClose');
+        
+        // FB Placeholders
+        const fbLikeDiv = document.getElementById('fb-like-placeholder');
+        const fbCommentsDiv = document.getElementById('fb-comments-placeholder');
+
+        // अपनी वेबसाइट का असली डोमेन यहाँ लिखें (बिना slash के)
+        // जब तक साइट लाइव नहीं है, यह localhost पर काम नहीं करेगा।
+        const siteDomain = "https://kasumalgarh.netlify.app"; 
+
+        triggers.forEach(trigger => {
+            trigger.addEventListener('click', function() {
+                const imgUrl = this.getAttribute('data-img-url');
+                const uniqueId = this.getAttribute('data-unique-id'); // e.g., photo_1
+
+                // 1. फोटो दिखाएं
+                lightboxImg.src = imgUrl;
+                overlay.style.display = 'flex';
+
+                // 2. इस फोटो के लिए एक यूनिक लिंक बनाएं
+                // (ताकि फेसबुक हर फोटो के लाइक अलग-अलग गिने)
+                const uniquePostUrl = `${siteDomain}/gallery.html?id=${uniqueId}`;
+
+                // 3. पुराना FB बटन साफ़ करें और नया डालें
+                fbLikeDiv.innerHTML = `<div class="fb-like" data-href="${uniquePostUrl}" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="true"></div>`;
+                
+                fbCommentsDiv.innerHTML = `<div class="fb-comments" data-href="${uniquePostUrl}" data-width="100%" data-numposts="5"></div>`;
+
+                // 4. फेसबुक को बोलें कि नए बटन रेंडर करे (Refresh)
+                if (window.FB) {
+                    FB.XFBML.parse(); 
+                }
+            });
+        });
+
+        // Close Functions
+        function closeBox() {
+            overlay.style.display = 'none';
+            // वीडियो/फोटो बंद होने पर FB कंटेंट हटा दें ताकि भारी न हो
+            fbLikeDiv.innerHTML = '';
+            fbCommentsDiv.innerHTML = '';
+        }
+
+        closeBtn.addEventListener('click', closeBox);
+        
+        // बाहर क्लिक करने पर बंद
+        overlay.addEventListener('click', function(e) {
+            if (e.target === overlay) {
+                closeBox();
+            }
+        });
+    });
+</script>
 </body>
 </html>

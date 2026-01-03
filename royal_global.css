@@ -422,3 +422,97 @@ ul { list-style: none; padding: 0; margin: 0; }
     box-shadow: 0 5px 20px rgba(184, 134, 11, 0.6);
     color: #fff;
 }
+/* =========================================
+   ROYAL UPDATES & SOCIAL LIGHTBOX CSS
+   ========================================= */
+
+/* --- 1. ROYAL PANEL DESIGN --- */
+.royal-wide-panel {
+    background: #fff;
+    border: 1px solid var(--gold-main);
+    box-shadow: 
+        inset 0 0 0 5px #fff,
+        inset 0 0 0 8px var(--gold-main),
+        0 10px 25px rgba(0,0,0,0.1);
+    padding: 30px;
+    margin: 40px auto;
+    max-width: 900px;
+    border-radius: 15px;
+    text-align: left;
+}
+
+.panel-title {
+    font-family: var(--font-heading);
+    color: var(--maroon-text);
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+    display: flex; align-items: center; gap: 10px;
+}
+
+/* --- 2. GALLERY GRID --- */
+.update-gallery {
+    display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;
+}
+.u-img-frame {
+    width: 150px; height: 150px;
+    border: 4px double var(--gold-main);
+    padding: 3px; background: #fff;
+    cursor: pointer; transition: 0.3s;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
+.u-img-frame img { width: 100%; height: 100%; object-fit: cover; }
+.u-img-frame:hover { transform: scale(1.05); border-color: var(--maroon-text); }
+
+/* --- 3. NAME LIST HOVER --- */
+.update-name-list {
+    list-style: none; padding: 0;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;
+}
+.u-name-item {
+    background: #fffbf0; border-left: 5px solid var(--maroon-text);
+    border-radius: 0 10px 10px 0; transition: 0.3s;
+}
+.u-name-link {
+    display: block; padding: 15px;
+    text-decoration: none; color: var(--brown-text); font-weight: bold;
+}
+.u-name-item:hover { background: var(--maroon-text); transform: translateX(5px); }
+.u-name-item:hover .u-name-link { color: #fff; }
+
+/* --- 4. LIGHTBOX (POPUP) STYLES --- */
+.lightbox-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.9); z-index: 10000;
+    display: none; /* Hidden default */
+    justify-content: center; align-items: center;
+    overflow-y: auto; /* Scroll allow for comments */
+    backdrop-filter: blur(5px);
+}
+
+.lightbox-wrapper {
+    background: #fff; width: 90%; max-width: 600px;
+    padding: 10px; border-radius: 8px;
+    max-height: 90vh; overflow-y: auto; /* Scroll inside box */
+    position: relative; margin: 20px 0;
+}
+
+.lightbox-main-img {
+    width: 100%; height: auto; display: block;
+    border: 2px solid var(--gold-main);
+}
+
+.lightbox-close {
+    position: absolute; top: 10px; right: 20px;
+    color: #fff; font-size: 3rem; cursor: pointer; z-index: 10001;
+    text-shadow: 0 0 10px #000;
+}
+
+/* Facebook Sections */
+.fb-actions-container {
+    padding: 15px; background: #f0f2f5; margin-top: 10px; border-radius: 5px;
+    display: flex; justify-content: center;
+}
+.fb-comments-container { margin-top: 20px; padding: 10px; }
+.fb-comments-container h4 { margin: 0 0 10px 0; color: #555; font-size: 1rem; }
