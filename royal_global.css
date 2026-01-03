@@ -1,261 +1,424 @@
+/* =========================================
+   KASUMALGARH: ROYAL STYLE (Final Fixed + Hindi Royal)
+   ========================================= */
 
-        /* =========================================
-           KASUMALGARH: ROYAL STYLE (Final Fixed)
-           ========================================= */
+/* 1. IMPORT FONTS (Hindi Font Added) */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Playfair+Display:wght@400;700&family=Noto+Serif+Devanagari:wght@400;700&family=Rozha+One&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 
-        :root {
-            --paper-bg: #fffbf0;      /* क्रीम पेपर */
-            --maroon-text: #800000;   /* गाढ़ा मैरून */
-            --brown-text: #3e2723;    /* गाढ़ा भूरा */
-            --gold-main: #b8860b;
-            --gold-light: #fcf6ba;
-            --royal-blue-bg: #030230; 
-            
-            --font-heading: 'Cinzel', serif;
-            --font-body: 'Playfair Display', 'Noto Serif Devanagari', serif;
-        }
+:root {
+    --paper-bg: #fffbf0;      /* क्रीम पेपर */
+    --maroon-text: #800000;   /* गाढ़ा मैरून */
+    --brown-text: #3e2723;    /* गाढ़ा भूरा */
+    --gold-main: #b8860b;
+    --gold-light: #fcf6ba;
+    --royal-blue-bg: #030230; 
+    
+    --font-heading: 'Cinzel', serif;
+    --font-body: 'Playfair Display', 'Noto Serif Devanagari', serif;
+}
 
-        body { margin: 0; padding: 0; background: #000; font-family: var(--font-body); overflow-x: hidden; }
-        a { text-decoration: none; color: inherit; }
-        ul { list-style: none; padding: 0; margin: 0; }
-        * { box-sizing: border-box; }
+body { margin: 0; padding: 0; background: #000; font-family: var(--font-body); overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; padding: 0; margin: 0; }
+* { box-sizing: border-box; }
 
-        /* --- 1. NAVBAR --- */
-        .navbar {
-            position: fixed; top: 0; left: 0; width: 100%; height: 50px;
-            background: linear-gradient(rgba(0, 0, 40, 0.9), rgba(0, 0, 40, 0.9)), url('footerbg.png');
-            background-repeat: repeat;
-            border-bottom: 2px solid var(--gold-main);
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 20px; z-index: 1000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            border-radius: 0 0 20px 20px;
-        }
-        .navbar-brand-container { display: flex; align-items: center; gap: 10px; }
-        #menu-logo { height: 35px; }
-        .navbar-brand { font-family: var(--font-heading); color: var(--gold-light); font-size: 1.2rem; font-weight: 900; letter-spacing: 1px; }
-        
-        .navbar-links { display: flex; gap: 20px; }
-        .navbar-links a { color: var(--gold-light); font-family: var(--font-heading); font-size: 0.9rem; font-weight: bold; text-transform: uppercase; transition: 0.3s; }
-        .navbar-links a:hover { color: var(--gold-main); }
-        .dropdown { position: relative; }
-        .dropdown-content { display: none; position: absolute; top: 100%; left: 0; background: var(--royal-blue-bg); border: 1px solid var(--gold-main); min-width: 180px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
-        .dropdown:hover .dropdown-content { display: block; }
-        .dropdown-content a { display: block; padding: 10px; border-bottom: 1px solid rgba(184, 134, 11, 0.2); }
+/* --- 1. NAVBAR --- */
+.navbar {
+    position: fixed; top: 0; left: 0; width: 100%; height: 50px;
+    background: linear-gradient(rgba(0, 0, 40, 0.9), rgba(0, 0, 40, 0.9)), url('footerbg.png');
+    background-repeat: repeat;
+    border-bottom: 2px solid var(--gold-main);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px; z-index: 1000;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    border-radius: 0 0 20px 20px;
+}
+.navbar-brand-container { display: flex; align-items: center; gap: 10px; }
+#menu-logo { height: 35px; }
+.navbar-brand { font-family: var(--font-heading); color: var(--gold-light); font-size: 1.2rem; font-weight: 900; letter-spacing: 1px; }
 
-        .menu-toggle { display: none; color: var(--gold-main); font-size: 1.5rem; cursor: pointer; }
-        .mobile-menu-overlay {
-            position: fixed; top: 50px; right: 0; width: 220px;
-            background: var(--royal-blue-bg);
-            border-left: 1px solid var(--gold-main); border-bottom: 1px solid var(--gold-main);
-            transform: translateX(120%); transition: 0.3s; padding: 10px 0; z-index: 999;
-        }
-        .mobile-menu-overlay.open { transform: translateX(0); }
-        .mobile-links a { display: block; padding: 12px 20px; color: #fff; border-bottom: 1px solid rgba(184, 134, 11, 0.2); font-size: 0.9rem; font-family: var(--font-heading); }
+.navbar-links { display: flex; gap: 20px; }
+.navbar-links a { color: var(--gold-light); font-family: var(--font-heading); font-size: 0.9rem; font-weight: bold; text-transform: uppercase; transition: 0.3s; }
+.navbar-links a:hover { color: var(--gold-main); }
+.dropdown { position: relative; }
+.dropdown-content { display: none; position: absolute; top: 100%; left: 0; background: var(--royal-blue-bg); border: 1px solid var(--gold-main); min-width: 180px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+.dropdown:hover .dropdown-content { display: block; }
+.dropdown-content a { display: block; padding: 10px; border-bottom: 1px solid rgba(184, 134, 11, 0.2); }
 
-        /* --- 2. HERO SECTION --- */
-        .hero-section {
-            position: relative;
-            background-image: url('kasumi_fort.png'); /* Default PC Image */
-            background-attachment: fixed;
-            background-position: center; background-size: cover;
-            height: 100vh;
-            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
-        }
-        .hero-section::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.3); z-index: 1;
-        }
-        .hero-content { position: relative; z-index: 2; margin-top: -250px; }
+.menu-toggle { display: none; color: var(--gold-main); font-size: 1.5rem; cursor: pointer; }
+.mobile-menu-overlay {
+    position: fixed; top: 50px; right: 0; width: 220px;
+    background: var(--royal-blue-bg);
+    border-left: 1px solid var(--gold-main); border-bottom: 1px solid var(--gold-main);
+    transform: translateX(120%); transition: 0.3s; padding: 10px 0; z-index: 999;
+}
+.mobile-menu-overlay.open { transform: translateX(0); }
+.mobile-links a { display: block; padding: 12px 20px; color: #fff; border-bottom: 1px solid rgba(184, 134, 11, 0.2); font-size: 0.9rem; font-family: var(--font-heading); }
 
-        /* HERO DESIGN: Circle + Ornaments + Ribbon + ANIMATIONS ADDED HERE */
-        .royal-circle {
-            width: 140px; height: 140px; margin: 0 auto 15px auto;
-            border-radius: 50%; background: var(--royal-blue-bg);
-            border: 3px solid var(--gold-main);
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
-            display: flex; justify-content: center; align-items: center;
-            animation: slideDown 1s ease-out; /* Animation for PC & Mobile */
-        }
-        .royal-circle img { width: 80%; height: auto; }
+/* --- 2. HERO SECTION --- */
+.hero-section {
+    position: relative;
+    background-image: url('kasumi_fort.png'); /* Default PC Image */
+    background-attachment: fixed;
+    background-position: center; background-size: cover;
+    height: 100vh;
+    display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+}
+.hero-section::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.3); z-index: 1;
+}
+.hero-content { position: relative; z-index: 2; margin-top: -200px; /* थोड़ा एडजस्ट किया है */ }
 
-        .ornament-row {
-            display: flex; align-items: center; justify-content: center; gap: 15px;
-            margin-bottom: -15px; position: relative; z-index: 3;
-        }
-        .swirl { font-size: 2.5rem; color: var(--gold-main); text-shadow: 0 2px 5px #000; }
+/* --- NEW: ROYAL HINDI STYLE (Option 2) --- */
 
-        .royal-banner {
-            background: linear-gradient(to right, #000033, #0a0a55, #000033);
-            border: 2px solid var(--gold-main); padding: 10px 40px;
-            border-radius: 5px; box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            display: inline-block; min-width: 300px;
-            animation: slideRight 1.2s ease-out; /* Animation for PC & Mobile */
-        }
-        .hero-title {
-            font-family: var(--font-heading); font-size: 2.5rem; color: var(--gold-light); margin: 0; 
-            text-shadow: 0 2px 4px #000; letter-spacing: 2px; text-transform: uppercase;
-        }
-        .hero-tagline {
-            font-size: 1.2rem; color: #fff; font-weight: bold; letter-spacing: 4px;
-            margin-top: 80px; text-shadow: 0 2px 5px #000;
-            animation: slideUp 1.4s ease-out; /* Animation for PC & Mobile */
-        }
-        .hero-tagline span { color: var(--gold-main); padding: 0 5px; }
+/* Logo Style */
+.hero-logo {
+    width: 130px; 
+    height: auto; 
+    
+    /* सब कुछ हटा दिया (No Box, No Border) */
+    border: none;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;  /* पुराना डिब्बा वाला शैडो हटा दिया */
 
-        /* --- 3. CREAM SECTIONS (Content) --- */
-        .cream-section {
-            background-color: var(--paper-bg); /* Cream Background */
-            color: var(--brown-text);
-            padding: 80px 20px;
-            text-align: center;
-            position: relative; z-index: 10;
-            border-top: 4px double var(--maroon-text);
-            border-bottom: 4px double var(--maroon-text);
-        }
-        .container { max-width: 1000px; margin: 0 auto; }
+    /* नया जादुई शैडो (सिर्फ फोटो के पीछे दिखेगा, डिब्बा नहीं बनेगा) */
+    filter: drop-shadow(0 10px 10px rgba(0,0,0,0.8));
 
-        /* --- 4. PARALLAX GAPS (PC Only Images) --- */
-        .parallax-gap {
-            height: 500px; /* Height of the gap on PC */
-            background-attachment: fixed;
-            background-position: center;
-            background-size: cover;
-            background-repeat: no-repeat;
-            position: relative; z-index: 1;
-            box-shadow: inset 0 0 50px rgba(0,0,0,0.7);
-        }
-        
-        /* Gap Images */
-        .gap-img-1 { background-image: url('fort_kasumbi_full_view.png'); }
-        .gap-img-2 { background-image: url('fort_kasumbi_2.jpeg'); }
-        .gap-img-3 { background-image: url('view_from_fort.png'); }
+    margin-bottom: 10px;
+    animation: slideDown 1s ease-out;
+}
+/* Hindi Title (ठिकाना कसुम्बी) */
+.hindi-title {
+    font-family: 'Rozha One', serif; /* Shahi Hindi Font */
+    font-size: 5rem;
+    margin: 10px 0 5px 0;
+    line-height: 1.1;
+    
+    /* Gold Gradient Text */
+    background: linear-gradient(to right, #b8860b, #ffd700, #fff, #b8860b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% auto;
+    animation: shine 5s linear infinite, slideDown 1.2s ease-out;
+    
+    /* Deep Shadow */
+    filter: drop-shadow(0 10px 10px rgba(0,0,0,0.8));
+}
 
-        /* Typography */
-        .section-heading {
-            font-family: var(--font-heading); color: var(--maroon-text); font-size: 2.5rem;
-            margin-bottom: 20px; text-shadow: 0 1px 1px rgba(0,0,0,0.1);
-        }
-        .intro-text p { font-size: 1.2rem; line-height: 1.8; text-align: justify; }
-        .drop-cap { float: left; font-size: 3.5rem; color: var(--maroon-text); line-height: 0.8; padding-right: 10px; font-weight: 900; }
-        
-        /* Elements */
-        .intro-grid { display: flex; align-items: center; justify-content: center; gap: 40px; margin-top: 40px; flex-wrap: wrap; }
-        .seal-img { width: 130px; opacity: 0.9; transform: rotate(-5deg); }
-        .admin-img { width: 150px; height: 150px; border-radius: 50%; border: 4px solid var(--maroon-text); object-fit: cover; }
+/* English Subtitle */
+.hindi-subtitle {
+    font-family: 'Cinzel', serif;
+    color: #f0e6d2;
+    font-size: 1.4rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 5px #000;
+    opacity: 0.9;
+    animation: slideUp 1.4s ease-out;
+}
 
-        /* Profile & Cards */
-        .profile-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 30px; }
-        .profile-item { border: 1px solid var(--maroon-text); padding: 15px; background: rgba(0,0,0,0.03); }
-        .p-label { display: block; color: var(--maroon-text); font-weight: bold; }
-        .p-value { font-size: 1.1rem; color: var(--brown-text); font-weight: bold; }
+.hero-tagline {
+    font-size: 1.2rem; color: #fff; font-weight: bold; letter-spacing: 4px;
+    margin-top: 30px; text-shadow: 0 2px 5px #000;
+    animation: slideUp 1.6s ease-out;
+}
+.hero-tagline span { color: var(--gold-main); padding: 0 5px; }
 
-        .card-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
-        .paper-card {
-            width: 280px; padding: 30px 20px;
-            border: 2px solid var(--maroon-text); border-radius: 8px;
-            background: #fff; box-shadow: 0 5px 15px rgba(128, 0, 0, 0.1);
-            transition: 0.3s;
-        }
-        .paper-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(128, 0, 0, 0.2); }
-        .card-btn { display: inline-block; background: var(--maroon-text); color: #fff; padding: 8px 25px; border-radius: 30px; margin-top: 10px; font-weight: bold; }
+/* --- 3. CREAM SECTIONS (Content) --- */
+.cream-section {
+    background-color: var(--paper-bg); /* Cream Background */
+    color: var(--brown-text);
+    padding: 80px 20px;
+    text-align: center;
+    position: relative; z-index: 10;
+    border-top: 4px double var(--maroon-text);
+    border-bottom: 4px double var(--maroon-text);
+}
+.container { max-width: 1000px; margin: 0 auto; }
 
-        /* Updates */
-        .updates-container { background: #fff; border: 1px dashed var(--maroon-text); padding: 20px; margin-top: 40px; border-radius: 10px; text-align: left; }
-        .update-row { display: flex; gap: 20px; flex-wrap: wrap; }
-        .u-img { width: 80px; height: 80px; object-fit: cover; border: 1px solid var(--gold-main); margin-right: 5px; }
+/* --- 4. PARALLAX GAPS (PC Only Images) --- */
+.parallax-gap {
+    height: 500px; /* Height of the gap on PC */
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative; z-index: 1;
+    box-shadow: inset 0 0 50px rgba(0,0,0,0.7);
+}
 
-        /* --- 5. FOOTER --- */
-        .royal-footer {
-            background: var(--royal-blue-bg);
-            background-image: url('footerbg.png'); background-repeat: repeat;
-            color: var(--gold-main); padding: 40px 20px; text-align: center;
-            border-top: 5px solid var(--gold-main);
-            position: relative; z-index: 12;
-            border-radius:20px 20px 0 0;
-        }
-        .fb-link { background: linear-gradient(45deg, #b8860b, #ffd700); color: #000; padding: 8px 20px; border-radius: 20px; display: inline-block; margin-top: 15px; font-weight: bold; }
+/* Gap Images */
+.gap-img-1 { background-image: url('fort_kasumbi_full_view.png'); }
+.gap-img-2 { background-image: url('fort_kasumbi_2.jpeg'); }
+.gap-img-3 { background-image: url('view_from_fort.png'); }
+
+/* Typography */
+.section-heading {
+    font-family: var(--font-heading); color: var(--maroon-text); font-size: 2.5rem;
+    margin-bottom: 20px; text-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+.intro-text p { font-size: 1.2rem; line-height: 1.8; text-align: justify; }
+.drop-cap { float: left; font-size: 3.5rem; color: var(--maroon-text); line-height: 0.8; padding-right: 10px; font-weight: 900; }
+
+/* Elements */
+.intro-grid { display: flex; align-items: center; justify-content: center; gap: 40px; margin-top: 40px; flex-wrap: wrap; }
+.seal-img { width: 130px; opacity: 0.9; transform: rotate(-5deg); }
+.admin-img { width: 150px; height: 150px; border-radius: 50%; border: 4px solid var(--maroon-text); object-fit: cover; }
+
+/* Profile & Cards */
+.profile-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 30px; }
+.profile-item { border: 1px solid var(--maroon-text); padding: 15px; background: rgba(0,0,0,0.03); }
+.p-label { display: block; color: var(--maroon-text); font-weight: bold; }
+.p-value { font-size: 1.1rem; color: var(--brown-text); font-weight: bold; }
+
+.card-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
+.paper-card {
+    width: 280px; padding: 30px 20px;
+    border: 2px solid var(--maroon-text); border-radius: 8px;
+    background: #fff; box-shadow: 0 5px 15px rgba(128, 0, 0, 0.1);
+    transition: 0.3s;
+}
+.paper-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(128, 0, 0, 0.2); }
+.card-btn { display: inline-block; background: var(--maroon-text); color: #fff; padding: 8px 25px; border-radius: 30px; margin-top: 10px; font-weight: bold; }
+
+/* Updates */
+.updates-container { background: #fff; border: 1px dashed var(--maroon-text); padding: 20px; margin-top: 40px; border-radius: 10px; text-align: left; }
+.update-row { display: flex; gap: 20px; flex-wrap: wrap; }
+.u-img { width: 80px; height: 80px; object-fit: cover; border: 1px solid var(--gold-main); margin-right: 5px; }
+
+/* --- 5. FOOTER --- */
+.royal-footer {
+    background: var(--royal-blue-bg);
+    background-image: url('footerbg.png'); background-repeat: repeat;
+    color: var(--gold-main); padding: 40px 20px; text-align: center;
+    border-top: 5px solid var(--gold-main);
+    position: relative; z-index: 12;
+    border-radius:20px 20px 0 0;
+}
+.fb-link { background: linear-gradient(45deg, #b8860b, #ffd700); color: #000; padding: 8px 20px; border-radius: 20px; display: inline-block; margin-top: 15px; font-weight: bold; }
+
 /* --- SOCIAL ICONS STYLE --- */
 .social-share-row {
-    margin-top: 25px; /* टैगलाइन से दूरी */
-    display: flex;
-    justify-content: center;
-    gap: 20px; /* बटनों के बीच की जगह */
-    animation: slideUp 1.6s ease-out; /* नीचे से आने वाला एनिमेशन */
+    margin-top: 25px; 
+    display: flex; justify-content: center; gap: 20px; 
+    animation: slideUp 1.6s ease-out; position: relative; z-index: 10;
 }
 
 .s-icon {
-    font-size: 1.5rem;
-    color: var(--gold-main); /* सुनहरा रंग */
-    border: 1px solid var(--gold-main);
-    width: 45px; height: 45px;
-    border-radius: 50%; /* गोल बटन */
+    font-size: 1.5rem; color: var(--gold-main); border: 1px solid var(--gold-main);
+    width: 45px; height: 45px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    transition: 0.3s;
-    background: rgba(0,0,0,0.3); /* हल्का काला बैकग्राउंड */
+    transition: 0.3s; background: rgba(0,0,0,0.4); text-decoration: none;
 }
 
 .s-icon:hover {
-    background: var(--gold-main);
-    color: #000; /* माउस ले जाने पर काला हो जाएगा */
-    transform: translateY(-5px); /* थोड़ा ऊपर उठेगा */
-    box-shadow: 0 0 15px var(--gold-main); /* चमक */
+    background: var(--gold-main); color: #000;
+    transform: translateY(-5px); box-shadow: 0 0 15px var(--gold-main);
 }
-        /* =========================================
-           MOBILE & RESPONSIVE LOGIC (CONSOLIDATED)
-           ========================================= */
-        @media (max-width: 768px) {
-            /* Navbar Changes */
-            .navbar-links { display: none; }
-            .menu-toggle { display: block; }
 
-            /* Hero Section Fixes for Mobile */
-            .hero-section { 
-                background-attachment: scroll; 
-                background-image: url('kasumi_fort.png'); /* Correct File Name */
-            } 
-            
-            /* Pushing content UP on mobile */
-            .hero-content {
-                margin-top: -250px; 
-            }
+/* =========================================
+    MOBILE & RESPONSIVE LOGIC
+    ========================================= */
+@media (max-width: 768px) {
+    /* Navbar Changes */
+    .navbar-links { display: none; }
+    .menu-toggle { display: block; }
 
-            /* Smaller Logo */
-            .royal-circle { 
-                width: 90px; height: 90px; 
-            }
-
-            /* Smaller Fonts */
-            .hero-title { 
-                font-size: 1.5rem; 
-            }
-            .royal-banner {
-                width: 90%; 
-                min-width: auto;
-                padding: 8px 5px;
-            }
-            .hero-tagline {
-                font-size: 0.9rem;
-                margin-top: 80px;
-            }
-
-            /* Hiding Gaps & Adjusting Borders */
-            .parallax-gap { display: none !important; }
-            .cream-section {
-                border-top: none;
-                border-bottom: 1px dashed rgba(128, 0, 0, 0.3);
-                padding: 40px 15px;
-            }
-            .cream-section:last-of-type { border-bottom: 4px double var(--maroon-text); }
-        }
-
-        @media (min-width: 769px) {
-            .parallax-gap { display: block; }
-        }
-
-        /* --- GLOBAL ANIMATIONS --- */
-        @keyframes slideDown { from { transform: translateY(-100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        @keyframes slideRight { from { transform: translateX(-100px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-        @keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
+    /* Hero Section Fixes for Mobile */
+    .hero-section { 
+        background-attachment: scroll; 
+        background-image: url('kasumi_fort.png'); 
+    } 
     
+    /* Pushing content UP on mobile */
+    .hero-content {
+        margin-top: -150px; 
+    }
+
+    /* HINDI ROYAL MOBILE ADJUSTMENTS */
+    .hindi-title { font-size: 3rem; margin-top: 10px; }
+    .hindi-subtitle { font-size: 1rem; letter-spacing: 2px; }
+    .hero-logo { width: 100px; height: 100px; }
+
+    /* Hiding Gaps & Adjusting Borders */
+    .parallax-gap { display: none !important; }
+    .cream-section {
+        border-top: none;
+        border-bottom: 1px dashed rgba(128, 0, 0, 0.3);
+        padding: 40px 15px;
+    }
+    .cream-section:last-of-type { border-bottom: 4px double var(--maroon-text); }
+}
+
+@media (min-width: 769px) {
+    .parallax-gap { display: block; }
+}
+
+/* --- GLOBAL ANIMATIONS --- */
+@keyframes slideDown { from { transform: translateY(-100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes slideRight { from { transform: translateX(-100px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+@keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes shine { to { background-position: 200% center; } }
+/* --- ROYAL CARD & MENU LIST --- */
+.royal-card-wrapper {
+    background: var(--paper-bg); /* पीछे का क्रीम कलर */
+    padding: 60px 20px;
+    display: flex; justify-content: center;
+}
+
+.royal-card {
+    background: #fff;
+    max-width: 800px;
+    width: 100%;
+    padding: 40px;
+    border-radius: 10px; /* कोने गोल */
+    /* यह है वो शैडो जो डिब्बे को हवा में उठाएगी */
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2); 
+    border-top: 5px solid var(--maroon-text); /* ऊपर एक लाल पट्टी */
+    text-align: left; /* टेक्स्ट बायीं तरफ (जैसा रेफरेंस में है) */
+}
+
+/* Intro Text Styling inside Card */
+.card-intro {
+    text-align: center;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
+}
+.jay-mata-di {
+    color: #d32f2f; /* लाल रंग */
+    font-size: 2rem; font-weight: bold; margin-bottom: 10px;
+}
+
+/* --- PROFESSIONAL MENU LIST --- */
+.menu-list {
+    display: flex; flex-direction: column; gap: 20px;
+}
+
+.menu-item {
+    display: flex; align-items: flex-start; gap: 20px;
+    text-decoration: none;
+    padding: 15px;
+    border-radius: 8px;
+    transition: 0.3s;
+    border: 1px solid transparent;
+}
+
+.menu-item:hover {
+    background: #fffbf0; /* माउस ले जाने पर हल्का क्रीम */
+    border-color: var(--gold-main);
+    transform: translateX(10px); /* थोड़ा सा खिसकेगा */
+}
+
+.menu-icon {
+    font-size: 2.5rem;
+    color: var(--gold-main); /* सुनहरा आइकन */
+    min-width: 50px;
+    text-align: center;
+}
+
+.menu-text h3 {
+    margin: 0 0 5px 0;
+    color: #0056b3; /* हेडिंग का रंग (नीला/Royal Blue) */
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+}
+
+.menu-text p {
+    margin: 0;
+    color: #666; /* डिस्क्रिप्शन का रंग (Grey) */
+    font-size: 0.95rem;
+    line-height: 1.5;
+    font-family: sans-serif;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .royal-card { padding: 20px; }
+    .menu-item { flex-direction: row; align-items: center; } 
+    .menu-icon { font-size: 2rem; }
+    .menu-text h3 { font-size: 1.2rem; }
+}
+
+/* =========================================
+   NEW ROYAL BOX DESIGN (Design No. 2 - Locked)
+   ========================================= */
+
+.royal-box {
+    position: relative;
+    width: 260px;
+    background: #fff;
+    margin: 30px auto;
+    padding: 40px 20px 30px 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    
+    /* शेप: ऊपर से हल्का गोल */
+    border-radius: 20px 20px 5px 5px;
+
+    /* डिज़ाइन: डबल बॉर्डर (Double Layer) */
+    border: 1px solid var(--gold-main); 
+    box-shadow: 
+        inset 0 0 0 5px #fff,  /* सफ़ेद गैप */
+        inset 0 0 0 8px var(--gold-main), /* अंदर का बॉर्डर */
+        0 10px 25px rgba(0,0,0,0.15); /* परछाई */
+}
+
+/* बॉक्स के ऊपर शाही चिन्ह (⚜️) */
+.royal-box::before {
+    content: '⚜️';
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    padding: 0 10px;
+    font-size: 1.5rem;
+    color: var(--gold-main);
+    border-radius: 50px;
+}
+
+/* माउस ले जाने पर इफेक्ट */
+.royal-box:hover {
+    transform: translateY(-8px);
+    box-shadow: 
+        inset 0 0 0 5px #fff,
+        inset 0 0 0 8px #b8860b,
+        0 20px 35px rgba(184, 134, 11, 0.3);
+}
+
+/* आइकन्स (FontAwesome Code वाले) */
+.box-icon {
+    font-size: 2.5rem;
+    color: var(--gold-main);
+    margin-bottom: 15px;
+    display: inline-block;
+}
+
+/* बटन (ग्रेडिएंट वाला) */
+.gold-btn {
+    display: inline-block;
+    background: linear-gradient(to right, #b8860b, #ffd700, #b8860b);
+    background-size: 200%;
+    color: #fff;
+    padding: 10px 25px;
+    border-radius: 50px;
+    margin-top: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    border: none;
+    transition: 0.4s;
+    text-decoration: none; /* लिंक की लाइन हटाई */
+}
+
+.gold-btn:hover {
+    background-position: right;
+    box-shadow: 0 5px 20px rgba(184, 134, 11, 0.6);
+    color: #fff;
+}
