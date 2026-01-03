@@ -337,6 +337,36 @@
         </div> 
     </div>
 </section>
+<section class="cream-section" id="guestbook-section">
+    <div class="container">
+        <h2 class="section-heading" style="text-align:center;">आगंतुक पंजिका (Guestbook)</h2>
+        
+        <div class="royal-wide-panel guestbook-panel">
+            <div class="guestbook-form">
+                <h3 class="panel-title"><i class="fas fa-pen-nib"></i> अपना संदेश लिखें</h3>
+                <form id="guestbookForm">
+                    <div class="form-group">
+                        <input type="text" id="guestName" name="name" placeholder="आपका शुभ नाम..." required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="guestMessage" name="message" rows="4" placeholder="अपना संदेश या सुझाव यहाँ लिखें..." required></textarea>
+                    </div>
+                    <button type="submit" id="submitBtn" class="gold-btn">संदेश प्रेषित करें</button>
+                </form>
+                <div id="formStatus" style="margin-top:10px; font-weight:bold;"></div>
+            </div>
+
+            <hr style="border: 0; border-top: 2px double var(--gold-main); margin: 40px 0;">
+
+            <div class="guestbook-messages">
+                <h3 class="panel-title"><i class="fas fa-scroll"></i> शुभकामना संदेश</h3>
+                <div id="messagesContainer">
+                    <p style="text-align:center;">संदेश लोड हो रहे हैं...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
     <footer class="royal-footer">
         <div style="font-size: 0.9em; color: #ccc;">Developed & Designed By:</div>
@@ -455,6 +485,59 @@
             }
         });
     });
+</script>
+<script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxUmHwP70tZouclG6GOuI3Ldfv2j-wyB9inNtrAZ3GIYjF03Au8LDbL7rw4q1GHr8Vi/exec';
+    const form = document.getElementById('guestbookForm');
+    const msgContainer = document.getElementById('messagesContainer');
+
+    // 1. संदेश भेजने का फंक्शन
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        document.getElementById('submitBtn').disabled = true;
+        document.getElementById('formStatus').innerText = "संदेश भेजा जा रहा है... कृपया प्रतीक्षा करें।";
+
+        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+            .then(response => {
+                document.getElementById('formStatus').innerText = "✅ संदेश सफलतापूर्वक भेजा गया!";
+                document.getElementById('formStatus').style.color = "green";
+                form.reset();
+                document.getElementById('submitBtn').disabled = false;
+                loadMessages(); // तुरंत अपडेट करें
+            })
+            .catch(error => {
+                console.error('Error!', error.message);
+                document.getElementById('formStatus').innerText = "❌ त्रुटि! कृपया फिर से प्रयास करें।";
+                document.getElementById('submitBtn').disabled = false;
+            });
+    });
+
+    // 2. संदेश लोड करने का फंक्शन
+    function loadMessages() {
+        fetch(scriptURL)
+            .then(res => res.json())
+            .then(data => {
+                msgContainer.innerHTML = '';
+                if(data.length === 0) {
+                    msgContainer.innerHTML = '<p style="text-align:center;">अभी कोई संदेश नहीं है। पहले आप लिखें!</p>';
+                    return;
+                }
+                // नए संदेश ऊपर दिखाने के लिए लिस्ट को उल्टा करें
+                data.reverse().forEach(row => {
+                    const html = `
+                        <div class="message-card">
+                            <strong>✦ ${row[0]}</strong>
+                            <p class="message-text">"${row[1]}"</p>
+                            <small>📅 ${row[2]}</small>
+                        </div>
+                    `;
+                    msgContainer.innerHTML += html;
+                });
+            });
+    }
+
+    // पेज खुलते ही मैसेज लोड करें
+    loadMessages();
 </script>
 </body>
 </html>
