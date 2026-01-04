@@ -6,118 +6,129 @@
     <title>संपर्क - ठिकाना कसुम्बी</title>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
+        /* --- DITTO GALLERY THEME CSS --- */
         :root {
             --royal-blue: #002366;
             --gold: #D4AF37;
+            --deep-green: #1b4d3e; /* सफलता के लिए शाही हरा रंग */
             --white: #ffffff;
         }
 
         body {
             margin: 0;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Georgia', serif; /* गैलरी वाला क्लासिक फॉन्ट */
+            background-color: #001233; /* गैलरी जैसा गहरा बैकग्राउंड */
+            color: var(--gold);
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
 
-        /* --- 1. शाही मेनु (Menu) --- */
+        /* --- Menu (DITTO Gallery) --- */
         header {
             background: var(--royal-blue);
-            color: var(--gold);
-            padding: 15px 20px;
+            padding: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            border-bottom: 2px solid var(--gold);
         }
 
-        .logo { font-size: 1.5rem; font-weight: bold; letter-spacing: 1px; }
+        .logo { font-size: 1.8rem; font-weight: bold; color: var(--gold); }
 
         nav a {
             color: var(--gold);
             text-decoration: none;
-            margin-left: 20px;
-            font-weight: bold;
-            transition: 0.3s;
+            margin-left: 15px;
+            font-size: 1.1rem;
         }
 
-        nav a:hover { text-shadow: 0 0 8px var(--gold); }
-
-        /* --- 2. कांटेक्ट फॉर्म (Body) --- */
-        .container {
+        /* --- Form Container --- */
+        .main-content {
             flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 40px 20px;
+            padding: 20px;
         }
 
         .contact-card {
-            background: var(--white);
-            width: 100%;
-            max-width: 500px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid var(--gold);
             padding: 30px;
-            border-radius: 10px;
-            border-top: 5px solid var(--gold);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            width: 100%;
+            max-width: 450px;
+            backdrop-filter: blur(10px);
         }
 
         .contact-card h2 {
-            color: var(--royal-blue);
             text-align: center;
-            margin-bottom: 25px;
+            margin-top: 0;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
-        .form-group { margin-bottom: 15px; }
+        .form-group { margin-bottom: 20px; }
 
-        .form-group label { display: block; margin-bottom: 5px; color: #333; font-weight: bold; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; }
 
-        .form-group input, .form-group textarea {
+        input, textarea {
             width: 100%;
             padding: 12px;
-            border: 1px solid #ccc;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid var(--gold);
             border-radius: 5px;
-            box-sizing: border-box;
+            color: #000;
             font-size: 1rem;
-        }
-
-        .form-group input:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: var(--gold);
-            box-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
+            box-sizing: border-box;
         }
 
         .submit-btn {
             width: 100%;
-            background: var(--royal-blue);
-            color: var(--gold);
+            background: var(--gold);
+            color: var(--royal-blue);
             padding: 15px;
             border: none;
             border-radius: 5px;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: bold;
             cursor: pointer;
             transition: 0.3s;
         }
 
-        .submit-btn:disabled { background: #555; cursor: not-allowed; }
+        .submit-btn:hover { background: #b8952d; transform: scale(1.02); }
 
-        /* --- 3. शाही फुटर (Footer) --- */
+        /* --- Custom Green Success Message (No GitHub Alert) --- */
+        #success-box {
+            display: none;
+            background: var(--deep-green);
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2000;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+        }
+
+        /* --- Footer (DITTO Gallery) --- */
         footer {
             background: var(--royal-blue);
-            color: var(--gold);
             text-align: center;
             padding: 15px;
-            border-top: 3px solid var(--gold);
+            border-top: 2px solid var(--gold);
+            font-size: 0.9rem;
         }
 
         @media (max-width: 600px) {
-            nav { font-size: 0.9rem; }
-            nav a { margin-left: 10px; }
+            .logo { font-size: 1.4rem; }
+            nav a { font-size: 0.9rem; margin-left: 8px; }
         }
     </style>
 </head>
@@ -128,29 +139,35 @@
         <nav>
             <a href="index.html">मुख्य</a>
             <a href="gallery.html">दीर्घा</a>
-            <a href="contact.html">संपर्क</a>
+            <a href="contact.html" style="text-decoration: underline;">संपर्क</a>
         </nav>
     </header>
 
-    <div class="container">
+    <div class="main-content">
         <div class="contact-card">
-            <h2>खम्मा घणी, अर्जी भेजें</h2>
+            <h2>संपर्क करें</h2>
             <form id="contactForm">
                 <div class="form-group">
-                    <label>आपका नाम</label>
-                    <input type="text" id="user_name" placeholder="नाम लिखें..." required>
+                    <label>हुकुम का नाम</label>
+                    <input type="text" id="user_name" required>
                 </div>
                 <div class="form-group">
-                    <label>आपका ईमेल</label>
-                    <input type="email" id="user_email" placeholder="ईमेल लिखें..." required>
+                    <label>ईमेल पता</label>
+                    <input type="email" id="user_email" required>
                 </div>
                 <div class="form-group">
                     <label>संदेश</label>
-                    <textarea id="message" rows="5" placeholder="अपनी बात लिखें..." required></textarea>
+                    <textarea id="message" rows="4" required></textarea>
                 </div>
-                <button type="submit" id="submitBtn" class="submit-btn">संदेश प्रेषित करें</button>
+                <button type="submit" id="submitBtn" class="submit-btn">अर्ज़ी भेजें</button>
             </form>
         </div>
+    </div>
+
+    <div id="success-box">
+        <h3 style="margin:0 0 10px 0;">खम्मा घणी!</h3>
+        <p>आपका संदेश ठिकाना तक सफलतापूर्वक पहुँच गया है।</p>
+        <button onclick="closeSuccess()" style="background:var(--gold); border:none; padding:5px 15px; cursor:pointer; font-weight:bold;">ठीक है</button>
     </div>
 
     <footer>
@@ -159,20 +176,21 @@
 
     <script type="text/javascript">
         (function() {
-            // आपकी नई Public Key सेट की गई है
             emailjs.init("KpyNvZBBeX0ZJisG8");
         })();
 
+        const successBox = document.getElementById('success-box');
+
+        function closeSuccess() {
+            successBox.style.display = 'none';
+        }
+
         document.getElementById('contactForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // पेज रिफ्रेश होने से रोकता है
+            event.preventDefault();
 
             const btn = document.getElementById('submitBtn');
-            const serviceID = 'service_vdnox8p';
-            const templateID = 'template_xx3a4tt';
-
-            // बटन को "प्रतीक्षा करें" मोड में डालें
             btn.disabled = true;
-            btn.innerText = "हुकुम, प्रतीक्षा करें... भेजी जा रही है";
+            btn.innerText = "भेजा जा रहा है...";
 
             const params = {
                 from_name: document.getElementById('user_name').value,
@@ -180,16 +198,16 @@
                 message: document.getElementById('message').value
             };
 
-            emailjs.send(serviceID, templateID, params)
+            emailjs.send('service_vdnox8p', 'template_xx3a4tt', params)
                 .then(() => {
-                    alert("खम्मा घणी! आपका संदेश ठिकाना तक पहुँच गया है।");
+                    successBox.style.display = 'block'; // हरा बॉक्स दिखाएँ
                     btn.disabled = false;
-                    btn.innerText = "संदेश प्रेषित करें";
-                    document.getElementById('contactForm').reset(); // फॉर्म खाली करें
+                    btn.innerText = "अर्ज़ी भेजें";
+                    document.getElementById('contactForm').reset();
                 }, (err) => {
+                    alert("क्षमा करें, संदेश नहीं भेजा जा सका।");
                     btn.disabled = false;
-                    btn.innerText = "पुनः प्रयास करें";
-                    alert("क्षमा करें! संदेश नहीं जा सका। कृपया डैशबोर्ड चेक करें।\nError: " + JSON.stringify(err));
+                    btn.innerText = "अर्ज़ी भेजें";
                 });
         });
     </script>
