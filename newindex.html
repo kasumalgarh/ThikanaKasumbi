@@ -219,6 +219,30 @@
             border-radius: 25px 25px 0 0; 
         }
         .royal-footer .fb-link { margin-top: 10px; margin-bottom: 10px; }
+/* MOBILE NAVBAR FIX (तीनों को एक लाइन में लाने के लिए) */
+@media (max-width: 768px) {
+    
+    /* 1. नाम छोटा करें */
+    .navbar-brand {
+        font-size: 15px !important;  /* 20px से घटाकर 15px किया */
+        padding: 10px 5px !important; /* आस-पास की जगह कम की */
+        gap: 5px !important;          /* लोगो और नाम को पास लाया */
+        max-width: 75%;               /* इसे बटन से टकराने से रोका */
+        white-space: nowrap;          /* नाम को टूटने से रोका */
+    }
+
+    /* 2. लोगो छोटा करें */
+    .menu-logo-img {
+        height: 25px !important;      /* 35px से छोटा किया */
+    }
+
+    /* 3. बटन को सही जगह बिठाएं */
+    .navbar-toggle {
+        margin-top: 10px !important;  /* ऊपर से बैलेंस किया */
+        margin-right: 10px !important;
+        padding: 5px 8px !important;  /* बटन का साइज़ छोटा किया */
+    }
+}
     </style>
 </head>
 <body>
