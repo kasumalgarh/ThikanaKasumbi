@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta property="og:title" content="Thikana Kasumbi (Jakhlan) | विरासत • सम्मान • शौर्य">
+<meta property="og:description" content="सूर्यवंशी राठौड़ों का आभासी दरबार। यहाँ पधारें और हमारे गौरवशाली इतिहास व वंशावली के साक्षी बनें।">
+<meta property="og:image" content="https://aapki-website-link.com/thikana_kasumbi_share.png"> <meta property="og:url" content="https://aapki-website-link.com">
+<meta property="og:type" content="website">
     <title>Thikana Kasumbi (Jakhlan) | Royal Heritage</title>
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -27,33 +31,31 @@
             margin: 0;
         }
 
-        /* --- PARALLAX GAP SETTINGS (जादुई खिड़की) --- */
+        /* --- GOLD SHIMMER ANIMATION --- */
+        @keyframes goldShimmer {
+            0% { background-position: -100%; }
+            100% { background-position: 200%; }
+        }
+
+        /* --- PARALLAX GAP SETTINGS --- */
         .parallax-gap {
             width: 100%;
-            min-height: 400px; /* फोटो की ऊंचाई */
-            background-attachment: fixed; /* कंप्यूटर पर फोटो फिक्स रहेगी */
+            min-height: 400px;
+            background-attachment: fixed;
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
             position: relative;
-            box-shadow: inset 0 0 50px rgba(0,0,0,0.5); /* अंदर की तरफ छाया */
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
             border-top: 2px solid var(--gold-main);
             border-bottom: 2px solid var(--gold-main);
         }
 
-        /* --- यहाँ अपनी फोटो के नाम बदलें --- */
-        
-        /* गैप 1 (बीच वाली फोटो) */
-        .gap-1 { 
-            background-image: url('view_from_fort1.png'); 
-        }
+        /* PHOTOS */
+        .gap-1 { background-image: url('view_from_fort.png'); }
+        .gap-2 { background-image: url('fort_kasumbi_2.png'); }
 
-        /* गैप 2 (नई तीसरी फोटो - फुटर के पास) */
-        .gap-2 { 
-            background-image: url('fort_kasumbi_2.png'); /* यहाँ दूसरी फोटो का नाम डालें */
-        }
-
-        /* --- CONTENT SECTIONS (सफेद पट्टियां) --- */
+        /* --- CONTENT SECTIONS --- */
         .cream-section {
             background-color: var(--cream-bg);
             padding: 50px 0;
@@ -62,16 +64,22 @@
             box-shadow: 0 0 20px rgba(0,0,0,0.2);
         }
 
-        /* --- MOBILE FIX (सबसे जरूरी) --- */
+        /* --- MOBILE FIX --- */
         @media (max-width: 768px) {
-            .parallax-gap, header.index-header {
-                background-attachment: scroll !important; /* मोबाइल पर 'fixed' काम नहीं करता, इसलिए 'scroll' किया */
+            .parallax-gap { display: none !important; }
+            header.index-header {
+                background-attachment: scroll !important;
                 background-position: center top !important;
-                min-height: 250px !important; /* मोबाइल पर ऊंचाई थोड़ी कम */
+                background-size: cover !important;
+                min-height: 250px !important;
             }
+            .container { padding-left: 10px; padding-right: 10px; }
+            .col-xs-6 { width: 50%; float: left; }
+            .navbar-nav { background: var(--royal-blue); margin: 0; padding-bottom: 10px; border-radius: 0 0 20px 20px; }
+            .cream-section { box-shadow: none; border-top: 1px solid var(--gold-main); border-bottom: 1px solid var(--gold-main); padding: 30px 0; }
         }
 
-        /* --- NAVBAR & OTHER STYLES --- */
+        /* --- NAVBAR --- */
         .navbar-wrapper {
             background-color: var(--royal-blue);
             background-image: url('footerbg.png');
@@ -91,63 +99,96 @@
         .dropdown-menu { background: var(--royal-blue); border: 1px solid var(--gold-main); }
         .dropdown-menu>li>a { color: #fff; padding: 10px; border-bottom: 1px solid rgba(184, 134, 11, 0.2); }
 
-        /* HEADER */
+        /* --- HEADER STYLES --- */
         header.index-header {
-            /* फोटो 1: हेडर वाली */
             background-image: linear-gradient(rgba(3, 50, 80, 0.7), rgba(60, 94, 117, 0.7)), url('fort_kasumbi.png');
             background-attachment: fixed;
             background-size: cover; background-position: center;
-            padding-top: 150px; padding-bottom: 80px;
+            padding-top: 150px; padding-bottom: 60px;
             text-align: center; color: #fff;
             box-shadow: 0px 5px 20px rgba(0,0,0,0.5);
             margin-bottom: 0;
         }
         .hero-logo { width: 110px; margin-bottom: 10px; filter: drop-shadow(0 0 10px rgba(255,215,0,0.8)); }
-        h1, h2, h3 { font-family: 'Berkshire Swash', 'Cinzel', serif; color: var(--maroon-text); }
+        
+        /* SHINING TEXT (यह है वो कोड जो नाम चमकाएगा) */
+        h1.shining-text {
+            font-family: 'Berkshire Swash', 'Cinzel', serif; 
+            font-size: 3em; 
+            margin-top: 5px;
+            font-weight: 900;
+            background: linear-gradient(to right, #cfc09f 10%, #ffecb3 30%, #ffd700 50%, #ffecb3 70%, #cfc09f 90%);
+            background-size: 200% auto;
+            color: #ffd700;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: goldShimmer 3s linear infinite;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            /* यहाँ दो लाइनें जोड़ी हैं ताकि अक्षर कटें नहीं */
+            line-height: 1.5;
+            padding-top: 10px;
+        }
+        
+        h2, h3 { font-family: 'Berkshire Swash', 'Cinzel', serif; color: var(--maroon-text); }
+        
+        /* Social Icons in Header */
+        .header-social-icons { margin-top: 15px; }
+        .header-social-icons a { color: #ffd700; font-size: 20px; margin: 0 10px; transition: 0.3s; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+        .header-social-icons a:hover { color: #fff; transform: scale(1.2); }
 
-        /* BOXES & GRID */
-        .thumbnail { box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 1px solid var(--gold-main); padding: 0; background: #fff; transition: 0.3s; }
-        .thumbnail:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(184, 134, 11, 0.3); }
-        .cta-header { background: var(--royal-blue); color: #fff; padding: 10px; text-align: center; font-family: 'Cinzel'; font-size: 18px; border-bottom: 2px solid var(--gold-main); }
-        .cta-body { padding: 15px; }
-        /* --- THIKANA PROFILE GRID --- */
-.profile-box {
-    border: 1px solid var(--gold-main);
-    padding: 10px;
-    background: #fff;
-    margin-bottom: 15px;
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    min-height: 100px; /* डिब्बे की हाइट बराबर रखने के लिए */
-    transition: 0.3s;
-}
-.profile-box:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(184, 134, 11, 0.2);
-    border-color: var(--maroon-text);
-}
-.p-icon { font-size: 18px; color: var(--gold-main); margin-bottom: 5px; }
-.p-label { display: block; font-size: 12px; font-weight: bold; color: var(--maroon-text); text-transform: uppercase; }
-.p-value { font-size: 13px; color: #333; font-family: 'Noto Serif Devanagari', serif; }
-        .media-left i { color: var(--gold-main); width: 40px; text-align: center; font-size: 2em; }
-        .media-heading a { color: var(--maroon-text); font-weight: bold; text-decoration: none; }
-        .picture-cta { margin-bottom: 15px; padding-left: 5px; padding-right: 5px; }
-        .picture-cta a { display: block; background-size: cover; background-position: center; height: 160px; position: relative; border: 2px solid #d4af37; border-radius: 4px; transition: 0.3s; }
-        .picture-cta a:hover { transform: scale(1.02); }
-        .picture-cta a span { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.7); color: #fff; text-align: center; padding: 5px; font-size: 12px; font-family: 'Cinzel', serif; }
+        /* --- THIKANA PROFILE --- */
+        .profile-box {
+            border: 1px solid var(--gold-main);
+            padding: 10px; background: #fff; margin-bottom: 15px; text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); min-height: 100px; transition: 0.3s;
+        }
+        .profile-box:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(184, 134, 11, 0.2); border-color: var(--maroon-text); }
+        .p-icon { font-size: 18px; color: var(--gold-main); margin-bottom: 5px; }
+        .p-label { display: block; font-size: 12px; font-weight: bold; color: var(--maroon-text); text-transform: uppercase; }
+        .p-value { font-size: 13px; color: #333; font-family: 'Noto Serif Devanagari', serif; }
+
+        /* --- GUESTBOOK & BUTTONS --- */
+        .gold-btn { background: linear-gradient(to right, #b8860b, #ffd700); border: none; color: #000; font-weight: bold; padding: 10px 20px; width: 100%; transition: 0.3s; }
+        .gold-btn:hover { transform: scale(1.02); box-shadow: 0 5px 15px rgba(184, 134, 11, 0.4); color: #800000; }
+        
+        /* --- LIGHTBOX & UPDATES --- */
+        .lightbox-modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.95); animation: fadeIn 0.4s; }
+        .lightbox-content { margin: auto; display: block; width: 90%; max-width: 700px; max-height: 70vh; object-fit: contain; border: 3px solid #d4af37; margin-top: 50px; box-shadow: 0 0 20px #d4af37; }
+        .lightbox-close { position: absolute; top: 20px; right: 30px; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer; transition: 0.3s; z-index: 10001; }
+        .lightbox-close:hover { color: #d4af37; }
+        .fb-action-area { text-align: center; margin-top: 15px; color: #fff; padding: 10px; }
+        .fb-btn { background-color: #1877f2; color: white; padding: 8px 15px; border-radius: 4px; text-decoration: none; font-size: 14px; font-weight: bold; margin: 5px; display: inline-block; border: 1px solid #fff; }
+        .view-more-container { text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px dashed #d4af37; }
+        .royal-link-btn { display: inline-block; background: #800000; color: #ffd700; padding: 10px 20px; margin: 5px; border: 1px solid #d4af37; font-family: 'Cinzel', serif; font-weight: bold; text-decoration: none; transition: 0.3s; }
+        .royal-link-btn:hover { background: #d4af37; color: #800000; text-decoration: none; }
+        @keyframes fadeIn { from {opacity: 0} to {opacity: 1} }
 
         /* FOOTER */
-        .royal-footer {
-            background-color: var(--royal-blue); background-image: url('footerbg.png'); background-repeat: repeat;
-            color: var(--gold-main); padding: 40px 20px; text-align: center; border-top: 5px solid var(--gold-main); margin-top: 0;
-        }
-        .fb-link { background: linear-gradient(45deg, #b8860b, #ffd700); color: #000; padding: 8px 20px; border-radius: 20px; display: inline-block; margin-top: 15px; font-weight: bold; text-decoration: none; }
-        
-        /* Helpers */
-        @media (max-width: 768px) { .container { padding-left: 10px; padding-right: 10px; } .col-xs-6 { width: 50%; float: left; } .navbar-nav { background: var(--royal-blue); margin: 0; padding-bottom: 10px; border-radius: 0 0 20px 20px;} }
-        .gold-btn { background: linear-gradient(to right, #b8860b, #ffd700); border: none; color: #000; font-weight: bold; padding: 10px 20px; width: 100%; }
-        .guestbook-form input, .guestbook-form textarea { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; }
-    </style>
+           /* FOOTER - COMPACT & ROUNDED */
+.royal-footer {
+    background-color: var(--royal-blue);
+    background-image: url('footerbg.png');
+    background-repeat: repeat;
+    color: var(--gold-main);
+    
+    /* 1. हाइट कम की (Padding घटा दी) */
+    padding: 20px 10px; 
+    
+    text-align: center;
+    border-top: 4px solid var(--gold-main);
+    margin-top: 0;
+    
+    /* 2. ऊपर के कोने गोल किये */
+    border-radius: 25px 25px 0 0; 
+}
+
+/* फुटर के अंदर की चीजों की दूरी भी कम की */
+.royal-footer .fb-link {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+</style>
 </head>
 <body>
 
@@ -186,179 +227,128 @@
     <header class="index-header">
         <div class="container">
             <img src="klogo1.png" class="hero-logo" alt="Logo">
-            <h1>|| ठिकाना कसुम्बी ||</h1>
+            
+            <h1 class="shining-text">|| ठिकाना कसुम्बी ||</h1>
+            
             <p style="font-size: 1.2em; color: #ffd700;">Thikana Kasumbi (Jakhlan) | विरासत • सम्मान • शौर्य</p>
+            
+            <div class="header-social-icons">
+               <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.kasumalgarh.site" target="_blank">
+    <i class="fab fa-facebook"></i>
+</a>
+                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+              <a href="https://wa.me/?text=Check out Thikana Kasumbi: https://www.kasumalgarh.site" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+</a>
+            </div>
         </div>
     </header>
 
     <section class="cream-section">
         <div class="container">
-            <div class="alert alert-warning text-center" style="border-color: #b8860b; background: #fff; color: #800000; margin-bottom: 40px;">
-                <strong><i class="fas fa-crown"></i> जय माता दी!</strong> <br>
-                यह <strong style="color: #660000;">कसूमलगढ़ (Fort Kasumbi)</strong>
-                        का पवित्र डिजिटल प्रांगण है — एक ऐसा आभासी दरबार, जहाँ सूर्यवंशी राठौड़ों का महान वंश सदियों से अपनी आन, बान और शान की ज्योति जलाए हुए है।<br>
-                        यहाँ हर पत्थर गवाह है उन अनगिनत युद्धों का, उन अमर बलिदानों का, और उन गौरवपूर्ण क्षणों का, जिन्होंने राठौड़ कुल को राजपूत इतिहास में अमर कर दिया।<br><br>
-                        इस वेबसाइट का उद्देश्य हमारी विस्तृत वंशावली (Genealogy) और इतिहास को संरक्षित करना है, ताकि आने वाली पीढ़ियाँ अपनी जड़ों से जुड़ी रहें।
-                                       <div style="text-align:center; margin-bottom:15px;"><img src="YGSR.png" style="width:90px; height:90px; border-radius:50%; border:3px solid #b8860b;"><h5 style="color:#800000; margin:2px;">Yuvraj Gajraj Singh</h5><span class="label label-warning" style="background: var(--maroon-text);">ADMIN</span></div>
+            <h2 class="text-center" style="border-bottom: 2px solid #b8860b; padding-bottom:10px; margin-bottom: 30px;">
+                <span><i class="fas fa-crown"></i> जय माता दी!</span>
+            </h2>
+            <div class="alert alert-warning text-center" style="border-color: #b8860b; background: #fff; color: #800000; margin-bottom: 40px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                
+                <div style="font-family: 'Noto Serif Devanagari', serif; font-weight: bold; color: #d4af37; font-size: 1.2em; margin-bottom: 15px;">
+                    || ॐ श्री नागणेच्यायै नमः ||
+                </div>
 
-                    </div>
+                <div style="font-style: italic; color: #660000; font-weight: bold; font-size: 1.1em; margin-bottom: 20px; border-top: 1px dashed #d4af37; border-bottom: 1px dashed #d4af37; padding: 10px; display: inline-block;">
+                    "कदम-कदम पर जागीरें, कण-कण में इतिहास।<br>
+                    यहाँ रक्त से लिखी गई है, वीरों की हर श्वास।।"
+                </div>
+
+                <p style="font-size: 16px; line-height: 1.8; color: #333;">
+                    <strong>खम्मा घणी सा!</strong><br>
+                    यह <strong style="color: #800000;">ठिकाना कसुम्बी (जाखलाण)</strong> का पवित्र डिजिटल प्रांगण है। यह मात्र एक वेबसाइट नहीं, बल्कि सूर्यवंशी राठौड़ों के अदम्य साहस और स्वाभिमान का एक <strong>'आभासी दरबार'</strong> है। यहाँ का हर पत्थर गवाह है उन अनगिनत युद्धों और अमर बलिदानों का, जिन्होंने हमारे कुल को इतिहास में अमर कर दिया।
+                    <br><br>
+                    इस प्रयास का मूल उद्देश्य हमारी विस्तृत <strong>वंशावली (Genealogy)</strong> और 'बीते कल' की मशाल को 'आने वाले कल' तक सुरक्षित पहुँचाना है, ताकि नई पीढ़ियाँ अपनी जड़ों से जुड़ी रहें।
+                    <br>
+                    <span style="color: #b8860b; font-weight: bold;">"विरासत संजोना ही हमारा धर्म है।"</span>
+                </p>
+
+                <div style="text-align:center; margin-top:25px;">
+                    <img src="YGSR.png" style="width:90px; height:90px; border-radius:50%; border:3px solid #b8860b; padding: 2px;">
+                    <h5 style="color:#800000; margin:5px 0 2px 0; font-weight: bold;">Yuvraj Gajraj Singh</h5>
+                    <span class="label label-warning" style="background: var(--maroon-text); font-size: 10px;">ADMIN</span>
+                </div>
+            </div>
             
-            <div class="row cta">
-                <div class="col-xs-12 col-sm-4 cta-item">
-                    <div class="thumbnail">
-                        <div class="cta-header"><i class="fas fa-compass"></i> EXPLORE</div>
-                        <div class="cta-body">
-                            <div class="media"><div class="media-left"><i class="fas fa-sitemap"></i></div><div class="media-body"><h4 class="media-heading"><a href="vanshawali.html">Vanshawali</a></h4><small class="text-muted">Family Tree</small></div></div>
-                            <div class="media"><div class="media-left"><i class="fas fa-scroll"></i></div><div class="media-body"><h4 class="media-heading"><a href="history.html">History</a></h4><small class="text-muted">Glorious Past</small></div></div>
-                        </div>
-                    </div>
+            <div class="row" style="margin-top: 40px;">
+                <div class="col-xs-12">
+                    <h2 class="text-center" style="border-bottom: 2px solid #b8860b; padding-bottom:10px; margin-bottom: 30px;">
+                        <span><i class="fas fa-scroll"></i> Thikana Profile</span>
+                    </h2>
                 </div>
-                <div class="col-xs-12 col-sm-4 cta-item">
-                    <div class="thumbnail">
-                        <div class="cta-header"><i class="fas fa-camera"></i> CAPTIVATE</div>
-                        <div class="cta-body">
-                            <div style="text-align:center; margin-bottom:15px;"><img src="YGSR.png" style="width:90px; height:90px; border-radius:50%; border:3px solid #b8860b;"><h5 style="color:#800000; margin:2px;">Yuvraj Gajraj Singh</h5><span class="label label-warning" style="background: var(--maroon-text);">ADMIN</span></div>
-                            <div class="media"><div class="media-left"><i class="fas fa-images"></i></div><div class="media-body"><h4 class="media-heading"><a href="gallery.html">Gallery</a></h4><small class="text-muted">Collection</small></div></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-4 cta-item">
-                    <div class="thumbnail">
-                        <div class="cta-header"><i class="fas fa-pen-nib"></i> GUESTBOOK</div>
-                        <div class="cta-body">
-                            <form id="guestbookForm"><div class="form-group"><input type="text" name="name" class="form-control" placeholder="Name" required></div><div class="form-group"><textarea name="message" class="form-control" rows="2" placeholder="Message" required></textarea></div><button type="submit" id="submitBtn" class="gold-btn">Send</button></form>
-                            <div id="formStatus" style="font-size:12px; margin-top:5px;"></div><hr><div style="height: 100px; overflow-y: auto;" id="messagesContainer"><small>Loading...</small></div>
-                        </div>
-                    </div>
-                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-6 col-sm-3"><div class="profile-box"><div class="p-icon"><i class="fas fa-sun"></i></div><span class="p-label">कुल (Kul)</span><div class="p-value">राठौड़ (सूर्यवंशी)</div></div></div>
+                <div class="col-xs-6 col-sm-3"><div class="profile-box"><div class="p-icon"><i class="fas fa-seedling"></i></div><span class="p-label">उत्पत्ति (Origin)</span><div class="p-value">भगवान राम के पुत्र लव</div></div></div>
+                <div class="col-xs-6 col-sm-3"><div class="profile-box"><div class="p-icon"><i class="fas fa-id-card"></i></div><span class="p-label">गोत्र (Gotra)</span><div class="p-value">कश्यप / वशिष्ठ</div></div></div>
+                <div class="col-xs-6 col-sm-3"><div class="profile-box"><div class="p-icon"><i class="fas fa-book-reader"></i></div><span class="p-label">प्रवर (Pravar)</span><div class="p-value">कश्यप, वत्साह, नैध्रुव</div></div></div>
+                <div class="col-xs-6 col-sm-3"><div class="profile-box"><div class="p-icon"><i class="fas fa-flag"></i></div><span class="p-label">State (रियासत)</span><div class="p-value">जोधपुर (मारवाड़)</div></div></div>
+                <div class="col-xs-6 col-sm-3"><div class="profile-box"><div class="p-icon"><i class="fas fa-users"></i></div><span class="p-label">Clan (खांप)</span><div class="p-value">जोधा</div></div></div>
+                <div class="col-xs-6 col-sm-3"><div class="profile-box"><div class="p-icon"><i class="fas fa-code-branch"></i></div><span class="p-label">Subclan (नख)</span><div class="p-value">केसरीसिंहोत</div></div></div>
+                <div class="col-xs-6 col-sm-3"><div class="profile-box"><div class="p-icon"><i class="fas fa-calendar-check"></i></div><span class="p-label">Accession (परिग्रहण)</span><div class="p-value">1841 ईस्वी</div></div></div>
+                <div class="col-xs-6 col-sm-3"><div class="profile-box"><div class="p-icon"><i class="fas fa-hands-praying"></i></div><span class="p-label">कुलदेवी (Kuldevi)</span><div class="p-value">नागणेच्या माता जी</div></div></div>
+                <div class="col-xs-6 col-sm-3"><div class="profile-box"><div class="p-icon"><i class="fas fa-bullhorn"></i></div><span class="p-label">War Cry (रणघोष)</span><div class="p-value">रण बंका राठौड़</div></div></div>
+                <div class="col-xs-6 col-sm-3"><div class="profile-box"><div class="p-icon"><i class="fas fa-flag-checkered"></i></div><span class="p-label">Flag (निशान)</span><div class="p-value">पचरंगा (Panchranga)</div></div></div>
+                <div class="col-xs-6 col-sm-3"><div class="profile-box"><div class="p-icon"><i class="fas fa-dove"></i></div><span class="p-label">Bird (पक्षी)</span><div class="p-value">चील (Eagle/Kite)</div></div></div>
+                <div class="col-xs-6 col-sm-3"><div class="profile-box"><div class="p-icon"><i class="fas fa-book-open"></i></div><span class="p-label">वेद (Veda)</span><div class="p-value">शुक्ला यजुर्वेद</div></div></div>
+                <div class="col-xs-6 col-sm-3"><div class="profile-box"><div class="p-icon"><i class="fas fa-om"></i></div><span class="p-label">इष्ट देव (Isht Dev)</span><div class="p-value">श्री राम / विष्णु</div></div></div>
+                <div class="col-xs-6 col-sm-3"><div class="profile-box"><div class="p-icon"><i class="fas fa-map"></i></div><span class="p-label">Area (क्षेत्र)</span><div class="p-value">18,000 बीघा</div></div></div>
             </div>
         </div>
-        <div class="row" style="margin-top: 40px;">
-            <div class="col-xs-12">
-                <h2 class="text-center" style="border-bottom: 2px solid #b8860b; padding-bottom:10px; margin-bottom: 30px;">
-                    <span><i class="fas fa-scroll"></i> Thikana Profile</span>
-                </h2>
-            </div>
-        </div>
+    </section>
+    <div class="parallax-gap gap-2"></div>
 
-        <div class="row">
-            <div class="col-xs-6 col-sm-3">
-                <div class="profile-box">
-                    <div class="p-icon"><i class="fas fa-sun"></i></div>
-                    <span class="p-label">कुल (Kul)</span>
-                    <div class="p-value">राठौड़ (सूर्यवंशी)</div>
+    <section class="cream-section" style="border-top:none;">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="text-center" style="border-bottom: 2px solid #b8860b; padding-bottom:10px; margin-bottom: 20px;">
+                        <span><i class="fas fa-diamond"></i> Thikana Updates </span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-xs-4 col-sm-4" style="padding: 2px;">
+                    <div style="cursor: pointer; overflow: hidden; border: 2px solid #d4af37; height: 100px;">
+                        <img src="fort_kasumbi_2.png" onclick="openLightbox(this)" style="width: 100%; height: 100%; object-fit: cover; transition: 0.5s;" alt="Architecture">
+                    </div>
+                </div>
+                <div class="col-xs-4 col-sm-4" style="padding: 2px;">
+                    <div style="cursor: pointer; overflow: hidden; border: 2px solid #d4af37; height: 100px;">
+                        <img src="event1.jpg" onclick="openLightbox(this)" style="width: 100%; height: 100%; object-fit: cover; transition: 0.5s;" alt="Events">
+                    </div>
+                </div>
+                <div class="col-xs-4 col-sm-4" style="padding: 2px;">
+                    <div style="cursor: pointer; overflow: hidden; border: 2px solid #d4af37; height: 100px;">
+                        <img src="mobile_gallery.jpg" onclick="openLightbox(this)" style="width: 100%; height: 100%; object-fit: cover; transition: 0.5s;" alt="Heritage">
+                    </div>
                 </div>
             </div>
 
-            <div class="col-xs-6 col-sm-3">
-                <div class="profile-box">
-                    <div class="p-icon"><i class="fas fa-seedling"></i></div>
-                    <span class="p-label">उत्पत्ति (Origin)</span>
-                    <div class="p-value">भगवान राम के पुत्र लव</div>
+            <div class="row" style="margin-top: 10px;">
+                <div class="col-xs-12">
+                    <div style="border: 1px solid #b8860b; background: #fff; padding: 5px; display: flex; align-items: center;">
+                        <span style="background: #800000; color: #fff; padding: 2px 8px; font-size: 12px; font-weight: bold; margin-right: 10px; white-space: nowrap;">नवीन नाम:</span>
+                        <marquee behavior="scroll" direction="left" scrollamount="4" style="color: #333; font-weight: bold; font-size: 13px;">
+                            ✦ भंवर सा. ✦ कुंवर सा. ✦ बाई सा. ✦ हुकम सिंह जी
+                        </marquee>
+                    </div>
                 </div>
             </div>
 
-            <div class="col-xs-6 col-sm-3">
-                <div class="profile-box">
-                    <div class="p-icon"><i class="fas fa-id-card"></i></div>
-                    <span class="p-label">गोत्र (Gotra)</span>
-                    <div class="p-value">कश्यप / वशिष्ठ</div>
-                </div>
-            </div>
-
-            <div class="col-xs-6 col-sm-3">
-                <div class="profile-box">
-                    <div class="p-icon"><i class="fas fa-book-reader"></i></div>
-                    <span class="p-label">प्रवर (Pravar)</span>
-                    <div class="p-value">कश्यप, वत्साह, नैध्रुव</div>
-                </div>
-            </div>
-
-            <div class="col-xs-6 col-sm-3">
-                <div class="profile-box">
-                    <div class="p-icon"><i class="fas fa-flag"></i></div>
-                    <span class="p-label">State (रियासत)</span>
-                    <div class="p-value">जोधपुर (मारवाड़)</div>
-                </div>
-            </div>
-
-            <div class="col-xs-6 col-sm-3">
-                <div class="profile-box">
-                    <div class="p-icon"><i class="fas fa-users"></i></div>
-                    <span class="p-label">Clan (खांप)</span>
-                    <div class="p-value">जोधा</div>
-                </div>
-            </div>
-
-            <div class="col-xs-6 col-sm-3">
-                <div class="profile-box">
-                    <div class="p-icon"><i class="fas fa-code-branch"></i></div>
-                    <span class="p-label">Subclan (नख)</span>
-                    <div class="p-value">केसरीसिंहोत</div>
-                </div>
-            </div>
-
-            <div class="col-xs-6 col-sm-3">
-                <div class="profile-box">
-                    <div class="p-icon"><i class="fas fa-calendar-check"></i></div>
-                    <span class="p-label">Accession (परिग्रहण)</span>
-                    <div class="p-value">1841 ईस्वी</div>
-                </div>
-            </div>
-
-            <div class="col-xs-6 col-sm-3">
-                <div class="profile-box">
-                    <div class="p-icon"><i class="fas fa-hands-praying"></i></div>
-                    <span class="p-label">कुलदेवी (Kuldevi)</span>
-                    <div class="p-value">नागणेच्या माता जी</div>
-                </div>
-            </div>
-
-            <div class="col-xs-6 col-sm-3">
-                <div class="profile-box">
-                    <div class="p-icon"><i class="fas fa-bullhorn"></i></div>
-                    <span class="p-label">War Cry (रणघोष)</span>
-                    <div class="p-value">रण बंका राठौड़</div>
-                </div>
-            </div>
-
-            <div class="col-xs-6 col-sm-3">
-                <div class="profile-box">
-                    <div class="p-icon"><i class="fas fa-flag-checkered"></i></div>
-                    <span class="p-label">Flag (निशान)</span>
-                    <div class="p-value">पचरंगा (Panchranga)</div>
-                </div>
-            </div>
-
-            <div class="col-xs-6 col-sm-3">
-                <div class="profile-box">
-                    <div class="p-icon"><i class="fas fa-dove"></i></div>
-                    <span class="p-label">Bird (पक्षी)</span>
-                    <div class="p-value">चील (Eagle/Kite)</div>
-                </div>
-            </div>
-
-            <div class="col-xs-6 col-sm-3">
-                <div class="profile-box">
-                    <div class="p-icon"><i class="fas fa-book-open"></i></div>
-                    <span class="p-label">वेद (Veda)</span>
-                    <div class="p-value">शुक्ला यजुर्वेद</div>
-                </div>
-            </div>
-
-            <div class="col-xs-6 col-sm-3">
-                <div class="profile-box">
-                    <div class="p-icon"><i class="fas fa-om"></i></div>
-                    <span class="p-label">इष्ट देव (Isht Dev)</span>
-                    <div class="p-value">श्री राम / विष्णु</div>
-                </div>
-            </div>
-
-            <div class="col-xs-6 col-sm-3">
-                <div class="profile-box">
-                    <div class="p-icon"><i class="fas fa-map"></i></div>
-                    <span class="p-label">Area (क्षेत्र)</span>
-                    <div class="p-value">18,000 बीघा</div>
+            <div class="row">
+                <div class="col-xs-12 view-more-container">
+                    <div style="font-family: 'Cinzel'; color: #800000; margin-bottom: 10px; font-weight: bold;">— VIEW MORE —</div>
+                    <a href="gallery.html" class="royal-link-btn"><i class="fas fa-images"></i> Gallery</a>
+                    <a href="vanshawali.html" class="royal-link-btn"><i class="fas fa-sitemap"></i> Vanshawali</a>
                 </div>
             </div>
         </div>
@@ -366,25 +356,67 @@
 
     <div class="parallax-gap gap-1"></div>
 
-    <section class="cream-section" style="border-top:none;">
+    <section class="cream-section">
         <div class="container">
             <div class="row">
-                <div class="col-xs-12">
-                    <h2 class="text-center" style="border-bottom: 2px solid #b8860b; padding-bottom:10px; margin-bottom: 20px;">
-                        <span><i class="fas fa-diamond"></i> Highlights</span>
-                    </h2>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-6 col-sm-3 picture-cta"><a href="history.html" style="background-image: url('fort_kasumbi_2.png');"><span>Architecture</span></a></div>
-                <div class="col-xs-6 col-sm-3 picture-cta"><a href="gallery.html" style="background-image: url('event1.jpg');"><span>Events</span></a></div>
-                <div class="col-xs-6 col-sm-3 picture-cta"><a href="history.html" style="background-image: url('mobile_gallery.jpg');"><span>Heritage</span></a></div>
-                <div class="col-xs-6 col-sm-3 picture-cta"><a href="gallery.html" style="background-image: url('event2.jpg');"><span>Culture</span></a></div>
+                <div class="col-xs-12 col-sm-8 col-sm-offset-2 cta-item">
+                    
+                    <div class="thumbnail" style="background: #fff url('footerbg.png') repeat; border: 2px solid #b8860b; border-radius: 10px; padding: 5px; box-shadow: 0 5px 15px rgba(184, 134, 11, 0.3);">
+                        
+                        <div class="cta-header" style="background: var(--royal-blue); color: #fff; padding: 10px; text-align: center; font-family: 'Cinzel'; font-size: 18px; border-radius: 10px 10px 0 0; border-bottom: 2px solid #b8860b;">
+                            <i class="fas fa-pen-nib"></i> GUESTBOOK
+                        </div>
+                        
+                        <div class="cta-body" style="padding: 20px;">
+                            
+                            <div class="alert alert-warning text-center" style="border-color: #b8860b; background: rgba(184, 134, 11, 0.1); color: #800000; padding: 15px; border-radius: 5px;">
+                                <h4 style="font-family: 'Noto Serif Devanagari', serif; font-weight: bold; margin: 5px 0 10px 0; color: #d4af37;">
+                                    || स्वागतम ||
+                                </h4>
+                                <p style="font-family: 'Noto Serif Devanagari', serif; font-size: 1.3em; font-weight: bold;">
+                                    "हुकम पधारो यहाँ अपने विचार लिखो..."
+                                </p>
+                                <small style="font-family: 'Noto Serif Devanagari'; color: #555;">
+                                    आपके अनमोल शब्द हमारी धरोहर को और समृद्ध करेंगे।
+                                </small>
+                            </div>
+                            
+                            <hr style="border-top: 1px dashed #b8860b; margin: 20px 0;">
+
+                            <form id="guestbookForm">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon" style="background: #b8860b; color: #fff; border-color: #b8860b;"><i class="fas fa-user"></i></span>
+                                        <input type="text" name="name" class="form-control" placeholder="आपका शुभ नाम (Your Name)" required style="border-color: #b8860b; height: 45px;">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon" style="background: #b8860b; color: #fff; border-color: #b8860b;"><i class="fas fa-comment"></i></span>
+                                        <textarea name="message" class="form-control" rows="3" placeholder="आपके विचार (Your Message)" required style="border-color: #b8860b; resize: none;"></textarea>
+                                    </div>
+                                </div>
+                                <button type="submit" id="submitBtn" class="gold-btn" style="border-radius: 5px;">
+                                    <i class="fas fa-paper-plane"></i> भेजें (Send)
+                                </button>
+                            </form>
+                            
+                            <div id="formStatus" style="font-size:12px; margin-top:5px; text-align: center;"></div>
+                            
+                            <hr style="border-top: 1px solid #b8860b; margin: 20px 0;">
+                            
+                            <div style="height: 100px; overflow-y: auto; background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; border: 1px solid #e0c080;" id="messagesContainer">
+                                <small><i class="fas fa-spinner fa-spin"></i> संदेश लोड हो रहे हैं...</small>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    </div>
             </div>
         </div>
     </section>
 
-    <div class="parallax-gap gap-2"></div>
+    
 
     <footer class="royal-footer">
         <div class="container">
@@ -395,6 +427,16 @@
             <div style="margin-top: 10px; font-size: 0.9rem; color: #d4af37;">🏰 Total Royal Guests: <span id="visitor-count" style="color:#fff; font-weight:bold;">12,543</span></div>
         </div>
     </footer>
+
+    <div id="myLightbox" class="lightbox-modal">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <img class="lightbox-content" id="img01">
+        <div class="fb-action-area">
+            <p style="margin-bottom: 5px;">Thikana Kasumbi (Official)</p>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.facebook.com/gajsa.kasumbi" target="_blank" class="fb-btn"><i class="fab fa-facebook"></i> Share This</a>
+            <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" class="fb-btn" style="background: #d4af37; color: #000; border: none;"><i class="fas fa-thumbs-up"></i> Like Page</a>
+        </div>
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -417,19 +459,32 @@
         const msgContainer = document.getElementById('messagesContainer');
         form.addEventListener('submit', e => {
             e.preventDefault();
-            document.getElementById('submitBtn').innerText = "Sending...";
+            document.getElementById('submitBtn').innerHTML = '<i class="fas fa-spinner fa-spin"></i>हुकम संदेश भेज रहा हूँ...';
             fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-                .then(response => { document.getElementById('formStatus').innerHTML = "<span style='color:green'>Sent!</span>"; form.reset(); document.getElementById('submitBtn').innerText = "Send"; loadMessages(); })
+                .then(response => { document.getElementById('formStatus').innerHTML = "<span style='color:green; font-weight:bold;'><i class='fas fa-check-circle'></i>हुकम संदेश सफलतापूर्वक भेजा गया!</span>"; form.reset(); document.getElementById('submitBtn').innerHTML = '<i class="fas fa-paper-plane"></i> भेजें (Send)'; loadMessages(); })
                 .catch(error => console.error('Error!', error.message));
         });
         function loadMessages() {
             fetch(scriptURL).then(res => res.json()).then(data => {
                 msgContainer.innerHTML = '';
-                data.reverse().slice(0, 5).forEach(row => { msgContainer.innerHTML += `<div style="border-bottom:1px dashed #ccc; padding:5px; font-size:0.9em;"><strong style="color:#800000">${row[0]}</strong>: ${row[1]}</div>`; });
+                data.reverse().slice(0, 5).forEach(row => { msgContainer.innerHTML += `<div style="border-bottom:1px dashed #ccc; padding:5px; font-size:0.9em;"><strong style="color:#800000"><i class="fas fa-user-circle"></i> ${row[0]}</strong>: ${row[1]}</div>`; });
             });
         }
         loadMessages();
         document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Lightbox Scripts
+        function openLightbox(element) {
+            var modal = document.getElementById("myLightbox");
+            var modalImg = document.getElementById("img01");
+            modal.style.display = "block";
+            modalImg.src = element.src;
+        }
+        function closeLightbox() { document.getElementById("myLightbox").style.display = "none"; }
+        window.onclick = function(event) {
+            var modal = document.getElementById("myLightbox");
+            if (event.target == modal) { modal.style.display = "none"; }
+        }
     </script>
 </body>
 </html>
