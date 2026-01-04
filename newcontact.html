@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Thikana Kasumbi</title>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Playfair+Display:wght@400;700&family=Berkshire+Swash&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+       (function(){
+          emailjs.init("J3okpk4omjrkmUnwz");
+       })();
+    </script>
+
+    <style>
+        :root {
+            --gold: #b8860b;
+            --royal-blue: #030230;
+        }
+        body { 
+            background-color: #f5f5f5; 
+            font-family: 'Playfair Display', serif;
+            margin: 0;
+        }
+        .contact-header {
+            background: linear-gradient(rgba(3, 2, 48, 0.8), rgba(3, 2, 48, 0.8)), url('sunset_kasumbifort.png');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0 50px 0;
+            text-align: center;
+            color: #fff;
+            border-bottom: 4px solid var(--gold);
+        }
+        .contact-header h1 { font-family: 'Berkshire Swash', serif; font-size: 3.5em; color: var(--gold); }
+
+        .contact-container { margin-top: -50px; padding-bottom: 50px; }
+        .info-card {
+            background: var(--royal-blue);
+            color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid var(--gold);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+        }
+        .form-card {
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            border: 1px solid #ddd;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .royal-label { font-family: 'Cinzel', serif; color: var(--gold); font-weight: bold; margin-top: 15px; display: block; }
+        .royal-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: #fafafa;
+            margin-top: 5px;
+        }
+        .royal-input:focus { border-color: var(--gold); outline: none; box-shadow: 0 0 5px var(--gold); }
+        
+        .submit-btn {
+            background: var(--gold);
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            width: 100%;
+            margin-top: 25px;
+            font-family: 'Cinzel', serif;
+            font-size: 1.2em;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            border-radius: 5px;
+        }
+        .submit-btn:hover { background: var(--royal-blue); color: var(--gold); }
+        
+        .social-links a { color: var(--gold); font-size: 25px; margin-right: 20px; transition: 0.3s; }
+        .social-links a:hover { color: #fff; transform: translateY(-3px); display: inline-block; }
+    </style>
+</head>
+<body>
+
+    <div class="contact-header">
+        <h1>सम्पर्क सूत्र</h1>
+        <p style="font-family: 'Cinzel'; letter-spacing: 2px;">|| Reach Out to Thikana Kasumbi ||</p>
+    </div>
+
+    <div class="container contact-container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="info-card">
+                    <h3 style="font-family: 'Cinzel'; border-bottom: 1px solid var(--gold); padding-bottom: 10px;">ठिकाना विवरण</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> ठिकाना कसुम्बी (जाखलां), नागौर, राजस्थान</p>
+                    <p><i class="fas fa-envelope"></i> gajrajsinghrathore8@gmail.com</p>
+                    <br>
+                    <h4 style="font-family: 'Cinzel'; color: var(--gold);">Connect Socially</h4>
+                    <div class="social-links">
+                        <a href="https://facebook.com/gajsa.kasumbi" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="https://instagram.com/YOUR_ID" target="_blank"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="form-card">
+                    <h2 style="text-align: center; font-family: 'Berkshire Swash'; color: var(--royal-blue);">सन्देश भेजें</h2>
+                    
+                    <label class="royal-label">पूरा नाम (Full Name)</label>
+                    <input type="text" id="conName" class="royal-input" placeholder="हुकुम का नाम यहाँ लिखें">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="royal-label">ईमेल (Email Address)</label>
+                            <input type="email" id="conEmail" class="royal-input" placeholder="आपका ईमेल">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="royal-label">मोबाइल (Phone Number)</label>
+                            <input type="text" id="conPhone" class="royal-input" placeholder="संपर्क नंबर">
+                        </div>
+                    </div>
+
+                    <label class="royal-label">विषय (Subject)</label>
+                    <input type="text" id="conSubject" class="royal-input" placeholder="संदेश का विषय">
+
+                    <label class="royal-label">आपका संदेश (Your Message)</label>
+                    <textarea id="conMessage" class="royal-input" rows="5" placeholder="अपनी बात यहाँ विस्तार से लिखें..."></textarea>
+
+                    <button class="submit-btn" onclick="sendContact()">संदेश भेजें</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function sendContact() {
+            const name = document.getElementById('conName').value.trim();
+            const email = document.getElementById('conEmail').value.trim();
+            const phone = document.getElementById('conPhone').value.trim();
+            const subject = document.getElementById('conSubject').value.trim();
+            const msg = document.getElementById('conMessage').value.trim();
+            const btn = document.querySelector('.submit-btn');
+
+            if (!name || !email || !msg) {
+                alert("हुकुम, नाम, ईमेल और संदेश भरना अनिवार्य है!");
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerText = "हुकुम, प्रतीक्षा करें... भेजा जा रहा है";
+
+            // EmailJS के माध्यम से भेजना
+            emailjs.send('service_vdnox8p', 'template_xx3a4tt', {
+                from_name: name,
+                from_email: email,
+                message: `Subject: ${subject} \nPhone: ${phone} \n\nMessage: ${msg}`
+            })
+            .then(function() {
+                alert('खम्मा घणी! आपका संदेश सफलतापूर्वक पहुँच गया है।');
+                btn.disabled = false;
+                btn.innerText = "संदेश भेजें";
+                // फॉर्म खाली करना
+                document.getElementById('conName').value = "";
+                document.getElementById('conEmail').value = "";
+                document.getElementById('conPhone').value = "";
+                document.getElementById('conSubject').value = "";
+                document.getElementById('conMessage').value = "";
+            }, function(error) {
+                alert('विफलता! हुकुम, शायद इंटरनेट की समस्या है।');
+                btn.disabled = false;
+                btn.innerText = "संदेश भेजें";
+            });
+        }
+    </script>
+</body>
+</html>
