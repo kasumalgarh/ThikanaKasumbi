@@ -459,13 +459,19 @@
 
       
     </script>
-  <script>
-    // EmailJS Initialize
+    <script>
+    // 1. EmailJS Initialize (असली Public Key के साथ)
     emailjs.init("J3okpk4omjrkmUnwz");
 
-    function openForm() { document.getElementById('addYoursModal').style.display = "block"; }
-    function closeForm() { document.getElementById('addYoursModal').style.display = "none"; }
+    // 2. फॉर्म खोलने और बंद करने के फंक्शन
+    function openForm() { 
+        document.getElementById('addYoursModal').style.display = "block"; 
+    }
+    function closeForm() { 
+        document.getElementById('addYoursModal').style.display = "none"; 
+    }
 
+    // 3. डेटा भेजने का फंक्शन
     function sendData() {
         const name = document.getElementById('senderName').value.trim();
         const email = document.getElementById('senderEmail').value.trim();
@@ -474,17 +480,16 @@
         const file = fileInput.files[0];
         const btn = document.querySelector('.submit-btn');
 
-        // 1. जाँच (Validation)
+        // खाली फॉर्म की जाँच
         if (!name || !email || !file) {
             alert("हुकुम, नाम, ईमेल और फोटो भरना अनिवार्य है!");
             return;
         }
 
-        // 2. बटन की हालत बदलें (Loading State)
+        // बटन की हालत बदलें
         btn.disabled = true;
         btn.innerText = "हुकुम, प्रतीक्षा करें... भेजा जा रहा है";
         btn.style.opacity = "0.7";
-        btn.style.cursor = "not-allowed";
 
         const reader = new FileReader();
         reader.readAsDataURL(file);
@@ -502,7 +507,7 @@
 
                 const compressedBase64 = canvas.toDataURL('image/jpeg', 0.4);
 
-                // 3. EmailJS से भेजना
+                // EmailJS से भेजना
                 emailjs.send('service_vdnox8p', 'template_xx3a4tt', {
                     from_name: name,
                     from_email: email,
@@ -511,20 +516,17 @@
                 })
                 .then(function() {
                     alert('खम्मा घणी! आपकी यादें सफलतापूर्वक ठिकाना कसुम्बी पहुँच गई हैं।');
-                    
-                    // बटन और फॉर्म रिसेट करें
                     btn.disabled = false;
                     btn.innerText = "SUBMIT TO THIKANA";
                     btn.style.opacity = "1";
-                    btn.style.cursor = "pointer";
-                    
                     closeForm();
+                    // फॉर्म रिसेट
                     document.getElementById('senderName').value = "";
                     document.getElementById('senderEmail').value = "";
                     document.getElementById('senderMsg').value = "";
                     document.getElementById('senderFile').value = "";
                 }, function(error) {
-                    alert('विफलता! हुकुम, शायद इंटरनेट धीमा है।');
+                    alert('विफलता! हुकुम, शायद इंटरनेट धीमा है या सर्विस में दिक्कत है।');
                     btn.disabled = false;
                     btn.innerText = "SUBMIT TO THIKANA";
                     btn.style.opacity = "1";
@@ -534,20 +536,27 @@
         };
     }
 
-    // फ़िल्टर फंक्शन
+    // 4. सुधरा हुआ फ़िल्टर फंक्शन
     function filterGallery(category) {
         $('.filter-btn').removeClass('active');
-        if(event.target) event.target.classList.add('active');
+        if(window.event && window.event.target) {
+            $(window.event.target).addClass('active');
+        }
+
         if (category == 'all') {
             $('#photos-section, #videos-section').fadeIn(400);
         } else if (category == 'photo') {
             $('#videos-section').hide();
             $('#photos-section').fadeIn(400);
         } else if (category == 'video') {
-            #('#photos-section').hide();
+            $('#photos-section').hide();
             $('#videos-section').fadeIn(400);
         }
     }
+
+    // राइट क्लिक बंद
+    document.addEventListener('contextmenu', event => event.preventDefault());
 </script>
+  
 </body>
 </html>
