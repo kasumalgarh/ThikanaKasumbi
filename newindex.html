@@ -3,18 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Thikana Kasumbi (Jakhlan) | Yuvraj Gajraj Singh</title>
+    <meta name="description" content="Thikana Kasumbi (Jakhlan) - A digital heritage of Yuvraj Gajraj Singh. Explore the Rathore Vanshawali, glorious Rajput history, and the royal lineage of Kasumalgarh.">
+    <meta name="keywords" content="Yuvraj Gajraj Singh, Thikana Kasumbi, Kasumalgarh, Jakhlan, Rathore Vanshawali, Rajput History, Marwar, Royal Rajputana, Kuldevi Naganechi Mata">
+    <meta name="author" content="Yuvraj Gajraj Singh">
+    <meta name="robots" content="index, follow">
+
     <meta property="og:title" content="Thikana Kasumbi (Jakhlan) | विरासत • सम्मान • शौर्य">
-<meta property="og:description" content="सूर्यवंशी राठौड़ों का आभासी दरबार। यहाँ पधारें और हमारे गौरवशाली इतिहास व वंशावली के साक्षी बनें।">
-<meta property="og:image" content="https://aapki-website-link.com/thikana_kasumbi_share.png"> <meta property="og:url" content="https://aapki-website-link.com">
-<meta property="og:type" content="website">
-    <title>Thikana Kasumbi (Jakhlan) | Royal Heritage</title>
-    
+    <meta property="og:description" content="सूर्यवंशी राठौड़ों का आभासी दरबार। यहाँ पधारें और हमारे गौरवशाली इतिहास व वंशावली के साक्षी बनें।">
+    <meta property="og:image" content="https://www.kasumalgarh.site/fort_kasumbi.png">
+    <meta property="og:url" content="https://www.kasumalgarh.site">
+    <meta property="og:type" content="website">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Thikana Kasumbi",
+      "url": "https://www.kasumalgarh.site",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.kasumalgarh.site/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "hasPart": [
+        {
+          "@type": "SiteNavigationElement",
+          "name": "Vanshawali",
+          "url": "https://www.kasumalgarh.site/vanshawali.html"
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "name": "History",
+          "url": "https://www.kasumalgarh.site/history.html"
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "name": "Gallery",
+          "url": "https://www.kasumalgarh.site/gallery.html"
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "name": "Guestbook",
+          "url": "https://www.kasumalgarh.site/index.html#guestbook"
+        }
+      ]
+    }
+    </script>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Playfair+Display:wght@400;700&family=Noto+Serif+Devanagari:wght@400;700&family=Berkshire+Swash&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
+        /* ... (नीचे का CSS वही रहेगा जो आपकी फाइल में है) ... */
         :root {
             --gold-main: #b8860b;
             --gold-hover: #ffd700; 
@@ -111,7 +154,7 @@
         }
         .hero-logo { width: 110px; margin-bottom: 10px; filter: drop-shadow(0 0 10px rgba(255,215,0,0.8)); }
         
-        /* SHINING TEXT (यह है वो कोड जो नाम चमकाएगा) */
+        /* SHINING TEXT */
         h1.shining-text {
             font-family: 'Berkshire Swash', 'Cinzel', serif; 
             font-size: 3em; 
@@ -125,7 +168,6 @@
             -webkit-text-fill-color: transparent;
             animation: goldShimmer 3s linear infinite;
             text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-            /* यहाँ दो लाइनें जोड़ी हैं ताकि अक्षर कटें नहीं */
             line-height: 1.5;
             padding-top: 10px;
         }
@@ -164,31 +206,20 @@
         .royal-link-btn:hover { background: #d4af37; color: #800000; text-decoration: none; }
         @keyframes fadeIn { from {opacity: 0} to {opacity: 1} }
 
-        /* FOOTER */
-           /* FOOTER - COMPACT & ROUNDED */
-.royal-footer {
-    background-color: var(--royal-blue);
-    background-image: url('footerbg.png');
-    background-repeat: repeat;
-    color: var(--gold-main);
-    
-    /* 1. हाइट कम की (Padding घटा दी) */
-    padding: 20px 10px; 
-    
-    text-align: center;
-    border-top: 4px solid var(--gold-main);
-    margin-top: 0;
-    
-    /* 2. ऊपर के कोने गोल किये */
-    border-radius: 25px 25px 0 0; 
-}
-
-/* फुटर के अंदर की चीजों की दूरी भी कम की */
-.royal-footer .fb-link {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-</style>
+        /* FOOTER - COMPACT & ROUNDED */
+        .royal-footer {
+            background-color: var(--royal-blue);
+            background-image: url('footerbg.png');
+            background-repeat: repeat;
+            color: var(--gold-main);
+            padding: 20px 10px; 
+            text-align: center;
+            border-top: 4px solid var(--gold-main);
+            margin-top: 0;
+            border-radius: 25px 25px 0 0; 
+        }
+        .royal-footer .fb-link { margin-top: 10px; margin-bottom: 10px; }
+    </style>
 </head>
 <body>
 
@@ -236,7 +267,7 @@
                <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.kasumalgarh.site" target="_blank">
     <i class="fab fa-facebook"></i>
 </a>
-                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.instagram.com/gajsa.kasumbifort" target="_blank"><i class="fab fa-instagram"></i></a>
               <a href="https://wa.me/?text=Check out Thikana Kasumbi: https://www.kasumalgarh.site" target="_blank">
     <i class="fab fa-whatsapp"></i>
 </a>
