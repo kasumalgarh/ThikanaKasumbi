@@ -45,12 +45,12 @@
         
         /* गैप 1 (बीच वाली फोटो) */
         .gap-1 { 
-            background-image: url('kasumbi_fort.png'); 
+            background-image: url('view_from_fort1.png'); 
         }
 
         /* गैप 2 (नई तीसरी फोटो - फुटर के पास) */
         .gap-2 { 
-            background-image: url('mobile_gallery.jpg'); /* यहाँ दूसरी फोटो का नाम डालें */
+            background-image: url('fort_kasumbi_2.png'); /* यहाँ दूसरी फोटो का नाम डालें */
         }
 
         /* --- CONTENT SECTIONS (सफेद पट्टियां) --- */
@@ -94,7 +94,7 @@
         /* HEADER */
         header.index-header {
             /* फोटो 1: हेडर वाली */
-            background-image: linear-gradient(rgba(3, 50, 80, 0.7), rgba(60, 94, 117, 0.7)), url('fort_kasumbi_2.png');
+            background-image: linear-gradient(rgba(3, 50, 80, 0.7), rgba(60, 94, 117, 0.7)), url('fort_kasumbi.png');
             background-attachment: fixed;
             background-size: cover; background-position: center;
             padding-top: 150px; padding-bottom: 80px;
@@ -110,6 +110,25 @@
         .thumbnail:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(184, 134, 11, 0.3); }
         .cta-header { background: var(--royal-blue); color: #fff; padding: 10px; text-align: center; font-family: 'Cinzel'; font-size: 18px; border-bottom: 2px solid var(--gold-main); }
         .cta-body { padding: 15px; }
+        /* --- THIKANA PROFILE GRID --- */
+.profile-box {
+    border: 1px solid var(--gold-main);
+    padding: 10px;
+    background: #fff;
+    margin-bottom: 15px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    min-height: 100px; /* डिब्बे की हाइट बराबर रखने के लिए */
+    transition: 0.3s;
+}
+.profile-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(184, 134, 11, 0.2);
+    border-color: var(--maroon-text);
+}
+.p-icon { font-size: 18px; color: var(--gold-main); margin-bottom: 5px; }
+.p-label { display: block; font-size: 12px; font-weight: bold; color: var(--maroon-text); text-transform: uppercase; }
+.p-value { font-size: 13px; color: #333; font-family: 'Noto Serif Devanagari', serif; }
         .media-left i { color: var(--gold-main); width: 40px; text-align: center; font-size: 2em; }
         .media-heading a { color: var(--maroon-text); font-weight: bold; text-decoration: none; }
         .picture-cta { margin-bottom: 15px; padding-left: 5px; padding-right: 5px; }
@@ -176,8 +195,13 @@
         <div class="container">
             <div class="alert alert-warning text-center" style="border-color: #b8860b; background: #fff; color: #800000; margin-bottom: 40px;">
                 <strong><i class="fas fa-crown"></i> जय माता दी!</strong> <br>
-                "यह कसूमलगढ़ (Fort Kasumbi) का पवित्र डिजिटल प्रांगण है।"
-            </div>
+                यह <strong style="color: #660000;">कसूमलगढ़ (Fort Kasumbi)</strong>
+                        का पवित्र डिजिटल प्रांगण है — एक ऐसा आभासी दरबार, जहाँ सूर्यवंशी राठौड़ों का महान वंश सदियों से अपनी आन, बान और शान की ज्योति जलाए हुए है।<br>
+                        यहाँ हर पत्थर गवाह है उन अनगिनत युद्धों का, उन अमर बलिदानों का, और उन गौरवपूर्ण क्षणों का, जिन्होंने राठौड़ कुल को राजपूत इतिहास में अमर कर दिया।<br><br>
+                        इस वेबसाइट का उद्देश्य हमारी विस्तृत वंशावली (Genealogy) और इतिहास को संरक्षित करना है, ताकि आने वाली पीढ़ियाँ अपनी जड़ों से जुड़ी रहें।
+                                       <div style="text-align:center; margin-bottom:15px;"><img src="YGSR.png" style="width:90px; height:90px; border-radius:50%; border:3px solid #b8860b;"><h5 style="color:#800000; margin:2px;">Yuvraj Gajraj Singh</h5><span class="label label-warning" style="background: var(--maroon-text);">ADMIN</span></div>
+
+                    </div>
             
             <div class="row cta">
                 <div class="col-xs-12 col-sm-4 cta-item">
@@ -206,6 +230,135 @@
                             <div id="formStatus" style="font-size:12px; margin-top:5px;"></div><hr><div style="height: 100px; overflow-y: auto;" id="messagesContainer"><small>Loading...</small></div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 40px;">
+            <div class="col-xs-12">
+                <h2 class="text-center" style="border-bottom: 2px solid #b8860b; padding-bottom:10px; margin-bottom: 30px;">
+                    <span><i class="fas fa-scroll"></i> Thikana Profile</span>
+                </h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6 col-sm-3">
+                <div class="profile-box">
+                    <div class="p-icon"><i class="fas fa-sun"></i></div>
+                    <span class="p-label">कुल (Kul)</span>
+                    <div class="p-value">राठौड़ (सूर्यवंशी)</div>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-sm-3">
+                <div class="profile-box">
+                    <div class="p-icon"><i class="fas fa-seedling"></i></div>
+                    <span class="p-label">उत्पत्ति (Origin)</span>
+                    <div class="p-value">भगवान राम के पुत्र लव</div>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-sm-3">
+                <div class="profile-box">
+                    <div class="p-icon"><i class="fas fa-id-card"></i></div>
+                    <span class="p-label">गोत्र (Gotra)</span>
+                    <div class="p-value">कश्यप / वशिष्ठ</div>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-sm-3">
+                <div class="profile-box">
+                    <div class="p-icon"><i class="fas fa-book-reader"></i></div>
+                    <span class="p-label">प्रवर (Pravar)</span>
+                    <div class="p-value">कश्यप, वत्साह, नैध्रुव</div>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-sm-3">
+                <div class="profile-box">
+                    <div class="p-icon"><i class="fas fa-flag"></i></div>
+                    <span class="p-label">State (रियासत)</span>
+                    <div class="p-value">जोधपुर (मारवाड़)</div>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-sm-3">
+                <div class="profile-box">
+                    <div class="p-icon"><i class="fas fa-users"></i></div>
+                    <span class="p-label">Clan (खांप)</span>
+                    <div class="p-value">जोधा</div>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-sm-3">
+                <div class="profile-box">
+                    <div class="p-icon"><i class="fas fa-code-branch"></i></div>
+                    <span class="p-label">Subclan (नख)</span>
+                    <div class="p-value">केसरीसिंहोत</div>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-sm-3">
+                <div class="profile-box">
+                    <div class="p-icon"><i class="fas fa-calendar-check"></i></div>
+                    <span class="p-label">Accession (परिग्रहण)</span>
+                    <div class="p-value">1841 ईस्वी</div>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-sm-3">
+                <div class="profile-box">
+                    <div class="p-icon"><i class="fas fa-hands-praying"></i></div>
+                    <span class="p-label">कुलदेवी (Kuldevi)</span>
+                    <div class="p-value">नागणेच्या माता जी</div>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-sm-3">
+                <div class="profile-box">
+                    <div class="p-icon"><i class="fas fa-bullhorn"></i></div>
+                    <span class="p-label">War Cry (रणघोष)</span>
+                    <div class="p-value">रण बंका राठौड़</div>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-sm-3">
+                <div class="profile-box">
+                    <div class="p-icon"><i class="fas fa-flag-checkered"></i></div>
+                    <span class="p-label">Flag (निशान)</span>
+                    <div class="p-value">पचरंगा (Panchranga)</div>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-sm-3">
+                <div class="profile-box">
+                    <div class="p-icon"><i class="fas fa-dove"></i></div>
+                    <span class="p-label">Bird (पक्षी)</span>
+                    <div class="p-value">चील (Eagle/Kite)</div>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-sm-3">
+                <div class="profile-box">
+                    <div class="p-icon"><i class="fas fa-book-open"></i></div>
+                    <span class="p-label">वेद (Veda)</span>
+                    <div class="p-value">शुक्ला यजुर्वेद</div>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-sm-3">
+                <div class="profile-box">
+                    <div class="p-icon"><i class="fas fa-om"></i></div>
+                    <span class="p-label">इष्ट देव (Isht Dev)</span>
+                    <div class="p-value">श्री राम / विष्णु</div>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-sm-3">
+                <div class="profile-box">
+                    <div class="p-icon"><i class="fas fa-map"></i></div>
+                    <span class="p-label">Area (क्षेत्र)</span>
+                    <div class="p-value">18,000 बीघा</div>
                 </div>
             </div>
         </div>
