@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Thikana Kasumbi (Jakhlan) | Royal Heritage</title>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Playfair+Display:wght@400;700&family=Noto+Serif+Devanagari:wght@400;700&family=Berkshire+Swash&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            --gold-main: #b8860b;
+            --gold-hover: #cd7f32; /* Bronze */
+            --maroon-text: #800000;
+            --royal-blue: #030230; /* Dark Royal Blue */
+            --cream-bg: #fffbf0;
+        }
+
+        body { font-family: 'Playfair Display', 'Noto Serif Devanagari', serif; background-color: var(--cream-bg); color: #333; overflow-x: hidden; }
+        h1, h2, h3 { font-family: 'Berkshire Swash', 'Cinzel', serif; color: var(--maroon-text); }
+        
+        /* --- 6. & 8. NAVBAR (Dark Blue + Rounded) --- */
+        .navbar-wrapper {
+            background-color: var(--royal-blue); /* #030230 */
+            background-image: url('footerbg.png'); /* Texture */
+            background-repeat: repeat;
+            border-bottom: 2px solid var(--gold-main);
+            border-radius: 0 0 20px 20px; /* Rounded Bottom */
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        .navbar-inverse { background: transparent; border: none; margin-bottom: 0; }
+        .navbar-inverse .navbar-nav>li>a { 
+            color: #ffd700; /* Gold Text */
+            font-family: 'Cinzel', serif; font-size: 14px; letter-spacing: 1px; font-weight: bold;
+            transition: 0.3s;
+        }
+        
+        /* --- 4. HOVER EFFECT (Gold + Bronze) --- */
+        .navbar-inverse .navbar-nav>li>a:hover,
+        .navbar-inverse .navbar-nav>li>a:focus,
+        .navbar-inverse .navbar-nav>.open>a { 
+            color: #fff !important;
+            background: linear-gradient(to bottom, var(--gold-main), var(--gold-hover)); /* Gold to Bronze */
+            border-radius: 5px;
+        }
+
+        /* --- 5. ACTIVE PAGE INDICATOR --- */
+        .navbar-inverse .navbar-nav>.active>a {
+            background: var(--maroon-text) !important;
+            color: #fff !important;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+            border-radius: 5px;
+        }
+
+        .navbar-brand { font-family: 'Cinzel'; color: #fff !important; font-weight: bold; font-size: 20px; }
+        .navbar-toggle { border-color: var(--gold-main) !important; background: var(--maroon-text) !important; }
+        .navbar-toggle .icon-bar { background-color: #fff !important; }
+
+        /* Dropdown Menu Style */
+        .dropdown-menu { background: var(--royal-blue); border: 1px solid var(--gold-main); }
+        .dropdown-menu>li>a { color: #ffd700; padding: 10px; border-bottom: 1px solid rgba(184, 134, 11, 0.2); }
+        .dropdown-menu>li>a:hover { background: var(--gold-main); color: #000; }
+
+        /* --- HERO HEADER --- */
+        header.index-header {
+            background: linear-gradient(rgba(3, 50, 80, 0.9), rgba(60, 94, 117, 0.9)), url('fort_kasumbi_2.png');
+            background-size: cover; background-position: center;
+            padding-top: 120px; padding-bottom: 50px; /* Increased top padding due to fixed nav */
+            text-align: center; color: #fff;
+            box-shadow: 0px 5px 20px rgba(0,0,0,0.5);
+            margin-bottom: 30px;
+        }
+        .hero-logo { width: 110px; margin-bottom: 10px; filter: drop-shadow(0 0 10px rgba(255,215,0,0.8)); }
+
+        /* --- CTA BOXES --- */
+        .thumbnail {
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 1px solid var(--gold-main);
+            padding: 0; background: #fff; transition: 0.3s;
+        }
+        .thumbnail:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(184, 134, 11, 0.3); }
+        .cta-header {
+            background: var(--royal-blue); color: #fff; padding: 10px;
+            text-align: center; font-family: 'Cinzel'; font-size: 18px; border-bottom: 2px solid var(--gold-main);
+        }
+        .cta-body { padding: 15px; }
+        .media-left i { color: var(--gold-main); width: 40px; text-align: center; font-size: 2em; }
+        .media-heading a { color: var(--maroon-text); font-weight: bold; text-decoration: none; }
+
+        /* --- MOBILE GRID (2 Columns) --- */
+        .picture-cta { margin-bottom: 15px; padding-left: 5px; padding-right: 5px; }
+        .picture-cta a {
+            display: block; background-size: cover; background-position: center;
+            height: 160px; position: relative;
+            border: 2px solid #d4af37; box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            border-radius: 4px; transition: 0.3s;
+        }
+        .picture-cta a:hover { transform: scale(1.02); border-color: var(--maroon-text); }
+        .picture-cta a span {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            background: rgba(0,0,0,0.7); color: #fff; text-align: center; padding: 5px; font-size: 12px; font-family: 'Cinzel', serif;
+        }
+
+        /* --- 6., 7., 8., & 9. FOOTER (Restored Full Royal Footer) --- */
+        .royal-footer {
+            background-color: var(--royal-blue); /* Dark Blue */
+            background-image: url('footerbg.png'); /* BG Image */
+            background-repeat: repeat;
+            color: var(--gold-main);
+            padding: 40px 20px; text-align: center;
+            border-top: 5px solid var(--gold-main);
+            border-radius: 20px 20px 0 0; /* Rounded Top */
+            margin-top: 40px;
+        }
+        .fb-link { 
+            background: linear-gradient(45deg, #b8860b, #ffd700); color: #000; 
+            padding: 8px 20px; border-radius: 20px; display: inline-block; margin-top: 15px; 
+            font-weight: bold; text-decoration: none;
+        }
+        .royal-footer p { color: #ccc; margin: 5px 0; }
+
+        /* Mobile Fixes */
+        @media (max-width: 768px) {
+            .container { padding-left: 10px; padding-right: 10px; }
+            .col-xs-6 { width: 50%; float: left; }
+            .navbar-nav { background: var(--royal-blue); margin: 0; padding-bottom: 10px; border-radius: 0 0 20px 20px;}
+        }
+        .gold-btn { background: linear-gradient(to right, #b8860b, #ffd700); border: none; color: #000; font-weight: bold; padding: 10px 20px; width: 100%; }
+        
+        /* Guestbook Form */
+        .guestbook-form input, .guestbook-form textarea { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+    <div class="navbar-wrapper">
+        <div class="container">
+            <nav class="navbar navbar-inverse">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                        <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">KASUMALGARH</a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="index.html">HOME</a></li>
+                        
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">VANSHAWALI <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="vanshawali.html">Kasumalgarh</a></li>
+                                <li><a href="rathore_vanshawali.html">Rathore</a></li>
+                            </ul>
+                        </li>
+
+                        <li><a href="history.html">HISTORY</a></li>
+                        <li><a href="gallery.html">GALLERY</a></li>
+                        
+                        <li><a href="about.html">ABOUT</a></li>
+                        <li><a href="contact.html">CONTACT</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <header class="index-header">
+        <div class="container">
+            <img src="klogo1.png" class="hero-logo" alt="Logo">
+            <h1>|| ठिकाना कसुम्बी ||</h1>
+            <p style="font-size: 1.2em; color: #ffd700;">Thikana Kasumbi (Jakhlan) | विरासत • सम्मान • शौर्य</p>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <div class="alert alert-warning text-center" style="border-color: #b8860b; background: #fffbf0; color: #800000; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+            <strong><i class="fas fa-crown"></i> जय माता दी!</strong> <br>
+            "यह कसूमलगढ़ (Fort Kasumbi) का पवित्र डिजिटल प्रांगण है। सूर्यवंशी राठौड़ों का महान वंश।"
+        </div>
+
+        <div class="row cta">
+            <div class="col-xs-12 col-sm-4 cta-item">
+                <div class="thumbnail">
+                    <div class="cta-header"><i class="fas fa-compass"></i> EXPLORE</div>
+                    <div class="cta-body">
+                        <div class="media">
+                            <div class="media-left"><i class="fas fa-sitemap"></i></div>
+                            <div class="media-body">
+                                <h4 class="media-heading"><a href="vanshawali.html">Vanshawali</a></h4>
+                                <small class="text-muted">Explore Family Tree</small>
+                            </div>
+                        </div>
+                        <div class="media">
+                            <div class="media-left"><i class="fas fa-scroll"></i></div>
+                            <div class="media-body">
+                                <h4 class="media-heading"><a href="history.html">History</a></h4>
+                                <small class="text-muted">Glorious Past</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-4 cta-item">
+                <div class="thumbnail">
+                    <div class="cta-header"><i class="fas fa-camera"></i> CAPTIVATE</div>
+                    <div class="cta-body">
+                         <div style="text-align:center; margin-bottom:15px;">
+                            <img src="YGSR.png" style="width:90px; height:90px; border-radius:50%; border:3px solid #b8860b;">
+                            <h5 style="color:#800000; font-weight:bold; margin-bottom: 2px;">Yuvraj Gajraj Singh</h5>
+                            <span class="label label-warning" style="background: var(--maroon-text);">ADMIN</span>
+                        </div>
+                        <div class="media">
+                            <div class="media-left"><i class="fas fa-images"></i></div>
+                            <div class="media-body">
+                                <h4 class="media-heading"><a href="gallery.html">Gallery</a></h4>
+                                <small class="text-muted">Rare Collection</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-4 cta-item">
+                <div class="thumbnail">
+                    <div class="cta-header"><i class="fas fa-pen-nib"></i> GUESTBOOK</div>
+                    <div class="cta-body">
+                        <form id="guestbookForm">
+                            <div class="form-group">
+                                <input type="text" name="name" class="form-control" placeholder="आपका नाम..." required>
+                            </div>
+                            <div class="form-group">
+                                <textarea name="message" class="form-control" rows="2" placeholder="संदेश..." required></textarea>
+                            </div>
+                            <button type="submit" id="submitBtn" class="gold-btn">Send</button>
+                        </form>
+                        <div id="formStatus" style="font-size:12px; margin-top:5px;"></div>
+                        <hr>
+                        <div style="height: 100px; overflow-y: auto;" id="messagesContainer">
+                            <small>Loading...</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="margin-bottom: 50px;">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2 class="text-center" style="border-bottom: 2px solid #b8860b; padding-bottom:10px; margin-bottom: 20px;">
+                    <span><i class="fas fa-diamond"></i> Thikana Highlights</span>
+                </h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6 col-sm-3 picture-cta">
+                <a href="history.html" style="background-image: url('fort_kasumbi_2.png');"><span>Architecture</span></a>
+            </div>
+            <div class="col-xs-6 col-sm-3 picture-cta">
+                <a href="gallery.html" style="background-image: url('event1.jpg');"><span>Events</span></a>
+            </div>
+            <div class="col-xs-6 col-sm-3 picture-cta">
+                <a href="history.html" style="background-image: url('mobile_gallery.jpg');"><span>Heritage</span></a>
+            </div>
+            <div class="col-xs-6 col-sm-3 picture-cta">
+                <a href="gallery.html" style="background-image: url('event2.jpg');"><span>Culture</span></a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="royal-footer">
+        <div class="container">
+            <div style="font-size: 0.9em; color: #ccc;">Developed & Designed By:</div>
+            <div style="color:#ffd700; font-size:1.4rem; font-family: 'Cinzel', serif; margin: 5px 0;">Yuvraj Gajraj Singh</div>
+            
+            <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" class="fb-link">
+                <i class="fab fa-facebook"></i> Connect on Facebook
+            </a>
+            
+            <div style="font-size: 0.8em; margin-top: 20px; color: #888;">
+                &copy; <span id="year">2026</span> | All Rights Reserved.
+            </div>
+            <div style="margin-top: 10px; font-size: 0.9rem; color: #d4af37;">
+                🏰 Total Royal Guests: <span id="visitor-count" style="color:#fff; font-weight:bold;">12,543</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script>
+        // --- 1. & 5. AUTO CLOSE MENU & ACTIVE LINK ---
+        $(document).ready(function () {
+            // Auto close menu when clicking outside
+            $(document).click(function (event) {
+                var clickover = $(event.target);
+                var $navbar = $(".navbar-collapse");
+                var _opened = $navbar.hasClass("in");
+                if (_opened === true && !clickover.hasClass("navbar-toggle")) {
+                    $navbar.collapse('hide');
+                }
+            });
+
+            // Active Page Highlighting
+            var path = window.location.pathname.split("/").pop();
+            if (path == '') { path = 'index.html'; }
+            var target = $('.navbar-nav a[href="' + path + '"]');
+            target.parent().addClass('active');
+            // If it's a dropdown item, activate the parent dropdown
+            target.closest('.dropdown').addClass('active');
+        });
+
+        // --- GUESTBOOK LOGIC ---
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxUmHwP70tZouclG6GOuI3Ldfv2j-wyB9inNtrAZ3GIYjF03Au8LDbL7rw4q1GHr8Vi/exec';
+        const form = document.getElementById('guestbookForm');
+        const msgContainer = document.getElementById('messagesContainer');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            document.getElementById('submitBtn').innerText = "Sending...";
+            fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+                .then(response => {
+                    document.getElementById('formStatus').innerHTML = "<span style='color:green'>Sent successfully!</span>";
+                    form.reset();
+                    document.getElementById('submitBtn').innerText = "Send";
+                    loadMessages();
+                })
+                .catch(error => console.error('Error!', error.message));
+        });
+
+        function loadMessages() {
+            fetch(scriptURL)
+                .then(res => res.json())
+                .then(data => {
+                    msgContainer.innerHTML = '';
+                    data.reverse().slice(0, 5).forEach(row => {
+                        msgContainer.innerHTML += `<div style="border-bottom:1px dashed #ccc; padding:5px; font-size:0.9em;">
+                            <strong style="color:#800000">${row[0]}</strong>: ${row[1]}
+                        </div>`;
+                    });
+                });
+        }
+        loadMessages();
+        
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+
+</body>
+</html>

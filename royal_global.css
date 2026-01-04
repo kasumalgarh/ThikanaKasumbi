@@ -591,3 +591,122 @@ ul { list-style: none; padding: 0; margin: 0; }
     color: #444;
     font-weight: 500;
 }
+/* =========================================
+   MOBILE FIXES (FULL WIDTH & CLEAN LAYOUT)
+   इसे CSS में सबसे नीचे पेस्ट करें
+   ========================================= */
+
+@media (max-width: 768px) {
+
+    /* 1. SECTION KI KHALI JAGAH KAM KI */
+    .cream-section {
+        padding: 30px 10px; /* ऊपर-नीचे 30, दाएं- बाएं सिर्फ 10 */
+        border-width: 1px; /* बॉर्डर पतला किया */
+    }
+
+    /* 2. ROYAL PANEL KO FULL WIDTH KIYA (Jo aadha dikh raha tha) */
+    .royal-wide-panel {
+        padding: 15px;      /* अंदर की जगह आधी की */
+        margin: 15px auto;  /* बाहर की जगह कम की */
+        width: 100%;        /* पूरी स्क्रीन ले */
+        box-shadow: none;   /* मोबाइल पर भारी शैडो हटाई */
+        border: 1px solid var(--gold-main); /* सिंपल बॉर्डर */
+    }
+
+    /* 3. Vanshavali Names Fix (Jo cut rahe the) */
+    .update-name-list {
+        /* मोबाइल पर एक बार में एक ही नाम दिखेगा (पूरा चौड़ा) */
+        grid-template-columns: 1fr !important; 
+        gap: 10px;
+    }
+
+    .u-name-item {
+        width: 100%; /* पूरा फैलेगा */
+        padding: 15px; /* नाम के आसपास जगह */
+    }
+
+    .u-name-link {
+        font-size: 1rem; /* फॉन्ट थोड़ा छोटा ताकि फिट हो */
+        white-space: normal; /* टेक्स्ट को अगली लाइन में आने दे */
+    }
+
+    /* 4. Guestbook Input Fix */
+    .guestbook-form input, 
+    .guestbook-form textarea {
+        width: 100%; /* फॉर्म बॉक्स से बाहर नहीं जाएगा */
+        font-size: 16px; /* मोबाइल पर टाइपिंग आसान हो */
+    }
+
+    /* 5. Gallery Images on Mobile */
+    .update-gallery {
+        justify-content: space-between; /* बराबर दूरी */
+    }
+    .u-img-frame {
+        /* मोबाइल पर 2 फोटो एक लाइन में */
+        width: 48%; 
+        height: auto; 
+        aspect-ratio: 1/1; /* चौकोर रखेगा */
+    }
+}
+/* ==================================================
+   FINAL MOBILE FIX: FULL WIDTH + 2 COLUMN GRID
+   (इसे style.css में सबसे नीचे पेस्ट करें)
+   ================================================== */
+
+@media (max-width: 768px) {
+
+    /* 1. पतली गली का इलाज (Full Width Layout) */
+    .container, body {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden;
+    }
+
+    /* सेक्शन की फालतू पैडिंग हटाई */
+    .cream-section {
+        padding: 20px 5px !important; 
+        width: 100%;
+        border-width: 1px 0 !important; /* साइड बॉर्डर हटा दिए */
+    }
+
+    /* शाही डिब्बे को पूरा खोला */
+    .royal-wide-panel, .royal-card, .guestbook-panel {
+        width: 100% !important;
+        margin: 10px 0 !important;
+        padding: 15px 8px !important; /* जगह बचाने के लिए पैडिंग कम */
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        border-left: none !important;
+        border-right: none !important;
+    }
+
+    /* 2. इंडियन राजपूत जैसा ग्रिड (2 फोटो एक साथ) */
+    .royal-gallery-grid, 
+    .update-gallery, 
+    .card-container {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important; /* यहाँ है जादू: 2 कॉलम */
+        gap: 10px !important; /* बीच में 10px की जगह */
+        justify-content: center;
+    }
+
+    /* फोटो और कार्ड्स को सेट करना */
+    .gallery-item, 
+    .paper-card,
+    .u-img-frame {
+        width: 100% !important;
+        margin: 0 !important;
+        height: auto !important; /* हाईट अपने आप सेट होगी */
+    }
+
+    /* वंशावली के नाम (ये पूरी लाइन में एक ही अच्छे लगते हैं) */
+    .update-name-list {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px;
+    }
+    
+    .u-name-item {
+        width: 100% !important;
+    }
+}
