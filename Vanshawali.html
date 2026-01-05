@@ -20,15 +20,14 @@
 
     <style>
         /* =========================================
-           1. CORE LAYOUT & WATERMARK
+           1. CORE & WATERMARK
            ========================================= */
         body { 
             overflow-x: hidden; background: #fffbf0; 
             -webkit-tap-highlight-color: transparent; 
-            position: relative;
         }
 
-        /* Site Watermark (Fixed Background) */
+        /* Site Background Watermark */
         body::before {
             content: ''; position: fixed; top: 50%; left: 50%;
             transform: translate(-50%, -50%); width: 60%; height: 60%;
@@ -37,29 +36,36 @@
             pointer-events: none;
         }
 
-        /* Loading Animation (Breathing Logo) */
+        /* Loading Animation */
         #loadingOverlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #fffbf0; z-index: 50000; display: flex;
             flex-direction: column; align-items: center; justify-content: center;
         }
-        .breathing-logo {
-            width: 100px; animation: breathe 2s infinite ease-in-out;
-            margin-bottom: 20px;
-        }
+        .breathing-logo { width: 100px; animation: breathe 2s infinite ease-in-out; margin-bottom: 20px; }
         @keyframes breathe { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.1); opacity: 1; } }
 
         /* =========================================
-           2. TREE DESIGN (Compact & Royal)
+           2. TREE CSS
            ========================================= */
         .tree-container {
-            padding: 50px 10px; min-height: 800px;
+            padding: 20px 10px 100px 10px; min-height: 800px;
             font-family: 'Noto Serif Devanagari', serif;
             overflow: auto; cursor: grab; user-select: none;
-            opacity: 0; transition: opacity 1s ease-in; /* Fade In Effect */
+            opacity: 0; transition: opacity 1s ease-in;
         }
         .tree-container.loaded { opacity: 1; }
         .tree-container:active { cursor: grabbing; }
+
+        /* Expand Button (Top) */
+        .top-controls { text-align: center; margin-bottom: 20px; }
+        .expand-main-btn {
+            background: #800000; color: #d4af37; border: 2px solid #d4af37;
+            padding: 8px 20px; font-family: 'Cinzel', serif; font-size: 14px;
+            border-radius: 30px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: 0.3s;
+        }
+        .expand-main-btn:hover { transform: scale(1.05); background: #5a0000; }
 
         .royal-tree ul { padding-left: 20px; list-style: none; position: relative; }
         .royal-tree li { position: relative; padding-left: 15px; line-height: 1.5em; }
@@ -69,7 +75,7 @@
         .royal-tree ul li::after { content: ''; position: absolute; left: 0; top: 0.75em; width: 12px; border-top-width: 2px; border-top-style: solid; transition: border-color 0.3s; }
         .royal-tree ul li:last-child::before { height: 0.75em; }
 
-        /* 12 Generation Colors */
+        /* Generation Colors */
         .gen-1 > ul > li::before, .gen-1 > ul > li::after { border-color: #800000; }
         .gen-2 > ul > li::before, .gen-2 > ul > li::after { border-color: #d63031; }
         .gen-3 > ul > li::before, .gen-3 > ul > li::after { border-color: #0984e3; }
@@ -83,48 +89,43 @@
         .gen-11 > ul > li::before, .gen-11 > ul > li::after { border-color: #636e72; }
         .gen-12 > ul > li::before, .gen-12 > ul > li::after { border-color: #d4af37; }
 
-        /* GOLDEN PATH HIGHLIGHT (The Main Lineage Feature) */
-        li.is-ancestor > ul > li::before, li.is-ancestor > ul > li::after { border-color: #FFD700 !important; border-width: 3px !important; box-shadow: 0 0 5px #FFD700; }
+        /* GOLDEN PATH (Strict Ancestor Only) */
+        li.is-ancestor > ul > li::before, 
+        li.is-ancestor > ul > li::after { 
+            border-color: #FFD700 !important; border-width: 3px !important; box-shadow: 0 0 5px #FFD700; 
+        }
+        /* Only highlight the Name of the ancestor, not the whole LI */
         li.is-ancestor > .tree-name-wrapper > .tree-name { 
             background: #fff5e6; border: 1px solid #FFD700; color: #800000 !important; font-weight: 900;
             box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
         }
 
-        /* Name Wrapper (Mobile Fix) */
-        .tree-name-wrapper {
-            display: flex; align-items: center; gap: 5px; padding: 2px 0;
-            flex-wrap: wrap; /* Allows wrapping on small screens */
+        /* MAIN LINEAGE STYLE (Bold & Royal) */
+        .main-lineage-node {
+            font-weight: 900 !important;
+            color: #5a0000 !important;
+            border: 2px solid #d4af37 !important;
+            background: #fffdf0;
+            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
+            transform: scale(1.05);
         }
 
+        /* Layout */
+        .tree-name-wrapper { display: flex; align-items: center; gap: 5px; padding: 2px 0; flex-wrap: wrap; }
         .tree-name {
             font-size: 14px; color: #5a4a42; font-weight: bold;
             padding: 2px 6px; border-radius: 4px; transition: 0.2s;
             cursor: pointer; border: 1px solid transparent;
-            white-space: normal; /* Allow text wrap */
-            max-width: 100%; /* Prevent overflow */
+            white-space: normal; max-width: 100%;
         }
         
-        /* Hint (Mobile optimized) */
-        .click-hint {
-            font-size: 11px; color: #d63031; font-weight: bold;
-            animation: bounce 1.5s infinite; white-space: nowrap;
-        }
-        @media (max-width: 768px) {
-            .click-hint { 
-                flex-basis: 100%; /* Force new line on mobile */
-                margin-left: 30px; /* Indent below name */
-                margin-top: -2px;
-            }
-        }
-        @keyframes bounce { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(3px); } }
-
+        /* Buttons */
         .toggle-btn {
             display: flex; align-items: center; justify-content: center;
             width: 24px; height: 24px; border: 1px solid #800000; background: #fff;
             color: #800000; font-size: 16px; cursor: pointer; border-radius: 4px; z-index: 10;
             flex-shrink: 0;
         }
-        .toggle-btn:hover { background: #800000; color: #fff; }
 
         .root-name {
             font-family: 'Cinzel', serif; font-size: 22px; color: #800000;
@@ -135,7 +136,7 @@
         .children-group { display: none; }
 
         /* =========================================
-           3. PANELS & GENERATION SEAL
+           3. PANELS
            ========================================= */
         .sidebar-left, .sidebar-right {
             position: fixed; top: 0; bottom: 0; width: 320px; background: #fffbf0;
@@ -158,7 +159,7 @@
         .panel-header { background: #800000; color: #d4af37; padding: 12px; font-family: 'Cinzel', serif; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #d4af37; }
         .panel-content { flex-grow: 1; overflow-y: auto; padding: 15px; }
 
-        /* Generation Seal (Royal Coin Style) */
+        /* Generation Seal */
         .gen-seal {
             width: 40px; height: 40px; border-radius: 50%;
             background: radial-gradient(circle, #ffd700 0%, #daa520 100%);
@@ -181,7 +182,7 @@
         .path-node:last-child { border-left: none; }
 
         /* =========================================
-           4. SMART TOOLS & WHATSAPP
+           4. TOOLS & FOOTER
            ========================================= */
         .fab-container { position: fixed; bottom: 30px; right: 20px; z-index: 10002; display: flex; flex-direction: column-reverse; align-items: center; gap: 10px; }
         .main-fab { width: 55px; height: 55px; border-radius: 50%; background: #800000; color: #d4af37; border: 2px solid #d4af37; font-size: 24px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; transition: transform 0.3s; }
@@ -198,22 +199,16 @@
         }
         @media (min-width: 769px) { .mobile-search-btn { display: none; } }
 
-        /* =========================================
-           5. SIMPLE FOOTER (Restored)
-           ========================================= */
         .royal-footer {
             background: #1a1a1a; color: #d4af37; padding: 20px 0; text-align: center;
             border-top: 4px solid #800000; margin-top: 50px;
         }
-        /* No Social Icons, Simple & Classy */
 
-        /* Modal */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 20000; }
         .modal-box { background: #fffbf0; border: 3px solid #d4af37; width: 90%; max-width: 400px; margin: 20% auto; padding: 25px; border-radius: 10px; position: relative; }
         .modal-input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #d4af37; border-radius: 4px; }
         .gold-btn { background: #800000; color: #d4af37; border: 1px solid #d4af37; padding: 8px 15px; font-weight: bold; cursor: pointer; width: 100%; }
         
-        /* Tooltip */
         #hoverTooltip { position: fixed; display: none; background: rgba(0,0,0,0.95); color: #fff; padding: 10px; border-radius: 4px; font-size: 12px; z-index: 20000; pointer-events: none; border: 1px solid #d4af37; max-width: 250px; }
     </style>
 </head>
@@ -221,7 +216,7 @@
 
     <div id="loadingOverlay">
         <img src="klogo1.png" alt="Logo" class="breathing-logo">
-        <div style="font-family:'Cinzel'; color:#800000; font-size:1.2em;">|| वंशावली लोड हो रही है ||</div>
+        <div style="font-family:'Cinzel'; color:#800000; font-size:1.2em;">|| जय माँ नागणेच्या ||<br><span style="font-size:0.7em">वंशावली लोड हो रही है</span></div>
     </div>
 
     <div class="navbar-wrapper">
@@ -246,13 +241,6 @@
                                 <li><a href="rathorevanshawali.html">Rathore</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">HISTORY <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="kasumalgarh.html">Kasumalgarh History</a></li>
-                                <li><a href="rathore.html">Rathore History</a></li>
-                            </ul>
-                        </li>
                         <li><a href="gallery.html">GALLERY</a></li>
                         <li><a href="contact.html">CONTACT</a></li>
                         <li class="hidden-xs"><a href="#" onclick="toggleLeftPanel()"><i class="fas fa-search"></i> Search</a></li>
@@ -272,6 +260,11 @@
 
     <div class="tree-container" id="treeWrapper">
         <div class="container">
+            <div class="top-controls">
+                <button class="expand-main-btn" onclick="expandTree()">
+                    <i class="fas fa-sitemap"></i> Expand Tree (वंशावली खोलें)
+                </button>
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <div id="treeArea" style="display: inline-block; min-width: 100%; transform-origin: top left; transition: transform 0.3s;">
@@ -337,7 +330,7 @@
         <div class="container">
             <div style="font-size: 0.9em; color: #ccc; margin-bottom: 5px;">Developed & Designed By:</div>
             <div style="color:#d4af37; font-size:1.4rem; font-family: 'Cinzel', serif; margin-bottom: 5px;">Yuvraj Gajraj Singh</div>
-            <div style="font-size: 0.8em; color: #888;">&copy; <span id="year">2026</span> Kasumalgarh</div>
+            <div style="font-size: 0.8em; color: #888;">&copy; <span id="year">2026</span> Kasumalgarh | Vikram Samvat 2082</div>
         </div>
     </footer>
 
@@ -347,6 +340,22 @@
     <script src="family-data.js"></script>
 
     <script>
+        // --- CONFIGURATION ---
+        // हुकम, इन नामों को Bold/Royal दिखाने के लिए यहाँ डालें (Spelling Exact होनी चाहिए)
+        const MAIN_LINEAGE_NAMES = [
+            "Raj Shree Thakur Saheb Narayan Singh",
+            "Th. Akhe Singh",
+            "Th. Mangal Singh",
+            "Th. Bakhtawar Singh",
+            "Th. Raghunath Singh",
+            "Th. Roop Singh",
+            "Th. Ridmal Singh",
+            "Th. Bhairu Singh",
+            "Th. Mahendra Singh",
+            "Yuvraj GajRaj Singh",
+            "Bh.Khushvendra Singh"
+        ];
+
         let allMembers = [];
         let currentZoom = 1;
         let isRightPanelOpen = false;
@@ -363,14 +372,18 @@
             let liClass = isRoot ? 'root-li gen-1' : (hasChild ? `has-children gen-${depth}` : `gen-${depth}`);
             let nameClass = isRoot ? 'root-name' : 'tree-name';
             
+            // Check Main Lineage
+            if(MAIN_LINEAGE_NAMES.includes(member.name.trim())) {
+                nameClass += " main-lineage-node";
+            }
+
             let toggleBtn = hasChild ? `<span class="toggle-btn" data-id="${uniqueId}">+</span>` : '';
-            let hint = isRoot ? `<span class="click-hint" id="rootHint">👈 वंशावली खोलने के लिए दबाएं (Tap)</span>` : '';
+            // No Hint here anymore
 
             let html = `<li class="${liClass}" id="li-${uniqueId}">`;
             html += `<div class="tree-name-wrapper">
                         ${toggleBtn}
                         <span class="${nameClass}" id="${uniqueId}" data-id="${uniqueId}">${member.name}</span>
-                        ${hint}
                      </div>`;
 
             if (hasChild) {
@@ -384,7 +397,7 @@
             return html;
         }
 
-        // --- 2. LOGIC & EVENTS ---
+        // --- 2. EVENTS ---
         $(window).on('load', function() {
             setTimeout(() => { $('#loadingOverlay').fadeOut(); $('.tree-container').addClass('loaded'); }, 800);
         });
@@ -399,16 +412,13 @@
                 $('#royalTreeArea').html('<h3 style="color:red; text-align:center;">Data File Missing!</h3>');
             }
 
-            // Event Delegation (Buttons)
             $(document).on('click', '.toggle-btn', function(e) {
                 e.stopPropagation();
                 let btn = $(this), ul = btn.closest('li').children('ul');
-                $('#rootHint').fadeOut();
                 if(ul.is(':visible')) { ul.slideUp(200); btn.text('+'); } 
                 else { ul.slideDown(200); btn.text('-'); }
             });
 
-            // Event Delegation (Names) - GOLDEN PATH TRIGGER
             $(document).on('click', '.tree-name, .root-name', function(e) {
                 showDetails($(this).attr('data-id'), e);
             });
@@ -418,17 +428,18 @@
             }).on('mouseleave', '.tree-name', function() { hideTooltip(); });
         });
 
-        // --- 3. DETAILS & GOLDEN PATH ---
+        // --- 3. DETAILS (REVERTED TO OLD STYLE) ---
         function getMemberInfo(id) {
             let el = $('#' + id);
             let memberObj = allMembers.find(m => m.id === id);
             let pathArray = [];
             
-            // STRICT SELECTION & HIGHLIGHT
-            $('.is-ancestor').removeClass('is-ancestor'); // Reset old path
+            // STRICT GOLDEN PATH (Only Parents)
+            $('.is-ancestor').removeClass('is-ancestor');
             el.parents('li').each(function() {
-                $(this).addClass('is-ancestor'); // Highlight this path
-                let span = $(this).find('> .tree-name-wrapper > .tree-name');
+                $(this).addClass('is-ancestor'); 
+                // Only find the name directly inside this LI (not nested ones)
+                let span = $(this).children('.tree-name-wrapper').children('.tree-name, .root-name');
                 if(span.length > 0) pathArray.push(span.text().trim());
             });
 
@@ -455,7 +466,8 @@
                 relation: (siblings.length+1===1)? `Only ${childType}` : `${myIndex}${suffix} ${childType}`,
                 siblingsDesc: siblings.length>0 ? `He has ${siblings.length} more siblings` : `Only Child`,
                 sibNames: sibNamesStr,
-                gen: memberObj.depth,
+                // OLD STYLE TEXT RESTORED:
+                gen: `${memberObj.depth}th Gen of ${rootNodeName}`, 
                 path: pathArray.reverse()
             };
         }
@@ -468,11 +480,12 @@
             let info = getMemberInfo(id);
 
             let detailsHTML = `
-                <div class="gen-seal"><span class="gen-label">Gen</span><br>${info.gen}</div>
+                <div class="gen-seal"><span class="gen-label">Gen</span><br>${info.gen.split(' ')[0]}</div>
                 <h3 style="color:#800000; font-family:'Cinzel'; margin-top:5px;">${info.name}</h3>
                 <div style="background:#fffbe6; padding:15px; border:1px solid #d4af37; border-radius:5px; font-family:'Merriweather'; font-size:13px; line-height:1.8;">
                     <strong>${info.relation}</strong> of <strong>${info.father}</strong><br>
-                    <span style="color:#555;">${info.siblingsDesc} ${info.sibNames}</span>
+                    <span style="color:#555;">${info.siblingsDesc} ${info.sibNames}</span><br>
+                    <span style="color:#800000; font-weight:bold; display:block; margin-top:5px;">${info.gen}</span>
                 </div>
             `;
             $('#memberDetails').html(detailsHTML);
@@ -490,14 +503,15 @@
 
         function showTooltip(id, e) {
             let info = getMemberInfo(id);
-            $('#hoverTooltip').html(`<strong style="color:#d4af37">${info.name}</strong><br>${info.relation} of ${info.father}<br>Gen: ${info.gen}`).css({top:e.clientY+15, left:e.clientX+15}).show();
+            // Tooltip OLD STYLE restored
+            $('#hoverTooltip').html(`<strong style="color:#d4af37">${info.name}</strong><br>${info.relation} of ${info.father}<br>${info.gen}`).css({top:e.clientY+15, left:e.clientX+15}).show();
         }
         function hideTooltip() { $('#hoverTooltip').hide(); }
 
-        // --- 4. CAPTURE & TOOLS ---
+        // --- 4. TOOLS ---
         function shareWhatsApp() {
-            let url = window.location.href;
-            window.open(`whatsapp://send?text=देखिए ठिकाना कसूँभी (जाखलां) की डिजिटल वंशावली: ${url}`);
+            let msg = "हुकम, देखिए ठिकाना कसूँभी (जाखलां) की डिजिटल वंशावली। (नोट: फोटो डाउनलोड करके साथ में भेजें) \n Link: " + window.location.href;
+            window.open(`whatsapp://send?text=${encodeURIComponent(msg)}`);
         }
 
         function captureRightPanel() {
@@ -508,10 +522,10 @@
             let currentName = $('#memberDetails h3').text().replace(/ /g, "_");
             let clone = document.getElementById("captureTarget").cloneNode(true);
             
-            // Add Photo Watermark (Name)
+            // NEW WATERMARK STYLE (2 Lines)
             let watermark = document.createElement("div");
-            watermark.innerHTML = "Yuvraj Gajraj Singh";
-            watermark.style.cssText = "position:absolute; top:50%; left:50%; transform:translate(-50%, -50%) rotate(-45deg); font-size:30px; color:rgba(0,0,0,0.1); font-weight:bold; font-family:'Cinzel'; white-space:nowrap; z-index:0;";
+            watermark.innerHTML = "Yuvraj Gajraj Singh<br><span style='font-size:0.6em'>kasumalgarh.site</span>";
+            watermark.style.cssText = "position:absolute; top:50%; left:50%; transform:translate(-50%, -50%) rotate(-45deg); font-size:24px; color:rgba(0,0,0,0.1); font-weight:bold; font-family:'Cinzel'; text-align:center; z-index:0; line-height:1.2;";
             clone.appendChild(watermark);
 
             clone.style.width = "320px"; clone.style.height = "auto"; clone.style.maxHeight = "none"; clone.style.overflow = "visible";
@@ -529,15 +543,15 @@
         }
 
         // Utils
+        function expandTree() { $('.children-group').slideDown(); $('.toggle-btn').text('-'); }
         function toggleLeftPanel() { $('#leftPanel').toggleClass('open'); closeRightPanel(); }
         function closeRightPanel() { $('#rightPanel').removeClass('open'); isRightPanelOpen = false; }
         function toggleFab(btn) { $(btn).toggleClass('active'); $('#fabOptions').toggleClass('show'); }
         function zoomIn() { if(currentZoom < 3) currentZoom += 0.1; $('#treeArea').css('transform', `scale(${currentZoom})`); }
         function zoomOut() { if(currentZoom > 0.3) currentZoom -= 0.1; $('#treeArea').css('transform', `scale(${currentZoom})`); }
-        function resetTree() { $('.children-group').slideUp(); $('.toggle-btn').text('+'); currentZoom=1; $('#treeArea').css('transform', `scale(1)`); closeRightPanel(); $('#rootHint').fadeIn(); $('.is-ancestor').removeClass('is-ancestor'); }
+        function resetTree() { $('.children-group').slideUp(); $('.toggle-btn').text('+'); currentZoom=1; $('#treeArea').css('transform', `scale(1)`); closeRightPanel(); $('.is-ancestor').removeClass('is-ancestor'); }
         function toggleFullScreen() { if (!document.fullscreenElement) { document.documentElement.requestFullscreen().catch(()=>{}); } else { if (document.exitFullscreen) document.exitFullscreen(); } }
 
-        // Search
         function populateIndex() { let l=$('#indexList'); l.empty(); [...allMembers].sort((a,b)=>a.name.localeCompare(b.name)).forEach(m=>l.append(`<li onclick="jumpToNode('${m.id}')">${m.name}</li>`)); }
         function filterIndex() { let v=$('#searchBox').val().toLowerCase(); $('#clearSearchBtn').toggle(v.length>0); $('#indexList li').toggle(function(){return $(this).text().toLowerCase().indexOf(v)>-1}); }
         function clearSearch() { $('#searchBox').val(''); filterIndex(); }
@@ -546,7 +560,6 @@
         function openRequestModal(){$('#requestModal').fadeIn();} function closeRequestModal(){$('#requestModal').fadeOut();}
         function sendRequest(){ let n=$('#reqName').val(), m=$('#reqMsg').val(); if(!n||!m) return; emailjs.send("service_vdnox8p", "template_xx3a4tt", {from_name:n, message:m}).then(()=>{alert("Sent!");closeRequestModal();}); }
         
-        // Auto Close
         $(document).click(function(e) { 
             if(!$(e.target).closest('#rightPanel, .tree-name, .toggle-btn, .fab-container').length && $('#rightPanel').hasClass('open')) closeRightPanel();
             if(!$(e.target).closest('#leftPanel, .navbar-nav, .mobile-search-btn').length && $('#leftPanel').hasClass('open')) $('#leftPanel').removeClass('open');
