@@ -246,3 +246,56 @@ function sendData() {
         };
     };
 }
+/* =========================================
+   CONTACT PAGE FORM LOGIC (EmailJS)
+   ========================================= */
+document.addEventListener('DOMContentLoaded', function() {
+    
+    var contactForm = document.getElementById('contactForm');
+
+    // Ye code tabhi chalega jab page par 'contactForm' nam ka form hoga
+    if (contactForm) {
+        
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var btn = document.getElementById('cSubmitBtn');
+            var status = document.getElementById('cStatus');
+            
+            // 1. Bhejne se pehle (Loading State)
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> हुकुम, सन्देश रवाना किया जा रहा है...';
+            btn.disabled = true;
+
+            var params = {
+                from_name: document.getElementById('cName').value,
+                from_email: document.getElementById('cEmail').value,
+                subject: document.getElementById('cSubject').value,
+                message: document.getElementById('cMsg').value
+            };
+
+            // EmailJS Send Function
+            // Note: Make sure your ServiceID and TemplateID are correct below
+            emailjs.send('service_vdnox8p', 'template_xx3a4tt', params)
+                .then(function() {
+                    // 2. Safalta (Success)
+                    status.innerHTML = "<span style='color:green; font-weight:bold; border-bottom:1px solid green; padding-bottom:5px;'>खम्मा घणी सा! सन्देश ठिकाने पर पुगा दिया गया है।</span>";
+                    btn.innerHTML = '<i class="fas fa-check"></i> सफल';
+                    contactForm.reset();
+                    
+                    // 5 second baad button wapis normal ho jayega
+                    setTimeout(function(){
+                         btn.innerHTML = '<i class="fas fa-paper-plane"></i> प्रेषित करें (Send)';
+                         btn.disabled = false;
+                         status.innerHTML = "";
+                    }, 5000);
+
+                }, function(error) {
+                    // 3. Vifalta (Error)
+                    console.error("EmailJS Error:", error);
+                    status.innerHTML = "<span style='color:red;'>हुकुम, गुस्ताखी माफ़! सन्देश राह में अटक गया है।</span>";
+                    btn.innerHTML = '<i class="fas fa-redo"></i> पुनः भेजें';
+                    btn.disabled = false;
+                });
+        });
+    }
+});

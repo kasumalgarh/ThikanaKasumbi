@@ -4,70 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <title>Contact | Thikana Kasumbi (Jakhlan)</title>
-    <meta name="description" content="Contact Yuvraj Gajraj Singh of Thikana Kasumbi.">
+    <title>Contact & Guestbook | Thikana Kasumbi (Jakhlan)</title>
+    <meta name="description" content="Connect with Yuvraj Gajraj Singh. Send a royal message or sign the Guestbook of Thikana Kasumbi (Jakhlan).">
+    <meta name="keywords" content="Contact Thikana Kasumbi, Yuvraj Gajraj Singh Contact, Rajput Guestbook, Royal Message">
+    <meta property="og:title" content="Contact | Thikana Kasumbi">
+    <meta property="og:description" content="Send a message to the Admin or sign the Royal Guestbook.">
+    <meta property="og:image" content="https://www.kasumalgarh.site/fort_kasumbi.png">
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Playfair+Display:wght@400;700&family=Noto+Serif+Devanagari:wght@400;700&family=Berkshire+Swash&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
+    
     <link rel="stylesheet" href="royal_global.css">
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
        (function(){ emailjs.init("KpyNvZBBeX0ZJisG8"); })();
     </script>
-
-    <style>
-        /* Contact Page Specific Styles */
-        .contact-header-bg {
-            background-image: linear-gradient(rgba(3, 2, 48, 0.7), rgba(128, 0, 0, 0.7)), url('fort_kasumbi.png'); /* Back image wahi rakhi hai */
-            background-size: cover;
-            background-position: center;
-            padding: 120px 0 50px 0;
-            text-align: center;
-            color: #fff;
-            border-bottom: 4px solid #7A5D28;
-            box-shadow: inset 0 -10px 20px rgba(0,0,0,0.5);
-        }
-
-        .contact-box {
-            background: #fff;
-            border: 2px solid #7A5D28;
-            padding: 20px;
-            height: 100%;
-            min-height: 400px; /* Sab barabar dikhenge */
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-
-        .contact-title {
-            font-family: 'Cinzel', serif;
-            color: #800000;
-            border-bottom: 2px solid #d4af37;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        /* Icons */
-        .info-item { margin-bottom: 20px; display: flex; align-items: flex-start; }
-        .info-icon { color: #b8860b; font-size: 20px; margin-right: 15px; margin-top: 5px; }
-        .info-text { font-family: 'Noto Serif Devanagari', serif; color: #333; font-size: 15px; }
-
-        /* Map */
-        .map-frame { width: 100%; height: 320px; border: 1px solid #7A5D28; }
-
-        /* Form Styling */
-        .royal-input {
-            width: 100%; padding: 10px; margin-bottom: 15px;
-            border: 1px solid #d4af37; background: #fffbf0;
-            font-family: 'Noto Serif Devanagari';
-        }
-        .royal-input:focus { outline: none; border-color: #800000; box-shadow: 0 0 5px #d4af37; }
-
-    </style>
 </head>
 <body oncontextmenu="return false;">
 
@@ -87,14 +40,14 @@
                    <ul class="nav navbar-nav navbar-right">
                         <li><a href="index.html">HOME</a></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">VANSHAWALI <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">VANSHAWALI <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="vanshawali.html">Kasumalgarh</a></li>
                                 <li><a href="rathorevanshawali.html">Rathore</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">HISTORY <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">HISTORY <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="kasumalgarh.html">Kasumalgarh History</a></li>
                                 <li><a href="rathore.html">Rathore History</a></li>
@@ -118,9 +71,9 @@
     </header>
 
     <div class="container" style="margin-top: 50px; margin-bottom: 50px;">
+        
         <div class="row">
-            
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="contact-box">
                     <h3 class="contact-title"><i class="fas fa-landmark"></i> ठिकाना पता</h3>
                     
@@ -156,7 +109,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="contact-box" style="background: #fffbf0;">
                     <h3 class="contact-title"><i class="fas fa-feather-alt"></i> शाही पत्र</h3>
                     
@@ -166,47 +119,97 @@
                         <input type="text" id="cSubject" class="royal-input" placeholder="विषय (Subject)">
                         <textarea id="cMsg" class="royal-input" rows="4" placeholder="आपका सन्देश (Message)..." required></textarea>
                         
-                        <button type="submit" id="cSubmitBtn" class="gold-btn" style="border-radius:0;">
+                        <button type="submit" id="cSubmitBtn" class="gold-btn" style="border-radius:0; width:100%;">
                             <i class="fas fa-paper-plane"></i> प्रेषित करें (Send)
                         </button>
                     </form>
-                    <div id="cStatus" style="margin-top:10px; text-align:center; font-size:12px;"></div>
+                    <div id="cStatus" style="margin-top:15px; text-align:center; font-family: 'Noto Serif Devanagari'; font-size:13px;"></div>
                 </div>
             </div>
+        </div> <div class="row" style="margin-top: 40px;">
+            <div class="col-md-8 col-md-offset-2">
+                
+                <div class="thumbnail" style="background: #fff url('footerbg.png') repeat; border: 2px solid #b8860b; border-radius: 10px; padding: 5px; box-shadow: 0 5px 15px rgba(184, 134, 11, 0.3);">
+                    
+                    <div class="cta-header" style="background: linear-gradient(to bottom, #091a3a 0%, #2a4065 50%, #091a3a 100%); color: #fff; padding: 10px; text-align: center; font-family: 'Cinzel'; font-size: 18px; border-radius: 10px 10px 0 0; border-bottom: 2px solid #b8860b;">
+                        <i class="fas fa-pen-nib"></i> GUESTBOOK
+                    </div>
+                    
+                    <div class="cta-body" style="padding: 20px;">
+                        
+                        <div class="media" style="border: 1px solid #d4af37; background: #fffbf0; padding: 15px; border-radius: 8px; margin-bottom: 25px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                            <div class="media-left" style="vertical-align: top; padding-right: 15px;">
+                                <img class="media-object" src="YGSR3.png" alt="Admin" style="width: 60px; height: 60px; border-radius: 50%; border: 2px solid #b8860b; padding: 2px; object-fit: cover;">
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading" style="color: #800000; font-family: 'Cinzel', serif; font-weight: bold; margin-bottom: 5px;">
+                                    Yuvraj Gajraj Singh 
+                                    <span class="label" style="background: #b8860b; font-size: 10px; vertical-align: middle;">ADMIN</span>
+                                </h4>
+                                <div style="font-size: 12px; color: #777; margin-bottom: 8px;">
+                                    <i class="fas fa-clock"></i> Just now &bull; <i class="fas fa-map-marker-alt"></i> Fort Kasumbi
+                                </div>
+                                <p style="font-family: 'Noto Serif Devanagari', serif; font-size: 15px; color: #333; line-height: 1.6;">
+                                    <strong>खम्मा घणी सा!</strong> <br>
+                                    ठिकाना कसुम्बी के इस डिजिटल आंगन में आपका हार्दिक स्वागत है। 
+                                    कृपया नीचे दिए गए फॉर्म में अपने विचार लिखकर हमारी <strong> आगन्तुक पंजिका (Guestbook)</strong> की शोभा बढ़ाएं।
+                                    <br>
+                                    <span style="color: #b8860b; font-size: 13px; font-weight: bold;">"आपके शब्द, हमारी धरोहर।"</span>
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <hr style="border-top: 1px dashed #b8860b; margin: 20px 0;">
 
-            <div class="col-md-4">
-                <div class="contact-box" style="padding: 10px;">
-                    <h3 class="contact-title" style="margin-bottom:10px;"><i class="fas fa-map-marked-alt"></i> नक्शा (Map)</h3>
-                    <iframe class="map-frame" 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3546.772597960136!2d74.3795!3d27.2456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396a5d7d7d7d7d7d%3A0x7d7d7d7d7d7d7d7d!2sKasumbi%2C%20Rajasthan!5e0!3m2!1sen!2sin!4v1610000000000!5m2!1sen!2sin" 
-                        allowfullscreen="" loading="lazy">
-                    </iframe>
+                        <form id="guestbookForm">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon" style="background: #b8860b; color: #fff; border-color: #b8860b;"><i class="fas fa-user"></i></span>
+                                            <input type="text" name="name" class="form-control" placeholder="आपका नाम (Name)" required style="border-color: #b8860b; height: 45px;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon" style="background: #b8860b; color: #fff; border-color: #b8860b;"><i class="fas fa-comment"></i></span>
+                                            <input type="text" name="message" class="form-control" placeholder="आपके विचार (Message)" required style="border-color: #b8860b; height: 45px;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" id="submitBtn" class="gold-btn" style="border-radius: 5px; width: 100%;">
+                                <i class="fas fa-paper-plane"></i> दर्ज करें (Post)
+                            </button>
+                        </form>
+                        
+                        <div id="formStatus" style="font-size:12px; margin-top:5px; text-align: center;"></div>
+                        
+                        <hr style="border-top: 1px solid #b8860b; margin: 20px 0;">
+                        
+                        <div style="height: 300px; overflow-y: auto; background: rgba(255, 255, 255, 0.8); padding: 15px; border-radius: 5px; border: 1px solid #e0c080;" id="messagesContainer">
+                             <div style="text-align:center; padding: 20px; color:#888;">
+                                <i class="fas fa-spinner fa-spin"></i> सन्देश लोड हो रहे हैं...
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-        </div>
-    </div>
+            </div>
+        </div> </div>
 
     <footer class="royal-footer">
         <div class="container">
             <div style="font-size: 0.9em; color: #ccc;">Developed & Designed By:</div>
             <div style="color:#7A5D28; font-size:1.4rem; font-family: 'Cinzel', serif; margin: 5px 0;">Yuvraj Gajraj Singh</div>
-            
-          <div class="footer-social-icons" style="margin-top: 15px; margin-bottom: 15px;">
-    <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.kasumalgarh.site" target="_blank">
-        <i class="fab fa-facebook"></i>
-    </a>
-    
-    <a href="https://www.instagram.com/gajsa.kasumbifort" target="_blank">
-        <i class="fab fa-instagram"></i>
-    </a>
-    
-    <a href="https://wa.me/?text=Check out Thikana Kasumbi: https://www.kasumalgarh.site" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-</div>
-
-            <div style="font-size: 0.8em; margin-top: 20px; color: #888;">&copy; <span id="year">2026</span> | All Rights Reserved.</div>
+            <div class="footer-social-icons" style="margin-top: 15px; margin-bottom: 15px;">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            <div style="font-size: 0.8em; margin-top: 20px; color: #888;">© <span id="year">2026</span> | All Rights Reserved.</div>
         </div>
     </footer>
 
@@ -214,37 +217,5 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="royal_global.js"></script>
 
-    <script>
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            var btn = document.getElementById('cSubmitBtn');
-            var status = document.getElementById('cStatus');
-            
-            // 1. भेजने से पहले का राजसी संवाद
-            btn.innerHTML = '<i class="fas fa-dove"></i> हुकुम, कबूतर सन्देश लेकर उड़ रहा है...';
-            btn.disabled = true;
-
-            var params = {
-                from_name: document.getElementById('cName').value,
-                from_email: document.getElementById('cEmail').value,
-                subject: document.getElementById('cSubject').value,
-                message: document.getElementById('cMsg').value
-            };
-
-            emailjs.send('service_vdnox8p', 'template_xx3a4tt', params)
-                .then(function() {
-                    // 2. सफलता का राजसी संवाद
-                    status.innerHTML = "<span style='color:green; font-weight:bold;'>खम्मा घणी हुकुम! आपका सन्देश ठिकाने पर पहुँच गया है।</span>";
-                    btn.innerHTML = '<i class="fas fa-check"></i> पहुँच गया';
-                    document.getElementById('contactForm').reset();
-                }, function(error) {
-                    // 3. विफलता का संवाद
-                    status.innerHTML = "<span style='color:red;'>माफ़ी हुकुम! सन्देश रास्ते में भटक गया। कृपया पुनः प्रयास करें।</span>";
-                    btn.innerHTML = '<i class="fas fa-redo"></i> पुनः भेजें';
-                    btn.disabled = false;
-                });
-        });
-    </script>
 </body>
 </html>
