@@ -1192,8 +1192,8 @@ body::after {
     left: 50%;
     width: 10px;
     height: 10px;
-    background: #ffd700;
-    box-shadow: 0 0 10px #ffd700, 0 0 20px #b38728;
+    background: #7A5D28;
+    box-shadow: 0 0 10px #7A5D28, 0 0 20px #b38728;
     border-radius: 50%;
     animation: fall 10s linear infinite;
     z-index: 1; /* कंटेंट के पीछे */
@@ -1604,7 +1604,7 @@ body {
 
 .royal-install-btn {
     background: linear-gradient(135deg, #000046, #1cb5e0);
-    color: #ffd700;
+    color: #7A5D28;
     border: 2px solid #897148;
     padding: 12px 25px;
     font-weight: bold;

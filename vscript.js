@@ -361,7 +361,7 @@ function showTooltip(span, li) {
         </div>
         <div style="font-size:11px; color:#ddd;">
             ${details.relationTitle} of ${details.father}<br>
-            <span style="color:#ffd700;">${details.gen}</span>
+            <span style="color:#7A5D28;">${details.gen}</span>
         </div>
     `;
     tooltip.style.display = 'block';

@@ -1,712 +1,332 @@
-/* =========================================
-   KASUMALGARH: ROYAL STYLE (Final Fixed + Hindi Royal)
-   ========================================= */
-
-/* 1. IMPORT FONTS (Hindi Font Added) */
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Playfair+Display:wght@400;700&family=Noto+Serif+Devanagari:wght@400;700&family=Rozha+One&display=swap');
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
-
 :root {
-    --paper-bg: #fffbf0;      /* क्रीम पेपर */
-    --maroon-text: #800000;   /* गाढ़ा मैरून */
-    --brown-text: #3e2723;    /* गाढ़ा भूरा */
     --gold-main: #b8860b;
-    --gold-light: #fcf6ba;
-    --royal-blue-bg: #030230; 
-    
-    --font-heading: 'Cinzel', serif;
-    --font-body: 'Playfair Display', 'Noto Serif Devanagari', serif;
+    --gold-hover: #7A5D28; 
+    --maroon-text: #800000;
+    --royal-blue: #030230;
+    --cream-bg: #fffbf0;
+    /* शाही गहरा नीला बेस कलर */
+    --deep-royal-blue: #091a3a; 
 }
 
-body { margin: 0; padding: 0; background: #000; font-family: var(--font-body); overflow-x: hidden; }
-a { text-decoration: none; color: inherit; }
-ul { list-style: none; padding: 0; margin: 0; }
-* { box-sizing: border-box; }
-
-/* --- 1. NAVBAR --- */
-.navbar {
-    position: fixed; top: 0; left: 0; width: 100%; height: 50px;
-    background: linear-gradient(rgba(0, 0, 40, 0.9), rgba(0, 0, 40, 0.9)), url('footerbg.png');
-    background-repeat: repeat;
-    border-bottom: 2px solid #7A5D28;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 20px; z-index: 1000;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-    border-radius: 0 0 20px 20px;
-}
-.navbar-brand-container { display: flex; align-items: center; gap: 10px; }
-#menu-logo { height: 35px; }
-.navbar-brand { font-family: var(--font-heading); color: var(--gold-light); font-size: 1.2rem; font-weight: 900; letter-spacing: 1px; }
-
-.navbar-links { display: flex; gap: 20px; }
-.navbar-links a { color: var(--gold-light); font-family: var(--font-heading); font-size: 0.9rem; font-weight: bold; text-transform: uppercase; transition: 0.3s; }
-.navbar-links a:hover { color: #7A5D28; }
-.dropdown { position: relative; }
-.dropdown-content { display: none; position: absolute; top: 100%; left: 0; background: var(--royal-blue-bg); border: 1px solid #7A5D28; min-width: 180px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
-.dropdown:hover .dropdown-content { display: block; }
-.dropdown-content a { display: block; padding: 10px; border-bottom: 1px solid rgba(184, 134, 11, 0.2); }
-
-.menu-toggle { display: none; color: #7A5D28; font-size: 1.5rem; cursor: pointer; }
-.mobile-menu-overlay {
-    position: fixed; top: 50px; right: 0; width: 220px;
-    background: var(--royal-blue-bg);
-    border-left: 1px solid #7A5D28; border-bottom: 1px solid #7A5D28;
-    transform: translateX(120%); transition: 0.3s; padding: 10px 0; z-index: 999;
-}
-.mobile-menu-overlay.open { transform: translateX(0); }
-.mobile-links a { display: block; padding: 12px 20px; color: #fff; border-bottom: 1px solid rgba(184, 134, 11, 0.2); font-size: 0.9rem; font-family: var(--font-heading); }
-
-/* --- 2. HERO SECTION --- */
-.hero-section {
-    position: relative;
-    background-image: url('kasumi_fort.png'); /* Default PC Image */
-    background-attachment: fixed;
-    background-position: center; background-size: cover;
-    height: 100vh;
-    display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
-}
-.hero-section::before {
-    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.3); z-index: 1;
-}
-.hero-content { position: relative; z-index: 2; margin-top: -200px; /* थोड़ा एडजस्ट किया है */ }
-
-/* --- NEW: ROYAL HINDI STYLE (Option 2) --- */
-
-/* Logo Style */
-.hero-logo {
-    width: 130px; 
-    height: auto; 
-    
-    /* सब कुछ हटा दिया (No Box, No Border) */
-    border: none;
-    background: transparent;
-    border-radius: 0;
-    box-shadow: none;  /* पुराना डिब्बा वाला शैडो हटा दिया */
-
-    /* नया जादुई शैडो (सिर्फ फोटो के पीछे दिखेगा, डिब्बा नहीं बनेगा) */
-    filter: drop-shadow(0 10px 10px rgba(0,0,0,0.8));
-
-    margin-bottom: 10px;
-    animation: slideDown 1s ease-out;
-}
-/* Hindi Title (ठिकाना कसुम्बी) */
-.hindi-title {
-    font-family: 'Rozha One', serif; /* Shahi Hindi Font */
-    font-size: 5rem;
-    margin: 10px 0 5px 0;
-    line-height: 1.1;
-    
-    /* Gold Gradient Text */
-    background: linear-gradient(to right, #b8860b, #ffd700, #fff, #b8860b);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-size: 200% auto;
-    animation: shine 5s linear infinite, slideDown 1.2s ease-out;
-    
-    /* Deep Shadow */
-    filter: drop-shadow(0 10px 10px rgba(0,0,0,0.8));
+body { 
+    font-family: 'Playfair Display', 'Noto Serif Devanagari', serif; 
+    background-color: #f5f5f5; 
+    color: #333; 
+    overflow-x: hidden;
+    margin: 0;
 }
 
-/* English Subtitle */
-.hindi-subtitle {
-    font-family: 'Cinzel', serif;
-    color: #f0e6d2;
-    font-size: 1.4rem;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    text-shadow: 0 2px 5px #000;
-    opacity: 0.9;
-    animation: slideUp 1.4s ease-out;
+/* --- GOLD SHIMMER ANIMATION --- */
+@keyframes goldShimmer {
+    0% { background-position: -100%; }
+    100% { background-position: 200%; }
 }
 
-.hero-tagline {
-    font-size: 1.2rem; color: #fff; font-weight: bold; letter-spacing: 4px;
-    margin-top: 30px; text-shadow: 0 2px 5px #000;
-    animation: slideUp 1.6s ease-out;
-}
-.hero-tagline span { color: #7A5D28; padding: 0 5px; }
-
-/* --- 3. CREAM SECTIONS (Content) --- */
-.cream-section {
-    background-color: var(--paper-bg); /* Cream Background */
-    color: var(--brown-text);
-    padding: 80px 20px;
-    text-align: center;
-    position: relative; z-index: 10;
-    border-top: 4px double var(--maroon-text);
-    border-bottom: 4px double var(--maroon-text);
-}
-.container { max-width: 1000px; margin: 0 auto; }
-
-/* --- 4. PARALLAX GAPS (PC Only Images) --- */
+/* --- PARALLAX GAP SETTINGS --- */
 .parallax-gap {
-    height: 500px; /* Height of the gap on PC */
+    width: 100%;
+    min-height: 400px;
     background-attachment: fixed;
     background-position: center;
-    background-size: cover;
     background-repeat: no-repeat;
-    position: relative; z-index: 1;
-    box-shadow: inset 0 0 50px rgba(0,0,0,0.7);
-}
-
-/* Gap Images */
-.gap-img-1 { background-image: url('fort_kasumbi_full_view.png'); }
-.gap-img-2 { background-image: url('fort_kasumbi_2.jpeg'); }
-.gap-img-3 { background-image: url('view_from_fort.png'); }
-
-/* Typography */
-.section-heading {
-    font-family: var(--font-heading); color: var(--maroon-text); font-size: 2.5rem;
-    margin-bottom: 20px; text-shadow: 0 1px 1px rgba(0,0,0,0.1);
-}
-.intro-text p { font-size: 1.2rem; line-height: 1.8; text-align: justify; }
-.drop-cap { float: left; font-size: 3.5rem; color: var(--maroon-text); line-height: 0.8; padding-right: 10px; font-weight: 900; }
-
-/* Elements */
-.intro-grid { display: flex; align-items: center; justify-content: center; gap: 40px; margin-top: 40px; flex-wrap: wrap; }
-.seal-img { width: 130px; opacity: 0.9; transform: rotate(-5deg); }
-.admin-img { width: 150px; height: 150px; border-radius: 50%; border: 4px solid var(--maroon-text); object-fit: cover; }
-
-/* Profile & Cards */
-.profile-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 30px; }
-.profile-item { border: 1px solid var(--maroon-text); padding: 15px; background: rgba(0,0,0,0.03); }
-.p-label { display: block; color: var(--maroon-text); font-weight: bold; }
-.p-value { font-size: 1.1rem; color: var(--brown-text); font-weight: bold; }
-
-.card-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
-.paper-card {
-    width: 280px; padding: 30px 20px;
-    border: 2px solid var(--maroon-text); border-radius: 8px;
-    background: #fff; box-shadow: 0 5px 15px rgba(128, 0, 0, 0.1);
-    transition: 0.3s;
-}
-.paper-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(128, 0, 0, 0.2); }
-.card-btn { display: inline-block; background: var(--maroon-text); color: #fff; padding: 8px 25px; border-radius: 30px; margin-top: 10px; font-weight: bold; }
-
-/* Updates */
-.updates-container { background: #fff; border: 1px dashed var(--maroon-text); padding: 20px; margin-top: 40px; border-radius: 10px; text-align: left; }
-.update-row { display: flex; gap: 20px; flex-wrap: wrap; }
-.u-img { width: 80px; height: 80px; object-fit: cover; border: 1px solid #7A5D28; margin-right: 5px; }
-
-/* --- 5. FOOTER --- */
-.royal-footer {
-    background: var(--royal-blue-bg);
-    background-image: url('footerbg.png'); background-repeat: repeat;
-    color: #7A5D28; padding: 40px 20px; text-align: center;
-    border-top: 5px solid #7A5D28;
-    position: relative; z-index: 12;
-    border-radius:20px 20px 0 0;
-}
-.fb-link { background: linear-gradient(45deg, #b8860b, #ffd700); color: #000; padding: 8px 20px; border-radius: 20px; display: inline-block; margin-top: 15px; font-weight: bold; }
-
-/* --- SOCIAL ICONS STYLE --- */
-.social-share-row {
-    margin-top: 25px; 
-    display: flex; justify-content: center; gap: 20px; 
-    animation: slideUp 1.6s ease-out; position: relative; z-index: 10;
-}
-
-.s-icon {
-    font-size: 1.5rem; color: #7A5D28; border: 1px solid #7A5D28;
-    width: 45px; height: 45px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    transition: 0.3s; background: rgba(0,0,0,0.4); text-decoration: none;
-}
-
-.s-icon:hover {
-    background: #7A5D28; color: #000;
-    transform: translateY(-5px); box-shadow: 0 0 15px #7A5D28;
-}
-
-/* =========================================
-    MOBILE & RESPONSIVE LOGIC
-    ========================================= */
-@media (max-width: 768px) {
-    /* Navbar Changes */
-    .navbar-links { display: none; }
-    .menu-toggle { display: block; }
-
-    /* Hero Section Fixes for Mobile */
-    .hero-section { 
-        background-attachment: scroll; 
-        background-image: url('kasumi_fort.png'); 
-    } 
-    
-    /* Pushing content UP on mobile */
-    .hero-content {
-        margin-top: -150px; 
-    }
-
-    /* HINDI ROYAL MOBILE ADJUSTMENTS */
-    .hindi-title { font-size: 3rem; margin-top: 10px; }
-    .hindi-subtitle { font-size: 1rem; letter-spacing: 2px; }
-    .hero-logo { width: 100px; height: 100px; }
-
-    /* Hiding Gaps & Adjusting Borders */
-    .parallax-gap { display: none !important; }
-    .cream-section {
-        border-top: none;
-        border-bottom: 1px dashed rgba(128, 0, 0, 0.3);
-        padding: 40px 15px;
-    }
-    .cream-section:last-of-type { border-bottom: 4px double var(--maroon-text); }
-}
-
-@media (min-width: 769px) {
-    .parallax-gap { display: block; }
-}
-
-/* --- GLOBAL ANIMATIONS --- */
-@keyframes slideDown { from { transform: translateY(-100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-@keyframes slideRight { from { transform: translateX(-100px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-@keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-@keyframes shine { to { background-position: 200% center; } }
-/* --- ROYAL CARD & MENU LIST --- */
-.royal-card-wrapper {
-    background: var(--paper-bg); /* पीछे का क्रीम कलर */
-    padding: 60px 20px;
-    display: flex; justify-content: center;
-}
-
-.royal-card {
-    background: #fff;
-    max-width: 800px;
-    width: 100%;
-    padding: 40px;
-    border-radius: 10px; /* कोने गोल */
-    /* यह है वो शैडो जो डिब्बे को हवा में उठाएगी */
-    box-shadow: 0 15px 40px rgba(0,0,0,0.2); 
-    border-top: 5px solid var(--maroon-text); /* ऊपर एक लाल पट्टी */
-    text-align: left; /* टेक्स्ट बायीं तरफ (जैसा रेफरेंस में है) */
-}
-
-/* Intro Text Styling inside Card */
-.card-intro {
-    text-align: center;
-    margin-bottom: 40px;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 20px;
-}
-.jay-mata-di {
-    color: #d32f2f; /* लाल रंग */
-    font-size: 2rem; font-weight: bold; margin-bottom: 10px;
-}
-
-/* --- PROFESSIONAL MENU LIST --- */
-.menu-list {
-    display: flex; flex-direction: column; gap: 20px;
-}
-
-.menu-item {
-    display: flex; align-items: flex-start; gap: 20px;
-    text-decoration: none;
-    padding: 15px;
-    border-radius: 8px;
-    transition: 0.3s;
-    border: 1px solid transparent;
-}
-
-.menu-item:hover {
-    background: #fffbf0; /* माउस ले जाने पर हल्का क्रीम */
-    border-color: #7A5D28;
-    transform: translateX(10px); /* थोड़ा सा खिसकेगा */
-}
-
-.menu-icon {
-    font-size: 2.5rem;
-    color: #7A5D28; /* सुनहरा आइकन */
-    min-width: 50px;
-    text-align: center;
-}
-
-.menu-text h3 {
-    margin: 0 0 5px 0;
-    color: #0056b3; /* हेडिंग का रंग (नीला/Royal Blue) */
-    font-family: var(--font-heading);
-    font-size: 1.4rem;
-}
-
-.menu-text p {
-    margin: 0;
-    color: #666; /* डिस्क्रिप्शन का रंग (Grey) */
-    font-size: 0.95rem;
-    line-height: 1.5;
-    font-family: sans-serif;
-}
-
-/* Mobile Adjustments */
-@media (max-width: 768px) {
-    .royal-card { padding: 20px; }
-    .menu-item { flex-direction: row; align-items: center; } 
-    .menu-icon { font-size: 2rem; }
-    .menu-text h3 { font-size: 1.2rem; }
-}
-
-/* =========================================
-   NEW ROYAL BOX DESIGN (Design No. 2 - Locked)
-   ========================================= */
-
-.royal-box {
+    background-size: cover;
     position: relative;
-    width: 260px;
-    background: #fff;
-    margin: 30px auto;
-    padding: 40px 20px 30px 20px;
-    text-align: center;
-    transition: transform 0.3s ease;
-    
-    /* शेप: ऊपर से हल्का गोल */
-    border-radius: 20px 20px 5px 5px;
+    box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
+    border-top: 2px solid #7A5D28;
+    border-bottom: 2px solid #7A5D28;
+}
 
-    /* डिज़ाइन: डबल बॉर्डर (Double Layer) */
+/* PHOTOS */
+.gap-1 { background-image: url('view_from_fort.png'); }
+.gap-2 { background-image: url('fort_kasumbi_2.png'); }
+
+/* --- CONTENT SECTIONS --- */
+.cream-section {
+    background-color: var(--cream-bg);
+    padding: 50px 0;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+}
+
+/* --- NAVBAR (Cylindrical Gradient) --- */
+.navbar-wrapper {
+    background-color: var(--deep-royal-blue);
+    background: linear-gradient(
+        to bottom, 
+        #091a3a 0%,   /* ऊपर: गहरा नीला */
+        #2a4065 50%,  /* बीच में: हल्का सफ़ेद सा नीला */
+        #091a3a 100%  /* नीचे: गहरा नीला */
+    );
+    border-bottom: 2px solid #7A5D28;
+    border-radius: 0 0 15px 15px;
+    position: fixed; 
+    top: 0; 
+    width: 100%; 
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+.navbar-inverse { background: transparent; border: none; margin-bottom: 0; }
+.navbar-inverse .navbar-nav>li>a { color: #fff !important; font-family: 'Cinzel', serif; font-size: 14px; font-weight: bold; transition: 0.3s; }
+
+/* --- UPDATED: MENU HOVER (No Shadow, Only Color) --- */
+.navbar-inverse .navbar-nav>li>a:hover { 
+    color: #7A5D28 !important; /* Royal Gold Color */
+    text-shadow: none !important; /* Shadow Hata Diya */
+    background: transparent !important; 
+}
+
+.navbar-brand { font-family: 'Cinzel'; color: #fff !important; font-weight: bold; font-size: 20px; display: flex; align-items: center; gap: 10px; margin-top: -5px; }
+.menu-logo-img { height: 35px; width: auto; border: none; }
+.navbar-toggle { border-color: #7A5D28 !important; background: transparent !important; }
+.navbar-toggle .icon-bar { background-color: #7A5D28 !important; }
+
+/* ड्रॉपडाउन (Desktop) */
+.dropdown-menu { 
+    background-color: #091a3a; /* गहरा नीला */
     border: 1px solid #7A5D28; 
-    box-shadow: 
-        inset 0 0 0 5px #fff,  /* सफ़ेद गैप */
-        inset 0 0 0 8px #7A5D28, /* अंदर का बॉर्डर */
-        0 10px 25px rgba(0,0,0,0.15); /* परछाई */
 }
+.dropdown-menu>li>a { color: #fff; padding: 10px; border-bottom: 1px solid rgba(184, 134, 11, 0.2); }
+.dropdown-menu>li>a:hover { background-color: #2a4065; color: #b8860b; }
 
-/* बॉक्स के ऊपर शाही चिन्ह (⚜️) */
-.royal-box::before {
-    content: '⚜️';
-    position: absolute;
-    top: -18px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #fff;
-    padding: 0 10px;
-    font-size: 1.5rem;
-    color: #7A5D28;
-    border-radius: 50px;
-}
 
-/* माउस ले जाने पर इफेक्ट */
-.royal-box:hover {
-    transform: translateY(-8px);
-    box-shadow: 
-        inset 0 0 0 5px #fff,
-        inset 0 0 0 8px #b8860b,
-        0 20px 35px rgba(184, 134, 11, 0.3);
-}
-
-/* आइकन्स (FontAwesome Code वाले) */
-.box-icon {
-    font-size: 2.5rem;
-    color: #7A5D28;
-    margin-bottom: 15px;
-    display: inline-block;
-}
-
-/* बटन (ग्रेडिएंट वाला) */
-.gold-btn {
-    display: inline-block;
-    background: linear-gradient(to right, #b8860b, #ffd700, #b8860b);
-    background-size: 200%;
-    color: #fff;
-    padding: 10px 25px;
-    border-radius: 50px;
-    margin-top: 20px;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 0.85rem;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    border: none;
-    transition: 0.4s;
-    text-decoration: none; /* लिंक की लाइन हटाई */
-}
-
-.gold-btn:hover {
-    background-position: right;
-    box-shadow: 0 5px 20px rgba(184, 134, 11, 0.6);
-    color: #fff;
-}
-/* =========================================
-   ROYAL UPDATES & SOCIAL LIGHTBOX CSS
-   ========================================= */
-
-/* --- 1. ROYAL PANEL DESIGN --- */
-.royal-wide-panel {
-    background: #fff;
-    border: 1px solid #7A5D28;
-    box-shadow: 
-        inset 0 0 0 5px #fff,
-        inset 0 0 0 8px #7A5D28,
-        0 10px 25px rgba(0,0,0,0.1);
-    padding: 30px;
-    margin: 40px auto;
-    max-width: 900px;
-    border-radius: 15px;
-    text-align: left;
-}
-
-.panel-title {
-    font-family: var(--font-heading);
-    color: var(--maroon-text);
-    border-bottom: 2px solid #eee;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-    font-size: 1.4rem;
-    display: flex; align-items: center; gap: 10px;
-}
-
-/* --- 2. GALLERY GRID --- */
-.update-gallery {
-    display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;
-}
-.u-img-frame {
-    width: 150px; height: 150px;
-    border: 4px double #7A5D28;
-    padding: 3px; background: #fff;
-    cursor: pointer; transition: 0.3s;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-}
-.u-img-frame img { width: 100%; height: 100%; object-fit: cover; }
-.u-img-frame:hover { transform: scale(1.05); border-color: var(--maroon-text); }
-
-/* --- 3. NAME LIST HOVER --- */
-.update-name-list {
-    list-style: none; padding: 0;
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;
-}
-.u-name-item {
-    background: #fffbf0; border-left: 5px solid var(--maroon-text);
-    border-radius: 0 10px 10px 0; transition: 0.3s;
-}
-.u-name-link {
-    display: block; padding: 15px;
-    text-decoration: none; color: var(--brown-text); font-weight: bold;
-}
-.u-name-item:hover { background: var(--maroon-text); transform: translateX(5px); }
-.u-name-item:hover .u-name-link { color: #fff; }
-
-/* --- 4. LIGHTBOX (POPUP) STYLES --- */
-.lightbox-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.9); z-index: 10000;
-    display: none; /* Hidden default */
-    justify-content: center; align-items: center;
-    overflow-y: auto; /* Scroll allow for comments */
-    backdrop-filter: blur(5px);
-}
-
-.lightbox-wrapper {
-    background: #fff; width: 90%; max-width: 600px;
-    padding: 10px; border-radius: 8px;
-    max-height: 90vh; overflow-y: auto; /* Scroll inside box */
-    position: relative; margin: 20px 0;
-}
-
-.lightbox-main-img {
-    width: 100%; height: auto; display: block;
-    border: 2px solid #7A5D28;
-}
-
-.lightbox-close {
-    position: absolute; top: 10px; right: 20px;
-    color: #fff; font-size: 3rem; cursor: pointer; z-index: 10001;
-    text-shadow: 0 0 10px #000;
-}
-
-/* Facebook Sections */
-.fb-actions-container {
-    padding: 15px; background: #f0f2f5; margin-top: 10px; border-radius: 5px;
-    display: flex; justify-content: center;
-}
-.fb-comments-container { margin-top: 20px; padding: 10px; }
-.fb-comments-container h4 { margin: 0 0 10px 0; color: #555; font-size: 1rem; }
-/* --- GUESTBOOK ROYAL STYLES --- */
-.guestbook-panel {
-    background-image: url('https://www.transparenttextures.com/patterns/parchment.png'); /* हल्का कागज जैसा लुक */
-    background-color: #fffbf0;
-}
-
-.form-group { margin-bottom: 15px; }
-
-.guestbook-form input, 
-.guestbook-form textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #7A5D28;
-    background: rgba(255,255,255,0.8);
-    font-family: var(--font-body);
-    font-size: 1rem;
-    border-radius: 5px;
-}
-
-.message-card {
-    background: #fff;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-left: 5px solid #7A5D28;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-    border-radius: 0 10px 10px 0;
-    animation: slideUp 0.5s ease;
-}
-
-.message-card strong {
-    color: var(--maroon-text);
-    font-family: var(--font-heading);
-    font-size: 1.1rem;
-}
-
-.message-card small {
-    display: block;
-    color: #999;
-    margin-top: 5px;
-    font-size: 0.8rem;
-}
-
-.message-text {
-    margin-top: 10px;
-    font-style: italic;
-    color: var(--brown-text);
-}
-/* विशेष स्वागत संदेश (Pinned Message) */
-.pinned-card {
-    background: linear-gradient(135deg, #fffbf0 0%, #fdf2d0 100%) !important;
-    border: 2px solid #7A5D28 !important;
-    border-left: 8px solid var(--maroon-text) !important; /* ज्यादा मोटी लाल पट्टी */
-    position: relative;
-    margin-bottom: 30px;
-}
-
-.pinned-tag {
-    position: absolute;
-    top: -12px;
-    right: 20px;
-    background: var(--maroon-text);
-    color: #fff;
-    padding: 2px 12px;
-    font-size: 0.7rem;
-    border-radius: 20px;
-    border: 1px solid #7A5D28;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-.pinned-card .message-text {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #444;
-    font-weight: 500;
-}
-/* =========================================
-   MOBILE FIXES (FULL WIDTH & CLEAN LAYOUT)
-   इसे CSS में सबसे नीचे पेस्ट करें
-   ========================================= */
-
+/* --- MOBILE FIX (Menu & Gradient Mismatch Fix) --- */
 @media (max-width: 768px) {
-
-    /* 1. SECTION KI KHALI JAGAH KAM KI */
-    .cream-section {
-        padding: 30px 10px; /* ऊपर-नीचे 30, दाएं- बाएं सिर्फ 10 */
-        border-width: 1px; /* बॉर्डर पतला किया */
-    }
-
-    /* 2. ROYAL PANEL KO FULL WIDTH KIYA (Jo aadha dikh raha tha) */
-    .royal-wide-panel {
-        padding: 15px;      /* अंदर की जगह आधी की */
-        margin: 15px auto;  /* बाहर की जगह कम की */
-        width: 100%;        /* पूरी स्क्रीन ले */
-        box-shadow: none;   /* मोबाइल पर भारी शैडो हटाई */
-        border: 1px solid #7A5D28; /* सिंपल बॉर्डर */
-    }
-
-    /* 3. Vanshavali Names Fix (Jo cut rahe the) */
-    .update-name-list {
-        /* मोबाइल पर एक बार में एक ही नाम दिखेगा (पूरा चौड़ा) */
-        grid-template-columns: 1fr !important; 
-        gap: 10px;
-    }
-
-    .u-name-item {
-        width: 100%; /* पूरा फैलेगा */
-        padding: 15px; /* नाम के आसपास जगह */
-    }
-
-    .u-name-link {
-        font-size: 1rem; /* फॉन्ट थोड़ा छोटा ताकि फिट हो */
-        white-space: normal; /* टेक्स्ट को अगली लाइन में आने दे */
-    }
-
-    /* 4. Guestbook Input Fix */
-    .guestbook-form input, 
-    .guestbook-form textarea {
-        width: 100%; /* फॉर्म बॉक्स से बाहर नहीं जाएगा */
-        font-size: 16px; /* मोबाइल पर टाइपिंग आसान हो */
-    }
-
-    /* 5. Gallery Images on Mobile */
-    .update-gallery {
-        justify-content: space-between; /* बराबर दूरी */
-    }
-    .u-img-frame {
-        /* मोबाइल पर 2 फोटो एक लाइन में */
-        width: 48%; 
-        height: auto; 
-        aspect-ratio: 1/1; /* चौकोर रखेगा */
-    }
-}
-/* ==================================================
-   FINAL MOBILE FIX: FULL WIDTH + 2 COLUMN GRID
-   (इसे style.css में सबसे नीचे पेस्ट करें)
-   ================================================== */
-
-@media (max-width: 768px) {
-
-    /* 1. पतली गली का इलाज (Full Width Layout) */
-    .container, body {
-        width: 100% !important;
-        max-width: 100% !important;
-        overflow-x: hidden;
-    }
-
-    /* सेक्शन की फालतू पैडिंग हटाई */
-    .cream-section {
-        padding: 20px 5px !important; 
-        width: 100%;
-        border-width: 1px 0 !important; /* साइड बॉर्डर हटा दिए */
-    }
-
-    /* शाही डिब्बे को पूरा खोला */
-    .royal-wide-panel, .royal-card, .guestbook-panel {
-        width: 100% !important;
-        margin: 10px 0 !important;
-        padding: 15px 8px !important; /* जगह बचाने के लिए पैडिंग कम */
-        border-radius: 0 !important;
-        box-shadow: none !important;
-        border-left: none !important;
-        border-right: none !important;
-    }
-
-    /* 2. इंडियन राजपूत जैसा ग्रिड (2 फोटो एक साथ) */
-    .royal-gallery-grid, 
-    .update-gallery, 
-    .card-container {
-        display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important; /* यहाँ है जादू: 2 कॉलम */
-        gap: 10px !important; /* बीच में 10px की जगह */
-        justify-content: center;
-    }
-
-    /* फोटो और कार्ड्स को सेट करना */
-    .gallery-item, 
-    .paper-card,
-    .u-img-frame {
-        width: 100% !important;
-        margin: 0 !important;
-        height: auto !important; /* हाईट अपने आप सेट होगी */
-    }
-
-    /* वंशावली के नाम (ये पूरी लाइन में एक ही अच्छे लगते हैं) */
-    .update-name-list {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 10px;
+    .parallax-gap { display: none !important; }
+    
+    header.index-header {
+        background-attachment: scroll !important;
+        background-position: center top !important;
+        background-size: cover !important;
+        min-height: 250px !important;
     }
     
-    .u-name-item {
-        width: 100% !important;
+    .container { padding-left: 10px; padding-right: 10px; }
+    .col-xs-6 { width: 50%; float: left; }
+    
+    /* MOBILE MENU GRADIENT FIX */
+    .navbar-collapse {
+        border-top: 1px solid #7A5D28;
+        background: linear-gradient(to bottom, #091a3a 0%, #2a4065 50%, #091a3a 100%);
+        max-height: 80vh; 
+        overflow-y: auto;
     }
+    
+    .navbar-nav { 
+        margin: 0; 
+        padding-bottom: 10px; 
+        background: transparent; 
+    }
+    
+    .cream-section { box-shadow: none; border-top: 1px solid #7A5D28; border-bottom: 1px solid #7A5D28; padding: 30px 0; }
+
+    /* Navbar items fix for mobile */
+    .navbar-brand {
+        font-size: 15px !important;
+        padding: 10px 5px !important;
+        gap: 5px !important;
+        max-width: 75%;
+        white-space: nowrap;
+    }
+    .menu-logo-img { height: 25px !important; }
+    .navbar-toggle {
+        margin-top: 10px !important;
+        margin-right: 10px !important;
+        padding: 5px 8px !important;
+    }
+}
+
+
+/* --- HEADER STYLES --- */
+header.index-header {
+    background-image: linear-gradient(rgba(3, 50, 80, 0.7), rgba(60, 94, 117, 0.7)), url('fort_kasumbi.png');
+    background-attachment: fixed;
+    background-size: cover; background-position: center;
+    padding-top: 150px; padding-bottom: 60px;
+    text-align: center; color: #fff;
+    box-shadow: 0px 5px 20px rgba(0,0,0,0.5);
+    margin-bottom: 0;
+}
+.hero-logo { width: 110px; margin-bottom: 10px; filter: drop-shadow(0 0 10px rgba(255,215,0,0.8)); }
+
+/* SHINING TEXT */
+h1.shining-text {
+    font-family: 'Berkshire Swash', 'Cinzel', serif; 
+    font-size: 3em; 
+    margin-top: 5px;
+    font-weight: 900;
+    background: linear-gradient(to right, #cfc09f 10%, #ffecb3 30%, #7A5D28 50%, #ffecb3 70%, #cfc09f 90%);
+    background-size: 200% auto;
+    color: #7A5D28;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: goldShimmer 3s linear infinite;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    line-height: 1.2;
+    padding-top: 10px;
+}
+
+/* --- Mobile Fix for Text --- */
+@media (max-width: 768px) {
+    h1.shining-text {
+        font-size: 1.8em !important;
+        margin-top: 10px !important;
+        white-space: nowrap;
+        line-height: 1.4;
+    }
+}
+@media (max-width: 380px) {
+    h1.shining-text { font-size: 1.5em !important; }
+}
+
+/* --- MAROON TEXT WITHOUT BOX --- */
+.maroon-text-wrapper {
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+.thikana-name {
+    font-family: 'Cinzel', serif;
+    font-size: 1.8em;
+    font-weight: 900;
+    color: #600000;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 0px #fff, -1px -1px 0px #fff, 1px -1px 0px #fff, -1px 1px 0px #fff, 1px 1px 0px #fff, 0px 0px 20px rgba(255, 215, 0, 0.6);
+}
+.thikana-motto {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #800000;
+    margin-top: 5px;
+    text-shadow: 0px 0px 4px #fff, 0px 0px 8px #fff, 0px 0px 15px #d4af37;
+}
+@media (max-width: 600px) {
+    .thikana-name { font-size: 1.4em; }
+    .thikana-motto { font-size: 1.0em; }
+}
+
+h2, h3 { font-family: 'Berkshire Swash', 'Cinzel', serif; color: var(--maroon-text); }
+
+/* Social Icons in Header */
+/* --- Header Social Icons (Updated like Footer) --- */
+.header-social-icons { 
+    margin-top: 15px; 
+}
+
+.header-social-icons a { 
+    color: #ffffff;      /* फूटर जैसा सफेद रंग */
+    font-size: 28px;     /* फूटर जैसा बड़ा साइज़ */
+    margin: 0 10px; 
+    transition: 0.3s; 
+    display: inline-block;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.5); /* बैकग्राउंड पर दिखने के लिए Shadow */
+}
+
+.header-social-icons a:hover { 
+    color: #7A5D28;          /* माउस ले जाने पर Royal Gold */
+    transform: translateY(-3px); /* हल्का सा ऊपर उठने का इफेक्ट */
+}
+
+/* --- THIKANA PROFILE --- */
+.profile-box {
+    border: 1px solid #7A5D28;
+    padding: 10px; background: #fff; margin-bottom: 15px; text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); min-height: 100px; transition: 0.3s;
+}
+.profile-box:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(184, 134, 11, 0.2); border-color: var(--maroon-text); }
+.p-icon { font-size: 18px; color: #7A5D28; margin-bottom: 5px; }
+.p-label { display: block; font-size: 12px; font-weight: bold; color: var(--maroon-text); text-transform: uppercase; }
+.p-value { font-size: 13px; color: #333; font-family: 'Noto Serif Devanagari', serif; }
+
+/* --- NEW: GUESTBOOK ROYAL STYLE (Footer Jaisa) --- */
+.guestbook-royal {
+    background-color: #091a3a;
+    background: linear-gradient(to bottom, #091a3a 0%, #2a4065 50%, #091a3a 100%);
+    color: #fff; /* टेक्स्ट सफ़ेद */
+    padding: 40px 20px;
+    border-top: 3px solid #7A5D28;
+    border-bottom: 3px solid #7A5D28;
+}
+
+/* Guestbook ke andar ki Headings ka color fix */
+.guestbook-royal h2, .guestbook-royal h3 {
+    color: #d4af37; /* Gold headings taaki dark par dikhe */
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+/* --- GUESTBOOK & BUTTONS --- */
+.gold-btn { background: linear-gradient(to right, #b8860b, #7A5D28); border: none; color: #000; font-weight: bold; padding: 10px 20px; width: 100%; transition: 0.3s; }
+.gold-btn:hover { transform: scale(1.02); box-shadow: 0 5px 15px rgba(184, 134, 11, 0.4); color: #800000; }
+
+/* --- GUESTBOOK HEADER (Optional styling agar header alag hai) --- */
+.cta-header {
+    background-color: #091a3a;
+    background: linear-gradient(to bottom, #091a3a 0%, #2a4065 50%, #091a3a 100%);
+    color: #d4af37;
+    padding: 15px;
+    text-align: center;
+    font-family: 'Cinzel', serif;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    border-radius: 10px 10px 0 0;
+    border-bottom: 2px solid #b8860b;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+}
+
+/* --- LIGHTBOX & UPDATES --- */
+.lightbox-modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.95); animation: fadeIn 0.4s; }
+.lightbox-content { margin: auto; display: block; width: 90%; max-width: 700px; max-height: 70vh; object-fit: contain; border: 3px solid #d4af37; margin-top: 50px; box-shadow: 0 0 20px #d4af37; }
+.lightbox-close { position: absolute; top: 20px; right: 30px; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer; transition: 0.3s; z-index: 10001; }
+.lightbox-close:hover { color: #d4af37; }
+.fb-action-area { text-align: center; margin-top: 15px; color: #fff; padding: 10px; }
+.fb-btn { background-color: #1877f2; color: white; padding: 8px 15px; border-radius: 4px; text-decoration: none; font-size: 14px; font-weight: bold; margin: 5px; display: inline-block; border: 1px solid #fff; }
+.view-more-container { text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px dashed #d4af37; }
+.royal-link-btn { display: inline-block; background: #800000; color: #7A5D28; padding: 10px 20px; margin: 5px; border: 1px solid #d4af37; font-family: 'Cinzel', serif; font-weight: bold; text-decoration: none; transition: 0.3s; }
+.royal-link-btn:hover { background: #d4af37; color: #800000; text-decoration: none; }
+@keyframes fadeIn { from {opacity: 0} to {opacity: 1} }
+
+/* FOOTER - GRADIENT & ROYAL */
+.royal-footer {
+    background-color: #091a3a;
+    background: linear-gradient(to bottom, #091a3a 0%, #2a4065 50%, #091a3a 100%);
+    color: #d4af37;
+    padding: 20px 10px; 
+    text-align: center;
+    border-top: 3px solid #7A5D28;
+    margin-top: 0;
+    border-radius: 15px 15px 0 0; 
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.4);
+}
+
+/* --- UPDATED: FOOTER SOCIAL ICONS (Bade aur White) --- */
+.footer-social-icons a {
+    color: #ffffff !important; /* Default White */
+    font-size: 28px !important; /* Size increased */
+    margin: 0 15px;
+    display: inline-block;
+    transition: all 0.3s ease;
+    text-shadow: none;
+}
+
+.footer-social-icons a:hover {
+    color: #7A5D28 !important; /* Hover pe Royal Color */
+    transform: translateY(-3px); /* Thoda upar uthega */
+    text-shadow: 0 0 10px rgba(122, 93, 40, 0.5);
+}
+
+/* Normal links in footer */
+.royal-footer .fb-link { margin-top: 10px; margin-bottom: 10px; }
+.royal-footer a:not(.footer-social-icons a) { 
+    color: #fff !important; 
+    text-decoration: none; 
+    transition: 0.3s; 
+}
+.royal-footer a:not(.footer-social-icons a):hover { 
+    color: #d4af37 !important; 
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5); 
 }

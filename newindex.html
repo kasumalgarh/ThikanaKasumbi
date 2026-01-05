@@ -28,26 +28,10 @@
         "query-input": "required name=search_term_string"
       },
       "hasPart": [
-        {
-          "@type": "SiteNavigationElement",
-          "name": "Vanshawali",
-          "url": "https://www.kasumalgarh.site/vanshawali.html"
-        },
-        {
-          "@type": "SiteNavigationElement",
-          "name": "History",
-          "url": "https://www.kasumalgarh.site/history.html"
-        },
-        {
-          "@type": "SiteNavigationElement",
-          "name": "Gallery",
-          "url": "https://www.kasumalgarh.site/gallery.html"
-        },
-        {
-          "@type": "SiteNavigationElement",
-          "name": "Guestbook",
-          "url": "https://www.kasumalgarh.site/index.html#guestbook"
-        }
+        { "@type": "SiteNavigationElement", "name": "Vanshawali", "url": "https://www.kasumalgarh.site/vanshawali.html" },
+        { "@type": "SiteNavigationElement", "name": "History", "url": "https://www.kasumalgarh.site/history.html" },
+        { "@type": "SiteNavigationElement", "name": "Gallery", "url": "https://www.kasumalgarh.site/gallery.html" },
+        { "@type": "SiteNavigationElement", "name": "Guestbook", "url": "https://www.kasumalgarh.site/index.html#guestbook" }
       ]
     }
     </script>
@@ -56,228 +40,50 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Playfair+Display:wght@400;700&family=Noto+Serif+Devanagari:wght@400;700&family=Berkshire+Swash&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-    <style>
-        /* ... (नीचे का CSS वही रहेगा जो आपकी फाइल में है) ... */
-        :root {
-            --gold-main: #b8860b;
-            --gold-hover: #ffd700; 
-            --maroon-text: #800000;
-            --royal-blue: #030230;
-            --cream-bg: #fffbf0;
-        }
-
-        body { 
-            font-family: 'Playfair Display', 'Noto Serif Devanagari', serif; 
-            background-color: #f5f5f5; 
-            color: #333; 
-            overflow-x: hidden;
-            margin: 0;
-        }
-
-        /* --- GOLD SHIMMER ANIMATION --- */
-        @keyframes goldShimmer {
-            0% { background-position: -100%; }
-            100% { background-position: 200%; }
-        }
-
-        /* --- PARALLAX GAP SETTINGS --- */
-        .parallax-gap {
-            width: 100%;
-            min-height: 400px;
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            position: relative;
-            box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
-            border-top: 2px solid #7A5D28;
-            border-bottom: 2px solid #7A5D28;
-        }
-
-        /* PHOTOS */
-        .gap-1 { background-image: url('view_from_fort.png'); }
-        .gap-2 { background-image: url('fort_kasumbi_2.png'); }
-
-        /* --- CONTENT SECTIONS --- */
-        .cream-section {
-            background-color: var(--cream-bg);
-            padding: 50px 0;
-            position: relative;
-            z-index: 2;
-            box-shadow: 0 0 20px rgba(0,0,0,0.2);
-        }
-
-        /* --- MOBILE FIX --- */
-        @media (max-width: 768px) {
-            .parallax-gap { display: none !important; }
-            header.index-header {
-                background-attachment: scroll !important;
-                background-position: center top !important;
-                background-size: cover !important;
-                min-height: 250px !important;
-            }
-            .container { padding-left: 10px; padding-right: 10px; }
-            .col-xs-6 { width: 50%; float: left; }
-            .navbar-nav { background: #001233; margin: 0; padding-bottom: 10px; border-radius: 0 0 20px 20px; }
-            .cream-section { box-shadow: none; border-top: 1px solid #7A5D28; border-bottom: 1px solid #7A5D28; padding: 30px 0; }
-        }
-
-        /* --- NAVBAR --- */
-        .navbar-wrapper {
-            background-color: #001233;
-            background-image: url('bg.png' opacity(80%));
-            background-repeat: repeat;
-            border-bottom: 2px solid #7A5D28;
-            border-radius: 0 0 20px 20px;
-            position: fixed; top: 0; width: 100%; z-index: 1000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-        }
-        .navbar-inverse { background: transparent; border: none; margin-bottom: 0; }
-        .navbar-inverse .navbar-nav>li>a { color: #fff !important; font-family: 'Cinzel', serif; font-size: 14px; font-weight: bold; transition: 0.3s; }
-        .navbar-inverse .navbar-nav>li>a:hover { color: var(--gold-hover) !important; text-shadow: 0 0 10px rgba(255, 215, 0, 0.8); background: transparent !important; }
-        .navbar-brand { font-family: 'Cinzel'; color: #fff !important; font-weight: bold; font-size: 20px; display: flex; align-items: center; gap: 10px; margin-top: -5px; }
-        .menu-logo-img { height: 35px; width: auto; border: none; }
-        .navbar-toggle { border-color: #7A5D28 !important; background: #001233 !important; }
-        .navbar-toggle .icon-bar { background-color: #fff !important; }
-        .dropdown-menu { background: #001233; border: 1px solid #7A5D28; }
-        .dropdown-menu>li>a { color: #fff; padding: 10px; border-bottom: 1px solid rgba(184, 134, 11, 0.2); }
-
-        /* --- HEADER STYLES --- */
-        header.index-header {
-            background-image: linear-gradient(rgba(3, 50, 80, 0.7), rgba(60, 94, 117, 0.7)), url('fort_kasumbi.png');
-            background-attachment: fixed;
-            background-size: cover; background-position: center;
-            padding-top: 150px; padding-bottom: 60px;
-            text-align: center; color: #fff;
-            box-shadow: 0px 5px 20px rgba(0,0,0,0.5);
-            margin-bottom: 0;
-        }
-        .hero-logo { width: 110px; margin-bottom: 10px; filter: drop-shadow(0 0 10px rgba(255,215,0,0.8)); }
-        
-        /* SHINING TEXT */
-        h1.shining-text {
-            font-family: 'Berkshire Swash', 'Cinzel', serif; 
-            font-size: 3em; 
-            margin-top: 5px;
-            font-weight: 900;
-            background: linear-gradient(to right, #cfc09f 10%, #ffecb3 30%, #ffd700 50%, #ffecb3 70%, #cfc09f 90%);
-            background-size: 200% auto;
-            color: #ffd700;
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: goldShimmer 3s linear infinite;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-            line-height: 1.5;
-            padding-top: 10px;
-        }
-        
-        h2, h3 { font-family: 'Berkshire Swash', 'Cinzel', serif; color: var(--maroon-text); }
-        
-        /* Social Icons in Header */
-        .header-social-icons { margin-top: 15px; }
-        .header-social-icons a { color: #ffd700; font-size: 20px; margin: 0 10px; transition: 0.3s; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
-        .header-social-icons a:hover { color: #fff; transform: scale(1.2); }
-
-        /* --- THIKANA PROFILE --- */
-        .profile-box {
-            border: 1px solid #7A5D28;
-            padding: 10px; background: #fff; margin-bottom: 15px; text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); min-height: 100px; transition: 0.3s;
-        }
-        .profile-box:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(184, 134, 11, 0.2); border-color: var(--maroon-text); }
-        .p-icon { font-size: 18px; color: #7A5D28; margin-bottom: 5px; }
-        .p-label { display: block; font-size: 12px; font-weight: bold; color: var(--maroon-text); text-transform: uppercase; }
-        .p-value { font-size: 13px; color: #333; font-family: 'Noto Serif Devanagari', serif; }
-
-        /* --- GUESTBOOK & BUTTONS --- */
-        .gold-btn { background: linear-gradient(to right, #b8860b, #ffd700); border: none; color: #000; font-weight: bold; padding: 10px 20px; width: 100%; transition: 0.3s; }
-        .gold-btn:hover { transform: scale(1.02); box-shadow: 0 5px 15px rgba(184, 134, 11, 0.4); color: #800000; }
-        
-        /* --- LIGHTBOX & UPDATES --- */
-        .lightbox-modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.95); animation: fadeIn 0.4s; }
-        .lightbox-content { margin: auto; display: block; width: 90%; max-width: 700px; max-height: 70vh; object-fit: contain; border: 3px solid #d4af37; margin-top: 50px; box-shadow: 0 0 20px #d4af37; }
-        .lightbox-close { position: absolute; top: 20px; right: 30px; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer; transition: 0.3s; z-index: 10001; }
-        .lightbox-close:hover { color: #d4af37; }
-        .fb-action-area { text-align: center; margin-top: 15px; color: #fff; padding: 10px; }
-        .fb-btn { background-color: #1877f2; color: white; padding: 8px 15px; border-radius: 4px; text-decoration: none; font-size: 14px; font-weight: bold; margin: 5px; display: inline-block; border: 1px solid #fff; }
-        .view-more-container { text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px dashed #d4af37; }
-        .royal-link-btn { display: inline-block; background: #800000; color: #ffd700; padding: 10px 20px; margin: 5px; border: 1px solid #d4af37; font-family: 'Cinzel', serif; font-weight: bold; text-decoration: none; transition: 0.3s; }
-        .royal-link-btn:hover { background: #d4af37; color: #800000; text-decoration: none; }
-        @keyframes fadeIn { from {opacity: 0} to {opacity: 1} }
-
-        /* FOOTER - COMPACT & ROUNDED */
-        .royal-footer {
-            background-color: #001233;
-            background-image: url('footerbg.png');
-            background-repeat: repeat;
-            color: #7A5D28;
-            padding: 20px 10px; 
-            text-align: center;
-            border-top: 4px solid #7A5D28;
-            margin-top: 0;
-            border-radius: 25px 25px 0 0; 
-        }
-        .royal-footer .fb-link { margin-top: 10px; margin-bottom: 10px; }
-/* MOBILE NAVBAR FIX (तीनों को एक लाइन में लाने के लिए) */
-@media (max-width: 768px) {
-    
-    /* 1. नाम छोटा करें */
-    .navbar-brand {
-        font-size: 15px !important;  /* 20px से घटाकर 15px किया */
-        padding: 10px 5px !important; /* आस-पास की जगह कम की */
-        gap: 5px !important;          /* लोगो और नाम को पास लाया */
-        max-width: 75%;               /* इसे बटन से टकराने से रोका */
-        white-space: nowrap;          /* नाम को टूटने से रोका */
-    }
-
-    /* 2. लोगो छोटा करें */
-    .menu-logo-img {
-        height: 25px !important;      /* 35px से छोटा किया */
-    }
-
-    /* 3. बटन को सही जगह बिठाएं */
-    .navbar-toggle {
-        margin-top: 10px !important;  /* ऊपर से बैलेंस किया */
-        margin-right: 10px !important;
-        padding: 5px 8px !important;  /* बटन का साइज़ छोटा किया */
-    }
-}
-    </style>
+    <link rel="stylesheet" href="royal_global.css">
 </head>
 <body>
 
-    <div class="navbar-wrapper">
-        <div class="container">
-            <nav class="navbar navbar-inverse">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-                        <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="index.html">
-                        <img src="menulogo.png" alt="Logo" class="menu-logo-img">
-                        KASUMALGARH
-                    </a>
-                </div>
-                <div id="navbar" class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="index.html">HOME</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">VANSHAWALI <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="vanshawali.html">Kasumalgarh</a></li>
-                                <li><a href="rathore_vanshawali.html">Rathore</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="history.html">HISTORY</a></li>
-                        <li><a href="gallery.html">GALLERY</a></li>
-                        <li><a href="about.html">ABOUT</a></li>
-                        <li><a href="contact.html">CONTACT</a></li>
-                    </ul>
-                </div>
-            </nav>
+        <div class="navbar-wrapper">
+            <div class="container">
+                <nav class="navbar navbar-inverse">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                            <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="index.html">
+                            <img src="menulogo.png" alt="Logo" class="menu-logo-img">
+                            KASUMALGARH
+                        </a>
+                    </div>
+                    <div id="navbar" class="collapse navbar-collapse">
+                       <ul class="nav navbar-nav navbar-right">
+    <li><a href="index.html">HOME</a></li>
+    
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">VANSHAWALI <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li><a href="vanshawali.html">Kasumalgarh</a></li>
+            <li><a href="rathorevanshawali.html">Rathore</a></li>
+        </ul>
+    </li>
+
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">HISTORY <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li><a href="kasumalgarh.html">Kasumalgarh History</a></li>
+            <li><a href="rathore.html">Rathore History</a></li>
+        </ul>
+    </li>
+
+    <li><a href="gallery.html">GALLERY</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="contact.html">CONTACT</a></li>
+</ul>
+                    </div>
+                </nav>
+            </div>
         </div>
-    </div>
 
     <header class="index-header">
         <div class="container">
@@ -285,16 +91,15 @@
             
             <h1 class="shining-text">|| ठिकाना कसुम्बी ||</h1>
             
-            <p style="font-size: 1.2em; color: #ffd700;">Thikana Kasumbi (Jakhlan)</p>
-            <p style="font-size: 1.2em; color: #ffd700;">विरासत • सम्मान • शौर्य</p>
+            <div class="maroon-text-wrapper">
+                <div class="thikana-name">Thikana Kasumbi (Jakhlan)</div>
+                <div class="thikana-motto">|| विरासत • सम्मान • शौर्य ||</div>
+            </div>
+
             <div class="header-social-icons">
-               <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.kasumalgarh.site" target="_blank">
-    <i class="fab fa-facebook"></i>
-</a>
-                <a href="https://www.instagram.com/gajsa.kasumbifort" target="_blank"><i class="fab fa-instagram"></i></a>
-              <a href="https://wa.me/?text=Check out Thikana Kasumbi: https://www.kasumalgarh.site" target="_blank">
-    <i class="fab fa-whatsapp"></i>
-</a>
+               <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.kasumalgarh.site" target="_blank"><i class="fab fa-facebook"></i></a>
+               <a href="https://www.instagram.com/gajsa.kasumbifort" target="_blank"><i class="fab fa-instagram"></i></a>
+               <a href="https://wa.me/?text=Check out Thikana Kasumbi: https://www.kasumalgarh.site" target="_blank"><i class="fab fa-whatsapp"></i></a>
             </div>
         </div>
     </header>
@@ -418,13 +223,39 @@
                     
                     <div class="thumbnail" style="background: #fff url('footerbg.png') repeat; border: 2px solid #b8860b; border-radius: 10px; padding: 5px; box-shadow: 0 5px 15px rgba(184, 134, 11, 0.3);">
                         
-                        <div class="cta-header" style="background: #001233; color: #fff; padding: 10px; text-align: center; font-family: 'Cinzel'; font-size: 18px; border-radius: 10px 10px 0 0; border-bottom: 2px solid #b8860b;">
+                        <div class="cta-header" style="background: linear-gradient(to bottom, #091a3a 0%, #2a4065 50%, #091a3a 100%); color: #fff; padding: 10px; text-align: center; font-family: 'Cinzel'; font-size: 18px; border-radius: 10px 10px 0 0; border-bottom: 2px solid #b8860b;">
                             <i class="fas fa-pen-nib"></i> GUESTBOOK
                         </div>
                         
                         <div class="cta-body" style="padding: 20px;">
                             
-                            <div class="alert alert-warning text-center" style="border-color: #b8860b; background: rgba(184, 134, 11, 0.1); color: #800000; padding: 15px; border-radius: 5px;">
+                           <div class="media" style="border: 1px solid #d4af37; background: #fffbf0; padding: 15px; border-radius: 8px; margin-bottom: 25px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+    
+    <div class="media-left" style="vertical-align: top; padding-right: 15px;">
+        <a href="#">
+            <img class="media-object" src="YGSR.png" alt="Admin" style="width: 60px; height: 60px; border-radius: 50%; border: 2px solid #b8860b; padding: 2px;">
+        </a>
+    </div>
+
+    <div class="media-body">
+        <h4 class="media-heading" style="color: #800000; font-family: 'Cinzel', serif; font-weight: bold; margin-bottom: 5px;">
+            Yuvraj Gajraj Singh 
+            <span class="label" style="background: #b8860b; font-size: 10px; vertical-align: middle;">ADMIN</span>
+        </h4>
+        
+        <div style="font-size: 12px; color: #777; margin-bottom: 8px;">
+            <i class="fas fa-clock"></i> Just now &bull; <i class="fas fa-map-marker-alt"></i> Fort Kasumbi
+        </div>
+
+        <p style="font-family: 'Noto Serif Devanagari', serif; font-size: 15px; color: #333; line-height: 1.6;">
+            <strong>खम्मा घणी सा!</strong> <br>
+            ठिकाना कसुम्बी के इस डिजिटल आंगन में आपका हार्दिक स्वागत है। 
+            कृपया नीचे दिए गए फॉर्म में अपने विचार लिखकर हमारी <strong> आगन्तुक पंजिका (Guestbook)</strong> की शोभा बढ़ाएं।
+            <br>
+            <span style="color: #b8860b; font-size: 13px; font-weight: bold;">"आपके शब्द, हमारी धरोहर।"</span>
+        </p>
+    </div>
+</div>
                                 <h4 style="font-family: 'Noto Serif Devanagari', serif; font-weight: bold; margin: 5px 0 10px 0; color: #d4af37;">
                                     || स्वागतम ||
                                 </h4>
@@ -463,21 +294,32 @@
                             <div style="height: 100px; overflow-y: auto; background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; border: 1px solid #e0c080;" id="messagesContainer">
                                 <small><i class="fas fa-spinner fa-spin"></i> संदेश लोड हो रहे हैं...</small>
                             </div>
-                            
                         </div>
                     </div>
-                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    
-
     <footer class="royal-footer">
         <div class="container">
             <div style="font-size: 0.9em; color: #ccc;">Developed & Designed By:</div>
-            <div style="color:#ffd700; font-size:1.4rem; font-family: 'Cinzel', serif; margin: 5px 0;">Yuvraj Gajraj Singh</div>
-            <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" class="fb-link"><i class="fab fa-facebook"></i> Connect on Facebook</a>
+            <div style="color:#7A5D28; font-size:1.4rem; font-family: 'Cinzel', serif; margin: 5px 0;">Yuvraj Gajraj Singh</div>
+            
+          <div class="footer-social-icons" style="margin-top: 15px; margin-bottom: 15px;">
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.kasumalgarh.site" target="_blank">
+        <i class="fab fa-facebook"></i>
+    </a>
+    
+    <a href="https://www.instagram.com/gajsa.kasumbifort" target="_blank">
+        <i class="fab fa-instagram"></i>
+    </a>
+    
+    <a href="https://wa.me/?text=Check out Thikana Kasumbi: https://www.kasumalgarh.site" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+</div>
+
             <div style="font-size: 0.8em; margin-top: 20px; color: #888;">&copy; <span id="year">2026</span> | All Rights Reserved.</div>
             <div style="margin-top: 10px; font-size: 0.9rem; color: #d4af37;">🏰 Total Royal Guests: <span id="visitor-count" style="color:#fff; font-weight:bold;">12,543</span></div>
         </div>
@@ -495,51 +337,8 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $(document).click(function (event) {
-                var clickover = $(event.target);
-                var $navbar = $(".navbar-collapse");
-                var _opened = $navbar.hasClass("in");
-                if (_opened === true && !clickover.hasClass("navbar-toggle")) { $navbar.collapse('hide'); }
-            });
-            var path = window.location.pathname.split("/").pop();
-            if (path == '') { path = 'index.html'; }
-            var target = $('.navbar-nav a[href="' + path + '"]');
-            target.parent().addClass('active');
-            target.closest('.dropdown').addClass('active');
-        });
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbxUmHwP70tZouclG6GOuI3Ldfv2j-wyB9inNtrAZ3GIYjF03Au8LDbL7rw4q1GHr8Vi/exec';
-        const form = document.getElementById('guestbookForm');
-        const msgContainer = document.getElementById('messagesContainer');
-        form.addEventListener('submit', e => {
-            e.preventDefault();
-            document.getElementById('submitBtn').innerHTML = '<i class="fas fa-spinner fa-spin"></i>हुकम संदेश भेज रहा हूँ...';
-            fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-                .then(response => { document.getElementById('formStatus').innerHTML = "<span style='color:green; font-weight:bold;'><i class='fas fa-check-circle'></i>हुकम संदेश सफलतापूर्वक भेजा गया!</span>"; form.reset(); document.getElementById('submitBtn').innerHTML = '<i class="fas fa-paper-plane"></i> भेजें (Send)'; loadMessages(); })
-                .catch(error => console.error('Error!', error.message));
-        });
-        function loadMessages() {
-            fetch(scriptURL).then(res => res.json()).then(data => {
-                msgContainer.innerHTML = '';
-                data.reverse().slice(0, 5).forEach(row => { msgContainer.innerHTML += `<div style="border-bottom:1px dashed #ccc; padding:5px; font-size:0.9em;"><strong style="color:#800000"><i class="fas fa-user-circle"></i> ${row[0]}</strong>: ${row[1]}</div>`; });
-            });
-        }
-        loadMessages();
-        document.getElementById('year').textContent = new Date().getFullYear();
+    
+    <script src="royal_global.js"></script>
 
-        // Lightbox Scripts
-        function openLightbox(element) {
-            var modal = document.getElementById("myLightbox");
-            var modalImg = document.getElementById("img01");
-            modal.style.display = "block";
-            modalImg.src = element.src;
-        }
-        function closeLightbox() { document.getElementById("myLightbox").style.display = "none"; }
-        window.onclick = function(event) {
-            var modal = document.getElementById("myLightbox");
-            if (event.target == modal) { modal.style.display = "none"; }
-        }
-    </script>
 </body>
 </html>

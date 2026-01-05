@@ -801,7 +801,7 @@ html, body {
     font-size: 24px;
     color: #d4af37;
     margin-bottom: 15px;
-    text-shadow: 0 0 10px #ffd700;
+    text-shadow: 0 0 10px #7A5D28;
 }
 
 /* =========================================
@@ -813,7 +813,7 @@ html, body {
     gap: 10px;
     
     /* Shahi Gold Gradient Background */
-    background: linear-gradient(45deg, #b8860b, #ffd700, #b8860b);
+    background: linear-gradient(45deg, #b8860b, #7A5D28, #b8860b);
     
     /* Text Color (Dark Maroon) */
     color: #2a0a0a !important; 
@@ -840,7 +840,7 @@ html, body {
 .fb-btn:hover {
     transform: translateY(-3px); /* Thoda upar uthega */
     box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6); /* Chamak badhegi */
-    background: linear-gradient(45deg, #ffd700, #fff, #ffd700); /* Aur bright hoga */
+    background: linear-gradient(45deg, #7A5D28, #fff, #7A5D28); /* Aur bright hoga */
 }
 
 /* Button Icon */

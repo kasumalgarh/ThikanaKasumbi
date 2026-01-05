@@ -51,7 +51,7 @@
 
         .score-box {
             font-size: 28px;
-            color: #FFD700;
+            color: #7A5D28;
             font-weight: 800;
             background: rgba(0,0,0,0.5);
             padding: 5px 15px;
@@ -175,7 +175,7 @@
         #notification {
             position: absolute;
             top: 40%; left: 50%; transform: translate(-50%, -50%);
-            font-size: 40px; font-weight: 900; color: #FFD700;
+            font-size: 40px; font-weight: 900; color: #7A5D28;
             text-shadow: 3px 3px 0 #bf360c; opacity: 0;
             transition: opacity 0.3s; pointer-events: none; z-index: 20;
             white-space: nowrap;
@@ -573,7 +573,7 @@
             update() {
                 this.y += this.dy;
                 if (this.y + 5 < groundY) { this.dy += this.gravity; this.grounded = false; } else { this.dy = 0; this.grounded = true; this.y = groundY - 5; }
-                if (this.isGiant) { this.giantTimer--; updatePowerBar(this.giantTimer, 600, 'GIANT MODE', '#FFD700'); if(this.giantTimer<=0) { this.isGiant=false; powerBar.style.display='none'; } } 
+                if (this.isGiant) { this.giantTimer--; updatePowerBar(this.giantTimer, 600, 'GIANT MODE', '#7A5D28'); if(this.giantTimer<=0) { this.isGiant=false; powerBar.style.display='none'; } } 
                 else if (this.hasMagnet) { this.magnetTimer--; updatePowerBar(this.magnetTimer, 600, 'MAGNET ON', '#FF0000'); if(this.magnetTimer<=0) { this.hasMagnet=false; powerBar.style.display='none'; } }
             },
             jump() { if (this.grounded) { this.dy = -this.jumpForce; playSound('jump'); } }
@@ -599,7 +599,7 @@
                 if (this.type === 'rock') { ctx.fillStyle = '#555'; ctx.beginPath(); ctx.moveTo(0,40); ctx.lineTo(20,0); ctx.lineTo(40,40); ctx.fill(); }
                 else if (this.type === 'log') { ctx.fillStyle = '#5D4037'; ctx.fillRect(0, 10, 50, 30); ctx.fillStyle = '#8D6E63'; ctx.beginPath(); ctx.arc(0, 25, 15, 0, Math.PI*2); ctx.fill(); }
                 else if (this.type === 'magnet') { ctx.fillStyle = 'red'; ctx.fillRect(0,0,10,30); ctx.fillRect(20,0,10,30); ctx.fillRect(0,20,30,10); ctx.fillStyle = 'silver'; ctx.fillRect(0,30,10,5); ctx.fillRect(20,30,10,5); }
-                else { let c = this.type === 'gold_laddoo' ? '#FFD700' : '#FF6F00'; if (this.type === 'gold_laddoo') { ctx.shadowBlur=15; ctx.shadowColor='gold'; } ctx.fillStyle = c; ctx.beginPath(); ctx.arc(20,20,15,0,Math.PI*2); ctx.fill(); ctx.fillStyle = 'rgba(255,255,255,0.4)'; ctx.beginPath(); ctx.arc(15,15,4,0,Math.PI*2); ctx.fill(); }
+                else { let c = this.type === 'gold_laddoo' ? '#7A5D28' : '#FF6F00'; if (this.type === 'gold_laddoo') { ctx.shadowBlur=15; ctx.shadowColor='gold'; } ctx.fillStyle = c; ctx.beginPath(); ctx.arc(20,20,15,0,Math.PI*2); ctx.fill(); ctx.fillStyle = 'rgba(255,255,255,0.4)'; ctx.beginPath(); ctx.arc(15,15,4,0,Math.PI*2); ctx.fill(); }
                 ctx.restore();
             }
         }
