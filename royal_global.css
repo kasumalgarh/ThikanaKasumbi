@@ -499,13 +499,7 @@ h2, h3 { font-family: 'Berkshire Swash', 'Cinzel', serif; color: var(--maroon-te
     position: relative;
 }
 /* --- Equal Height Row Fix --- */
-.row-flex {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    flex-wrap: wrap;
-}
+
 
 /* Make sure the box takes full height */
 .contact-box {
@@ -557,4 +551,79 @@ h2, h3 { font-family: 'Berkshire Swash', 'Cinzel', serif; color: var(--maroon-te
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
+}
+/* डेस्कटॉप और टैबलेट के लिए - दोनों डब्बे बराबर ऊँचाई के */
+@media (min-width: 768px) {
+  
+    .royal-flex-col {
+        display: flex !important;
+        flex-direction: column;
+    }
+  
+}
+
+/* सोशल आइकॉन को बॉक्स के नीचे रखने के लिए */
+.social-bottom {
+    text-align: center;
+    margin-top: auto; /* Baaki space upar chhod dega */
+    padding-top: 20px;
+    border-top: 1px dashed #ccc;
+}
+/* --- FINAL EQUAL HEIGHT FIX --- */
+
+/* 1. Row को Flexbox बनाएँ */
+@media (min-width: 768px) {
+    .royal-flex-row {
+        display: -webkit-box !important;
+        display: -ms-flexbox !important;
+        display: flex !important;
+        -webkit-box-align: stretch !important;
+        -ms-flex-align: stretch !important;
+        align-items: stretch !important; /* Ye dono ko barabar khinchega */
+        flex-wrap: wrap;
+    }
+
+    .royal-flex-col {
+        display: -webkit-box !important;
+        display: -ms-flexbox !important;
+        display: flex !important;
+        float: none !important; /* Bootstrap float ko hatana zaruri hai */
+    }
+
+    .contact-box {
+        display: -webkit-box !important;
+        display: -ms-flexbox !important;
+        display: flex !important;
+        flex-direction: column;
+        width: 100%;
+        height: 100% !important; /* Paka barabar karega */
+        margin-bottom: 0 !important; /* Bottom gap row se aayega */
+    }
+}
+
+/* 2. Content ko manage karein */
+.contact-box {
+    background: #fff;
+    border: 2px solid #7A5D28;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+.content-up {
+    flex-grow: 1; /* Ye upar ka hissa khali jagah bhar lega */
+}
+
+.social-bottom {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px dashed #ccc;
+}
+
+/* 3. Mobile ke liye gap */
+@media (max-width: 767px) {
+    .royal-flex-col {
+        margin-bottom: 20px;
+    }
 }
