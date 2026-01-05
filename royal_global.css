@@ -140,7 +140,7 @@ body {
 
 /* --- HEADER STYLES --- */
 header.index-header {
-    background-image: linear-gradient(rgba(3, 50, 80, 0.7), rgba(60, 94, 117, 0.7)), url('fort_kasumbi.png');
+    background-image: linear-gradient(rgba(230, 159, 28, 0.3), rgba(60, 94, 117, 0.0)), url('fort_kasumbi.png');
     background-attachment: fixed;
     background-size: cover; background-position: center;
     padding-top: 150px; padding-bottom: 60px;
