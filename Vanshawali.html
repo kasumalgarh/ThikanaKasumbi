@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
     <title>Vanshawali | Thikana Kasumbi (Jakhlan)</title>
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -20,11 +19,23 @@
 
     <style>
         /* =========================================
-           1. TREE CONTAINER (Compact & Royal)
+           1. CORE LAYOUT & ROYAL THEME
+           ========================================= */
+        body { overflow-x: hidden; background: #fffbf0; }
+        
+        /* Tooltip (Desktop Hover) */
+        #hoverTooltip {
+            position: fixed; display: none; background: rgba(0,0,0,0.9); color: #fff;
+            padding: 8px 12px; border-radius: 4px; font-size: 12px; z-index: 20000; pointer-events: none;
+            border: 1px solid #d4af37; white-space: nowrap;
+        }
+
+        /* =========================================
+           2. TREE CONTAINER (Ultra Compact)
            ========================================= */
         .tree-container {
             background: #fffbf0;
-            padding: 50px 20px;
+            padding: 50px 10px;
             min-height: 800px;
             font-family: 'Noto Serif Devanagari', serif;
             overflow: auto; 
@@ -32,9 +43,8 @@
         }
         .tree-container:active { cursor: grabbing; }
 
-        /* --- ROYAL TREE CSS (L-Shape + Collapse) --- */
         .royal-tree ul {
-            padding-left: 30px; 
+            padding-left: 25px; /* Compact Gap */
             list-style: none;
             position: relative;
             transition: all 0.3s ease;
@@ -42,177 +52,196 @@
 
         .royal-tree li {
             position: relative;
-            padding-left: 20px;
+            padding-left: 15px;
             margin-bottom: 0;
-            line-height: 1.8em; /* Compact Line Height */
+            line-height: 1.6em; /* Ultra Compact Line Height */
         }
 
-        /* Vertical Line */
+        /* Common Line Style */
         .royal-tree ul li::before {
             content: ''; position: absolute; left: 0; top: 0;
-            border-left: 2px solid #800000; height: 100%;
+            border-left-width: 2px; border-left-style: solid; height: 100%;
         }
-
-        /* Horizontal Line */
         .royal-tree ul li::after {
-            content: ''; position: absolute; left: 0; top: 0.9em; /* Adjusted for compact height */
-            width: 15px; border-top: 2px solid #b8860b;
+            content: ''; position: absolute; left: 0; top: 0.8em; 
+            width: 12px; border-top-width: 2px; border-top-style: solid;
         }
+        .royal-tree ul li:last-child::before { height: 0.8em; }
 
-        /* Last Child Fix */
-        .royal-tree ul li:last-child::before { height: 0.9em; }
+        /* --- 12 GENERATION COLORS (12 रंग) --- */
+        .gen-1 > ul > li::before, .gen-1 > ul > li::after { border-color: #800000; } /* Maroon */
+        .gen-2 > ul > li::before, .gen-2 > ul > li::after { border-color: #d63031; } /* Red */
+        .gen-3 > ul > li::before, .gen-3 > ul > li::after { border-color: #0984e3; } /* Blue */
+        .gen-4 > ul > li::before, .gen-4 > ul > li::after { border-color: #00b894; } /* Green */
+        .gen-5 > ul > li::before, .gen-5 > ul > li::after { border-color: #6c5ce7; } /* Purple */
+        .gen-6 > ul > li::before, .gen-6 > ul > li::after { border-color: #e17055; } /* Orange */
+        .gen-7 > ul > li::before, .gen-7 > ul > li::after { border-color: #00cec9; } /* Teal */
+        .gen-8 > ul > li::before, .gen-8 > ul > li::after { border-color: #e84393; } /* Pink */
+        .gen-9 > ul > li::before, .gen-9 > ul > li::after { border-color: #2d3436; } /* Grey */
+        .gen-10 > ul > li::before, .gen-10 > ul > li::after { border-color: #fdcb6e; } /* Mustard */
+        .gen-11 > ul > li::before, .gen-11 > ul > li::after { border-color: #636e72; } /* Slate */
+        .gen-12 > ul > li::before, .gen-12 > ul > li::after { border-color: #d4af37; } /* Gold */
+
+        /* Name Styling */
+        .tree-name {
+            font-size: 14px; color: #5a4a42; font-weight: bold;
+            padding: 1px 6px; border-radius: 4px; transition: 0.2s;
+            display: inline-block; cursor: pointer; border: 1px solid transparent;
+        }
+        .has-children > .tree-name-wrapper .tree-name { color: #800000; font-weight: 900; }
+        
+        .tree-name:hover, .highlight-node {
+            background: #b8860b; color: #fff !important;
+            border-color: #800000; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
 
         /* Toggle Button (+/-) */
         .toggle-btn {
-            display: inline-block; width: 14px; height: 14px;
+            display: inline-block; width: 12px; height: 12px;
             border: 1px solid #800000; background: #fff;
-            color: #800000; font-size: 10px; line-height: 12px;
-            text-align: center; margin-right: 5px; cursor: pointer;
+            color: #800000; font-size: 9px; line-height: 10px;
+            text-align: center; margin-right: 4px; cursor: pointer;
             border-radius: 2px; position: relative; z-index: 10;
         }
         .toggle-btn:hover { background: #800000; color: #fff; }
 
-        /* Name Styling */
-        .tree-name {
-            font-size: 15px; color: #5a4a42; font-weight: bold;
-            padding: 2px 8px; border-radius: 4px; transition: 0.3s;
-            display: inline-block; cursor: pointer;
-            border: 1px solid transparent;
-        }
-
-        .has-children > .tree-name-wrapper .tree-name {
-            color: #800000; font-weight: 900;
-        }
-
-        .tree-name:hover, .highlight-node {
-            background: #b8860b; color: #fff !important;
-            border-color: #800000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-
-        /* Root Node */
+        /* Root Node Styling */
         .root-ul { padding-left: 0 !important; }
         .root-li { padding-left: 0 !important; }
         .root-li::before, .root-li::after { display: none !important; }
-        
         .root-name {
-            font-family: 'Cinzel', serif; font-size: 24px; color: #800000;
+            font-family: 'Cinzel', serif; font-size: 22px; color: #800000;
             border-bottom: 3px solid #d4af37; padding-bottom: 5px;
-            margin-bottom: 20px; display: inline-block; cursor: pointer;
+            margin-bottom: 15px; display: inline-block; cursor: pointer;
         }
 
-        .tree-name-wrapper { display: inline-block; vertical-align: middle; }
-
-        /* Hide/Show Logic */
-        .hidden-children { display: none; }
+        /* Hidden Children (Collapsed State) */
+        .children-group { display: none; }
 
         /* =========================================
-           2. PANELS (Fixed Mobile & Z-Index)
+           3. PANELS (Fixed & Mobile Proof)
            ========================================= */
         .sidebar-left, .sidebar-right {
-            position: fixed; top: 60px; bottom: 60px; /* Menu ke neeche */
-            width: 300px; background: #fffbf0;
-            border: 2px solid #d4af37;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            z-index: 9000; /* Menu (1000) se neeche rakhe agar menu 10000 h */
-            transition: 0.3s ease;
+            position: fixed; top: 0; bottom: 0; /* Full Height on Mobile */
+            width: 320px; background: #fffbf0;
+            border-right: 2px solid #d4af37; border-left: 2px solid #d4af37;
+            box-shadow: 0 0 25px rgba(0,0,0,0.7);
+            z-index: 10001; /* Highest Layer */
+            transition: transform 0.3s ease;
             display: flex; flex-direction: column;
-            border-radius: 10px;
+            padding-top: 60px; /* Space for Header if needed, or adjust */
         }
 
-        /* 100% Hide Logic for Mobile */
-        .sidebar-left { left: -110%; } 
-        .sidebar-right { right: -110%; }
-        
-        .sidebar-left.open { left: 10px; }
-        .sidebar-right.open { right: 10px; }
+        /* Desktop Positioning */
+        @media (min-width: 769px) {
+            .sidebar-left { left: 0; transform: translateX(-100%); top: 52px; bottom: 0; border-right: 2px solid #d4af37; border-left: none; }
+            .sidebar-right { right: 0; transform: translateX(100%); top: 52px; bottom: 0; border-left: 2px solid #d4af37; border-right: none; }
+            .sidebar-left.open { transform: translateX(0); }
+            .sidebar-right.open { transform: translateX(0); }
+        }
 
-        /* Mobile Adjustments */
+        /* Mobile Positioning (Full Screen Overlay) */
         @media (max-width: 768px) {
             .sidebar-left, .sidebar-right { 
-                width: 85%; top: 55px; bottom: 80px; 
-                left: -120%; right: -120%; /* Pura bahar */
+                width: 90%; max-width: 350px; 
+                top: 0; bottom: 0;
             }
-            .sidebar-left.open { left: 5px; }
-            .sidebar-right.open { right: 5px; }
+            .sidebar-left { left: 0; transform: translateX(-110%); }
+            .sidebar-right { right: 0; transform: translateX(110%); }
+            
+            .sidebar-left.open { transform: translateX(0); }
+            .sidebar-right.open { transform: translateX(0); }
         }
 
         /* Panel Header */
         .panel-header {
-            background: #800000; color: #d4af37; padding: 10px;
+            background: #800000; color: #d4af37; padding: 12px;
             font-family: 'Cinzel', serif; display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 2px solid #d4af37;
         }
         
         .panel-content { flex-grow: 1; overflow-y: auto; padding: 15px; }
-        
+
         /* Search Box */
-        .search-container {
-            position: relative; width: 90%; margin: 10px auto;
-        }
+        .search-container { position: relative; width: 95%; margin: 10px auto; }
         .search-box-panel {
-            width: 100%; padding: 8px 30px 8px 10px;
-            border: 2px solid #d4af37; border-radius: 20px;
-            font-family: 'Noto Serif Devanagari';
+            width: 100%; padding: 10px 35px 10px 10px;
+            border: 2px solid #d4af37; border-radius: 4px;
+            font-family: 'Noto Serif Devanagari'; font-size: 16px;
         }
         .clear-search {
             position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
-            cursor: pointer; color: #800000; display: none;
+            cursor: pointer; color: #800000; font-size: 18px; display: none;
         }
 
+        /* Index List */
         .index-list { list-style: none; padding: 0; margin: 0; }
         .index-list li {
-            padding: 8px 10px; border-bottom: 1px solid #ebd5a0;
+            padding: 10px; border-bottom: 1px solid #ebd5a0;
             cursor: pointer; font-size: 14px;
         }
-        .index-list li:hover { background: #f0e6c8; color: #800000; }
+        .index-list li:hover { background: #f0e6c8; color: #800000; padding-left: 15px; transition: 0.2s; }
 
-        /* Ancestral Path Styles */
+        /* Ancestral Path Styling (Right Panel) */
         .path-node {
-            padding-left: 20px; border-left: 2px solid #d4af37;
-            position: relative; margin-bottom: 0; padding-bottom: 10px;
+            padding-left: 25px; border-left: 3px solid #d4af37;
+            position: relative; margin-bottom: 0; padding-bottom: 15px;
+            font-family: 'Merriweather', serif; font-size: 13px; color: #333;
         }
         .path-node::before {
-            content: ''; position: absolute; left: -5px; top: 5px;
-            width: 8px; height: 8px; background: #800000; border-radius: 50%; border: 1px solid #fff;
+            content: ''; position: absolute; left: -6px; top: 5px;
+            width: 9px; height: 9px; background: #800000; border-radius: 50%; border: 1px solid #fff;
         }
         .path-node:last-child { border-left: none; }
+        .path-node strong { color: #800000; font-size: 14px; }
 
         /* =========================================
-           3. SMART TOOLS (Shifting Logic)
+           4. SMART TOOLS (Floating Action Button)
            ========================================= */
-        .smart-tools {
-            position: fixed; bottom: 80px; right: 20px; z-index: 8000;
-            display: flex; flex-direction: column; gap: 8px;
-            transition: right 0.3s ease; /* Animation for shift */
-        }
-        /* Shift class when panel is open */
-        .smart-tools.shifted {
-            right: 320px; /* Panel Width + 20px */
-        }
-        
-        .tool-btn {
-            width: 45px; height: 45px; border-radius: 50%; border: none;
-            background: #fff; color: #800000; border: 2px solid #d4af37;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3); font-size: 18px; cursor: pointer;
-            transition: 0.2s; display: flex; align-items: center; justify-content: center;
-        }
-        .tool-btn:hover { background: #800000; color: #fff; transform: scale(1.1); }
-
-        @media (max-width: 768px) {
-            .smart-tools.shifted { right: 20px; bottom: 120px; z-index: 9500; } /* Mobile pe upar aa jayega */
+        .fab-container {
+            position: fixed; bottom: 30px; right: 20px; z-index: 10002;
+            display: flex; flex-direction: column-reverse; align-items: center; gap: 10px;
         }
 
-        /* Modal */
+        .main-fab {
+            width: 55px; height: 55px; border-radius: 50%; background: #800000; color: #d4af37;
+            border: 2px solid #d4af37; font-size: 24px; cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;
+            transition: transform 0.3s;
+        }
+        .main-fab.active { transform: rotate(45deg); }
+
+        .fab-options {
+            display: flex; flex-direction: column-reverse; gap: 10px;
+            opacity: 0; visibility: hidden; transform: translateY(20px); transition: all 0.3s;
+        }
+        .fab-options.show { opacity: 1; visibility: visible; transform: translateY(0); }
+
+        .mini-fab {
+            width: 45px; height: 45px; border-radius: 50%; background: #fff; color: #333;
+            border: 2px solid #d4af37; cursor: pointer; font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center;
+        }
+        .mini-fab:hover { background: #d4af37; color: #fff; }
+
+        /* =========================================
+           5. MODAL & FOOTER
+           ========================================= */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7); z-index: 10000;
+            background: rgba(0,0,0,0.8); z-index: 20000;
         }
         .modal-box {
-            background: #fffbf0; border: 3px solid #d4af37;
-            width: 90%; max-width: 400px; margin: 100px auto;
-            padding: 20px; border-radius: 10px; position: relative;
+            background: #fffbf0; border: 3px solid #d4af37; width: 90%; max-width: 400px;
+            margin: 15% auto; padding: 25px; border-radius: 10px; position: relative;
         }
-        .modal-input { width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; }
+        .modal-input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #d4af37; border-radius: 4px; }
+        
+        .gold-btn {
+            background: #800000; color: #d4af37; border: 1px solid #d4af37;
+            padding: 8px 15px; font-weight: bold; cursor: pointer; width: 100%;
+        }
+        .gold-btn:hover { background: #d4af37; color: #800000; }
     </style>
 </head>
 <body oncontextmenu="return false;">
@@ -225,8 +254,7 @@
                         <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="index.html">
-                        <img src="menulogo.png" alt="Logo" class="menu-logo-img">
-                        KASUMALGARH
+                        <img src="menulogo.png" alt="Logo" class="menu-logo-img"> KASUMALGARH
                     </a>
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
@@ -239,16 +267,10 @@
                                 <li><a href="rathorevanshawali.html">Rathore</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">HISTORY <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="kasumalgarh.html">Kasumalgarh History</a></li>
-                                <li><a href="rathore.html">Rathore History</a></li>
-                            </ul>
-                        </li>
                         <li><a href="gallery.html">GALLERY</a></li>
                         <li><a href="contact.html">CONTACT</a></li>
-                        <li><a href="#" onclick="openRequestModal()" style="color:#d4af37;"><i class="fas fa-user-plus"></i> Add</a></li>
+                        <li><a href="#" onclick="toggleLeftPanel()"><i class="fas fa-search"></i> Search</a></li>
+                        <li><a href="#" onclick="openRequestModal()"><i class="fas fa-user-plus"></i> Add</a></li>
                     </ul>
                 </div>
             </nav>
@@ -258,7 +280,9 @@
     <header class="index-header" style="min-height: 250px; padding-top: 100px; background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('fort_kasumbi.png');">
         <div class="container">
             <h1 class="shining-text" style="font-size: 2.5em;">|| वंशावली ||</h1>
-            <div style="font-family: 'Cinzel'; color: #d4af37; letter-spacing: 2px;">Thikana Kasumbi (Jakhlan)</div>
+            <div style="font-family: 'Cinzel'; color: #d4af37; letter-spacing: 2px; text-transform: uppercase;">
+                Thikana Kasumbi (Jakhlan)
+            </div>
         </div>
     </header>
 
@@ -266,10 +290,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div id="treeArea" style="display: inline-block; min-width: 100%;">
+                    <div id="treeArea" style="display: inline-block; min-width: 100%; transform-origin: top left; transition: transform 0.3s;">
                         <div class="royal-tree" id="royalTreeArea">
                             <div style="text-align: center; color: #888;">
-                                <i class="fas fa-spinner fa-spin"></i> Loading...
+                                <i class="fas fa-spinner fa-spin"></i> Loading Royal Lineage...
                             </div>
                         </div>
                     </div>
@@ -281,10 +305,10 @@
     <aside class="sidebar-left" id="leftPanel">
         <div class="panel-header">
             <span><i class="fas fa-list"></i> Member Index</span>
-            <i class="fas fa-times" onclick="toggleLeftPanel()" style="cursor:pointer;"></i>
+            <i class="fas fa-times" onclick="toggleLeftPanel()" style="cursor:pointer; font-size:20px;"></i>
         </div>
         <div class="search-container">
-            <input type="text" id="searchBox" class="search-box-panel" placeholder="नाम खोजें (Search)..." onkeyup="filterIndex()">
+            <input type="text" id="searchBox" class="search-box-panel" placeholder="नाम खोजें..." onkeyup="filterIndex()">
             <i class="fas fa-times clear-search" id="clearSearchBtn" onclick="clearSearch()"></i>
         </div>
         <div class="panel-content">
@@ -294,34 +318,43 @@
 
     <aside class="sidebar-right" id="rightPanel">
         <div class="panel-header">
-            <span><i class="fas fa-info-circle"></i> Details</span>
-            <i class="fas fa-times" onclick="closeRightPanel()" style="cursor:pointer;"></i>
+            <span><i class="fas fa-info-circle"></i> Family Details</span>
+            <i class="fas fa-times" onclick="closeRightPanel()" style="cursor:pointer; font-size:20px;"></i>
         </div>
-        <div class="panel-content" id="captureTarget"> <div id="memberDetails" style="margin-bottom: 20px; border-bottom: 1px dashed #d4af37; padding-bottom: 10px;"></div>
-            <h5 style="color:#800000; font-weight:bold; border-bottom: 1px solid #d4af37; margin-bottom:15px;">Ancestral Path (वंशावली क्रम)</h5>
-            <div id="ancestralPath" style="font-size: 13px; margin-top: 10px;"></div>
+        <div class="panel-content" id="captureTarget" style="background: #fffbf0;">
             
-            <div style="margin-top:20px; font-size:10px; color:#888; text-align:center; border-top:1px solid #ccc; padding-top:5px;">
+            <div id="memberDetails" style="text-align: center; margin-bottom: 20px;"></div>
+            
+            <h5 style="color:#800000; font-family:'Cinzel'; border-bottom: 1px dashed #d4af37; padding-bottom: 5px;">Ancestral Path</h5>
+            <div id="ancestralPath" style="margin-top: 15px;"></div>
+
+            <div style="margin-top:30px; font-size:10px; color:#999; text-align:center; border-top:1px solid #ebd5a0; padding-top:10px;">
                 Generated by Kasumalgarh.site
             </div>
         </div>
     </aside>
 
-    <div class="smart-tools" id="smartTools">
-        <button class="tool-btn" onclick="zoomIn()" title="Zoom In"><i class="fas fa-plus"></i></button>
-        <button class="tool-btn" onclick="zoomOut()" title="Zoom Out"><i class="fas fa-minus"></i></button>
-        <button class="tool-btn" onclick="resetZoom()" title="Reset"><i class="fas fa-sync-alt"></i></button>
-        <button class="tool-btn" onclick="captureRightPanel()" title="Download Path Image" style="background:#2ecc71; color:#fff;"><i class="fas fa-camera"></i></button>
-        <button class="tool-btn" onclick="toggleLeftPanel()" title="Search List"><i class="fas fa-search"></i></button>
+    <div id="hoverTooltip"></div>
+
+    <div class="fab-container">
+        <div class="main-fab" onclick="toggleFab(this)">
+            <i class="fas fa-plus"></i>
+        </div>
+        <div class="fab-options" id="fabOptions">
+            <button class="mini-fab" onclick="resetTree()" title="Reset Tree"><i class="fas fa-sync-alt"></i></button>
+            <button class="mini-fab" onclick="zoomIn()" title="Zoom In"><i class="fas fa-plus"></i></button>
+            <button class="mini-fab" onclick="zoomOut()" title="Zoom Out"><i class="fas fa-minus"></i></button>
+            <button class="mini-fab" onclick="captureRightPanel()" title="Download HD Photo" style="background:#2ecc71; color:#fff; border-color:#27ae60;"><i class="fas fa-camera"></i></button>
+        </div>
     </div>
 
     <div id="requestModal" class="modal-overlay">
         <div class="modal-box">
-            <span class="close-modal" onclick="closeRequestModal()" style="position:absolute; right:15px; top:10px; font-size:20px; cursor:pointer;">&times;</span>
-            <h4 style="color:#800000; text-align:center;">Request Update</h4>
+            <span onclick="closeRequestModal()" style="position:absolute; right:15px; top:10px; font-size:24px; cursor:pointer; color:#800000;">&times;</span>
+            <h4 style="color:#800000; text-align:center; font-family:'Cinzel';">Request Correction</h4>
             <input type="text" id="reqName" class="modal-input" placeholder="Your Name">
-            <textarea id="reqMsg" class="modal-input" rows="4" placeholder="Details (Add son of X...)"></textarea>
-            <button onclick="sendRequest()" class="gold-btn" style="width:100%; border-radius:5px;">Send</button>
+            <textarea id="reqMsg" class="modal-input" rows="4" placeholder="Details (e.g. Add son of X...)"></textarea>
+            <button onclick="sendRequest()" class="gold-btn">Send Request</button>
         </div>
     </div>
 
@@ -329,13 +362,6 @@
         <div class="container">
             <div style="font-size: 0.9em; color: #ccc;">Developed & Designed By:</div>
             <div style="color:#7A5D28; font-size:1.4rem; font-family: 'Cinzel', serif; margin: 5px 0;">Yuvraj Gajraj Singh</div>
-            
-             <div class="footer-social-icons" style="margin-top: 15px; margin-bottom: 15px;">
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-whatsapp"></i></a>
-            </div>
-
             <div style="font-size: 0.8em; margin-top: 20px; color: #888;">
                 &copy; <span id="year">2026</span> | Total Members: <span id="totalCount" style="color:#fff;">0</span>
             </div>
@@ -348,46 +374,64 @@
     <script src="family-data.js"></script>
 
     <script>
+        // --- GLOBAL VARIABLES ---
         let allMembers = [];
         let currentZoom = 1;
         let isRightPanelOpen = false;
+        let rootNodeName = ""; // Store root name for calc
 
         // --- 1. TREE GENERATION ---
         function generateTreeHTML(member, isRoot, depth) {
             if (!member) return '';
-
-            let uniqueId = "node-" + Math.floor(Math.random() * 1000000);
             
+            if(isRoot) rootNodeName = member.name;
+
+            let uniqueId = "node-" + Math.floor(Math.random() * 10000000);
+            
+            // Store Data
             allMembers.push({
                 name: member.name,
                 id: uniqueId,
-                data: member,
-                depth: depth
+                depth: depth,
+                childrenCount: member.children ? member.children.length : 0
             });
 
             let hasChild = (member.children && member.children.length > 0);
-            let liClass = isRoot ? 'root-li' : (hasChild ? 'has-children' : '');
+            let liClass = isRoot ? 'root-li gen-1' : (hasChild ? `has-children gen-${depth}` : `gen-${depth}`);
             let nameClass = isRoot ? 'root-name' : 'tree-name';
             
-            // Toggle Button Logic
+            // Toggle Button Logic (Start Collapsed except Root)
             let toggleBtn = '';
-            if(hasChild && !isRoot) {
-                // Default: Minus [-] means Expanded
-                toggleBtn = `<span class="toggle-btn" onclick="toggleBranch(this)">-</span>`;
+            let ulStyle = 'style="display:none;"'; // Default Hidden (Collapsed)
+            let btnSymbol = '+';
+
+            if(isRoot) { 
+                ulStyle = ''; // Root children visible logic can be changed here, user asked for collapsed initially.
+                // Actually user said: "suru me page khule jb vanshawali band ho + kane par khule"
+                // So root is visible, its children container is HIDDEN.
+                btnSymbol = '+';
+                ulStyle = 'style="display:none;"'; 
+            }
+
+            if(hasChild) {
+                toggleBtn = `<span class="toggle-btn" onclick="toggleBranch(this)">${btnSymbol}</span>`;
             }
 
             let html = `<li class="${liClass}" id="li-${uniqueId}">`;
             
             html += `<div class="tree-name-wrapper">
                         ${toggleBtn}
-                        <span class="${nameClass}" id="${uniqueId}" onclick="showDetails('${uniqueId}', event)">
+                        <span class="${nameClass}" id="${uniqueId}" 
+                              onclick="showDetails('${uniqueId}', event)"
+                              onmouseenter="showTooltip('${uniqueId}', event)"
+                              onmouseleave="hideTooltip()">
                             ${member.name}
                         </span>
                      </div>`;
 
             if (hasChild) {
-                let ulClass = isRoot ? 'root-ul' : '';
-                html += `<ul class="${ulClass}">`;
+                let ulClass = isRoot ? 'root-ul children-group' : 'children-group';
+                html += `<ul class="${ulClass}" ${ulStyle}>`;
                 member.children.forEach(function(child) {
                     html += generateTreeHTML(child, false, depth + 1);
                 });
@@ -398,121 +442,209 @@
             return html;
         }
 
-        // Toggle Function (+/-)
+        // --- 2. INITIALIZATION ---
+        $(document).ready(function() {
+            if (typeof familyData !== 'undefined') {
+                allMembers = [];
+                // Root is Level 1
+                let treeHTML = '<ul class="root-ul">' + generateTreeHTML(familyData, true, 1) + '</ul>';
+                $('#royalTreeArea').html(treeHTML);
+                populateIndex();
+                $('#totalCount').text(allMembers.length);
+
+                // Open Root by default if user wants to see at least the first generation buttons
+                // User said "suru me page khule jb vanshawali band ho". So keep it closed.
+                // We just need to ensure the Root Name is visible. It is.
+            } else {
+                $('#royalTreeArea').html('<h4 style="color:red">Data File Not Found!</h4>');
+            }
+        });
+
+        // --- 3. INTERACTION LOGIC ---
+        
         function toggleBranch(btn) {
             let ul = $(btn).closest('li').children('ul');
             if(ul.is(':visible')) {
                 ul.slideUp();
-                $(btn).text('+'); // Change to Plus
+                $(btn).text('+');
             } else {
                 ul.slideDown();
-                $(btn).text('-'); // Change to Minus
+                $(btn).text('-');
             }
         }
 
-        $(document).ready(function() {
-            if (typeof familyData !== 'undefined') {
-                allMembers = [];
-                var treeHTML = '<ul class="root-ul">' + generateTreeHTML(familyData, true, 1) + '</ul>';
-                $('#royalTreeArea').html(treeHTML);
-                populateIndex();
-                $('#totalCount').text(allMembers.length);
-            }
-        });
+        function resetTree() {
+            // Close all ULs except the root container? No, close everything.
+            $('.children-group').slideUp();
+            $('.toggle-btn').text('+');
+            currentZoom = 1;
+            $('#treeArea').css('transform', `scale(1)`);
+            closeRightPanel();
+            hideTooltip();
+        }
 
-        // --- 2. PANEL LOGIC ---
         function toggleLeftPanel() {
             $('#leftPanel').toggleClass('open');
-            closeRightPanel(); // Close other
-        }
-
-        function openRightPanel() {
-            $('#rightPanel').addClass('open');
-            $('#leftPanel').removeClass('open');
-            $('#smartTools').addClass('shifted'); // Shift Buttons Left
-            isRightPanelOpen = true;
+            if($('#rightPanel').hasClass('open')) closeRightPanel();
         }
 
         function closeRightPanel() {
             $('#rightPanel').removeClass('open');
-            $('#smartTools').removeClass('shifted'); // Shift Buttons Back
             $('.highlight-node').removeClass('highlight-node');
             isRightPanelOpen = false;
         }
 
-        // Auto Close Logic (Click Outside)
+        // Auto Close on Outside Click
         $(document).click(function(event) { 
-            if(!$(event.target).closest('#rightPanel, .tree-name, .tool-btn').length) {
+            if(!$(event.target).closest('#rightPanel, .tree-name, .toggle-btn, .fab-container').length) {
                 if($('#rightPanel').hasClass('open')) closeRightPanel();
             }
-            if(!$(event.target).closest('#leftPanel, .tool-btn').length) {
+            if(!$(event.target).closest('#leftPanel, .navbar-nav').length) {
                 if($('#leftPanel').hasClass('open')) $('#leftPanel').removeClass('open');
             }
         });
 
-        // --- 3. DETAILS & PATH ---
-        function showDetails(id, e) {
-            e.stopPropagation(); // Stop auto close
-            
-            // Highlight
-            $('.highlight-node').removeClass('highlight-node');
-            $('#' + id).addClass('highlight-node');
-            
+        // --- 4. DATA CALCULATION LOGIC (The Brain) ---
+        function getMemberInfo(id) {
+            let el = $('#' + id);
+            let memberName = el.text().trim();
             let memberObj = allMembers.find(m => m.id === id);
-            if(!memberObj) return;
-
-            // --- Logic from Old Script (Updated) ---
+            
+            // 1. Ancestral Path & Father
             let pathArray = [];
-            let current = $('#' + id);
-            
-            // 1. Traverse Up for Path
-            pathArray.push(memberObj.name);
-            current.parents('li').each(function() {
+            el.parents('li').each(function() {
                 let span = $(this).find('> .tree-name-wrapper > span');
-                if(span.length > 0 && span.attr('id') !== id) {
-                    pathArray.push(span.text().trim());
-                }
+                if(span.length > 0) pathArray.push(span.text().trim());
             });
-
-            // 2. Father & Sibling Logic
-            let fatherName = pathArray.length > 1 ? pathArray[1] : "Founder";
+            // pathArray[0] is Self, pathArray[1] is Father, Last is Root
             
-            // Find siblings in DOM
-            let parentLi = current.closest('ul').parent('li'); 
+            let fatherName = pathArray.length > 1 ? pathArray[1] : "Founder"; // Correct Father Logic
+            
+            // 2. Siblings & Position
+            let parentLi = el.closest('ul').parent('li');
             let siblingsCount = 0;
+            let myIndex = 1;
+            
             if(parentLi.length) {
-                siblingsCount = parentLi.find('> ul > li').length - 1;
+                let allSibs = parentLi.find('> ul > li');
+                siblingsCount = allSibs.length - 1; // Exclude self
+                myIndex = allSibs.index(el.closest('li')) + 1;
             }
 
+            // Suffix
+            let suffix = (myIndex === 1) ? 'st' : (myIndex === 2) ? 'nd' : (myIndex === 3) ? 'rd' : 'th';
+            let childType = (memberName.toLowerCase().includes('baisa') || memberName.toLowerCase().includes('bai')) ? "Daughter" : "Son";
+            
+            let relationText = "";
+            if(siblingsCount + 1 === 1) {
+                relationText = `Only ${childType}`;
+            } else {
+                relationText = `${myIndex}${suffix} ${childType}`;
+            }
+
+            let siblingText = siblingsCount > 0 ? `He has ${siblingsCount} more siblings` : `Only Child`;
+
+            // Generation Text
+            let genText = `${memberObj.depth}th Gen of ${rootNodeName}`;
+
+            return {
+                name: memberName,
+                father: fatherName,
+                relation: relationText,
+                siblings: siblingText,
+                gen: genText,
+                path: pathArray.reverse() // Root to Self
+            };
+        }
+
+        // --- 5. DETAILS PANEL & TOOLTIP ---
+        function showDetails(id, e) {
+            e.stopPropagation();
+            $('.highlight-node').removeClass('highlight-node');
+            $('#' + id).addClass('highlight-node');
+
+            let info = getMemberInfo(id);
+
+            // Render Right Panel
             let detailsHTML = `
-                <h4 style="color:#b8860b; font-family:'Cinzel'; text-align:center;">${memberObj.name}</h4>
-                <div style="background:#fffbe6; padding:10px; border:1px solid #d4af37; border-radius:5px; font-size:13px; margin-top:10px;">
-                    <strong>Father:</strong> ${fatherName}<br>
-                    <strong>Generation:</strong> ${memberObj.depth}<br>
-                    <span style="color:#800000; font-size:12px;">
-                        ${siblingsCount > 0 ? `Has ${siblingsCount} siblings.` : 'Only Child.'}
-                    </span>
+                <h3 style="color:#800000; font-family:'Cinzel'; margin-top:0;">${info.name}</h3>
+                <div style="background:#fffbe6; padding:15px; border:1px solid #d4af37; border-radius:5px; font-family:'Merriweather'; font-size:13px; line-height:1.8;">
+                    <strong>${info.relation}</strong> of <strong>${info.father}</strong><br>
+                    <span style="color:#555;">${info.siblings}.</span><br>
+                    <span style="color:#800000; font-weight:bold;">${info.gen}.</span>
                 </div>
             `;
             $('#memberDetails').html(detailsHTML);
 
-            // 3. Render Path
             let pathHTML = '';
-            pathArray.reverse().forEach((name, index) => {
-                let isLast = index === pathArray.length - 1;
-                let style = isLast ? "color:#800000; font-weight:bold;" : "color:#555;";
-                pathHTML += `<div class="path-node" style="${style}">${name}</div>`;
+            info.path.forEach((name, idx) => {
+                let isLast = idx === info.path.length - 1;
+                let style = isLast ? "color:#800000; font-weight:bold; background:#fff0d0; padding:2px 5px; border-radius:3px;" : "";
+                pathHTML += `<div class="path-node"><span style="${style}">${name}</span></div>`;
             });
             $('#ancestralPath').html(pathHTML);
 
-            openRightPanel();
+            $('#rightPanel').addClass('open');
+            $('#leftPanel').removeClass('open');
+            isRightPanelOpen = true;
         }
 
-        // --- 4. SEARCH ---
+        // Hover Tooltip
+        function showTooltip(id, e) {
+            if(window.innerWidth < 768) return; // No tooltip on mobile
+            let info = getMemberInfo(id);
+            let tooltip = $('#hoverTooltip');
+            
+            tooltip.html(`
+                <strong style="color:#d4af37">${info.name}</strong><br>
+                ${info.relation} of ${info.father}<br>
+                ${info.gen}
+            `);
+            
+            tooltip.css({top: e.clientY + 15, left: e.clientX + 15}).show();
+        }
+        function hideTooltip() { $('#hoverTooltip').hide(); }
+
+        // --- 6. SMART TOOLS ---
+        function toggleFab(btn) {
+            $(btn).toggleClass('active');
+            $('#fabOptions').toggleClass('show');
+        }
+
+        function zoomIn() { if(currentZoom < 3) currentZoom += 0.1; applyZoom(); }
+        function zoomOut() { if(currentZoom > 0.3) currentZoom -= 0.1; applyZoom(); }
+        function applyZoom() { $('#treeArea').css('transform', `scale(${currentZoom})`); }
+
+        function captureRightPanel() {
+            if(!isRightPanelOpen) {
+                alert("हुकुम, पहले किसी नाम पर क्लिक करें ताकि वंशावली क्रम (Path) दिखाई दे।");
+                return;
+            }
+            
+            let btn = $('.mini-fab[title="Download HD Photo"] i');
+            btn.attr('class', 'fas fa-spinner fa-spin');
+
+            html2canvas(document.getElementById("captureTarget"), {
+                scale: 4, // HD Quality
+                backgroundColor: "#fffbf0",
+                useCORS: true
+            }).then(canvas => {
+                let link = document.createElement('a');
+                link.download = 'Ancestral-Path-HD.png';
+                link.href = canvas.toDataURL();
+                link.click();
+                btn.attr('class', 'fas fa-camera');
+            }).catch(err => {
+                alert("Error: " + err);
+                btn.attr('class', 'fas fa-camera');
+            });
+        }
+
+        // --- 7. SEARCH & MODAL ---
         function populateIndex() {
             let list = $('#indexList');
-            list.empty();
             let sorted = [...allMembers].sort((a, b) => a.name.localeCompare(b.name));
+            list.empty();
             sorted.forEach(m => {
                 list.append(`<li onclick="jumpToNode('${m.id}')">${m.name}</li>`);
             });
@@ -526,71 +658,42 @@
                 $(this).toggle(text.indexOf(val) > -1);
             });
         }
-
-        function clearSearch() {
-            $('#searchBox').val('');
-            filterIndex();
-        }
+        function clearSearch() { $('#searchBox').val(''); filterIndex(); }
 
         function jumpToNode(id) {
-            $('#leftPanel').removeClass('open');
-            // Find span and click it to trigger logic
+            toggleLeftPanel();
             let el = document.getElementById(id);
-            if(el) {
+            // Open parent branches if closed
+            $(el).parents('ul').slideDown();
+            $(el).parents('li').children('.tree-name-wrapper').find('.toggle-btn').text('-');
+
+            setTimeout(() => {
                 el.scrollIntoView({behavior: "smooth", block: "center", inline: "center"});
-                // Simulate click to open right panel
-                setTimeout(() => el.click(), 500); 
-            }
+                el.click(); // Trigger details
+            }, 300);
         }
 
-        // --- 5. CAPTURE IMAGE (RIGHT PANEL ONLY) ---
-        function captureRightPanel() {
-            if(!isRightPanelOpen) {
-                alert("हुकुम, पहले किसी नाम पर क्लिक करें ताकि वंशावली क्रम (Path) दिखाई दे, फिर फोटो लें।");
-                return;
-            }
-
-            let element = document.getElementById("captureTarget"); // Only Right Panel Content
-            
-            // Button spin effect
-            let btn = document.querySelector('button[title="Download Path Image"] i');
-            let oldClass = btn.className;
-            btn.className = "fas fa-spinner fa-spin";
-
-            html2canvas(element, {
-                scale: 2,
-                backgroundColor: "#fffbf0",
-                useCORS: true
-            }).then(canvas => {
-                let link = document.createElement('a');
-                link.download = 'Ancestral-Path.png';
-                link.href = canvas.toDataURL();
-                link.click();
-                btn.className = oldClass;
-            }).catch(err => {
-                alert("Error taking photo.");
-                btn.className = oldClass;
-            });
-        }
-
-        // --- 6. ZOOM ---
-        function zoomIn() { if(currentZoom < 2) currentZoom += 0.1; updateZoom(); }
-        function zoomOut() { if(currentZoom > 0.4) currentZoom -= 0.1; updateZoom(); }
-        function resetZoom() { currentZoom = 1; updateZoom(); }
-        function updateZoom() {
-            $('#royalTreeArea').css('transform', `scale(${currentZoom})`);
-            $('#royalTreeArea').css('transform-origin', `top left`);
-        }
-
-        // --- 7. REQUEST ---
         function openRequestModal() { $('#requestModal').fadeIn(); }
         function closeRequestModal() { $('#requestModal').fadeOut(); }
         function sendRequest() {
-            // Your EmailJS logic here
-            alert("Request Sent (Demo Mode)");
-            closeRequestModal();
+            let name = $('#reqName').val(); let msg = $('#reqMsg').val();
+            if(!name || !msg) { alert("Please fill details"); return; }
+            
+            let btn = $('#requestModal button');
+            btn.text('Sending...');
+            
+            // EmailJS Integration (Old Logic)
+            emailjs.send("service_vdnox8p", "template_xx3a4tt", { from_name: name, message: msg })
+            .then(() => {
+                alert("Request Sent Successfully!");
+                closeRequestModal();
+                btn.text('Send Request');
+                $('#reqName').val(''); $('#reqMsg').val('');
+            }, (err) => {
+                alert("Failed: " + JSON.stringify(err));
+                btn.text('Send Request');
+            });
         }
-
     </script>
 </body>
 </html>
