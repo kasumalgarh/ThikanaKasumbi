@@ -7,12 +7,12 @@
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Noto+Serif+Devanagari:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
-        (function(){ emailjs.init("KpyNvZBBeX0ZJisG8"); })(); /* New Key Updated */
+        (function(){ emailjs.init("KpyNvZBBeX0ZJisG8"); })(); /* New Key Verified */
     </script>
 
     <link rel="stylesheet" href="royal_global.css">
@@ -21,7 +21,7 @@
         /* =========================================
            1. CORE LAYOUT
            ========================================= */
-        body { overflow-x: hidden; background: #fffbf0; }
+        body { overflow-x: hidden; background: #fffbf0; -webkit-tap-highlight-color: transparent; }
         
         /* Tooltip (Desktop Only) */
         #hoverTooltip {
@@ -30,6 +30,13 @@
             border: 1px solid #d4af37; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
             font-family: 'Merriweather', serif; max-width: 250px;
         }
+
+        /* Hint Animation */
+        .click-hint {
+            display: inline-block; margin-left: 10px; font-size: 12px; color: #d63031;
+            animation: bounce 1.5s infinite; vertical-align: middle; font-weight: bold;
+        }
+        @keyframes bounce { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
 
         /* =========================================
            2. TREE CONTAINER (Ultra Compact & Colorful)
@@ -40,12 +47,13 @@
             min-height: 800px;
             font-family: 'Noto Serif Devanagari', serif;
             overflow: auto; cursor: grab;
+            user-select: none; /* Prevent text selection while dragging */
         }
         .tree-container:active { cursor: grabbing; }
 
         .royal-tree ul {
             padding-left: 20px; /* Compact Indent */
-            list-style: none; position: relative; transition: all 0.3s ease;
+            list-style: none; position: relative;
         }
 
         .royal-tree li {
@@ -94,12 +102,12 @@
         /* BIG Toggle Button (+/-) */
         .toggle-btn {
             display: inline-block; 
-            width: 20px; height: 20px; /* Increased Size */
+            width: 22px; height: 22px; /* Large size for easy tapping */
             border: 1px solid #800000; background: #fff;
-            color: #800000; font-size: 14px; line-height: 18px;
+            color: #800000; font-size: 16px; line-height: 20px;
             text-align: center; margin-right: 5px; cursor: pointer;
-            border-radius: 3px; position: relative; z-index: 10;
-            vertical-align: middle;
+            border-radius: 4px; position: relative; z-index: 10;
+            vertical-align: middle; user-select: none;
         }
         .toggle-btn:hover { background: #800000; color: #fff; }
 
@@ -124,7 +132,7 @@
             border: 2px solid #d4af37;
             box-shadow: 0 0 25px rgba(0,0,0,0.7);
             z-index: 10001; /* Above everything */
-            transition: transform 0.3s ease;
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             display: flex; flex-direction: column;
             padding-top: 50px;
         }
@@ -184,7 +192,7 @@
             display: flex; flex-direction: column-reverse; align-items: center; gap: 10px;
         }
 
-        /* Default Sizes (Desktop) */
+        /* Main FAB */
         .main-fab {
             width: 55px; height: 55px; border-radius: 50%; background: #800000; color: #d4af37;
             border: 2px solid #d4af37; font-size: 24px; cursor: pointer;
@@ -192,18 +200,20 @@
             transition: transform 0.3s;
         }
         .main-fab.active { transform: rotate(45deg); }
+        
         .fab-options {
             display: flex; flex-direction: column-reverse; gap: 10px;
             opacity: 0; visibility: hidden; transform: translateY(20px); transition: all 0.3s;
         }
         .fab-options.show { opacity: 1; visibility: visible; transform: translateY(0); }
+        
         .mini-fab {
             width: 45px; height: 45px; border-radius: 50%; background: #fff; color: #333;
             border: 2px solid #d4af37; cursor: pointer; font-size: 16px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center;
         }
 
-        /* Mobile Small Buttons Fix */
+        /* Mobile Adjustments */
         @media (max-width: 768px) {
             .main-fab { width: 45px; height: 45px; font-size: 20px; bottom: 20px; right: 15px; }
             .mini-fab { width: 38px; height: 38px; font-size: 14px; }
@@ -219,8 +229,15 @@
         @media (max-width: 768px) { .mobile-search-btn { display: block; } }
 
         /* =========================================
-           5. MODAL & MISC
+           5. FOOTER & MODAL
            ========================================= */
+        .royal-footer {
+            background: #1a1a1a; color: #d4af37; padding: 30px 0; text-align: center;
+            border-top: 4px solid #800000; margin-top: 50px;
+        }
+        .social-icons a { color: #d4af37; font-size: 20px; margin: 0 10px; transition: 0.3s; }
+        .social-icons a:hover { color: #fff; transform: scale(1.2); }
+
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.8); z-index: 20000;
@@ -294,8 +311,9 @@
                 <div class="col-md-12">
                     <div id="treeArea" style="display: inline-block; min-width: 100%; transform-origin: top left; transition: transform 0.3s;">
                         <div class="royal-tree" id="royalTreeArea">
-                            <div style="text-align: center; color: #888;">
-                                <i class="fas fa-spinner fa-spin"></i> Loading Royal Lineage...
+                            <div style="text-align: center; color: #888; font-size:16px; padding: 50px;">
+                                <i class="fas fa-spinner fa-spin fa-2x"></i><br><br>
+                                हुकुम, वंशावली लोड हो रही है...
                             </div>
                         </div>
                     </div>
@@ -343,7 +361,7 @@
             <i class="fas fa-plus"></i>
         </div>
         <div class="fab-options" id="fabOptions">
-            <button class="mini-fab" onclick="resetTree()" title="Reset Tree"><i class="fas fa-sync-alt"></i></button>
+            <button class="mini-fab" onclick="toggleFullScreen()" title="Full Screen"><i class="fas fa-expand"></i></button> <button class="mini-fab" onclick="resetTree()" title="Reset Tree"><i class="fas fa-sync-alt"></i></button>
             <button class="mini-fab" onclick="zoomIn()" title="Zoom In"><i class="fas fa-plus"></i></button>
             <button class="mini-fab" onclick="zoomOut()" title="Zoom Out"><i class="fas fa-minus"></i></button>
             <button class="mini-fab" onclick="captureRightPanel()" title="Download Full HD" style="background:#2ecc71; color:#fff; border-color:#27ae60;"><i class="fas fa-camera"></i></button>
@@ -362,17 +380,30 @@
 
     <footer class="royal-footer">
         <div class="container">
-            <div style="color:#7A5D28; font-size:1.2rem; font-family: 'Cinzel', serif; margin: 5px 0;">Yuvraj Gajraj Singh</div>
-            <div style="font-size: 0.8em; margin-top: 10px; color: #888;">&copy; <span id="year">2026</span></div>
+            <div style="font-size: 0.9em; color: #ccc; margin-bottom: 5px;">Developed & Designed By:</div>
+            <div style="color:#d4af37; font-size:1.4rem; font-family: 'Cinzel', serif; margin-bottom: 15px;">
+                Yuvraj Gajraj Singh
+            </div>
+            
+            <div class="social-icons" style="margin-bottom: 15px;">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+            </div>
+
+            <div style="font-size: 0.8em; color: #888;">
+                &copy; <span id="year">2026</span> Kasumalgarh | Total Members: <span id="totalCount" style="color:#fff;">0</span>
+            </div>
         </div>
     </footer>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="royal_global.js"></script>
     <script src="family-data.js"></script>
 
     <script>
+        // --- GLOBAL VARIABLES ---
         let allMembers = [];
         let currentZoom = 1;
         let isRightPanelOpen = false;
@@ -390,90 +421,103 @@
             let liClass = isRoot ? 'root-li gen-1' : (hasChild ? `has-children gen-${depth}` : `gen-${depth}`);
             let nameClass = isRoot ? 'root-name' : 'tree-name';
             
-            // Collapsed Logic: Root open, others closed
+            // Toggle Logic: Always create button if children exist
             let toggleBtn = '';
-            let ulStyle = 'style="display:none;"'; 
             let btnSymbol = '+';
-
-            if(isRoot) { ulStyle = ''; } // Root UL visible, but its children UL (L2) hidden by logic below
-            
-            // Create Toggle Button
             if(hasChild) {
-                toggleBtn = `<span class="toggle-btn" onclick="toggleBranch(this)">${btnSymbol}</span>`;
+                // IMPORTANT: Button does NOT have inline onclick. We use Event Delegation below.
+                toggleBtn = `<span class="toggle-btn" data-id="${uniqueId}">${btnSymbol}</span>`;
             }
+
+            // Hint Logic (Only for Root)
+            let hint = isRoot ? `<span class="click-hint" id="rootHint">👇 वंशावली खोलने के लिए यहाँ दबाएं (Tap to Expand)</span>` : '';
 
             let html = `<li class="${liClass}" id="li-${uniqueId}">`;
             
             html += `<div class="tree-name-wrapper">
-                        ${!isRoot ? toggleBtn : ''}
+                        ${toggleBtn}
                         <span class="${nameClass}" id="${uniqueId}" 
-                              onclick="showDetails('${uniqueId}', event)"
-                              onmouseenter="showTooltip('${uniqueId}', event)"
-                              onmouseleave="hideTooltip()">
+                              data-id="${uniqueId}">
                             ${member.name}
                         </span>
+                        ${hint}
                      </div>`;
 
             if (hasChild) {
                 let ulClass = isRoot ? 'root-ul' : 'children-group';
-                // Root's immediate children are visible, deep children hidden?
-                // User said "suru me page khule jb vanshawali band ho + kane par khule".
-                // So everything collapsed except root name.
-                if(isRoot) ulStyle = 'style="display:none;"'; 
+                // Root's children container is visible? No, collapsed.
+                // But user wants to click to expand. So hidden by default.
+                let ulStyle = 'style="display:none;"'; 
                 
                 html += `<ul class="${ulClass}" ${ulStyle}>`;
                 member.children.forEach(function(child) {
                     html += generateTreeHTML(child, false, depth + 1);
                 });
                 html += '</ul>';
-                
-                // Root Toggle Button (Manual Insert for visual consistency if needed)
-                if(isRoot) {
-                    // Inject toggle for root via JS after load or handle above
-                    // Simplified: Root name click expands? Or Add toggle to root too.
-                    // Let's add toggle to root wrapper above.
-                    html = html.replace(`${!isRoot ? toggleBtn : ''}`, `<span class="toggle-btn" onclick="toggleBranch(this)">+</span>`);
-                }
             }
             html += '</li>';
             return html;
         }
 
-        // --- 2. LOGIC ---
-        function toggleBranch(btn) {
-            let ul = $(btn).closest('li').children('ul');
-            if(ul.is(':visible')) {
-                ul.slideUp(); $(btn).text('+');
-            } else {
-                ul.slideDown(); $(btn).text('-');
-            }
-        }
-
+        // --- 2. INITIALIZATION & EVENT DELEGATION (The Fix) ---
         $(document).ready(function() {
+            // Check Data
             if (typeof familyData !== 'undefined') {
                 allMembers = [];
                 let treeHTML = '<ul class="root-ul">' + generateTreeHTML(familyData, true, 1) + '</ul>';
                 $('#royalTreeArea').html(treeHTML);
                 populateIndex();
                 $('#totalCount').text(allMembers.length);
+            } else {
+                $('#royalTreeArea').html('<h3 style="color:red; text-align:center;">Error: family-data.js not found!</h3>');
             }
+
+            // **EVENT DELEGATION** (For Buttons to work always)
+            $(document).on('click', '.toggle-btn', function(e) {
+                e.stopPropagation();
+                let btn = $(this);
+                let ul = btn.closest('li').children('ul');
+                
+                // Hide hint if exists
+                $('#rootHint').fadeOut();
+
+                if(ul.is(':visible')) {
+                    ul.slideUp(200);
+                    btn.text('+');
+                } else {
+                    ul.slideDown(200);
+                    btn.text('-');
+                }
+            });
+
+            // **EVENT DELEGATION** (For Names)
+            $(document).on('click', '.tree-name, .root-name', function(e) {
+                let id = $(this).attr('data-id');
+                showDetails(id, e);
+            });
+
+            // Tooltips
+            $(document).on('mouseenter', '.tree-name', function(e) {
+                 if(window.innerWidth > 768) showTooltip($(this).attr('data-id'), e);
+            }).on('mouseleave', '.tree-name', function() {
+                 hideTooltip();
+            });
         });
 
-        // --- 3. DATA CALCULATION (Updated Text Format) ---
+        // --- 3. DATA & DETAILS ---
         function getMemberInfo(id) {
             let el = $('#' + id);
             let memberObj = allMembers.find(m => m.id === id);
             
-            // Path
+            // Path Logic
             let pathArray = [];
             el.parents('li').each(function() {
                 let span = $(this).find('> .tree-name-wrapper > span');
                 if(span.length > 0) pathArray.push(span.text().trim());
             });
-            // Father (Parent Node)
             let fatherName = pathArray.length > 1 ? pathArray[1] : "Founder";
 
-            // Siblings
+            // Sibling Logic
             let parentLi = el.closest('ul').parent('li');
             let siblings = [];
             let myIndex = 1;
@@ -490,14 +534,13 @@
                 });
             }
 
-            // Ordinal & Type
             let suffix = (myIndex === 1) ? 'st' : (myIndex === 2) ? 'nd' : (myIndex === 3) ? 'rd' : 'th';
             let nameLower = memberObj.name.toLowerCase();
             let childType = (nameLower.includes('baisa') || nameLower.includes('bai')) ? "Daughter" : "Son";
             
             let relationText = (siblings.length + 1 === 1) ? `Only ${childType}` : `${myIndex}${suffix} ${childType}`;
             let siblingText = siblings.length > 0 ? `He has ${siblings.length} more siblings` : `Only Child`;
-            let sibNamesStr = siblings.length > 0 ? `(${siblings.join(', ')})` : "";
+            let sibNamesStr = siblings.length > 0 ? `<br><span style="font-size:11px; color:#800000;">(${siblings.join(', ')})</span>` : "";
 
             return {
                 name: memberObj.name,
@@ -510,7 +553,6 @@
             };
         }
 
-        // --- 4. DETAILS PANEL ---
         function showDetails(id, e) {
             e.stopPropagation();
             $('.highlight-node').removeClass('highlight-node');
@@ -523,7 +565,7 @@
                 <div style="background:#fffbe6; padding:15px; border:1px solid #d4af37; border-radius:5px; font-family:'Merriweather'; font-size:13px; line-height:1.8;">
                     <strong>${info.relation}</strong> of <strong>${info.father}</strong><br>
                     <span style="color:#555;">${info.siblingsDesc} ${info.sibNames}</span><br>
-                    <span style="color:#800000; font-weight:bold;">${info.gen}.</span>
+                    <span style="color:#800000; font-weight:bold; display:block; margin-top:5px;">${info.gen}</span>
                 </div>
             `;
             $('#memberDetails').html(detailsHTML);
@@ -542,7 +584,6 @@
         }
 
         function showTooltip(id, e) {
-            if(window.innerWidth < 768) return;
             let info = getMemberInfo(id);
             let tooltip = $('#hoverTooltip');
             tooltip.html(`<strong style="color:#d4af37">${info.name}</strong><br>${info.relation} of ${info.father}<br>${info.gen}`);
@@ -550,34 +591,33 @@
         }
         function hideTooltip() { $('#hoverTooltip').hide(); }
 
-        // --- 5. FULL HEIGHT SCREENSHOT (Cloning Method) ---
+        // --- 4. CLONE SCREENSHOT (HD Full Scroll) ---
         function captureRightPanel() {
             if(!isRightPanelOpen) { alert("Please select a member first."); return; }
             let btn = $('.mini-fab[title="Download Full HD"] i');
             btn.attr('class', 'fas fa-spinner fa-spin');
 
             let original = document.getElementById("captureTarget");
-            // Clone to capture full height even if scrollable
             let clone = original.cloneNode(true);
             
-            // Set styles to make clone fully visible off-screen
+            // Setup Clone off-screen but visible to html2canvas
             clone.style.width = "320px";
             clone.style.height = "auto";
             clone.style.maxHeight = "none";
             clone.style.overflow = "visible";
-            clone.style.position = "absolute";
+            clone.style.position = "fixed";
             clone.style.top = "-10000px";
             clone.style.left = "0";
             clone.style.background = "#fffbf0";
             clone.style.zIndex = "5000";
             document.body.appendChild(clone);
 
-            html2canvas(clone, { scale: 4, backgroundColor: "#fffbf0" }).then(canvas => {
+            html2canvas(clone, { scale: 4, backgroundColor: "#fffbf0", useCORS: true }).then(canvas => {
                 let link = document.createElement('a');
                 link.download = 'Ancestral-Path-HD.png';
                 link.href = canvas.toDataURL();
                 link.click();
-                document.body.removeChild(clone); // Cleanup
+                document.body.removeChild(clone);
                 btn.attr('class', 'fas fa-camera');
             }).catch(err => {
                 alert("Error: " + err);
@@ -586,21 +626,39 @@
             });
         }
 
-        // --- 6. UTILS ---
+        // --- 5. UTILS & FULL SCREEN ---
         function toggleLeftPanel() { $('#leftPanel').toggleClass('open'); closeRightPanel(); }
         function closeRightPanel() { $('#rightPanel').removeClass('open'); isRightPanelOpen = false; }
+        
         function toggleFab(btn) { $(btn).toggleClass('active'); $('#fabOptions').toggleClass('show'); }
+        
         function zoomIn() { if(currentZoom < 3) currentZoom += 0.1; $('#treeArea').css('transform', `scale(${currentZoom})`); }
         function zoomOut() { if(currentZoom > 0.3) currentZoom -= 0.1; $('#treeArea').css('transform', `scale(${currentZoom})`); }
-        function resetTree() { $('.children-group').slideUp(); $('.toggle-btn').text('+'); currentZoom = 1; $('#treeArea').css('transform', `scale(1)`); closeRightPanel(); }
         
-        // Auto Close
-        $(document).click(function(event) { 
-            if(!$(event.target).closest('#rightPanel, .tree-name, .toggle-btn, .fab-container').length && $('#rightPanel').hasClass('open')) closeRightPanel();
-            if(!$(event.target).closest('#leftPanel, .navbar-nav, .mobile-search-btn').length && $('#leftPanel').hasClass('open')) $('#leftPanel').removeClass('open');
-        });
+        function resetTree() { 
+            $('.children-group').slideUp(); 
+            $('.toggle-btn').text('+'); 
+            currentZoom = 1; 
+            $('#treeArea').css('transform', `scale(1)`); 
+            closeRightPanel();
+            // Show hint again if reset
+            $('#rootHint').show();
+        }
 
-        // Search
+        // FULL SCREEN FUNCTION
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch((err) => {
+                    alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+                });
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        // Search & Modal
         function populateIndex() {
             let list = $('#indexList'); list.empty();
             [...allMembers].sort((a,b)=>a.name.localeCompare(b.name)).forEach(m => list.append(`<li onclick="jumpToNode('${m.id}')">${m.name}</li>`));
@@ -613,18 +671,27 @@
         function jumpToNode(id) {
             toggleLeftPanel();
             let el = document.getElementById(id);
-            $(el).parents('ul').slideDown();
+            $(el).parents('ul').show(); // Force show
             $(el).parents('li').children('.tree-name-wrapper').find('.toggle-btn').text('-');
-            setTimeout(() => { el.scrollIntoView({behavior: "smooth", block: "center"}); el.click(); }, 300);
+            setTimeout(() => { 
+                el.scrollIntoView({behavior: "smooth", block: "center"}); 
+                $(el).trigger('click'); // Use trigger because of event delegation
+            }, 300);
         }
         
         function openRequestModal() { $('#requestModal').fadeIn(); }
         function closeRequestModal() { $('#requestModal').fadeOut(); }
         function sendRequest() {
             let n = $('#reqName').val(), m = $('#reqMsg').val();
-            if(!n || !m) { alert("Fill all fields"); return; }
-            emailjs.send("service_vdnox8p", "template_xx3a4tt", { from_name: n, message: m }).then(()=>{ alert("Sent!"); closeRequestModal(); });
+            if(!n || !m) { alert("Please fill all fields"); return; }
+            emailjs.send("service_vdnox8p", "template_xx3a4tt", { from_name: n, message: m }).then(()=>{ alert("Request Sent!"); closeRequestModal(); });
         }
+
+        // Auto Close
+        $(document).click(function(event) { 
+            if(!$(event.target).closest('#rightPanel, .tree-name, .toggle-btn, .fab-container').length && $('#rightPanel').hasClass('open')) closeRightPanel();
+            if(!$(event.target).closest('#leftPanel, .navbar-nav, .mobile-search-btn').length && $('#leftPanel').hasClass('open')) $('#leftPanel').removeClass('open');
+        });
     </script>
 </body>
 </html>
