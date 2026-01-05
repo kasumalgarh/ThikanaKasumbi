@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>संपर्क - ठिकाना कसुम्बी</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        /* --- DITTO GALLERY THEME CSS --- */
+        :root {
+            --royal-blue: #002366;
+            --gold: #D4AF37;
+            --deep-green: #1b4d3e; /* सफलता के लिए शाही हरा रंग */
+            --white: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Georgia', serif; /* गैलरी वाला क्लासिक फॉन्ट */
+            background-color: #001233; /* गैलरी जैसा गहरा बैकग्राउंड */
+            color: var(--gold);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- Menu (DITTO Gallery) --- */
+        header {
+            background: var(--royal-blue);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .logo { font-size: 1.8rem; font-weight: bold; color: var(--gold); }
+
+        nav a {
+            color: var(--gold);
+            text-decoration: none;
+            margin-left: 15px;
+            font-size: 1.1rem;
+        }
+
+        /* --- Form Container --- */
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid var(--gold);
+            padding: 30px;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 450px;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-card h2 {
+            text-align: center;
+            margin-top: 0;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .form-group { margin-bottom: 20px; }
+
+        label { display: block; margin-bottom: 8px; font-weight: bold; }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid var(--gold);
+            border-radius: 5px;
+            color: #000;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--gold);
+            color: var(--royal-blue);
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover { background: #b8952d; transform: scale(1.02); }
+
+        /* --- Custom Green Success Message (No GitHub Alert) --- */
+        #success-box {
+            display: none;
+            background: var(--deep-green);
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2000;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+        }
+
+        /* --- Footer (DITTO Gallery) --- */
+        footer {
+            background: var(--royal-blue);
+            text-align: center;
+            padding: 15px;
+            border-top: 2px solid var(--gold);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .logo { font-size: 1.4rem; }
+            nav a { font-size: 0.9rem; margin-left: 8px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">ठिकाना कसुम्बी</div>
+        <nav>
+            <a href="index.html">मुख्य</a>
+            <a href="gallery.html">दीर्घा</a>
+            <a href="contact.html" style="text-decoration: underline;">संपर्क</a>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <div class="contact-card">
+            <h2>संपर्क करें</h2>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label>हुकुम का नाम</label>
+                    <input type="text" id="user_name" required>
+                </div>
+                <div class="form-group">
+                    <label>ईमेल पता</label>
+                    <input type="email" id="user_email" required>
+                </div>
+                <div class="form-group">
+                    <label>संदेश</label>
+                    <textarea id="message" rows="4" required></textarea>
+                </div>
+                <button type="submit" id="submitBtn" class="submit-btn">अर्ज़ी भेजें</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="success-box">
+        <h3 style="margin:0 0 10px 0;">खम्मा घणी!</h3>
+        <p>आपका संदेश ठिकाना तक सफलतापूर्वक पहुँच गया है।</p>
+        <button onclick="closeSuccess()" style="background:var(--gold); border:none; padding:5px 15px; cursor:pointer; font-weight:bold;">ठीक है</button>
+    </div>
+
+    <footer>
+        © 2026 ठिकाना कसुम्बी | विरासत एवं मर्यादा
+    </footer>
+
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("KpyNvZBBeX0ZJisG8");
+        })();
+
+        const successBox = document.getElementById('success-box');
+
+        function closeSuccess() {
+            successBox.style.display = 'none';
+        }
+
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.innerText = "भेजा जा रहा है...";
+
+            const params = {
+                from_name: document.getElementById('user_name').value,
+                from_email: document.getElementById('user_email').value,
+                message: document.getElementById('message').value
+            };
+
+            emailjs.send('service_vdnox8p', 'template_xx3a4tt', params)
+                .then(() => {
+                    successBox.style.display = 'block'; // हरा बॉक्स दिखाएँ
+                    btn.disabled = false;
+                    btn.innerText = "अर्ज़ी भेजें";
+                    document.getElementById('contactForm').reset();
+                }, (err) => {
+                    alert("क्षमा करें, संदेश नहीं भेजा जा सका।");
+                    btn.disabled = false;
+                    btn.innerText = "अर्ज़ी भेजें";
+                });
+        });
+    </script>
+</body>
+</html>
