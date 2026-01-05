@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Vanshawali | Thikana Kasumbi (Jakhlan)</title>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Noto+Serif+Devanagari:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="royal_global.css">
+
+    <style>
+        /* --- TREE CONTAINER --- */
+        .tree-container {
+            background: #fffbf0;
+            padding: 50px 20px;
+            min-height: 800px;
+            font-family: 'Noto Serif Devanagari', serif;
+            overflow-x: auto;
+        }
+
+        /* --- ROYAL TREE CSS (No Images, Pure CSS) --- */
+        .royal-tree ul {
+            padding-left: 30px; /* गैप कम रखा ताकि सीढ़ियाँ न बनें */
+            list-style: none;
+            position: relative;
+        }
+
+        /* खड़ी लकीर (Vertical Line) के लिए स्पेस */
+        .royal-tree li {
+            position: relative;
+            padding-left: 20px; /* नाम को लाइन से थोड़ा दूर करने के लिए */
+            margin-bottom: 0;
+            line-height: 2.5em; /* लाइनों के बीच की दूरी */
+        }
+
+        /* 1. खड़ी लाइन (Vertical Line) - ::before */
+        .royal-tree ul li::before {
+            content: '';
+            position: absolute;
+            left: 0; 
+            top: 0;
+            border-left: 2px solid #800000; /* मरून कलर */
+            height: 100%; /* यह लाइन नीचे तक जाएगी */
+        }
+
+        /* 2. आड़ी लाइन (Horizontal Connector) - ::after */
+        .royal-tree ul li::after {
+            content: '';
+            position: absolute;
+            left: 0; 
+            top: 1.25em; /* लाइन को टेक्स्ट के बीच में सेट करने के लिए */
+            width: 15px; /* छोटी आड़ी लकीर */
+            border-top: 2px solid #b8860b; /* गोल्ड कलर */
+        }
+
+        /* 3. आखिरी बच्चे का फिक्स (Last Child Fix - L Shape) */
+        /* आखिरी बच्चे की खड़ी लाइन को आधा काट देंगे */
+        .royal-tree ul li:last-child::before {
+            height: 1.25em; /* सिर्फ आड़ी लाइन तक ही लम्बी होगी */
+        }
+
+        /* --- TEXT STYLING --- */
+        .tree-name {
+            font-size: 16px;
+            color: #5a4a42;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 4px;
+            transition: 0.3s;
+            display: inline-block;
+            cursor: default;
+        }
+
+        /* जिनके बच्चे हैं (Parents) */
+        .has-children > .tree-name {
+            color: #800000; /* मरून */
+            font-weight: 900;
+        }
+
+        .tree-name:hover {
+            background: #b8860b;
+            color: #fff !important;
+        }
+
+        /* ROOT NODE (सबसे ऊपर वाला) */
+        .root-ul {
+            padding-left: 0 !important;
+        }
+        .root-li {
+            padding-left: 0 !important;
+        }
+        /* रूट की लाइने हटा दें */
+        .root-li::before, .root-li::after {
+            display: none !important;
+        }
+        .root-name {
+            font-family: 'Cinzel', serif;
+            font-size: 24px;
+            color: #800000;
+            border-bottom: 3px solid #d4af37;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+    <div class="navbar-wrapper">
+        <div class="container">
+            <nav class="navbar navbar-inverse">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                        <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">
+                        <img src="menulogo.png" alt="Logo" class="menu-logo-img">
+                        KASUMALGARH
+                    </a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                   <ul class="nav navbar-nav navbar-right">
+                        <li><a href="index.html">HOME</a></li>
+                        <li class="dropdown active">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">VANSHAWALI <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="vanshawali.html">Kasumalgarh</a></li>
+                                <li><a href="rathorevanshawali.html">Rathore</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">HISTORY <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="kasumalgarh.html">Kasumalgarh History</a></li>
+                                <li><a href="rathore.html">Rathore History</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="gallery.html">GALLERY</a></li>
+                        <li><a href="royalalliances.html">ROYAL ALLIANCES</a></li>
+                        <li><a href="about.html">ABOUT</a></li>
+                        <li><a href="contact.html">CONTACT</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <header class="index-header" style="min-height: 250px; padding-top: 100px; background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('fort_kasumbi.png');">
+        <div class="container">
+            <h1 class="shining-text" style="font-size: 2.5em;">|| वंशावली ||</h1>
+            <div style="font-family: 'Cinzel'; color: #d4af37; letter-spacing: 2px; text-transform: uppercase;">
+                Thikana Kasumbi (Jakhlan)
+            </div>
+        </div>
+    </header>
+
+    <div class="tree-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    
+                    <div style="margin-bottom: 30px; text-align: right;">
+                        <input type="text" id="treeSearch" placeholder="🔍 नाम खोजें (Search Name)..." 
+                               style="padding: 10px; border: 2px solid #b8860b; width: 100%; max-width: 300px; border-radius: 5px; font-family: 'Noto Serif Devanagari'; outline:none;">
+                    </div>
+
+                    <div class="royal-tree" id="royalTreeArea">
+                        <div style="text-align: center; color: #888;">
+                            <i class="fas fa-spinner fa-spin"></i> Loading Royal Lineage...
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="royal-footer">
+        <div class="container">
+            <div style="font-size: 0.9em; color: #ccc;">Developed & Designed By:</div>
+            <div style="color:#7A5D28; font-size:1.4rem; font-family: 'Cinzel', serif; margin: 5px 0;">Yuvraj Gajraj Singh</div>
+            
+             <div class="footer-social-icons" style="margin-top: 15px; margin-bottom: 15px;">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.kasumalgarh.site" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.instagram.com/gajsa.kasumbifort" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://wa.me/?text=Check out Thikana Kasumbi: https://www.kasumalgarh.site" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+
+            <div style="font-size: 0.8em; margin-top: 20px; color: #888;">&copy; <span id="year">2026</span> | All Rights Reserved.</div>
+        </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="royal_global.js"></script>
+    <script src="family-data.js"></script>
+
+    <script>
+        // --- 1. TREE GENERATION SCRIPT ---
+        
+        function generateTreeHTML(member, isRoot) {
+            if (!member) return '';
+
+            var hasChild = (member.children && member.children.length > 0);
+            var liClass = isRoot ? 'root-li' : (hasChild ? 'has-children' : '');
+            
+            var html = `<li class="${liClass}">`;
+            
+            // नाम का डिज़ाइन
+            if (isRoot) {
+                html += `<div class="root-name">${member.name}</div>`;
+            } else {
+                html += `<span class="tree-name">${member.name}</span>`;
+            }
+
+            // अगर बच्चे हैं, तो नई लिस्ट (ul) शुरू करो
+            if (hasChild) {
+                var ulClass = isRoot ? 'root-ul' : '';
+                html += `<ul class="${ulClass}">`;
+                member.children.forEach(function(child) {
+                    html += generateTreeHTML(child, false);
+                });
+                html += '</ul>';
+            }
+
+            html += '</li>';
+            return html;
+        }
+
+        $(document).ready(function() {
+            if (typeof familyData !== 'undefined') {
+                // सीधे UL से शुरू करते हैं
+                var treeHTML = '<ul class="root-ul">' + generateTreeHTML(familyData, true) + '</ul>';
+                $('#royalTreeArea').html(treeHTML);
+            } else {
+                $('#royalTreeArea').html('<h4 style="color:red">Data File Not Found!</h4>');
+            }
+        });
+
+        // --- 2. SEARCH LOGIC ---
+        $("#treeSearch").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            
+            // अगर सर्च खाली है तो सब साफ़ कर दो
+            if(value.length === 0) {
+                $(".tree-name").css("background", "transparent").css("color", "");
+                return;
+            }
+
+            var found = false;
+            $("#royalTreeArea .tree-name").each(function() {
+                var text = $(this).text().toLowerCase();
+                if(text.indexOf(value) > -1) {
+                    $(this).css("background", "#ffff00").css("color", "#000"); // Highlight
+                    
+                    if(!found) {
+                        $('html, body').animate({
+                            scrollTop: $(this).offset().top - 200
+                        }, 500);
+                        found = true;
+                    }
+                } else {
+                    $(this).css("background", "transparent").css("color", "");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
