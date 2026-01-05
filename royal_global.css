@@ -28,7 +28,7 @@ ul { list-style: none; padding: 0; margin: 0; }
     position: fixed; top: 0; left: 0; width: 100%; height: 50px;
     background: linear-gradient(rgba(0, 0, 40, 0.9), rgba(0, 0, 40, 0.9)), url('footerbg.png');
     background-repeat: repeat;
-    border-bottom: 2px solid var(--gold-main);
+    border-bottom: 2px solid #7A5D28;
     display: flex; align-items: center; justify-content: space-between;
     padding: 0 20px; z-index: 1000;
     box-shadow: 0 4px 15px rgba(0,0,0,0.5);
@@ -40,17 +40,17 @@ ul { list-style: none; padding: 0; margin: 0; }
 
 .navbar-links { display: flex; gap: 20px; }
 .navbar-links a { color: var(--gold-light); font-family: var(--font-heading); font-size: 0.9rem; font-weight: bold; text-transform: uppercase; transition: 0.3s; }
-.navbar-links a:hover { color: var(--gold-main); }
+.navbar-links a:hover { color: #7A5D28; }
 .dropdown { position: relative; }
-.dropdown-content { display: none; position: absolute; top: 100%; left: 0; background: var(--royal-blue-bg); border: 1px solid var(--gold-main); min-width: 180px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+.dropdown-content { display: none; position: absolute; top: 100%; left: 0; background: var(--royal-blue-bg); border: 1px solid #7A5D28; min-width: 180px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
 .dropdown:hover .dropdown-content { display: block; }
 .dropdown-content a { display: block; padding: 10px; border-bottom: 1px solid rgba(184, 134, 11, 0.2); }
 
-.menu-toggle { display: none; color: var(--gold-main); font-size: 1.5rem; cursor: pointer; }
+.menu-toggle { display: none; color: #7A5D28; font-size: 1.5rem; cursor: pointer; }
 .mobile-menu-overlay {
     position: fixed; top: 50px; right: 0; width: 220px;
     background: var(--royal-blue-bg);
-    border-left: 1px solid var(--gold-main); border-bottom: 1px solid var(--gold-main);
+    border-left: 1px solid #7A5D28; border-bottom: 1px solid #7A5D28;
     transform: translateX(120%); transition: 0.3s; padding: 10px 0; z-index: 999;
 }
 .mobile-menu-overlay.open { transform: translateX(0); }
@@ -126,7 +126,7 @@ ul { list-style: none; padding: 0; margin: 0; }
     margin-top: 30px; text-shadow: 0 2px 5px #000;
     animation: slideUp 1.6s ease-out;
 }
-.hero-tagline span { color: var(--gold-main); padding: 0 5px; }
+.hero-tagline span { color: #7A5D28; padding: 0 5px; }
 
 /* --- 3. CREAM SECTIONS (Content) --- */
 .cream-section {
@@ -188,14 +188,14 @@ ul { list-style: none; padding: 0; margin: 0; }
 /* Updates */
 .updates-container { background: #fff; border: 1px dashed var(--maroon-text); padding: 20px; margin-top: 40px; border-radius: 10px; text-align: left; }
 .update-row { display: flex; gap: 20px; flex-wrap: wrap; }
-.u-img { width: 80px; height: 80px; object-fit: cover; border: 1px solid var(--gold-main); margin-right: 5px; }
+.u-img { width: 80px; height: 80px; object-fit: cover; border: 1px solid #7A5D28; margin-right: 5px; }
 
 /* --- 5. FOOTER --- */
 .royal-footer {
     background: var(--royal-blue-bg);
     background-image: url('footerbg.png'); background-repeat: repeat;
-    color: var(--gold-main); padding: 40px 20px; text-align: center;
-    border-top: 5px solid var(--gold-main);
+    color: #7A5D28; padding: 40px 20px; text-align: center;
+    border-top: 5px solid #7A5D28;
     position: relative; z-index: 12;
     border-radius:20px 20px 0 0;
 }
@@ -209,15 +209,15 @@ ul { list-style: none; padding: 0; margin: 0; }
 }
 
 .s-icon {
-    font-size: 1.5rem; color: var(--gold-main); border: 1px solid var(--gold-main);
+    font-size: 1.5rem; color: #7A5D28; border: 1px solid #7A5D28;
     width: 45px; height: 45px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     transition: 0.3s; background: rgba(0,0,0,0.4); text-decoration: none;
 }
 
 .s-icon:hover {
-    background: var(--gold-main); color: #000;
-    transform: translateY(-5px); box-shadow: 0 0 15px var(--gold-main);
+    background: #7A5D28; color: #000;
+    transform: translateY(-5px); box-shadow: 0 0 15px #7A5D28;
 }
 
 /* =========================================
@@ -310,13 +310,13 @@ ul { list-style: none; padding: 0; margin: 0; }
 
 .menu-item:hover {
     background: #fffbf0; /* माउस ले जाने पर हल्का क्रीम */
-    border-color: var(--gold-main);
+    border-color: #7A5D28;
     transform: translateX(10px); /* थोड़ा सा खिसकेगा */
 }
 
 .menu-icon {
     font-size: 2.5rem;
-    color: var(--gold-main); /* सुनहरा आइकन */
+    color: #7A5D28; /* सुनहरा आइकन */
     min-width: 50px;
     text-align: center;
 }
@@ -361,10 +361,10 @@ ul { list-style: none; padding: 0; margin: 0; }
     border-radius: 20px 20px 5px 5px;
 
     /* डिज़ाइन: डबल बॉर्डर (Double Layer) */
-    border: 1px solid var(--gold-main); 
+    border: 1px solid #7A5D28; 
     box-shadow: 
         inset 0 0 0 5px #fff,  /* सफ़ेद गैप */
-        inset 0 0 0 8px var(--gold-main), /* अंदर का बॉर्डर */
+        inset 0 0 0 8px #7A5D28, /* अंदर का बॉर्डर */
         0 10px 25px rgba(0,0,0,0.15); /* परछाई */
 }
 
@@ -378,7 +378,7 @@ ul { list-style: none; padding: 0; margin: 0; }
     background: #fff;
     padding: 0 10px;
     font-size: 1.5rem;
-    color: var(--gold-main);
+    color: #7A5D28;
     border-radius: 50px;
 }
 
@@ -394,7 +394,7 @@ ul { list-style: none; padding: 0; margin: 0; }
 /* आइकन्स (FontAwesome Code वाले) */
 .box-icon {
     font-size: 2.5rem;
-    color: var(--gold-main);
+    color: #7A5D28;
     margin-bottom: 15px;
     display: inline-block;
 }
@@ -429,10 +429,10 @@ ul { list-style: none; padding: 0; margin: 0; }
 /* --- 1. ROYAL PANEL DESIGN --- */
 .royal-wide-panel {
     background: #fff;
-    border: 1px solid var(--gold-main);
+    border: 1px solid #7A5D28;
     box-shadow: 
         inset 0 0 0 5px #fff,
-        inset 0 0 0 8px var(--gold-main),
+        inset 0 0 0 8px #7A5D28,
         0 10px 25px rgba(0,0,0,0.1);
     padding: 30px;
     margin: 40px auto;
@@ -457,7 +457,7 @@ ul { list-style: none; padding: 0; margin: 0; }
 }
 .u-img-frame {
     width: 150px; height: 150px;
-    border: 4px double var(--gold-main);
+    border: 4px double #7A5D28;
     padding: 3px; background: #fff;
     cursor: pointer; transition: 0.3s;
     box-shadow: 0 5px 10px rgba(0,0,0,0.2);
@@ -500,7 +500,7 @@ ul { list-style: none; padding: 0; margin: 0; }
 
 .lightbox-main-img {
     width: 100%; height: auto; display: block;
-    border: 2px solid var(--gold-main);
+    border: 2px solid #7A5D28;
 }
 
 .lightbox-close {
@@ -528,7 +528,7 @@ ul { list-style: none; padding: 0; margin: 0; }
 .guestbook-form textarea {
     width: 100%;
     padding: 12px;
-    border: 1px solid var(--gold-main);
+    border: 1px solid #7A5D28;
     background: rgba(255,255,255,0.8);
     font-family: var(--font-body);
     font-size: 1rem;
@@ -539,7 +539,7 @@ ul { list-style: none; padding: 0; margin: 0; }
     background: #fff;
     padding: 20px;
     margin-bottom: 20px;
-    border-left: 5px solid var(--gold-main);
+    border-left: 5px solid #7A5D28;
     box-shadow: 0 4px 8px rgba(0,0,0,0.05);
     border-radius: 0 10px 10px 0;
     animation: slideUp 0.5s ease;
@@ -566,7 +566,7 @@ ul { list-style: none; padding: 0; margin: 0; }
 /* विशेष स्वागत संदेश (Pinned Message) */
 .pinned-card {
     background: linear-gradient(135deg, #fffbf0 0%, #fdf2d0 100%) !important;
-    border: 2px solid var(--gold-main) !important;
+    border: 2px solid #7A5D28 !important;
     border-left: 8px solid var(--maroon-text) !important; /* ज्यादा मोटी लाल पट्टी */
     position: relative;
     margin-bottom: 30px;
@@ -581,7 +581,7 @@ ul { list-style: none; padding: 0; margin: 0; }
     padding: 2px 12px;
     font-size: 0.7rem;
     border-radius: 20px;
-    border: 1px solid var(--gold-main);
+    border: 1px solid #7A5D28;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
@@ -610,7 +610,7 @@ ul { list-style: none; padding: 0; margin: 0; }
         margin: 15px auto;  /* बाहर की जगह कम की */
         width: 100%;        /* पूरी स्क्रीन ले */
         box-shadow: none;   /* मोबाइल पर भारी शैडो हटाई */
-        border: 1px solid var(--gold-main); /* सिंपल बॉर्डर */
+        border: 1px solid #7A5D28; /* सिंपल बॉर्डर */
     }
 
     /* 3. Vanshavali Names Fix (Jo cut rahe the) */
