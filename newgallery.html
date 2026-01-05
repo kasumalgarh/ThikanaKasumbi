@@ -4,271 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <title>Gallery | Thikana Kasumbi (Jakhlan)</title>
-    
+    <title>Royal Gallery | Thikana Kasumbi (Jakhlan)</title>
+    <meta name="description" content="Explore the royal gallery of Thikana Kasumbi. A collection of rare photos, videos, and heritage moments of Yuvraj Gajraj Singh and Rathore lineage.">
+    <meta name="keywords" content="Thikana Kasumbi Gallery, Rajputana Photos, Royal Heritage Images, Gajraj Singh Photos, Kasumalgarh Videos, Marwar History Gallery">
+    <meta name="author" content="Yuvraj Gajraj Singh">
+
     <meta property="og:title" content="Royal Gallery | Thikana Kasumbi">
     <meta property="og:description" content="विरासत और शौर्य की झलकियाँ। देखिये ठिकाना कसुम्बी का इतिहास तस्वीरों में।">
-    <meta property="og:image" content="https://www.kasumalgarh.site/fort_kasumbi.png">
-    
+    <meta property="og:image" content="https://www.kasumalgarh.site/sunset_kasumbifort.png">
+    <meta property="og:url" content="https://www.kasumalgarh.site/gallery.html">
+    <meta property="og:type" content="website">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Playfair+Display:wght@400;700&family=Noto+Serif+Devanagari:wght@400;700&family=Berkshire+Swash&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
+    <link rel="stylesheet" href="royal_global.css">
+
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
-       (function(){
-          // ★★★ यहाँ अपनी PUBLIC KEY डालें ★★★
-          emailjs.init("J3okpk4omjrkmUnwz");
-       })();
+       (function(){ emailjs.init("KpyNvZBBeX0ZJisG8"); })();
     </script>
-
-    <style>
-        /* =========================================
-           1. BASIC & NAVBAR STYLES
-           ========================================= */
-        :root {
-            --gold-main: #b8860b;
-            --gold-hover: #7A5D28; 
-            --maroon-text: #800000;
-            --royal-blue: #030230;
-            --cream-bg: #fffbf0;
-        }
-        body { 
-            font-family: 'Playfair Display', serif; 
-            background-color: #f5f5f5; 
-            overflow-x: hidden; 
-            user-select: none; 
-        }
-
-        /* NAVBAR CSS */
-        .navbar-wrapper {
-            background-color: #001233;
-            background-image: url('footerbg1.png'); 
-            background-repeat: repeat;
-            border-bottom: 2px solid #7A5D28;
-            border-radius: 0 0 20px 20px;
-            position: fixed; top: 0; width: 100%; z-index: 1000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-        }
-        .navbar-inverse { background: transparent; border: none; margin-bottom: 0; }
-        
-        .navbar-inverse .navbar-nav>li>a { color: #fff !important; font-family: 'Cinzel', serif; font-size: 14px; font-weight: bold; transition: 0.3s; }
-        
-        .navbar-inverse .navbar-nav>li>a:hover { 
-            color: var(--gold-hover) !important; 
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8); 
-            background: transparent !important; 
-        }
-        
-        .navbar-inverse .navbar-nav>.active>a, 
-        .navbar-inverse .navbar-nav>.active>a:hover, 
-        .navbar-inverse .navbar-nav>.active>a:focus {
-            color: var(--gold-hover) !important;
-            background-color: transparent !important;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
-        }
-
-        .navbar-brand { font-family: 'Cinzel'; color: #fff !important; font-weight: bold; font-size: 20px; display: flex; align-items: center; gap: 10px; margin-top: -5px; }
-        .menu-logo-img { height: 35px; width: auto; border: none; }
-        .navbar-toggle { border-color: #7A5D28 !important; background: #001233 !important; }
-        .navbar-toggle .icon-bar { background-color: #fff !important; }
-        .dropdown-menu { background: #001233; border: 1px solid #7A5D28; }
-        .dropdown-menu>li>a { color: #fff; padding: 10px; border-bottom: 1px solid rgba(184, 134, 11, 0.2); }
-
-        @media (max-width: 768px) {
-            .navbar-brand { font-size: 15px !important; padding: 10px 5px !important; gap: 5px !important; max-width: 75%; white-space: nowrap; }
-            .menu-logo-img { height: 25px !important; }
-            .navbar-toggle { margin-top: 10px !important; margin-right: 10px !important; padding: 5px 8px !important; }
-        }
-
-       /* =========================================
-       2. GALLERY HEADER
-       ========================================= */
-        .page-header-bg {
-            background-image: linear-gradient(rgba(3, 2, 48, 0.6), rgba(128, 0, 0, 0.6)), url('sunset_kasumbifort.png');
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
-            padding: 120px 0 40px 0; /* Reduced bottom padding */
-            text-align: center;
-            color: #fff;
-            border-bottom: 4px solid #7A5D28;
-            box-shadow: inset 0 -10px 20px rgba(0,0,0,0.5);
-        }
-        h1.page-title {
-            font-family: 'Berkshire Swash', 'Cinzel', serif; 
-            font-size: 3em; 
-            color: var(--gold-hover);
-            text-shadow: 0 0 15px rgba(0,0,0,0.8); 
-            margin-bottom: 5px;
-        }
-        .sub-title-eng {
-            font-family: 'Cinzel', serif;
-            font-size: 1.2em;
-            color: #d4af37;
-            margin-bottom: 15px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-        .quote-box {
-            font-family: 'Noto Serif Devanagari', serif; 
-            font-size: 1.1em; 
-            color: #ddd;
-            margin-top: 10px;
-            font-style: italic;
-        }
-
-        /* NEW SOCIAL ICONS (Below Quote) */
-        .header-social-icons {
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px dashed rgba(212, 175, 55, 0.5);
-            display: inline-block;
-        }
-        .header-social-icons a {
-            color: #fff;
-            font-size: 24px;
-            margin: 0 15px;
-            transition: 0.3s;
-            text-decoration: none;
-        }
-        .header-social-icons a:hover {
-            color: var(--gold-hover);
-            transform: translateY(-3px);
-            text-shadow: 0 0 10px #7A5D28;
-        }
-
-        /* =========================================
-           3. GALLERY GRID & SECTIONS
-           ========================================= */
-        .filter-container { text-align: center; margin: 30px 0; }
-        .filter-btn {
-            background: transparent; border: 2px solid #7A5D28; color: var(--maroon-text);
-            padding: 8px 25px; margin: 5px; font-family: 'Cinzel', serif; font-weight: bold;
-            transition: 0.3s; cursor: pointer; border-radius: 30px;
-        }
-        .filter-btn:hover, .filter-btn.active {
-            background: #7A5D28; color: #fff; box-shadow: 0 0 10px #7A5D28;
-        }
-
-        /* Section Headings */
-        .section-header {
-            text-align: center;
-            margin: 40px 0 20px 0;
-            border-bottom: 1px solid #ccc;
-            line-height: 0.1em;
-        }
-        .section-header span {
-            background: #f5f5f5;
-            padding: 0 15px;
-            color: var(--maroon-text);
-            font-family: 'Cinzel', serif;
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        .gallery-grid { column-count: 3; column-gap: 15px; padding: 15px; }
-        @media (max-width: 768px) { .gallery-grid { column-count: 2; } h1.page-title { font-size: 2em; } }
-
-        .gallery-item {
-            display: inline-block; width: 100%; margin-bottom: 15px;
-            position: relative; overflow: hidden; border: 2px solid #7A5D28;
-            border-radius: 5px; background: #000; cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: 0.3s;
-        }
-        .gallery-item img { width: 100%; display: block; transition: 0.5s; }
-        .gallery-item:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(184, 134, 11, 0.4); }
-        .gallery-item:hover img { transform: scale(1.1); opacity: 0.8; }
-
-        .video-icon {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            font-size: 40px; color: #fff; text-shadow: 0 0 10px #000; pointer-events: none;
-        }
-
-        /* =========================================
-           4. FLOATING ADD YOURS BUTTON
-           ========================================= */
-        .add-yours-float {
-            position: fixed;
-            bottom: 30px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(145deg, #b8860b, #d4af37);
-            border: 2px solid #fff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 26px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
-            cursor: pointer;
-            z-index: 9999;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); box-shadow: 0 0 15px #7A5D28; }
-            100% { transform: scale(1); }
-        }
-
-        /* =========================================
-           5. LIGHTBOX & FOOTER
-           ========================================= */
-        .modal-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(3, 2, 48, 0.95); z-index: 2000; text-align: center;
-        }
-        .modal-content-box {
-            position: relative; top: 50%; transform: translateY(-50%);
-            width: 90%; max-width: 800px; margin: 0 auto;
-            border: 4px solid #7A5D28; padding: 5px; background: #000;
-            box-shadow: 0 0 30px #7A5D28;
-        }
-        .modal-media { width: 100%; max-height: 60vh; object-fit: contain; }
-        .modal-video-frame { width: 100%; height: 400px; border: none; }
-        .modal-close { position: absolute; top: -40px; right: 0; color: #fff; font-size: 40px; cursor: pointer; }
-        
-        .action-bar {
-            background: #001233; padding: 10px; display: flex; 
-            justify-content: center; gap: 20px; border-top: 2px solid #7A5D28;
-        }
-        .action-btn {
-            color: #7A5D28; font-family: 'Cinzel', serif; font-weight: bold;
-            text-decoration: none; font-size: 14px; border: 1px solid #7A5D28;
-            padding: 5px 15px; transition: 0.3s;
-        }
-        .action-btn:hover { background: #7A5D28; color: #000; text-decoration: none; }
-
-        .royal-footer {
-            background-color: #001233; background-image: url('footerbg.png'); background-repeat: repeat;
-            color: #7A5D28; padding: 20px 10px; text-align: center; border-top: 4px solid #7A5D28;
-            margin-top: 0; border-radius: 25px 25px 0 0; 
-        }
-        .royal-footer .fb-link { margin-top: 10px; margin-bottom: 10px; }
-        /* Upload Form Pop-up Style */
-.modal-form-content {
-    background: #030230; 
-    border: 2px solid #b8860b;
-    padding: 20px;
-    border-radius: 15px;
-    max-width: 400px;
-    margin: 20px auto;
-    color: #fff;
-    text-align: left;
-}
-.form-input {
-    width: 100%;
-    padding: 10px;
-    margin: 8px 0;
-    background: #fff;
-    color: #000;
-    border: 2px solid #b8860b;
-    border-radius: 5px;
-}
-.form-label { font-family: 'Cinzel', serif; color: #7A5D28; font-size: 13px; }
-    </style>
 </head>
 <body oncontextmenu="return false;">
 
@@ -285,17 +41,24 @@
                     </a>
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-right">
+                   <ul class="nav navbar-nav navbar-right">
                         <li><a href="index.html">HOME</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">VANSHAWALI <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="vanshawali.html">Kasumalgarh</a></li>
-                                <li><a href="rathore_vanshawali.html">Rathore</a></li>
+                                <li><a href="rathorevanshawali.html">Rathore</a></li>
                             </ul>
                         </li>
-                        <li><a href="history.html">HISTORY</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">HISTORY <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="kasumalgarh.html">Kasumalgarh History</a></li>
+                                <li><a href="rathore.html">Rathore History</a></li>
+                            </ul>
+                        </li>
                         <li class="active"><a href="gallery.html">GALLERY</a></li>
+                        <li><a href="royalalliances.html">ROYAL ALLIANCES</a></li>
                         <li><a href="about.html">ABOUT</a></li>
                         <li><a href="contact.html">CONTACT</a></li>
                     </ul>
@@ -304,23 +67,31 @@
         </div>
     </div>
 
-    <div class="page-header-bg">
-        <div class="container">
-            <h1 class="page-title">|| स्मृतियों के झरोखे ||</h1>
-            <div class="sub-title-eng">|| Glimpses of Memories ||</div>
-            
-            <div class="quote-box">
-                "बीता हुआ कल कभी मरता नहीं, तस्वीरों में इतिहास हमेशा साँस लेता है।"<br>
-                <span style="font-size: 0.9em; font-family: 'Playfair Display';">"Yesterday never dies, history always breathes in pictures."</span>
-            </div>
+    <header class="video-header">
+    
+    <video autoplay muted loop playsinline class="bg-video">
+        <source src="slow_motion_fort.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
 
-            <div class="header-social-icons">
-                <a href="https://instagram.com/YOUR_ID" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://facebook.com/YOUR_ID" target="_blank"><i class="fab fa-facebook"></i></a>
-                <a href="https://wa.me/YOUR_NUMBER" target="_blank"><i class="fab fa-whatsapp"></i></a>
-            </div>
+    <div class="video-overlay"></div>
+
+    <div class="container header-content">
+        <h1 class="shining-text" style="font-size: 3em; margin-bottom: 5px;">|| स्मृतियों के झरोखे ||</h1>
+        <div style="font-family: 'Cinzel'; color: #d4af37; letter-spacing: 2px; text-transform: uppercase;">|| Glimpses of Memories ||</div>
+        
+        <div style="font-family: 'Noto Serif Devanagari'; font-style: italic; color: #ddd; margin-top: 15px;">
+            "बीता हुआ कल कभी मरता नहीं, तस्वीरों में इतिहास हमेशा साँस लेता है।"<br>
+            <span style="font-size: 0.9em; font-family: 'Playfair Display';">"Yesterday never dies, history always breathes in pictures."</span>
+        </div>
+
+        <div class="header-social-icons">
+           <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.kasumalgarh.site" target="_blank"><i class="fab fa-facebook"></i></a>
+           <a href="https://www.instagram.com/gajsa.kasumbifort" target="_blank"><i class="fab fa-instagram"></i></a>
+           <a href="https://wa.me/?text=Check out Thikana Kasumbi Gallery" target="_blank"><i class="fab fa-whatsapp"></i></a>
         </div>
     </div>
+</header>
 
     <div class="container">
         <div class="filter-container">
@@ -333,22 +104,22 @@
             <h2 class="section-header"><span>IMAGES (तस्वीरें)</span></h2>
             <div class="gallery-grid">
                 <div class="gallery-item photo">
-                    <img src="sunset_kasumbifort.png" alt="Sunset View" onclick="openModal(this, 'photo')">
+                    <img src="sunset_kasumbifort.png" alt="Sunset View" onclick="openGalleryModal(this, 'photo')">
                 </div>
                 <div class="gallery-item photo">
-                    <img src="view_from_fort1.png" alt="Fort View" onclick="openModal(this, 'photo')">
+                    <img src="view_from_fort1.png" alt="Fort View" onclick="openGalleryModal(this, 'photo')">
                 </div>
                 <div class="gallery-item photo">
-                    <img src="fort_kasumbi_2.png" alt="Kasumbi Fort" onclick="openModal(this, 'photo')">
+                    <img src="fort_kasumbi_2.png" alt="Kasumbi Fort" onclick="openGalleryModal(this, 'photo')">
                 </div>
                 <div class="gallery-item photo">
-                    <img src="thikana_kasumbi_share.png" alt="Share Card" onclick="openModal(this, 'photo')">
+                    <img src="thikana_kasumbi_share.png" alt="Share Card" onclick="openGalleryModal(this, 'photo')">
                 </div>
                 <div class="gallery-item photo">
-                    <img src="YGSR.png" alt="Yuvraj Gajraj Singh" onclick="openModal(this, 'photo')">
+                    <img src="YGSR.png" alt="Yuvraj Gajraj Singh" onclick="openGalleryModal(this, 'photo')">
                 </div>
                 <div class="gallery-item photo">
-                    <img src="fort_kasumbi_full_view.jpg" alt="Gallery Memory" onclick="openModal(this, 'photo')">
+                    <img src="fort_kasumbi_full_view.jpg" alt="Gallery Memory" onclick="openGalleryModal(this, 'photo')">
                 </div>
             </div>
         </div>
@@ -359,204 +130,99 @@
                 <div class="gallery-item video" data-video-id="yEjNE2vHFgg">
                     <img src="https://img.youtube.com/vi/yEjNE2vHFgg/hqdefault.jpg" alt="Video">
                     <div class="video-icon"><i class="fas fa-play-circle"></i></div>
-                    <a href="javascript:void(0)" style="position:absolute; top:0; left:0; width:100%; height:100%;" onclick="openModal(this.parentElement, 'video')"></a>
+                    <a href="javascript:void(0)" style="position:absolute; top:0; left:0; width:100%; height:100%;" onclick="openGalleryModal(this.parentElement, 'video')"></a>
                 </div>
                 <div class="gallery-item video" data-video-id="xnFG9cwj5kI">
                     <img src="https://img.youtube.com/vi/xnFG9cwj5kI/hqdefault.jpg" alt="Video">
                     <div class="video-icon"><i class="fas fa-play-circle"></i></div>
-                    <a href="javascript:void(0)" style="position:absolute; top:0; left:0; width:100%; height:100%;" onclick="openModal(this.parentElement, 'video')"></a>
+                    <a href="javascript:void(0)" style="position:absolute; top:0; left:0; width:100%; height:100%;" onclick="openGalleryModal(this.parentElement, 'video')"></a>
                 </div>
                 <div class="gallery-item video" data-video-id="8iqfvTHax0s">
                     <img src="https://img.youtube.com/vi/8iqfvTHax0s/hqdefault.jpg" alt="Video">
                     <div class="video-icon"><i class="fas fa-play-circle"></i></div>
-                    <a href="javascript:void(0)" style="position:absolute; top:0; left:0; width:100%; height:100%;" onclick="openModal(this.parentElement, 'video')"></a>
+                    <a href="javascript:void(0)" style="position:absolute; top:0; left:0; width:100%; height:100%;" onclick="openGalleryModal(this.parentElement, 'video')"></a>
                 </div>
                 <div class="gallery-item video" data-video-id="KsLIrM8SGmE">
                     <img src="https://img.youtube.com/vi/KsLIrM8SGmE/hqdefault.jpg" alt="Video">
                     <div class="video-icon"><i class="fas fa-play-circle"></i></div>
-                    <a href="javascript:void(0)" style="position:absolute; top:0; left:0; width:100%; height:100%;" onclick="openModal(this.parentElement, 'video')"></a>
+                    <a href="javascript:void(0)" style="position:absolute; top:0; left:0; width:100%; height:100%;" onclick="openGalleryModal(this.parentElement, 'video')"></a>
                 </div>
             </div>
         </div>
-
     </div>
 
-    <div id="galleryModal" class="modal-overlay">
-        <span class="modal-close" onclick="closeModal()">&times;</span>
-        <div class="modal-content-box">
-            <img id="modalImg" class="modal-media" style="display:none;">
+    <div id="galleryModal" class="gallery-modal-overlay">
+        <span onclick="closeGalleryModal()" style="position:absolute; top:20px; right:30px; color:#fff; font-size:40px; cursor:pointer; z-index:10001;">&times;</span>
+        <div class="gallery-modal-box">
+            <img id="modalImg" class="modal-media-img" style="display:none;">
             <iframe id="modalVideo" class="modal-video-frame" src="" allow="autoplay; encrypted-media" allowfullscreen style="display:none;"></iframe>
             
-            <div class="action-bar">
-                <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" class="action-btn">
-                    <i class="fas fa-thumbs-up"></i> Like Page
-                </a>
-                <a href="#" id="shareBtn" target="_blank" class="action-btn">
-                    <i class="fas fa-share-alt"></i> Share Gallery
-                </a>
+            <div style="padding:10px; border-top:2px solid #7A5D28; text-align:center;">
+                <p style="color:#d4af37; font-family:'Cinzel'; margin:0;">Thikana Kasumbi Gallery</p>
             </div>
         </div>
+    </div>
+
+    <div id="addYoursModal" class="gallery-modal-overlay" style="z-index: 9999;">
+        <span onclick="closeForm()" style="position:absolute; top:20px; right:20px; color:#fff; font-size:30px; cursor:pointer;">&times;</span>
+        <div class="gallery-modal-box" style="background: transparent; border: none;">
+            <div class="modal-form-content">
+                <h3 style="font-family: 'Berkshire Swash'; color: #7A5D28; text-align:center; margin-top:0;">Share Your Memory</h3>
+                
+                <label class="form-label">आपका नाम</label>
+                <input type="text" id="senderName" class="form-input" placeholder="Name">
+
+                <label class="form-label">ईमेल</label>
+                <input type="email" id="senderEmail" class="form-input" placeholder="Email">
+
+                <label class="form-label">संदेश</label>
+                <textarea id="senderMsg" class="form-input" rows="3" placeholder="Message"></textarea>
+
+                <label class="form-label">फोटो चुनें</label>
+                <input type="file" id="senderFile" class="form-input" accept="image/*" style="background:none; border:none; color:#fff;">
+
+                <button class="submit-btn" onclick="sendData()" style="background:#b8860b; color:#fff; width:100%; padding:10px; border:none; font-family:'Cinzel'; border-radius:5px; margin-top:10px;">SUBMIT</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="add-yours-float" onclick="openForm()" title="Add Yours">
+        <i class="fas fa-camera"></i>
     </div>
 
     <footer class="royal-footer">
         <div class="container">
             <div style="font-size: 0.9em; color: #ccc;">Developed & Designed By:</div>
             <div style="color:#7A5D28; font-size:1.4rem; font-family: 'Cinzel', serif; margin: 5px 0;">Yuvraj Gajraj Singh</div>
-            <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" class="fb-link" style="display:inline-block; margin:10px 0; color:#7A5D28;"><i class="fab fa-facebook"></i> Connect on Facebook</a>
-            <div style="font-size: 0.8em; margin-top: 10px; color: #888;">&copy; 2026 | All Rights Reserved.</div>
+            
+          <div class="footer-social-icons" style="margin-top: 15px; margin-bottom: 15px;">
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.kasumalgarh.site" target="_blank">
+        <i class="fab fa-facebook"></i>
+    </a>
+    
+    <a href="https://www.instagram.com/gajsa.kasumbifort" target="_blank">
+        <i class="fab fa-instagram"></i>
+    </a>
+    
+    <a href="https://wa.me/?text=Check out Thikana Kasumbi: https://www.kasumalgarh.site" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+</div>
+
+            <div style="font-size: 0.8em; margin-top: 20px; color: #888;">&copy; <span id="year">2026</span> | All Rights Reserved.</div>
         </div>
     </footer>
-    <div id="addYoursModal" class="modal-overlay" style="display:none; z-index: 3000;">
-    <span class="modal-close" onclick="closeForm()" style="top: 20px; right: 20px; color: #fff;">&times;</span>
-    <div class="modal-content-box" style="background: transparent; border: none; box-shadow: none;">
-        <div class="modal-form-content">
-            <h3 style="font-family: 'Berkshire Swash'; color: #7A5D28; text-align:center; margin-top:0;">Share Your Memory</h3>
-            
-            <label class="form-label">आपका नाम</label>
-            <input type="text" id="senderName" class="form-input" placeholder="Name">
-
-            <label class="form-label">ईमेल</label>
-            <input type="email" id="senderEmail" class="form-input" placeholder="Email">
-
-            <label class="form-label">संदेश</label>
-            <textarea id="senderMsg" class="form-input" rows="3" placeholder="Message"></textarea>
-
-            <label class="form-label">फोटो चुनें</label>
-            <input type="file" id="senderFile" class="form-input" accept="image/*" style="background:none; border:none; color:#fff;">
-
-            <button class="submit-btn" onclick="sendData()" style="background:#b8860b; color:#fff; width:100%; padding:10px; border:none; font-family:'Cinzel';">SUBMIT</button>
-        </div>
-    </div>
-</div>
-
-  <div class="add-yours-float" onclick="openForm()" title="Add Yours">
-    <i class="fas fa-camera"></i>
-</div>
-    <input type="file" id="fileUploader" style="display: none;" accept="image/*" onchange="uploadImage()">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    <script src="royal_global.js"></script>
     <script>
-        // Right Click Disable Script
-        document.addEventListener('contextmenu', event => event.preventDefault());
-
-        // Updated Filter Function (Hides Sections, not just items)
-        function filterGallery(category) {
-            $('.filter-btn').removeClass('active');
-            event.target.classList.add('active');
-
-            if (category == 'all') {
-                $('#photos-section').fadeIn(400);
-                $('#videos-section').fadeIn(400);
-            } else if (category == 'photo') {
-                $('#videos-section').hide();
-                $('#photos-section').fadeIn(400);
-            } else if (category == 'video') {
-                $('#photos-section').hide();
-                $('#videos-section').fadeIn(400);
-            }
-        }
-
-      
-    </script>
-  <script>
-    // EmailJS Initialize
-    emailjs.init("KpyNvZBBeX0ZJisG8");
-
-    // 2. फॉर्म खोलने और बंद करने के फंक्शन
-    function openForm() { 
-        document.getElementById('addYoursModal').style.display = "block"; 
-    }
-    function closeForm() { 
-        document.getElementById('addYoursModal').style.display = "none"; 
-    }
-
-    // 3. डेटा भेजने का फंक्शन
-    function sendData() {
-        const name = document.getElementById('senderName').value.trim();
-        const email = document.getElementById('senderEmail').value.trim();
-        const msg = document.getElementById('senderMsg').value.trim();
-        const fileInput = document.getElementById('senderFile');
-        const file = fileInput.files[0];
-        const btn = document.querySelector('.submit-btn');
-
-        // खाली फॉर्म की जाँच
-        if (!name || !email || !file) {
-            alert("हुकुम, नाम, ईमेल और फोटो भरना अनिवार्य है!");
-            return;
-        }
-
-        // बटन की हालत बदलें
-        btn.disabled = true;
-        btn.innerText = "हुकुम, प्रतीक्षा करें... भेजा जा रहा है";
-        btn.style.opacity = "0.7";
-
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = function (event) {
-            const img = new Image();
-            img.src = event.target.result;
-            img.onload = function () {
-                const canvas = document.createElement('canvas');
-                const ctx = canvas.getContext('2d');
-                const maxWidth = 600;
-                const scale = maxWidth / img.width;
-                canvas.width = maxWidth;
-                canvas.height = img.height * scale;
-                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-                const compressedBase64 = canvas.toDataURL('image/jpeg', 0.4);
-
-                // EmailJS से भेजना
-                emailjs.send('service_vdnox8p', 'template_xx3a4tt', {
-                    from_name: name,
-                    from_email: email,
-                    message: msg,
-                    content: compressedBase64 
-                })
-                .then(function() {
-                    alert('खम्मा घणी! आपकी यादें सफलतापूर्वक ठिकाना कसुम्बी पहुँच गई हैं।');
-                    btn.disabled = false;
-                    btn.innerText = "SUBMIT TO THIKANA";
-                    btn.style.opacity = "1";
-                    closeForm();
-                    // फॉर्म रिसेट
-                    document.getElementById('senderName').value = "";
-                    document.getElementById('senderEmail').value = "";
-                    document.getElementById('senderMsg').value = "";
-                    document.getElementById('senderFile').value = "";
-                }, function(error) {
-                    alert('विफलता! हुकुम, शायद इंटरनेट धीमा है या सर्विस में दिक्कत है।');
-                    btn.disabled = false;
-                    btn.innerText = "SUBMIT TO THIKANA";
-                    btn.style.opacity = "1";
-                    console.log('Error:', error);
-                });
-            };
-        };
-    }
-
-    // 4. सुधरा हुआ फ़िल्टर फंक्शन
-    function filterGallery(category) {
-        $('.filter-btn').removeClass('active');
-        if(window.event && window.event.target) {
-            $(window.event.target).addClass('active');
-        }
-
-        if (category == 'all') {
-            $('#photos-section, #videos-section').fadeIn(400);
-        } else if (category == 'photo') {
-            $('#videos-section').hide();
-            $('#photos-section').fadeIn(400);
-        } else if (category == 'video') {
-            $('#photos-section').hide();
-            $('#videos-section').fadeIn(400);
-        }
-    }
-
-    // राइट क्लिक बंद
-    document.addEventListener('contextmenu', event => event.preventDefault());
+    // वीडियो ढूंढें
+    var video = document.querySelector(".bg-video");
+    
+    // रफ़्तार सेट करें (1.0 = नार्मल, 0.5 = आधी, 0.3 = बहुत धीमी)
+    video.playbackRate = 0.4; 
 </script>
-  
 </body>
 </html>
