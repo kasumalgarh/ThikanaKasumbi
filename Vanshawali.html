@@ -12,7 +12,7 @@
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
-        (function(){ emailjs.init("KpyNvZBBeX0ZJisG8"); })(); /* New Key Verified */
+        (function(){ emailjs.init("KpyNvZBBeX0ZJisG8"); })(); /* Key Verified */
     </script>
 
     <link rel="stylesheet" href="royal_global.css">
@@ -31,12 +31,12 @@
             font-family: 'Merriweather', serif; max-width: 250px;
         }
 
-        /* Hint Animation */
+        /* Hint Animation (FIXED: Won't break layout) */
         .click-hint {
-            display: inline-block; margin-left: 10px; font-size: 12px; color: #d63031;
-            animation: bounce 1.5s infinite; vertical-align: middle; font-weight: bold;
+            font-size: 11px; color: #d63031; font-weight: bold;
+            animation: bounce 1.5s infinite; white-space: nowrap;
         }
-        @keyframes bounce { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
+        @keyframes bounce { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(3px); } }
 
         /* =========================================
            2. TREE CONTAINER (Ultra Compact & Colorful)
@@ -47,18 +47,18 @@
             min-height: 800px;
             font-family: 'Noto Serif Devanagari', serif;
             overflow: auto; cursor: grab;
-            user-select: none; /* Prevent text selection while dragging */
+            user-select: none;
         }
         .tree-container:active { cursor: grabbing; }
 
         .royal-tree ul {
-            padding-left: 20px; /* Compact Indent */
+            padding-left: 20px;
             list-style: none; position: relative;
         }
 
         .royal-tree li {
             position: relative; padding-left: 15px; margin-bottom: 0;
-            line-height: 1.5em; /* Ultra Compact Height */
+            line-height: 1.5em; 
         }
 
         /* L-Shape Lines */
@@ -73,24 +73,32 @@
         .royal-tree ul li:last-child::before { height: 0.75em; }
 
         /* --- 12 GENERATION COLORS --- */
-        .gen-1 > ul > li::before, .gen-1 > ul > li::after { border-color: #800000; } /* Maroon */
-        .gen-2 > ul > li::before, .gen-2 > ul > li::after { border-color: #d63031; } /* Red */
-        .gen-3 > ul > li::before, .gen-3 > ul > li::after { border-color: #0984e3; } /* Blue */
-        .gen-4 > ul > li::before, .gen-4 > ul > li::after { border-color: #00b894; } /* Green */
-        .gen-5 > ul > li::before, .gen-5 > ul > li::after { border-color: #6c5ce7; } /* Purple */
-        .gen-6 > ul > li::before, .gen-6 > ul > li::after { border-color: #e17055; } /* Orange */
-        .gen-7 > ul > li::before, .gen-7 > ul > li::after { border-color: #00cec9; } /* Teal */
-        .gen-8 > ul > li::before, .gen-8 > ul > li::after { border-color: #e84393; } /* Pink */
-        .gen-9 > ul > li::before, .gen-9 > ul > li::after { border-color: #2d3436; } /* Grey */
-        .gen-10 > ul > li::before, .gen-10 > ul > li::after { border-color: #fdcb6e; } /* Mustard */
-        .gen-11 > ul > li::before, .gen-11 > ul > li::after { border-color: #636e72; } /* Slate */
-        .gen-12 > ul > li::before, .gen-12 > ul > li::after { border-color: #d4af37; } /* Gold */
+        .gen-1 > ul > li::before, .gen-1 > ul > li::after { border-color: #800000; }
+        .gen-2 > ul > li::before, .gen-2 > ul > li::after { border-color: #d63031; }
+        .gen-3 > ul > li::before, .gen-3 > ul > li::after { border-color: #0984e3; }
+        .gen-4 > ul > li::before, .gen-4 > ul > li::after { border-color: #00b894; }
+        .gen-5 > ul > li::before, .gen-5 > ul > li::after { border-color: #6c5ce7; }
+        .gen-6 > ul > li::before, .gen-6 > ul > li::after { border-color: #e17055; }
+        .gen-7 > ul > li::before, .gen-7 > ul > li::after { border-color: #00cec9; }
+        .gen-8 > ul > li::before, .gen-8 > ul > li::after { border-color: #e84393; }
+        .gen-9 > ul > li::before, .gen-9 > ul > li::after { border-color: #2d3436; }
+        .gen-10 > ul > li::before, .gen-10 > ul > li::after { border-color: #fdcb6e; }
+        .gen-11 > ul > li::before, .gen-11 > ul > li::after { border-color: #636e72; }
+        .gen-12 > ul > li::before, .gen-12 > ul > li::after { border-color: #d4af37; }
+
+        /* FLEXBOX WRAPPER (FIX 1: Align Button & Name) */
+        .tree-name-wrapper {
+            display: flex;
+            align-items: center; /* Vertical Center */
+            gap: 5px; /* Space between items */
+            padding: 2px 0;
+        }
 
         /* Name Styling */
         .tree-name {
             font-size: 14px; color: #5a4a42; font-weight: bold;
-            padding: 1px 6px; border-radius: 4px; transition: 0.2s;
-            display: inline-block; cursor: pointer; border: 1px solid transparent;
+            padding: 2px 6px; border-radius: 4px; transition: 0.2s;
+            cursor: pointer; border: 1px solid transparent;
         }
         .has-children > .tree-name-wrapper .tree-name { color: #800000; font-weight: 900; }
         
@@ -99,15 +107,14 @@
             border-color: #800000; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
-        /* BIG Toggle Button (+/-) */
+        /* BIG Toggle Button */
         .toggle-btn {
-            display: inline-block; 
-            width: 22px; height: 22px; /* Large size for easy tapping */
+            display: flex; align-items: center; justify-content: center;
+            width: 24px; height: 24px; /* Big Size */
             border: 1px solid #800000; background: #fff;
-            color: #800000; font-size: 16px; line-height: 20px;
-            text-align: center; margin-right: 5px; cursor: pointer;
-            border-radius: 4px; position: relative; z-index: 10;
-            vertical-align: middle; user-select: none;
+            color: #800000; font-size: 16px; 
+            cursor: pointer; border-radius: 4px; z-index: 10;
+            flex-shrink: 0; /* Prevent shrinking */
         }
         .toggle-btn:hover { background: #800000; color: #fff; }
 
@@ -118,7 +125,7 @@
         .root-name {
             font-family: 'Cinzel', serif; font-size: 22px; color: #800000;
             border-bottom: 3px solid #d4af37; padding-bottom: 5px;
-            margin-bottom: 15px; display: inline-block; cursor: pointer;
+            margin-bottom: 10px; display: inline-block; cursor: pointer;
         }
 
         .children-group { display: none; } /* Default Collapsed */
@@ -131,7 +138,7 @@
             width: 320px; background: #fffbf0;
             border: 2px solid #d4af37;
             box-shadow: 0 0 25px rgba(0,0,0,0.7);
-            z-index: 10001; /* Above everything */
+            z-index: 10001;
             transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             display: flex; flex-direction: column;
             padding-top: 50px;
@@ -192,7 +199,6 @@
             display: flex; flex-direction: column-reverse; align-items: center; gap: 10px;
         }
 
-        /* Main FAB */
         .main-fab {
             width: 55px; height: 55px; border-radius: 50%; background: #800000; color: #d4af37;
             border: 2px solid #d4af37; font-size: 24px; cursor: pointer;
@@ -213,7 +219,6 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center;
         }
 
-        /* Mobile Adjustments */
         @media (max-width: 768px) {
             .main-fab { width: 45px; height: 45px; font-size: 20px; bottom: 20px; right: 15px; }
             .mini-fab { width: 38px; height: 38px; font-size: 14px; }
@@ -222,7 +227,7 @@
 
         /* Mobile Search Icon Position */
         .mobile-search-btn {
-            position: absolute; top: 10px; right: 60px; /* Near Logo/Toggle */
+            position: absolute; top: 10px; right: 60px; 
             font-size: 18px; color: #d4af37; cursor: pointer; padding: 5px;
             display: none;
         }
@@ -361,7 +366,8 @@
             <i class="fas fa-plus"></i>
         </div>
         <div class="fab-options" id="fabOptions">
-            <button class="mini-fab" onclick="toggleFullScreen()" title="Full Screen"><i class="fas fa-expand"></i></button> <button class="mini-fab" onclick="resetTree()" title="Reset Tree"><i class="fas fa-sync-alt"></i></button>
+            <button class="mini-fab" onclick="toggleFullScreen()" title="Full Screen"><i class="fas fa-expand"></i></button> 
+            <button class="mini-fab" onclick="resetTree()" title="Reset Tree"><i class="fas fa-sync-alt"></i></button>
             <button class="mini-fab" onclick="zoomIn()" title="Zoom In"><i class="fas fa-plus"></i></button>
             <button class="mini-fab" onclick="zoomOut()" title="Zoom Out"><i class="fas fa-minus"></i></button>
             <button class="mini-fab" onclick="captureRightPanel()" title="Download Full HD" style="background:#2ecc71; color:#fff; border-color:#27ae60;"><i class="fas fa-camera"></i></button>
@@ -384,13 +390,11 @@
             <div style="color:#d4af37; font-size:1.4rem; font-family: 'Cinzel', serif; margin-bottom: 15px;">
                 Yuvraj Gajraj Singh
             </div>
-            
             <div class="social-icons" style="margin-bottom: 15px;">
                 <a href="#"><i class="fab fa-facebook"></i></a>
                 <a href="#"><i class="fab fa-instagram"></i></a>
                 <a href="#"><i class="fab fa-whatsapp"></i></a>
             </div>
-
             <div style="font-size: 0.8em; color: #888;">
                 &copy; <span id="year">2026</span> Kasumalgarh | Total Members: <span id="totalCount" style="color:#fff;">0</span>
             </div>
@@ -403,7 +407,6 @@
     <script src="family-data.js"></script>
 
     <script>
-        // --- GLOBAL VARIABLES ---
         let allMembers = [];
         let currentZoom = 1;
         let isRightPanelOpen = false;
@@ -423,21 +426,20 @@
             
             // Toggle Logic: Always create button if children exist
             let toggleBtn = '';
-            let btnSymbol = '+';
             if(hasChild) {
-                // IMPORTANT: Button does NOT have inline onclick. We use Event Delegation below.
-                toggleBtn = `<span class="toggle-btn" data-id="${uniqueId}">${btnSymbol}</span>`;
+                // IMPORTANT: Button does NOT have inline onclick. We use Event Delegation.
+                toggleBtn = `<span class="toggle-btn" data-id="${uniqueId}">+</span>`;
             }
 
-            // Hint Logic (Only for Root)
-            let hint = isRoot ? `<span class="click-hint" id="rootHint">👇 वंशावली खोलने के लिए यहाँ दबाएं (Tap to Expand)</span>` : '';
+            // Hint Logic (Aligned in Flexbox)
+            let hint = isRoot ? `<span class="click-hint" id="rootHint">👈 वंशावली खोलने के लिए दबाएं (Tap)</span>` : '';
 
             let html = `<li class="${liClass}" id="li-${uniqueId}">`;
             
+            // WRAPPER: Flexbox keeps Button, Name, and Hint aligned
             html += `<div class="tree-name-wrapper">
                         ${toggleBtn}
-                        <span class="${nameClass}" id="${uniqueId}" 
-                              data-id="${uniqueId}">
+                        <span class="${nameClass}" id="${uniqueId}" data-id="${uniqueId}">
                             ${member.name}
                         </span>
                         ${hint}
@@ -445,8 +447,6 @@
 
             if (hasChild) {
                 let ulClass = isRoot ? 'root-ul' : 'children-group';
-                // Root's children container is visible? No, collapsed.
-                // But user wants to click to expand. So hidden by default.
                 let ulStyle = 'style="display:none;"'; 
                 
                 html += `<ul class="${ulClass}" ${ulStyle}>`;
@@ -459,9 +459,8 @@
             return html;
         }
 
-        // --- 2. INITIALIZATION & EVENT DELEGATION (The Fix) ---
+        // --- 2. INITIALIZATION & EVENT DELEGATION ---
         $(document).ready(function() {
-            // Check Data
             if (typeof familyData !== 'undefined') {
                 allMembers = [];
                 let treeHTML = '<ul class="root-ul">' + generateTreeHTML(familyData, true, 1) + '</ul>';
@@ -472,14 +471,13 @@
                 $('#royalTreeArea').html('<h3 style="color:red; text-align:center;">Error: family-data.js not found!</h3>');
             }
 
-            // **EVENT DELEGATION** (For Buttons to work always)
+            // **EVENT DELEGATION: BUTTON CLICK**
             $(document).on('click', '.toggle-btn', function(e) {
                 e.stopPropagation();
                 let btn = $(this);
                 let ul = btn.closest('li').children('ul');
                 
-                // Hide hint if exists
-                $('#rootHint').fadeOut();
+                $('#rootHint').fadeOut(); // Hide hint once interaction starts
 
                 if(ul.is(':visible')) {
                     ul.slideUp(200);
@@ -490,7 +488,7 @@
                 }
             });
 
-            // **EVENT DELEGATION** (For Names)
+            // **EVENT DELEGATION: NAME CLICK**
             $(document).on('click', '.tree-name, .root-name', function(e) {
                 let id = $(this).attr('data-id');
                 showDetails(id, e);
@@ -504,15 +502,16 @@
             });
         });
 
-        // --- 3. DATA & DETAILS ---
+        // --- 3. DATA & DETAILS (STRICT LOGIC FIX 2) ---
         function getMemberInfo(id) {
             let el = $('#' + id);
             let memberObj = allMembers.find(m => m.id === id);
             
-            // Path Logic
+            // Path Logic: STRICT SELECTION (Fix 2)
             let pathArray = [];
             el.parents('li').each(function() {
-                let span = $(this).find('> .tree-name-wrapper > span');
+                // Find ONLY the .tree-name class, ignore Hint/Button
+                let span = $(this).find('> .tree-name-wrapper > .tree-name');
                 if(span.length > 0) pathArray.push(span.text().trim());
             });
             let fatherName = pathArray.length > 1 ? pathArray[1] : "Founder";
@@ -526,7 +525,8 @@
                 let allSibsLI = parentLi.find('> ul > li');
                 allSibsLI.each(function(idx) {
                     if($(this).attr('id') !== el.closest('li').attr('id')) {
-                        let sibName = $(this).find('> .tree-name-wrapper > span').text().trim();
+                        // Strict Select here too
+                        let sibName = $(this).find('> .tree-name-wrapper > .tree-name').text().trim();
                         siblings.push(sibName);
                     } else {
                         myIndex = idx + 1;
@@ -600,7 +600,6 @@
             let original = document.getElementById("captureTarget");
             let clone = original.cloneNode(true);
             
-            // Setup Clone off-screen but visible to html2canvas
             clone.style.width = "320px";
             clone.style.height = "auto";
             clone.style.maxHeight = "none";
@@ -626,36 +625,20 @@
             });
         }
 
-        // --- 5. UTILS & FULL SCREEN ---
+        // --- 5. UTILS ---
         function toggleLeftPanel() { $('#leftPanel').toggleClass('open'); closeRightPanel(); }
         function closeRightPanel() { $('#rightPanel').removeClass('open'); isRightPanelOpen = false; }
-        
         function toggleFab(btn) { $(btn).toggleClass('active'); $('#fabOptions').toggleClass('show'); }
-        
         function zoomIn() { if(currentZoom < 3) currentZoom += 0.1; $('#treeArea').css('transform', `scale(${currentZoom})`); }
         function zoomOut() { if(currentZoom > 0.3) currentZoom -= 0.1; $('#treeArea').css('transform', `scale(${currentZoom})`); }
-        
         function resetTree() { 
-            $('.children-group').slideUp(); 
-            $('.toggle-btn').text('+'); 
-            currentZoom = 1; 
-            $('#treeArea').css('transform', `scale(1)`); 
-            closeRightPanel();
-            // Show hint again if reset
-            $('#rootHint').show();
+            $('.children-group').slideUp(); $('.toggle-btn').text('+'); 
+            currentZoom = 1; $('#treeArea').css('transform', `scale(1)`); closeRightPanel();
+            $('#rootHint').fadeIn();
         }
-
-        // FULL SCREEN FUNCTION
         function toggleFullScreen() {
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen().catch((err) => {
-                    alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
-                });
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                }
-            }
+            if (!document.fullscreenElement) { document.documentElement.requestFullscreen().catch(()=>{}); } 
+            else { if (document.exitFullscreen) document.exitFullscreen(); }
         }
 
         // Search & Modal
@@ -671,11 +654,11 @@
         function jumpToNode(id) {
             toggleLeftPanel();
             let el = document.getElementById(id);
-            $(el).parents('ul').show(); // Force show
+            $(el).parents('ul').show();
             $(el).parents('li').children('.tree-name-wrapper').find('.toggle-btn').text('-');
             setTimeout(() => { 
                 el.scrollIntoView({behavior: "smooth", block: "center"}); 
-                $(el).trigger('click'); // Use trigger because of event delegation
+                $(el).trigger('click');
             }, 300);
         }
         
@@ -683,8 +666,8 @@
         function closeRequestModal() { $('#requestModal').fadeOut(); }
         function sendRequest() {
             let n = $('#reqName').val(), m = $('#reqMsg').val();
-            if(!n || !m) { alert("Please fill all fields"); return; }
-            emailjs.send("service_vdnox8p", "template_xx3a4tt", { from_name: n, message: m }).then(()=>{ alert("Request Sent!"); closeRequestModal(); });
+            if(!n || !m) { alert("Fill all fields"); return; }
+            emailjs.send("service_vdnox8p", "template_xx3a4tt", { from_name: n, message: m }).then(()=>{ alert("Sent!"); closeRequestModal(); });
         }
 
         // Auto Close
