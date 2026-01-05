@@ -1,250 +1,596 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thikana Kasumalgarh - Royal Vanshawali</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Vanshawali | Thikana Kasumbi (Jakhlan)</title>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Noto+Serif+Devanagari:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-    <link rel="stylesheet" href="vstyle.css">
-    <style>
-        /* Kala Background */
-        .modal {
-            display: none; 
-            position: fixed; 
-            z-index: 5000; 
-            left: 0; top: 0;
-            width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.6); 
-            backdrop-filter: blur(3px);
-        }
-
-        /* Box Design */
-        .modal-content {
-            background-color: #fffbf0; /* Royal Cream */
-            margin: 15% auto; 
-            padding: 20px;
-            border: 2px solid #d4af37; /* Gold Border */
-            width: 90%; 
-            max-width: 400px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            position: relative;
-            animation: slideDown 0.3s ease-out;
-        }
-
-        /* Close Button (X) */
-        .close-modal {
-            color: #800000;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .close-modal:hover { color: red; }
-
-        /* Animation */
-        @keyframes slideDown {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        /* Inputs */
-        .modal input, .modal textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0 15px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box; /* Width fix */
-        }
-    </style>
-
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
-        (function(){
-            emailjs.init("J3okpk4omjrkmUnwz");
-        })();
+        (function(){ emailjs.init("J3okpk4omjrkmUnwz"); })();
     </script>
+
+    <link rel="stylesheet" href="royal_global.css">
+
+    <style>
+        /* =========================================
+           1. TREE CONTAINER (Compact & Royal)
+           ========================================= */
+        .tree-container {
+            background: #fffbf0;
+            padding: 50px 20px;
+            min-height: 800px;
+            font-family: 'Noto Serif Devanagari', serif;
+            overflow: auto; 
+            cursor: grab;
+        }
+        .tree-container:active { cursor: grabbing; }
+
+        /* --- ROYAL TREE CSS (L-Shape + Collapse) --- */
+        .royal-tree ul {
+            padding-left: 30px; 
+            list-style: none;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .royal-tree li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 0;
+            line-height: 1.8em; /* Compact Line Height */
+        }
+
+        /* Vertical Line */
+        .royal-tree ul li::before {
+            content: ''; position: absolute; left: 0; top: 0;
+            border-left: 2px solid #800000; height: 100%;
+        }
+
+        /* Horizontal Line */
+        .royal-tree ul li::after {
+            content: ''; position: absolute; left: 0; top: 0.9em; /* Adjusted for compact height */
+            width: 15px; border-top: 2px solid #b8860b;
+        }
+
+        /* Last Child Fix */
+        .royal-tree ul li:last-child::before { height: 0.9em; }
+
+        /* Toggle Button (+/-) */
+        .toggle-btn {
+            display: inline-block; width: 14px; height: 14px;
+            border: 1px solid #800000; background: #fff;
+            color: #800000; font-size: 10px; line-height: 12px;
+            text-align: center; margin-right: 5px; cursor: pointer;
+            border-radius: 2px; position: relative; z-index: 10;
+        }
+        .toggle-btn:hover { background: #800000; color: #fff; }
+
+        /* Name Styling */
+        .tree-name {
+            font-size: 15px; color: #5a4a42; font-weight: bold;
+            padding: 2px 8px; border-radius: 4px; transition: 0.3s;
+            display: inline-block; cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .has-children > .tree-name-wrapper .tree-name {
+            color: #800000; font-weight: 900;
+        }
+
+        .tree-name:hover, .highlight-node {
+            background: #b8860b; color: #fff !important;
+            border-color: #800000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        /* Root Node */
+        .root-ul { padding-left: 0 !important; }
+        .root-li { padding-left: 0 !important; }
+        .root-li::before, .root-li::after { display: none !important; }
+        
+        .root-name {
+            font-family: 'Cinzel', serif; font-size: 24px; color: #800000;
+            border-bottom: 3px solid #d4af37; padding-bottom: 5px;
+            margin-bottom: 20px; display: inline-block; cursor: pointer;
+        }
+
+        .tree-name-wrapper { display: inline-block; vertical-align: middle; }
+
+        /* Hide/Show Logic */
+        .hidden-children { display: none; }
+
+        /* =========================================
+           2. PANELS (Fixed Mobile & Z-Index)
+           ========================================= */
+        .sidebar-left, .sidebar-right {
+            position: fixed; top: 60px; bottom: 60px; /* Menu ke neeche */
+            width: 300px; background: #fffbf0;
+            border: 2px solid #d4af37;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            z-index: 9000; /* Menu (1000) se neeche rakhe agar menu 10000 h */
+            transition: 0.3s ease;
+            display: flex; flex-direction: column;
+            border-radius: 10px;
+        }
+
+        /* 100% Hide Logic for Mobile */
+        .sidebar-left { left: -110%; } 
+        .sidebar-right { right: -110%; }
+        
+        .sidebar-left.open { left: 10px; }
+        .sidebar-right.open { right: 10px; }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .sidebar-left, .sidebar-right { 
+                width: 85%; top: 55px; bottom: 80px; 
+                left: -120%; right: -120%; /* Pura bahar */
+            }
+            .sidebar-left.open { left: 5px; }
+            .sidebar-right.open { right: 5px; }
+        }
+
+        /* Panel Header */
+        .panel-header {
+            background: #800000; color: #d4af37; padding: 10px;
+            font-family: 'Cinzel', serif; display: flex; justify-content: space-between; align-items: center;
+        }
+        
+        .panel-content { flex-grow: 1; overflow-y: auto; padding: 15px; }
+        
+        /* Search Box */
+        .search-container {
+            position: relative; width: 90%; margin: 10px auto;
+        }
+        .search-box-panel {
+            width: 100%; padding: 8px 30px 8px 10px;
+            border: 2px solid #d4af37; border-radius: 20px;
+            font-family: 'Noto Serif Devanagari';
+        }
+        .clear-search {
+            position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+            cursor: pointer; color: #800000; display: none;
+        }
+
+        .index-list { list-style: none; padding: 0; margin: 0; }
+        .index-list li {
+            padding: 8px 10px; border-bottom: 1px solid #ebd5a0;
+            cursor: pointer; font-size: 14px;
+        }
+        .index-list li:hover { background: #f0e6c8; color: #800000; }
+
+        /* Ancestral Path Styles */
+        .path-node {
+            padding-left: 20px; border-left: 2px solid #d4af37;
+            position: relative; margin-bottom: 0; padding-bottom: 10px;
+        }
+        .path-node::before {
+            content: ''; position: absolute; left: -5px; top: 5px;
+            width: 8px; height: 8px; background: #800000; border-radius: 50%; border: 1px solid #fff;
+        }
+        .path-node:last-child { border-left: none; }
+
+        /* =========================================
+           3. SMART TOOLS (Shifting Logic)
+           ========================================= */
+        .smart-tools {
+            position: fixed; bottom: 80px; right: 20px; z-index: 8000;
+            display: flex; flex-direction: column; gap: 8px;
+            transition: right 0.3s ease; /* Animation for shift */
+        }
+        /* Shift class when panel is open */
+        .smart-tools.shifted {
+            right: 320px; /* Panel Width + 20px */
+        }
+        
+        .tool-btn {
+            width: 45px; height: 45px; border-radius: 50%; border: none;
+            background: #fff; color: #800000; border: 2px solid #d4af37;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3); font-size: 18px; cursor: pointer;
+            transition: 0.2s; display: flex; align-items: center; justify-content: center;
+        }
+        .tool-btn:hover { background: #800000; color: #fff; transform: scale(1.1); }
+
+        @media (max-width: 768px) {
+            .smart-tools.shifted { right: 20px; bottom: 120px; z-index: 9500; } /* Mobile pe upar aa jayega */
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7); z-index: 10000;
+        }
+        .modal-box {
+            background: #fffbf0; border: 3px solid #d4af37;
+            width: 90%; max-width: 400px; margin: 100px auto;
+            padding: 20px; border-radius: 10px; position: relative;
+        }
+        .modal-input { width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; }
+    </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
 
-    <div class="watermark">Thikana Kasumalgarh Yuvraj Gajraj Singh</div>
-
-    <nav class="navbar">
-        <div class="logo">
-            <img src="menulogo.png" alt="Logo" style="height: 30px; margin-right: 5px;"> 
-            Kasumalgarh
+    <div class="navbar-wrapper">
+        <div class="container">
+            <nav class="navbar navbar-inverse">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                        <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">
+                        <img src="menulogo.png" alt="Logo" class="menu-logo-img">
+                        KASUMALGARH
+                    </a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                   <ul class="nav navbar-nav navbar-right">
+                        <li><a href="index.html">HOME</a></li>
+                        <li class="dropdown active">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">VANSHAWALI <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="vanshawali.html">Kasumalgarh</a></li>
+                                <li><a href="rathorevanshawali.html">Rathore</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">HISTORY <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="kasumalgarh.html">Kasumalgarh History</a></li>
+                                <li><a href="rathore.html">Rathore History</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="gallery.html">GALLERY</a></li>
+                        <li><a href="contact.html">CONTACT</a></li>
+                        <li><a href="#" onclick="openRequestModal()" style="color:#d4af37;"><i class="fas fa-user-plus"></i> Add</a></li>
+                    </ul>
+                </div>
+            </nav>
         </div>
-        
-        <div class="hamburger" onclick="toggleMobileMenu()">
-            <i class="fas fa-bars"></i>
+    </div>
+
+    <header class="index-header" style="min-height: 250px; padding-top: 100px; background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('fort_kasumbi.png');">
+        <div class="container">
+            <h1 class="shining-text" style="font-size: 2.5em;">|| वंशावली ||</h1>
+            <div style="font-family: 'Cinzel'; color: #d4af37; letter-spacing: 2px;">Thikana Kasumbi (Jakhlan)</div>
         </div>
+    </header>
 
-        <ul class="nav-links" id="mobileMenu">
-            <li><a href="index.html">Home</a></li>
-            
-            <li class="dropdown">
-                <a href="#">Vanshawali <i class="fas fa-caret-down"></i></a>
-                <ul class="dropdown-content">
-                    <li><a href="vanshawali.html">Kasumalgarh</a></li>
-                    <li><a href="rathorevanshawali.html">Rathore</a></li>
-                </ul>
-            </li>
-
-            <li><a href="history.html">History</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-
-        <div style="display:flex; gap:10px; align-items:center;">
-            <button class="menu-search-btn" onclick="openRequestModal()" title="Request Add">
-    <i class="fas fa-user-plus"></i>
-</button>
-            
-            <button class="menu-search-btn" onclick="toggleLeftPanel()">
-                <i class="fas fa-search"></i>
-            </button>
+    <div class="tree-container" id="treeWrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="treeArea" style="display: inline-block; min-width: 100%;">
+                        <div class="royal-tree" id="royalTreeArea">
+                            <div style="text-align: center; color: #888;">
+                                <i class="fas fa-spinner fa-spin"></i> Loading...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </nav>
+    </div>
 
-    <aside class="sidebar-left" id="left-panel">
+    <aside class="sidebar-left" id="leftPanel">
         <div class="panel-header">
-            <span>Member Index</span>
-            <span class="close-btn" onclick="toggleLeftPanel()">&times;</span>
+            <span><i class="fas fa-list"></i> Member Index</span>
+            <i class="fas fa-times" onclick="toggleLeftPanel()" style="cursor:pointer;"></i>
         </div>
-        
-        <div class="search-wrapper">
-            <input type="text" id="search-box" placeholder="Search name..." onkeyup="filterNames()">
-            <i class="fas fa-times search-clear-btn" id="clear-btn" onclick="clearSearch()"></i>
+        <div class="search-container">
+            <input type="text" id="searchBox" class="search-box-panel" placeholder="नाम खोजें (Search)..." onkeyup="filterIndex()">
+            <i class="fas fa-times clear-search" id="clearSearchBtn" onclick="clearSearch()"></i>
         </div>
-
-        <div class="list-area"><ul id="index-list"></ul></div>
+        <div class="panel-content">
+            <ul class="index-list" id="indexList"></ul>
+        </div>
     </aside>
 
-    <aside class="sidebar-right" id="right-panel">
-        <span class="close-btn" style="float:right;" onclick="closeRightPanel()">&times;</span>
-        <div id="panel-content"></div>
-        <h4 style="border-bottom:1px solid #ccc; padding-bottom:5px;">Ancestral Path</h4>
-        <ul id="lineage-path" style="padding-left:0; list-style:none;"></ul>
-    </aside>
-
-    <div id="hover-tooltip"></div>
-
-    <div class="tree-scroll-wrapper" id="capture-area" onclick="closePanelsOutside(event)">
-        <div id="tree-root">Loading Tree...</div>
-    </div>
-<div class="smart-tools-container">
-        
-        <button class="tools-toggle-btn" onclick="toggleSmartMenu()" title="Tools">
-            <i class="fas fa-cog fa-spin-hover"></i> </button>
-
-        <div class="smart-options" id="smartOptions">
-            <button class="smart-btn" onclick="toggleFullScreen()" title="Full Screen"><i class="fas fa-expand"></i></button>
-            <button class="smart-btn" onclick="resetZoom()" title="Reset"><i class="fas fa-sync-alt"></i></button>
-            <button class="smart-btn" onclick="zoomIn()" title="Zoom In"><i class="fas fa-plus"></i></button>
-            <button class="smart-btn" onclick="zoomOut()" title="Zoom Out"><i class="fas fa-minus"></i></button>
-            <button class="smart-btn" onclick="downloadImage()" title="Download" style="background:#2ecc71; color:white;"><i class="fas fa-camera"></i></button>
+    <aside class="sidebar-right" id="rightPanel">
+        <div class="panel-header">
+            <span><i class="fas fa-info-circle"></i> Details</span>
+            <i class="fas fa-times" onclick="closeRightPanel()" style="cursor:pointer;"></i>
         </div>
-
-    </div>
-
-    <footer class="footer">
-        Developed & Designed by <span>Yuvraj GajRaj Singh</span><br><br>
-           
-            <button class="menu-search-btn" onclick="openRequestModal()" title="Request Add">Click for corrections
-    <i class="fas fa-user-plus"></i>
-</button>
+        <div class="panel-content" id="captureTarget"> <div id="memberDetails" style="margin-bottom: 20px; border-bottom: 1px dashed #d4af37; padding-bottom: 10px;"></div>
+            <h5 style="color:#800000; font-weight:bold; border-bottom: 1px solid #d4af37; margin-bottom:15px;">Ancestral Path (वंशावली क्रम)</h5>
+            <div id="ancestralPath" style="font-size: 13px; margin-top: 10px;"></div>
             
+            <div style="margin-top:20px; font-size:10px; color:#888; text-align:center; border-top:1px solid #ccc; padding-top:5px;">
+                Generated by Kasumalgarh.site
+            </div>
+        </div>
+    </aside>
 
-        
-        <br>
-        <a href="https://facebook.com/yourid" target="_blank" class="fb-btn">
-            <i class="fab fa-facebook"></i> Connect on Facebook
-        </a>
-        <br>
-        <span id="footer-count" style="font-size:10px; color:#fff;">Total Members: 0</span>
+    <div class="smart-tools" id="smartTools">
+        <button class="tool-btn" onclick="zoomIn()" title="Zoom In"><i class="fas fa-plus"></i></button>
+        <button class="tool-btn" onclick="zoomOut()" title="Zoom Out"><i class="fas fa-minus"></i></button>
+        <button class="tool-btn" onclick="resetZoom()" title="Reset"><i class="fas fa-sync-alt"></i></button>
+        <button class="tool-btn" onclick="captureRightPanel()" title="Download Path Image" style="background:#2ecc71; color:#fff;"><i class="fas fa-camera"></i></button>
+        <button class="tool-btn" onclick="toggleLeftPanel()" title="Search List"><i class="fas fa-search"></i></button>
+    </div>
+
+    <div id="requestModal" class="modal-overlay">
+        <div class="modal-box">
+            <span class="close-modal" onclick="closeRequestModal()" style="position:absolute; right:15px; top:10px; font-size:20px; cursor:pointer;">&times;</span>
+            <h4 style="color:#800000; text-align:center;">Request Update</h4>
+            <input type="text" id="reqName" class="modal-input" placeholder="Your Name">
+            <textarea id="reqMsg" class="modal-input" rows="4" placeholder="Details (Add son of X...)"></textarea>
+            <button onclick="sendRequest()" class="gold-btn" style="width:100%; border-radius:5px;">Send</button>
+        </div>
+    </div>
+
+    <footer class="royal-footer">
+        <div class="container">
+            <div style="font-size: 0.9em; color: #ccc;">Developed & Designed By:</div>
+            <div style="color:#7A5D28; font-size:1.4rem; font-family: 'Cinzel', serif; margin: 5px 0;">Yuvraj Gajraj Singh</div>
+            
+             <div class="footer-social-icons" style="margin-top: 15px; margin-bottom: 15px;">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+            </div>
+
+            <div style="font-size: 0.8em; margin-top: 20px; color: #888;">
+                &copy; <span id="year">2026</span> | Total Members: <span id="totalCount" style="color:#fff;">0</span>
+            </div>
+        </div>
     </footer>
 
-<div id="requestModal" class="modal">
-    <div class="modal-content">
-        <span class="close-modal" onclick="closeRequestModal()">&times;</span>
-        <h3>Request to Add Member</h3>
-        
-        <label>Your Name:</label>
-        <input type="text" id="req-name" placeholder="Enter name...">
-        
-        <label>Details / Message:</label>
-        <textarea id="req-msg" rows="4" placeholder="Father's name, relation, etc..."></textarea>
-        
-        <button class="send-btn" onclick="sendEmailNow()" style="background:#2ecc71; color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer; margin-top:10px; width:100%;">
-            Send Request <i class="fas fa-paper-plane"></i>
-        </button>
-    </div>
-</div>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="royal_global.js"></script>
     <script src="family-data.js"></script>
-    <script src="vscript.js"></script>
+
     <script>
-    // 1. Popup Kholo
-    function openRequestModal() {
-        console.log("Button Clicked!"); // Check karne ke liye
-        var modal = document.getElementById('requestModal');
-        if(modal) {
-            modal.style.display = "block";
-        } else {
-            alert("Error: Modal box nahi mila!");
-        }
-    }
+        let allMembers = [];
+        let currentZoom = 1;
+        let isRightPanelOpen = false;
 
-    // 2. Popup Band Karo
-    function closeRequestModal() {
-        document.getElementById('requestModal').style.display = "none";
-    }
+        // --- 1. TREE GENERATION ---
+        function generateTreeHTML(member, isRoot, depth) {
+            if (!member) return '';
 
-    // 3. Email Bhejo (Direct Function)
-    function sendEmailNow() {
-        let name = document.getElementById('req-name').value;
-        let msg = document.getElementById('req-msg').value;
-
-        if(name === "" || msg === "") {
-            alert("Hukum, please write your name and message first.");
-            return;
-        }
-
-        let btn = document.querySelector(".send-btn");
-        let originalText = btn.innerHTML;
-        btn.innerHTML = "Sending...";
-        btn.disabled = true;
-
-        var templateParams = { from_name: name, message: msg, reply_to: "User" };
-
-        // EmailJS Send
-        emailjs.send("service_vdnox8p", "template_xx3a4tt", templateParams)
-            .then(function() {
-                alert("Message sent successfully!");
-                document.getElementById('req-name').value = "";
-                document.getElementById('req-msg').value = "";
-                closeRequestModal();
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-            }, function(error) {
-                alert("Failed: " + JSON.stringify(error));
-                btn.innerHTML = originalText;
-                btn.disabled = false;
+            let uniqueId = "node-" + Math.floor(Math.random() * 1000000);
+            
+            allMembers.push({
+                name: member.name,
+                id: uniqueId,
+                data: member,
+                depth: depth
             });
-    }
 
-    // 4. Bahar click karne par band ho
-    window.onclick = function(event) {
-        let modal = document.getElementById('requestModal');
-        if (event.target == modal) {
-            modal.style.display = "none";
+            let hasChild = (member.children && member.children.length > 0);
+            let liClass = isRoot ? 'root-li' : (hasChild ? 'has-children' : '');
+            let nameClass = isRoot ? 'root-name' : 'tree-name';
+            
+            // Toggle Button Logic
+            let toggleBtn = '';
+            if(hasChild && !isRoot) {
+                // Default: Minus [-] means Expanded
+                toggleBtn = `<span class="toggle-btn" onclick="toggleBranch(this)">-</span>`;
+            }
+
+            let html = `<li class="${liClass}" id="li-${uniqueId}">`;
+            
+            html += `<div class="tree-name-wrapper">
+                        ${toggleBtn}
+                        <span class="${nameClass}" id="${uniqueId}" onclick="showDetails('${uniqueId}', event)">
+                            ${member.name}
+                        </span>
+                     </div>`;
+
+            if (hasChild) {
+                let ulClass = isRoot ? 'root-ul' : '';
+                html += `<ul class="${ulClass}">`;
+                member.children.forEach(function(child) {
+                    html += generateTreeHTML(child, false, depth + 1);
+                });
+                html += '</ul>';
+            }
+
+            html += '</li>';
+            return html;
         }
-    }
-</script>
 
+        // Toggle Function (+/-)
+        function toggleBranch(btn) {
+            let ul = $(btn).closest('li').children('ul');
+            if(ul.is(':visible')) {
+                ul.slideUp();
+                $(btn).text('+'); // Change to Plus
+            } else {
+                ul.slideDown();
+                $(btn).text('-'); // Change to Minus
+            }
+        }
+
+        $(document).ready(function() {
+            if (typeof familyData !== 'undefined') {
+                allMembers = [];
+                var treeHTML = '<ul class="root-ul">' + generateTreeHTML(familyData, true, 1) + '</ul>';
+                $('#royalTreeArea').html(treeHTML);
+                populateIndex();
+                $('#totalCount').text(allMembers.length);
+            }
+        });
+
+        // --- 2. PANEL LOGIC ---
+        function toggleLeftPanel() {
+            $('#leftPanel').toggleClass('open');
+            closeRightPanel(); // Close other
+        }
+
+        function openRightPanel() {
+            $('#rightPanel').addClass('open');
+            $('#leftPanel').removeClass('open');
+            $('#smartTools').addClass('shifted'); // Shift Buttons Left
+            isRightPanelOpen = true;
+        }
+
+        function closeRightPanel() {
+            $('#rightPanel').removeClass('open');
+            $('#smartTools').removeClass('shifted'); // Shift Buttons Back
+            $('.highlight-node').removeClass('highlight-node');
+            isRightPanelOpen = false;
+        }
+
+        // Auto Close Logic (Click Outside)
+        $(document).click(function(event) { 
+            if(!$(event.target).closest('#rightPanel, .tree-name, .tool-btn').length) {
+                if($('#rightPanel').hasClass('open')) closeRightPanel();
+            }
+            if(!$(event.target).closest('#leftPanel, .tool-btn').length) {
+                if($('#leftPanel').hasClass('open')) $('#leftPanel').removeClass('open');
+            }
+        });
+
+        // --- 3. DETAILS & PATH ---
+        function showDetails(id, e) {
+            e.stopPropagation(); // Stop auto close
+            
+            // Highlight
+            $('.highlight-node').removeClass('highlight-node');
+            $('#' + id).addClass('highlight-node');
+            
+            let memberObj = allMembers.find(m => m.id === id);
+            if(!memberObj) return;
+
+            // --- Logic from Old Script (Updated) ---
+            let pathArray = [];
+            let current = $('#' + id);
+            
+            // 1. Traverse Up for Path
+            pathArray.push(memberObj.name);
+            current.parents('li').each(function() {
+                let span = $(this).find('> .tree-name-wrapper > span');
+                if(span.length > 0 && span.attr('id') !== id) {
+                    pathArray.push(span.text().trim());
+                }
+            });
+
+            // 2. Father & Sibling Logic
+            let fatherName = pathArray.length > 1 ? pathArray[1] : "Founder";
+            
+            // Find siblings in DOM
+            let parentLi = current.closest('ul').parent('li'); 
+            let siblingsCount = 0;
+            if(parentLi.length) {
+                siblingsCount = parentLi.find('> ul > li').length - 1;
+            }
+
+            let detailsHTML = `
+                <h4 style="color:#b8860b; font-family:'Cinzel'; text-align:center;">${memberObj.name}</h4>
+                <div style="background:#fffbe6; padding:10px; border:1px solid #d4af37; border-radius:5px; font-size:13px; margin-top:10px;">
+                    <strong>Father:</strong> ${fatherName}<br>
+                    <strong>Generation:</strong> ${memberObj.depth}<br>
+                    <span style="color:#800000; font-size:12px;">
+                        ${siblingsCount > 0 ? `Has ${siblingsCount} siblings.` : 'Only Child.'}
+                    </span>
+                </div>
+            `;
+            $('#memberDetails').html(detailsHTML);
+
+            // 3. Render Path
+            let pathHTML = '';
+            pathArray.reverse().forEach((name, index) => {
+                let isLast = index === pathArray.length - 1;
+                let style = isLast ? "color:#800000; font-weight:bold;" : "color:#555;";
+                pathHTML += `<div class="path-node" style="${style}">${name}</div>`;
+            });
+            $('#ancestralPath').html(pathHTML);
+
+            openRightPanel();
+        }
+
+        // --- 4. SEARCH ---
+        function populateIndex() {
+            let list = $('#indexList');
+            list.empty();
+            let sorted = [...allMembers].sort((a, b) => a.name.localeCompare(b.name));
+            sorted.forEach(m => {
+                list.append(`<li onclick="jumpToNode('${m.id}')">${m.name}</li>`);
+            });
+        }
+
+        function filterIndex() {
+            let val = $('#searchBox').val().toLowerCase();
+            $('#clearSearchBtn').toggle(val.length > 0);
+            $('#indexList li').each(function() {
+                let text = $(this).text().toLowerCase();
+                $(this).toggle(text.indexOf(val) > -1);
+            });
+        }
+
+        function clearSearch() {
+            $('#searchBox').val('');
+            filterIndex();
+        }
+
+        function jumpToNode(id) {
+            $('#leftPanel').removeClass('open');
+            // Find span and click it to trigger logic
+            let el = document.getElementById(id);
+            if(el) {
+                el.scrollIntoView({behavior: "smooth", block: "center", inline: "center"});
+                // Simulate click to open right panel
+                setTimeout(() => el.click(), 500); 
+            }
+        }
+
+        // --- 5. CAPTURE IMAGE (RIGHT PANEL ONLY) ---
+        function captureRightPanel() {
+            if(!isRightPanelOpen) {
+                alert("हुकुम, पहले किसी नाम पर क्लिक करें ताकि वंशावली क्रम (Path) दिखाई दे, फिर फोटो लें।");
+                return;
+            }
+
+            let element = document.getElementById("captureTarget"); // Only Right Panel Content
+            
+            // Button spin effect
+            let btn = document.querySelector('button[title="Download Path Image"] i');
+            let oldClass = btn.className;
+            btn.className = "fas fa-spinner fa-spin";
+
+            html2canvas(element, {
+                scale: 2,
+                backgroundColor: "#fffbf0",
+                useCORS: true
+            }).then(canvas => {
+                let link = document.createElement('a');
+                link.download = 'Ancestral-Path.png';
+                link.href = canvas.toDataURL();
+                link.click();
+                btn.className = oldClass;
+            }).catch(err => {
+                alert("Error taking photo.");
+                btn.className = oldClass;
+            });
+        }
+
+        // --- 6. ZOOM ---
+        function zoomIn() { if(currentZoom < 2) currentZoom += 0.1; updateZoom(); }
+        function zoomOut() { if(currentZoom > 0.4) currentZoom -= 0.1; updateZoom(); }
+        function resetZoom() { currentZoom = 1; updateZoom(); }
+        function updateZoom() {
+            $('#royalTreeArea').css('transform', `scale(${currentZoom})`);
+            $('#royalTreeArea').css('transform-origin', `top left`);
+        }
+
+        // --- 7. REQUEST ---
+        function openRequestModal() { $('#requestModal').fadeIn(); }
+        function closeRequestModal() { $('#requestModal').fadeOut(); }
+        function sendRequest() {
+            // Your EmailJS logic here
+            alert("Request Sent (Demo Mode)");
+            closeRequestModal();
+        }
+
+    </script>
 </body>
 </html>
