@@ -498,7 +498,29 @@ h2, h3 { font-family: 'Berkshire Swash', 'Cinzel', serif; color: var(--maroon-te
     margin-bottom: 20px;
     position: relative;
 }
+/* --- Equal Height Row Fix --- */
+.row-flex {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+}
 
+/* Make sure the box takes full height */
+.contact-box {
+    height: 100%;
+    background: #fff;
+    border: 2px solid #7A5D28;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    position: relative;
+    /* Niche ka content bottom me lane ke liye (Optional) */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 .contact-title {
     font-family: 'Cinzel', serif;
     color: #800000;
