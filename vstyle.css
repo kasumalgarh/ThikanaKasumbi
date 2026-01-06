@@ -1,0 +1,273 @@
+
+    /* =========================================
+       1. CORE & WATERMARK
+       ========================================= */
+    body { 
+        overflow-x: hidden; background: #fffbf0; 
+        -webkit-tap-highlight-color: transparent; 
+    }
+
+    /* Site Background Watermark */
+    body::before {
+        content: ''; position: fixed; top: 50%; left: 50%;
+        transform: translate(-50%, -50%); width: 60%; height: 60%;
+        background: url('klogo1.png') no-repeat center center;
+        background-size: contain; opacity: 0.05; z-index: -1;
+        pointer-events: none;
+    }
+
+    /* Loading Animation */
+    #loadingOverlay {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: #fffbf0; z-index: 50000; display: flex;
+        flex-direction: column; align-items: center; justify-content: center;
+    }
+    .breathing-logo { width: 100px; animation: breathe 2s infinite ease-in-out; margin-bottom: 20px; }
+    @keyframes breathe { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.1); opacity: 1; } }
+
+    /* =========================================
+       2. TREE CSS
+       ========================================= */
+    .tree-container {
+        padding: 20px 10px 100px 10px; min-height: 800px;
+        font-family: 'Noto Serif Devanagari', serif;
+        overflow: auto; cursor: grab; user-select: none;
+        opacity: 0; transition: opacity 1s ease-in;
+    }
+    .tree-container.loaded { opacity: 1; }
+    .tree-container:active { cursor: grabbing; }
+
+    /* Expand Button */
+    .top-controls { text-align: center; margin-bottom: 30px; margin-top: 10px; }
+    .expand-main-btn {
+        background: #800000; color: #d4af37; border: 2px solid #d4af37;
+        padding: 8px 20px; font-family: 'Cinzel', serif; font-size: 14px;
+        border-radius: 30px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        transition: 0.3s;
+    }
+    .expand-main-btn:hover { transform: scale(1.05); background: #5a0000; }
+
+    .royal-tree ul { padding-left: 20px; list-style: none; position: relative; }
+    
+    /* CHANGE 1: Padding Increased to 35px to fix Dot Overlap */
+.royal-tree li { 
+        position: relative; 
+        padding-left: 35px; 
+        line-height: 1.5em; 
+        margin-bottom: 0;  /* Margin 0 कर दिया */
+        padding-bottom: 10px; /* Spacing के लिए Padding दी */
+    }
+    /* LINES (Base Grey) */
+    .royal-tree ul li::before { content: ''; position: absolute; left: 0; top: 0; border-left-width: 2px; border-left-style: solid; height: 100%; transition: border-color 0.3s; }
+    .royal-tree ul li::after { content: ''; position: absolute; left: 0; top: 0.75em; width: 25px; border-top-width: 2px; border-top-style: solid; transition: border-color 0.3s; }
+    .royal-tree ul li:last-child::before { height: 0.75em; }
+
+    /* ROOT FIX: Hide lines/buttons for Root */
+    .root-li::before, .root-li::after { display: none !important; border: none !important; }
+    .root-li > .tree-name-wrapper > .toggle-btn { display: none !important; }
+
+    /* CHANGE 2: Root UL Hidden by Default */
+    .root-ul { display: none; padding-left: 0 !important; }
+
+    /* GENERATION COLORS (Default) */
+    .gen-1 > ul > li::before, .gen-1 > ul > li::after { border-color: #800000; }
+    .gen-2 > ul > li::before, .gen-2 > ul > li::after { border-color: #d63031; }
+    .gen-3 > ul > li::before, .gen-3 > ul > li::after { border-color: #0984e3; }
+    .gen-4 > ul > li::before, .gen-4 > ul > li::after { border-color: #00b894; }
+    .gen-5 > ul > li::before, .gen-5 > ul > li::after { border-color: #6c5ce7; }
+    .gen-6 > ul > li::before, .gen-6 > ul > li::after { border-color: #e17055; }
+    .gen-7 > ul > li::before, .gen-7 > ul > li::after { border-color: #00cec9; }
+    .gen-8 > ul > li::before, .gen-8 > ul > li::after { border-color: #e84393; }
+    .gen-9 > ul > li::before, .gen-9 > ul > li::after { border-color: #2d3436; }
+    .gen-10 > ul > li::before, .gen-10 > ul > li::after { border-color: #fdcb6e; }
+    .gen-11 > ul > li::before, .gen-11 > ul > li::after { border-color: #636e72; }
+    .gen-12 > ul > li::before, .gen-12 > ul > li::after { border-color: #d4af37; }
+
+    /* --- GOLDEN PATH LOGIC (L-SHAPE FIX) --- */
+    li.is-ancestor::before { border-color: inherit !important; }
+    li.is-ancestor::after {
+        border-color: #FFD700 !important;
+        border-top: none !important;
+        border-bottom: 3px solid #FFD700 !important;
+        border-left: 3px solid #FFD700 !important;
+        top: 0 !important; height: 0.75em !important; z-index: 100;
+        box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+    }
+
+    li.path-connector::before {
+        border-left-color: #FFD700 !important;
+        border-left-width: 3px !important;
+        z-index: 4;
+    }
+    li.path-connector::after { border-top-width: 2px !important; }
+
+    li.is-ancestor > .tree-name-wrapper > .tree-name { 
+        background: #fff5e6; 
+        border: 1px solid #FFD700; 
+        color: #800000 !important; 
+        font-weight: 900;
+        box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+    }
+
+    /* MAIN LINEAGE STYLE (Permanent Bold) */
+    .main-lineage-node {
+        font-weight: 900 !important;
+        color: #5a0000 !important;
+        border: 2px solid #d4af37 !important;
+        background: #fffdf0;
+        box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
+    }
+
+    /* Layout */
+    .tree-name-wrapper { display: flex; align-items: center; gap: 5px; padding: 2px 0; flex-wrap: wrap; }
+    .tree-name {
+        font-size: 14px; color: #5a4a42; font-weight: bold;
+        padding: 2px 6px; border-radius: 4px; transition: 0.2s;
+        cursor: pointer; border: 1px solid transparent;
+        white-space: normal; max-width: 100%;
+    }
+    
+    /* Buttons */
+    .toggle-btn {
+        display: flex; align-items: center; justify-content: center;
+        width: 24px; height: 24px; border: 1px solid #800000; background: #fff;
+        color: #800000; font-size: 16px; cursor: pointer; border-radius: 4px; z-index: 10;
+        flex-shrink: 0;
+    }
+
+    /* CHANGE 3: Root Name - Distinct Royal Design */
+    .root-name {
+        font-family: 'Cinzel', serif; 
+        font-size: 20px; 
+        color: #fff !important; 
+        background: #800000;
+        border: 2px solid #d4af37;
+        padding: 10px 20px;
+        margin-bottom: 20px; 
+        display: inline-block; 
+        cursor: pointer;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .children-group { display: none; }
+
+    /* =========================================
+       3. PANELS & SEALS
+       ========================================= */
+    .sidebar-left, .sidebar-right {
+        position: fixed; top: 0; bottom: 0; width: 320px; background: #fffbf0;
+        border: 2px solid #d4af37; box-shadow: 0 0 25px rgba(0,0,0,0.7);
+        z-index: 10001; transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        display: flex; flex-direction: column; padding-top: 50px;
+    }
+    @media (min-width: 769px) {
+        .sidebar-left { left: 0; transform: translateX(-100%); top: 52px; }
+        .sidebar-right { right: 0; transform: translateX(100%); top: 52px; }
+        .sidebar-left.open, .sidebar-right.open { transform: translateX(0); }
+    }
+    @media (max-width: 768px) {
+        .sidebar-left, .sidebar-right { width: 90%; max-width: 350px; }
+        .sidebar-left { left: 0; transform: translateX(-110%); }
+        .sidebar-right { right: 0; transform: translateX(110%); }
+        .sidebar-left.open, .sidebar-right.open { transform: translateX(0); }
+    }
+
+    .panel-header { background: #800000; color: #d4af37; padding: 12px; font-family: 'Cinzel', serif; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #d4af37; }
+    .panel-content { flex-grow: 1; overflow-y: auto; padding: 15px; }
+
+    /* Generation Seal */
+    .gen-seal {
+        width: 60px; height: 60px; border-radius: 50%;
+        background: radial-gradient(circle, #ffd700 0%, #daa520 100%);
+        border: 2px solid #800000; color: #800000;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        font-weight: bold; font-family: 'Cinzel'; margin: 0 auto 5px auto;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        line-height: 1.1;
+    }
+    .gen-label { font-size: 10px; color: #5a0000; text-transform: uppercase; }
+    .gen-number { font-size: 18px; font-weight: 900; }
+
+    /* Search */
+    .search-container { position: relative; width: 95%; margin: 10px auto; }
+    .search-box-panel { width: 100%; padding: 10px 35px 10px 10px; border: 2px solid #d4af37; border-radius: 4px; font-family: 'Noto Serif Devanagari'; font-size: 16px; }
+    .clear-search { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #800000; font-size: 18px; display: none; }
+    .index-list li { padding: 10px; border-bottom: 1px solid #ebd5a0; cursor: pointer; }
+
+    /* Path */
+    .path-node { padding-left: 25px; border-left: 3px solid #d4af37; position: relative; padding-bottom: 15px; font-family: 'Merriweather', serif; font-size: 13px; color: #333; }
+    .path-node::before { content: ''; position: absolute; left: -6px; top: 5px; width: 9px; height: 9px; background: #800000; border-radius: 50%; border: 1px solid #fff; }
+    .path-node:last-child { border-left: none; }
+
+    /* =========================================
+       4. TOOLS & FOOTER
+       ========================================= */
+    .fab-container { position: fixed; bottom: 30px; right: 20px; z-index: 10002; display: flex; flex-direction: column-reverse; align-items: center; gap: 10px; }
+    .main-fab { width: 55px; height: 55px; border-radius: 50%; background: #800000; color: #d4af37; border: 2px solid #d4af37; font-size: 24px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; transition: transform 0.3s; }
+    .main-fab.active { transform: rotate(45deg); }
+    .fab-options { display: flex; flex-direction: column-reverse; gap: 10px; opacity: 0; visibility: hidden; transform: translateY(20px); transition: all 0.3s; }
+    .fab-options.show { opacity: 1; visibility: visible; transform: translateY(0); }
+    .mini-fab { width: 45px; height: 45px; border-radius: 50%; background: #fff; color: #333; border: 2px solid #d4af37; cursor: pointer; font-size: 16px; box-shadow: 0 2px 5px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; }
+    
+    @media (max-width: 768px) {
+        .main-fab { width: 45px; height: 45px; font-size: 20px; bottom: 20px; right: 15px; }
+        .mini-fab { width: 38px; height: 38px; font-size: 14px; }
+        .fab-container { bottom: 20px; right: 15px; }
+        .mobile-search-btn { position: absolute; top: 10px; right: 60px; font-size: 18px; color: #d4af37; cursor: pointer; padding: 5px; display: block; }
+        .navbar-brand { padding: 10px 15px; height: auto; line-height: 20px; }
+        .menu-logo-img { max-height: 40px; }
+        .navbar-header { min-height: 60px; padding-top: 5px; }
+    }
+    @media (min-width: 769px) { .mobile-search-btn { display: none; } }
+
+    /* FOOTER (ROYAL NAVY BLUE) */
+    .royal-footer {
+    background-color: #091a3a;
+    background: linear-gradient(to bottom, #091a3a 0%, #2a4065 50%, #091a3a 100%);
+    color: #d4af37;
+    padding: 20px 10px; 
+    text-align: center;
+    border-top: 3px solid #7A5D28;
+    margin-top: 0;
+    border-radius: 15px 15px 0 0; 
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.4);
+}
+
+/* --- UPDATED: FOOTER SOCIAL ICONS (Bade aur White) --- */
+.footer-social-icons a {
+    color: #ffffff !important; /* Default White */
+    font-size: 28px !important; /* Size increased */
+    margin: 0 15px;
+    display: inline-block;
+    transition: all 0.3s ease;
+    text-shadow: none;
+}
+
+.footer-social-icons a:hover {
+    color: #7A5D28 !important; /* Hover pe Royal Color */
+    transform: translateY(-3px); /* Thoda upar uthega */
+    text-shadow: 0 0 10px rgba(122, 93, 40, 0.5);
+}
+
+/* Normal links in footer */
+.royal-footer .fb-link { margin-top: 10px; margin-bottom: 10px; }
+.royal-footer a:not(.footer-social-icons a) { 
+    color: #fff !important; 
+    text-decoration: none; 
+    transition: 0.3s; 
+}
+.royal-footer a:not(.footer-social-icons a):hover { 
+    color: #d4af37 !important; 
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5); 
+}
+
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 20000; }
+    .modal-box { background: #fffbf0; border: 3px solid #d4af37; width: 90%; max-width: 400px; margin: 20% auto; padding: 25px; border-radius: 10px; position: relative; }
+    .modal-input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #d4af37; border-radius: 4px; }
+    .gold-btn { background: #800000; color: #d4af37; border: 1px solid #d4af37; padding: 8px 15px; font-weight: bold; cursor: pointer; width: 100%; }
+    
+    #hoverTooltip { position: fixed; display: none; background: rgba(0,0,0,0.95); color: #fff; padding: 10px; border-radius: 4px; font-size: 12px; z-index: 20000; pointer-events: none; border: 1px solid #d4af37; max-width: 250px; }

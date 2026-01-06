@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>About Yuvraj | Thikana Kasumbi</title>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Playfair+Display:wght@400;700&family=Noto+Serif+Devanagari:wght@400;700&family=Berkshire+Swash&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="royal_global.css">
+
+    <style>
+        /* Special Styles for About Page */
+        .about-header {
+            background-image: linear-gradient(rgba(3, 2, 48, 0.8), rgba(128, 0, 0, 0.8)), url('fort_kasumbi.png');
+            background-size: cover;
+            background-position: center;
+            padding: 140px 0 70px 0;
+            text-align: center;
+            color: #fff;
+            border-bottom: 4px solid #7A5D28;
+            box-shadow: inset 0 -20px 30px rgba(0,0,0,0.8);
+        }
+
+        .royal-frame {
+            border: 10px double #d4af37;
+            padding: 8px;
+            background: #fff;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            margin-bottom: 25px;
+            display: inline-block;
+            position: relative;
+        }
+
+        /* Crown Icon on Photo */
+        .royal-frame::before {
+            content: '\f521'; 
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 40px;
+            color: #d4af37;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .about-text {
+            font-family: 'Noto Serif Devanagari', serif;
+            font-size: 1.15em;
+            line-height: 1.9;
+            color: #333;
+            text-align: justify;
+        }
+        
+        .highlight-text {
+            color: #800000;
+            font-weight: bold;
+        }
+
+        /* Emotional Quote Box */
+        .emotional-quote {
+            border-left: 5px solid #800000;
+            background: #fffbf0;
+            padding: 25px;
+            margin-top: 25px;
+            color: #444;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .emotional-quote i {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 40px;
+            color: rgba(128, 0, 0, 0.1);
+        }
+
+        .quote-line {
+            display: block;
+            margin-bottom: 15px;
+            font-style: italic;
+            font-weight: 600;
+            border-bottom: 1px dashed #d4af37;
+            padding-bottom: 10px;
+        }
+
+        /* Helping Hand Section */
+        .help-note {
+            margin-top: 20px;
+            background: #091a3a;
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #d4af37;
+            text-align: center;
+        }
+
+        .info-card {
+            background: #fff;
+            border: 1px solid #e0c080;
+            padding: 15px;
+            text-align: center;
+            border-radius: 5px;
+            height: 100%;
+            transition: 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .info-card:hover {
+            background: #800000;
+            color: #fff;
+            border-color: #800000;
+            transform: translateY(-5px);
+        }
+        .info-card:hover h4, .info-card:hover p, .info-card:hover i {
+            color: #fff !important;
+        }
+        
+        @media (max-width: 768px) {
+            .about-text { text-align: left; }
+            .royal-frame img { width: 100%; }
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+    <div class="navbar-wrapper">
+        <div class="container">
+            <nav class="navbar navbar-inverse">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                        <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">
+                        <img src="menulogo.png" alt="Logo" class="menu-logo-img">
+                        KASUMALGARH
+                    </a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="index.html">HOME</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">VANSHAWALI <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="vanshawali.html">Kasumalgarh</a></li>
+                                <li><a href="rathorevanshawali.html">Rathore</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="kasumbi_history.html">HISTORY</a></li>
+                        <li><a href="gallery.html">GALLERY</a></li>
+                        <li><a href="royalalliances.html">ROYAL ALLIANCES</a></li>
+                        <li class="active"><a href="about.html">ABOUT</a></li>
+                        <li><a href="contact.html">CONTACT</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <header class="about-header">
+        <div class="container">
+            <h1 class="shining-text" style="font-size: 3.5em;">|| मेरी जुबानी ||</h1>
+            <div style="font-family: 'Cinzel'; color: #d4af37; letter-spacing: 2px; font-size: 1.2em;">MY ROOTS • MY PASSION</div>
+        </div>
+    </header>
+
+    <section class="cream-section">
+        <div class="container">
+            <div class="row royal-flex-row" style="align-items: center;">
+                
+                <div class="col-md-5 text-center royal-flex-col">
+                    <div style="margin-top: 20px;">
+                        <div class="royal-frame">
+                            <img src="YGSR.png" alt="Yuvraj Gajraj Singh" style="width: 100%; max-width: 320px; display: block;">
+                        </div>
+                        <h2 style="font-family: 'Cinzel'; color: #800000; margin-top: 15px; font-weight: bold; margin-bottom: 5px;">Yuvraj Gajraj Singh</h2>
+                        <div style="font-family: 'Noto Serif Devanagari'; font-size: 16px; color: #7A5D28; font-weight: bold;">(ठिकाना कसुम्बी - जाखला)</div>
+                        <img src="sign.png" alt="Signature" style="height: 50px; margin-top: 20px; opacity: 0.8;">
+                    </div>
+                </div>
+
+                <div class="col-md-7 royal-flex-col">
+                    <div style="border-bottom: 2px solid #b8860b; padding-bottom: 10px; margin-bottom: 25px;">
+                        <h3 style="color: #091a3a; font-family: 'Cinzel'; font-weight: bold; margin: 0;">
+                            <i class="fas fa-feather-alt"></i> मेरा सफर : संघर्ष से स्वाभिमान तक
+                        </h3>
+                        <div style="color: #800000; font-family: 'Noto Serif Devanagari'; font-weight: bold; margin-top: 5px; font-size: 0.9em;">
+                            ( रील 'Reels' के दौर में, विरासत 'Real' की जिद्द )
+                        </div>
+                    </div>
+                    
+                    <div class="about-text">
+                        <p>
+                            <span style="font-size: 1.5em; color: #800000; font-family: 'Berkshire Swash';">खम्मा घणी सा!</span><br>
+                            मैं <strong>युवराज गजराज सिंह</strong>। मेरा बचपन <span class="highlight-text">जाखला</span> की सादगी में बीता। मेरी नींव किसी बड़े कॉन्वेंट में नहीं, बल्कि गाँव के <strong>सरकारी स्कूल (Govt. School)</strong> की टाट-पट्टियों पर पड़ी है। वहीं से 10वीं पास की, फिर <strong>जसवंतगढ़</strong> (11-12वीं) और अंततः <strong>सुजला कॉलेज (MGSU Bikaner)</strong> से <span class="highlight-text">M.Com</span> किया।
+                        </p>
+                        
+                        <p>
+                            मेरे पूर्वजों ने कोई युद्ध नहीं लड़े, पर उन्होंने खेतों और गृहस्थी में जो पसीना बहाया है, मेरे लिए वही शौर्य-गाथा है। 
+                        </p>
+                        
+                        <div class="emotional-quote">
+                            <i class="fas fa-quote-right"></i>
+                            <span class="quote-line">
+                                "आजकल दुनिया <strong>'Reels'</strong> बनाने में व्यस्त है, और मैं <strong>'Real'</strong> (विरासत) को संजोने में। यही फर्क है शौक और जिम्मेदारी में।"
+                            </span>
+                            
+                            <span class="quote-line" style="color:#800000;">
+                                "हो सकता है मैं अपने पूर्वजों जैसा पत्थरों का भव्य किला न बना सकूँ, लेकिन मैंने अपनी रातों की नींद और फुर्सत के पल देकर यह <strong>'डिजिटल कसुमलगढ़'</strong> खड़ा किया है।"
+                            </span>
+
+                            <span style="font-size: 14px; color: #333;">
+                                इस डिजिटल किले की एक-एक ईंट (Code) मैंने खुद रखी है। इसमें किसी और की मेहनत नहीं, सिर्फ मेरी तपस्या है।
+                            </span>
+                        </div>
+
+                        <div class="help-note">
+                            <i class="fas fa-hands-helping" style="color: #d4af37; font-size: 20px; margin-bottom: 5px;"></i><br>
+                            "मेरी सोच सिर्फ खुद तक सीमित नहीं है। <strong>अगर आप में से कोई भी अपनी विरासत, वंशावली या इतिहास को बचाकर रखना और संजोना चाहता है,</strong> तो मैं आपकी मदद करने के लिए सदैव तत्पर हूँ। आइये, मिलकर अपनी धरोहर को अमर करें।"
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 50px;">
+                <div class="col-sm-4 col-xs-12" style="margin-bottom: 15px;">
+                    <div class="info-card">
+                        <i class="fas fa-school" style="font-size: 30px; color: #b8860b; margin-bottom: 10px;"></i>
+                        <h4 style="font-family: 'Cinzel'; font-weight: bold; color: #800000;">Foundation</h4>
+                        <p style="font-family: 'Noto Serif Devanagari'; color: #555;">Govt. School, Jakhala<br>(Primary Roots)</p>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-12" style="margin-bottom: 15px;">
+                    <div class="info-card">
+                        <i class="fas fa-user-graduate" style="font-size: 30px; color: #b8860b; margin-bottom: 10px;"></i>
+                        <h4 style="font-family: 'Cinzel'; font-weight: bold; color: #800000;">Education</h4>
+                        <p style="font-family: 'Noto Serif Devanagari'; color: #555;">M.Com (Accountancy)<br>Sujla College (MGSU)</p>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-12" style="margin-bottom: 15px;">
+                    <div class="info-card">
+                        <i class="fas fa-laptop-code" style="font-size: 30px; color: #b8860b; margin-bottom: 10px;"></i>
+                        <h4 style="font-family: 'Cinzel'; font-weight: bold; color: #800000;">Passion</h4>
+                        <p style="font-family: 'Noto Serif Devanagari'; color: #555;">History Seeker &<br>Web Developer</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="royal-footer">
+        <div class="container">
+            <div style="font-size: 0.9em; color: #ccc; letter-spacing: 1px;">Developed & Designed By:</div>
+            
+            <div style="color:#d4af37; font-size:1.6rem; font-family: 'Cinzel', serif; margin: 10px 0; text-shadow: 1px 1px 2px #000;">
+                Yuvraj Gajraj Singh
+            </div>
+            
+            <div class="footer-social-icons" style="margin: 20px 0;">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.kasumalgarh.site" target="_blank">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                
+                <a href="https://www.instagram.com/gajsa.kasumbifort" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                
+                <a href="https://wa.me/?text=Check out Thikana Kasumbi: https://www.kasumalgarh.site" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+
+            <div style="font-size: 0.85em; color: #888; border-top: 1px solid #333; padding-top: 15px; width: 80%; margin: 0 auto;">
+                &copy; <span id="year">2026</span> Thikana Kasumbi | All Rights Reserved. | Vikram Samvat 2082
+                <a href="admin.html" style="color: #555; margin-left: 10px;"><i class="fas fa-lock"></i></a>
+            </div>
+            
+            <div style="margin-top: 15px; font-size: 0.9rem; color: #b8860b;">
+                <i class="fas fa-users"></i> Total Royal Guests: <span id="visitor-count" style="color:#fff; font-weight:bold;">12,543</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="royal_global.js"></script>
+</body>
+</html>

@@ -627,3 +627,25 @@ h2, h3 { font-family: 'Berkshire Swash', 'Cinzel', serif; color: var(--maroon-te
         margin-bottom: 20px;
     }
 }
+/* वंशावली में अलायंस लिंक की स्टाइल */
+.alliance-link {
+    color: #d4af37 !important; /* सुनहरा रंग */
+    font-weight: bold;
+    text-decoration: none;
+    border-bottom: 1px dashed #d4af37;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.alliance-link:hover {
+    color: #800000 !important; /* होवर करने पर मरून */
+    border-bottom: 1px solid #800000;
+}
+/* Active Menu Item का रंग बदलें */
+.navbar-inverse .navbar-nav > .active > a, 
+.navbar-inverse .navbar-nav > .active > a:hover, 
+.navbar-inverse .navbar-nav > .active > a:focus {
+    background-color: #041f42 !important; /* शाही लाल (Maroon) */
+    color: #fff !important; /* सफ़ेद टेक्स्ट */
+    border-bottom: 3px solid #d4af37; /* नीचे सुनहरी लाइन */
+}   

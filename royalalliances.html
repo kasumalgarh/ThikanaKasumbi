@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Allied Thikanas | Thikana Kasumbi</title>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Playfair+Display:wght@400;700&family=Noto+Serif+Devanagari:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="royal_global.css">
+
+    <style>
+        /* Header Background */
+        .alliance-header {
+            background-image: linear-gradient(rgba(3, 2, 48, 0.8), rgba(128, 0, 0, 0.8)), url('fort_kasumbi.png'); 
+            background-size: cover;
+            background-position: center;
+            padding: 140px 0 70px 0;
+            text-align: center;
+            color: #fff;
+            border-bottom: 4px solid #7A5D28;
+            box-shadow: inset 0 -20px 30px rgba(0,0,0,0.8);
+        }
+
+        /* Royal Card Design */
+        .alliance-card {
+            background: #fff;
+            border: 2px solid #e0c080;
+            padding: 30px 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            transition: 0.4s;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .alliance-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(128, 0, 0, 0.15);
+            border-color: #800000;
+            background: #fffbf0;
+        }
+
+        .card-icon {
+            font-size: 40px;
+            color: #d4af37;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+        
+        .thikana-name {
+            font-family: 'Noto Serif Devanagari', serif;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #091a3a;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .district-name {
+            color: #800000;
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+            font-size: 0.95em;
+            letter-spacing: 1px;
+        }
+
+        /* Decorative corners */
+        .corner-design {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-style: solid;
+            border-color: #d4af37;
+            opacity: 0.6;
+            transition: 0.3s;
+        }
+        .alliance-card:hover .corner-design { opacity: 1; border-color: #800000; }
+        
+        .top-left { top: 8px; left: 8px; border-width: 2px 0 0 2px; }
+        .top-right { top: 8px; right: 8px; border-width: 2px 2px 0 0; }
+        .bottom-left { bottom: 8px; left: 8px; border-width: 0 0 2px 2px; }
+        .bottom-right { bottom: 8px; right: 8px; border-width: 0 2px 2px 0; }
+
+        /* --- MODAL (POPUP) STYLES --- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: #fffbf0;
+            margin: 5% auto;
+            padding: 30px;
+            border: 4px double #d4af37;
+            width: 95%;
+            max-width: 700px;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            animation: fadeIn 0.4s;
+            text-align: left; /* Text align left for tree */
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(-20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        .close-btn {
+            color: #800000;
+            position: absolute;
+            right: 15px;
+            top: 5px;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .close-btn:hover { color: #d4af37; }
+
+        /* --- LIST STYLE TREE CSS (Directory Style) --- */
+        .genealogy-list {
+            margin-top: 30px;
+            font-family: 'Noto Serif Devanagari';
+            font-size: 1.1em;
+            color: #333;
+            padding-left: 20px;
+        }
+
+        .root-node {
+            font-weight: bold;
+            color: #800000;
+            font-size: 1.3em;
+            margin-bottom: 5px;
+            position: relative;
+        }
+        /* Icon before root name */
+        .root-node::before {
+            content: '\f647'; /* FontAwesome Scroll Icon */
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            margin-right: 8px;
+            color: #d4af37;
+        }
+
+        .children-list {
+            list-style-type: none;
+            padding-left: 20px;
+            border-left: 2px solid #b8860b; /* The main vertical line */
+            margin-left: 7px; /* Align with icon center */
+        }
+
+        .children-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        /* Horizontal connector line */
+        .children-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 12px; /* Center with text */
+            width: 15px;
+            height: 2px;
+            background: #b8860b;
+        }
+
+        /* Style for names */
+        .node-name {
+            font-weight: bold;
+            color: #091a3a;
+        }
+        
+        .node-relation {
+            font-size: 0.85em;
+            color: #666;
+            margin-left: 5px;
+            font-style: italic;
+        }
+
+        /* Spouse Connection Styling */
+        .spouse-connection {
+            margin-top: 5px;
+            margin-left: 20px;
+            position: relative;
+            color: #800000;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        /* L-shaped connector for spouse */
+        .spouse-connection::before {
+            content: '';
+            position: absolute;
+            left: -15px;
+            top: -10px;
+            width: 12px;
+            height: 22px;
+            border-left: 2px solid #b8860b;
+            border-bottom: 2px solid #b8860b;
+            border-bottom-left-radius: 5px;
+        }
+
+        /* Hide vertical line after last child */
+        .children-list li:last-child {
+            background: #fffbf0; /* Cover the line */
+            margin-bottom: 0;
+        }
+        /* Fix the gap created by covering */
+        .children-list li:last-child::after {
+            content: '';
+            position: absolute;
+            left: -2px;
+            top: 14px;
+            bottom: 0;
+            width: 4px;
+            background: #fffbf0;
+        }
+
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+    <div class="navbar-wrapper">
+        <div class="container">
+            <nav class="navbar navbar-inverse">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                        <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">
+                        <img src="menulogo.png" alt="Logo" class="menu-logo-img">
+                        KASUMALGARH
+                    </a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="index.html">HOME</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">VANSHAWALI <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="vanshawali.html">Kasumalgarh</a></li>
+                                <li><a href="rathorevanshawali.html">Rathore</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="kasumbi_history.html">HISTORY</a></li>
+                        <li><a href="gallery.html">GALLERY</a></li>
+                        <li class="active"><a href="royalalliances.html">ROYAL ALLIANCES</a></li>
+                        <li><a href="about.html">ABOUT</a></li>
+                        <li><a href="contact.html">CONTACT</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <header class="alliance-header">
+        <div class="container">
+            <h1 class="shining-text" style="font-size: 3.5em;">|| संबंधित ठिकाने ||</h1>
+            <div style="font-family: 'Cinzel'; color: #d4af37; letter-spacing: 2px; font-size: 1.2em;">ALLIED THIKANAS & FAMILIES</div>
+        </div>
+    </header>
+
+    <section style="padding: 50px 0 30px 0; background-color: #fffbf0; text-align: center;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <i class="fas fa-crown" style="color: #d4af37; font-size: 25px; margin-bottom: 15px;"></i>
+                    <p style="font-family: 'Noto Serif Devanagari'; font-size: 1.2em; color: #555; line-height: 1.8;">
+                        "ठिकाना कसुम्बी (जाखला) के उन प्रतिष्ठित ठिकानों और परिवारों के साथ प्रगाढ़ संबंध हैं, जो क्षत्रिय परंपरा और मर्यादाओं का पालन करते हैं। यह पृष्ठ उन सभी सम्मानीय ठिकानों को समर्पित है जो हमारे परिवार का हिस्सा हैं।"
+                    </p>
+                    <hr style="width: 100px; border-top: 2px solid #800000; margin-top: 20px;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cream-section" style="padding-top: 50px;">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-4 col-sm-6" onclick="openModal('lakherModal')">
+                    <div class="alliance-card">
+                        <div class="corner-design top-left"></div>
+                        <div class="corner-design top-right"></div>
+                        <div class="corner-design bottom-left"></div>
+                        <div class="corner-design bottom-right"></div>
+
+                        <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
+                        <h4 class="thikana-name">ठिकाना लखेर</h4>
+                        <p class="district-name">AMBER, JAIPUR</p>
+                        <div style="margin-top:10px; font-size:0.8em; color:#d4af37;">(Click to View Lineage)</div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6">
+                    <div class="alliance-card">
+                        <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
+                        <h4 class="thikana-name">ठिकाना [Name 2]</h4>
+                        <p class="district-name">[District Name]</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6">
+                    <div class="alliance-card">
+                        <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
+                        <h4 class="thikana-name">ठिकाना [Name 3]</h4>
+                        <p class="district-name">[District Name]</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div id="lakherModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('lakherModal')">&times;</span>
+            
+            <div style="text-align: center;">
+                <h2 style="font-family: 'Cinzel'; color: #800000; border-bottom: 2px solid #d4af37; display: inline-block; padding-bottom: 10px; margin-top: 10px;">
+                    || ठिकाना लखेर ||
+                </h2>
+                <p style="font-family: 'Cinzel'; color: #555; margin-top: 5px;">(Tehsil Amber, Dist. Jaipur)</p>
+                
+                <div style="margin-top: 15px; font-family: 'Noto Serif Devanagari'; font-size: 1.1em; color: #333; line-height: 1.6;">
+                    <p>
+                        जयपुर जिले की आमेर तहसील में स्थित <strong>'लखेर'</strong> एक ऐतिहासिक और प्रतिष्ठित गाँव है। 
+                        ठिकाना लखेर के साथ ठिकाना कसुम्बी (जाखला) के घनिष्ठ पारिवारिक संबंध हैं।
+                    </p>
+                </div>
+            </div>
+
+            <hr style="border-color: #e0c080; margin: 20px 0;">
+            <h4 style="color: #b8860b; text-align: center; margin-bottom: 20px; font-family: 'Noto Serif Devanagari';">~ संक्षिप्त वंशावली ~</h4>
+
+            <div class="genealogy-list">
+                
+                <div class="root-node">
+                    ठा. स्व. नरपत सिंह जी <span style="font-size: 0.8em; color: #555; font-weight: normal;">(लखेर)</span>
+                </div>
+
+               <ul class="children-list">
+                    
+                    <li>
+                        <span class="node-name">बाईसा रीना कंवर</span>
+                        
+                        <div class="spouse-connection">
+                             <i class="fas fa-arrow-right" style="font-size: 12px; margin-right: 8px; color: #d4af37;"></i>
+                             weds Yuvraj Gajraj Singh
+                        </div>
+                    </li>
+
+                    <li>
+                        <span class="node-name">कु. अर्जुन सिंह</span>
+                    </li>
+                    
+                    <li>
+                        <span class="node-name">बाईसा कविता कंवर</span>
+                    </li>
+
+                    <li>
+                        <span class="node-name">कु. करण सिंह</span>
+                    </li>
+
+                </ul>
+            </div>
+            </div>
+    </div>
+
+    <footer class="royal-footer">
+        <div class="container">
+            <div style="font-size: 0.9em; color: #ccc; letter-spacing: 1px;">Developed & Designed By:</div>
+            
+            <div style="color:#d4af37; font-size:1.6rem; font-family: 'Cinzel', serif; margin: 10px 0; text-shadow: 1px 1px 2px #000;">
+                Yuvraj Gajraj Singh
+            </div>
+            
+            <div class="footer-social-icons" style="margin: 20px 0;">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.kasumalgarh.site" target="_blank">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                
+                <a href="https://www.instagram.com/gajsa.kasumbifort" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                
+                <a href="https://wa.me/?text=Check out Thikana Kasumbi: https://www.kasumalgarh.site" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+
+            <div style="font-size: 0.85em; color: #888; border-top: 1px solid #333; padding-top: 15px; width: 80%; margin: 0 auto;">
+                &copy; <span id="year">2026</span> Thikana Kasumbi | All Rights Reserved. | Vikram Samvat 2082
+                <a href="admin.html" style="color: #555; margin-left: 10px;"><i class="fas fa-lock"></i></a>
+            </div>
+            
+            <div style="margin-top: 15px; font-size: 0.9rem; color: #b8860b;">
+                <i class="fas fa-users"></i> Total Royal Guests: <span id="visitor-count" style="color:#fff; font-weight:bold;">12,543</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="royal_global.js"></script>
+
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+        }
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+        }
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal-overlay')) {
+                event.target.style.display = "none";
+            }
+        }
+        // Auto-Open Logic
+        $(document).ready(function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('thikana') === 'lakher') {
+                openModal('lakherModal');
+            }
+        });
+    </script>
+</body>
+</html>

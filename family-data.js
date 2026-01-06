@@ -26,7 +26,7 @@ const familyData = {
                                                                     "name": "Th. Mahendra Singh",
                                                                     "children": [
                                                                         {
-                                                                            "name": "Yuvraj GajRaj Singh",
+                                                                            "name": "Yuvraj GajRaj Singh <br> <small style='font-size:0.7em; color:#d4af37;'>Married at <a href='royalalliances.html?thikana=lakher' class='alliance-link' style='color:#d4af37; font-weight:bold; text-decoration:underline;'>Thikana Lakher</a> with Reena Kanwar</small>",
                                                                             "children": [
                                                                                 {
                                                                                     "name": "Bh.Khushvendra Singh",

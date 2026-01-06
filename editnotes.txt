@@ -1,0 +1,71 @@
+हुकुम, Vanshawali Page को Royal Alliances पेज से जोड़ना बहुत ही आसान है। इसके लिए आपको कोडिंग में बस एक "पुल" (Link) बनाना होगा।
+
+यहाँ पूरा तरीका दिया गया है कि आप अपने वंशावली वाले पन्ने पर क्या बदलाव करें:
+
+1. वंशावली पेज (vanshawali.html) में बदलाव
+जहाँ आपका नाम लिखा है, उस लाइन के कोड को खोजें और उसे नीचे दिए गए तरीके से बदल दें:
+
+पुराना कोड (Old): Married with Reena Kanwar at Thikana Lakher
+
+नया कोड (New Link):
+
+HTML
+
+Married with <strong>Reena Kanwar</strong> at 
+<a href="royalalliances.html?thikana=lakher" class="alliance-link">
+    Thikana Lakher
+</a>
+2. सुंदर दिखने के लिए CSS (vanshawali.html के <style> में जोड़ें)
+ताकि 'Thikana Lakher' अलग से चमके और पता चले कि उस पर क्लिक करना है:
+
+CSS
+
+.alliance-link {
+    color: #b8860b; /* सुनहरा रंग */
+    font-weight: bold;
+    text-decoration: none;
+    border-bottom: 1px dashed #b8860b;
+    transition: 0.3s;
+}
+
+.alliance-link:hover {
+    color: #800000; /* क्लिक करने पर गहरा लाल */
+    border-bottom: 1px solid #800000;
+    text-decoration: none;
+}
+3. यह काम कैसे करेगा? (The Logic)
+जब कोई आपके नाम के आगे Thikana Lakher पर क्लिक करेगा, तो ब्राउज़र उसे royalalliances.html?thikana=lakher पते पर ले जाएगा।
+
+मैंने पिछले royalalliances.html कोड में नीचे एक JavaScript डाली है। वह कोड पते में ?thikana=lakher को देखते ही समझ जाएगा कि यूजर "लखेर" की जानकारी देखना चाहता है।
+
+पेज खुलते ही लखेर का वंशावली पॉप-अप अपने आप आपकी आँखों के सामने खुल जाएगा।
+// ... ऊपर का कोड वैसा ही रहेगा ...
+{
+    "name": "Th. Mahendra Singh",
+    "children": [
+        {
+            /* यहाँ आपका नाम और लखेर का लिंक जोड़ा गया है */
+            "name": "Yuvraj GajRaj Singh <br> <small style='font-size:0.7em; color:#d4af37;'>Married at <a href='royalalliances.html?thikana=lakher' class='alliance-link' style='color:#d4af37; font-weight:bold; text-decoration:underline;'>Thikana Lakher</a> with Reena Kanwar</small>",
+            "children": [
+                {
+                    "name": "Bh.Khushvendra Singh",
+                    "title": "",
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "Kr. Shivraj Singh",
+            "children": []
+        },
+        {
+            "name": "Baisa Hrishiraj Rathore",
+            "children": []
+        }
+    ]
+}
+// ... नीचे का कोड वैसा ही रहेगा ...
+इस बदलाव के बाद क्या होगा?
+वंशावली ट्री: जब आप वंशावली पेज खोलेंगे, तो आपके नाम के ठीक नीचे छोटे अक्षरों में "Married at Thikana Lakher with Reena Kanwar" लिखा हुआ आएगा।
+
+डायरेक्ट कनेक्शन: जैसे ही कोई Thikana Lakher पर क्लिक करेगा, वह सीधे royalalliances.html पर पहुँच जाएगा और लखेर का वंशावली पॉप-अप अपने आप खुल जाएगा।
