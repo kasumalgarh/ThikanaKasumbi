@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History - KASUMALGARH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;1,400&family=Yatra+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* --- शाही वेरियबल्स --- */
+        :root { --royal-bg: #000033; --paper-bg: #fffbf0; --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c); --maroon-text: #800000; --bright-gold-line: #FFD700; --dark-gold-line: #aa8c2c; }
+        
+        html { background-color: var(--royal-bg); min-height: 100%; } 
+        body { margin: 0; background-color: transparent; color: #333; font-family: 'Playfair Display', serif; overflow-x: hidden; position: relative; } 
+        body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://www.transparenttextures.com/patterns/black-scales.png'); filter: invert(1); opacity: 0.4; pointer-events: none; z-index: -1; }
+        
+        /* --- मेनू CSS (फिक्स्ड) --- */
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: #000033; border-bottom: 2px solid #b38728; box-shadow: 0 5px 20px rgba(0,0,0,0.8); position: sticky; top: 0; z-index: 2000; } 
+        .navbar-brand-container { display: flex; align-items: center; } 
+        #menu-logo { width: 50px; height: 50px; border-radius: 50%; border: 2px solid #fcf6ba; box-shadow: 0 0 15px #bf953f; background: white; } 
+        .navbar-brand { font-family: 'Cinzel', serif; font-size: 1.5em; font-weight: 900; margin-left: 15px; text-decoration: none; color: #fcf6ba; text-shadow: 0 0 2px #bf953f, 0 0 10px #000; letter-spacing: 1px; } 
+        .navbar-links { list-style: none; margin: 0; padding: 0; display: flex; } .navbar-links li { margin-left: 15px; } 
+        .navbar-links a { color: #897148; text-decoration: none; padding: 8px 15px; display: block; font-family: 'Cinzel', serif; font-weight: 700; letter-spacing: 1px; border: 1px solid transparent; transition: all 0.5s ease; } 
+        .navbar-links a:hover, .navbar-links a.active { color: #fff; text-shadow: 0 0 8px #897148; } 
+        .menu-toggle { color: #897148; font-size: 35px; cursor: pointer; display: none; user-select: none; }
+        
+        @media (max-width: 768px) { .navbar { padding: 5px 15px; } .navbar-brand { font-size: 1.0em; margin-left: 10px; } #menu-logo { width: 35px; height: 35px; } .menu-toggle { display: block; font-size: 25px; } .navbar-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background-color: #000033; border-top: 1px solid #b38728; border-bottom: 2px solid #b38728; padding: 0; text-align: center; z-index: 1000; box-shadow: 0 10px 20px rgba(0,0,0,0.9); } .navbar-links.active { display: flex; } .navbar-links li { margin: 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); } .navbar-links a { padding: 5px 10px; font-size: 0.8em; } }
+
+        /* --- हेडर --- */
+        .hero-section { height: 350px; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; background: linear-gradient(rgba(0,0,51,0.6), rgba(0,0,51,0.9)), url('1.jpg'); background-size: cover; text-align: center; } 
+        .hero-title { font-family: 'Cinzel', serif; font-size: 3.5em; margin: 0; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; } 
+        .hero-welcome { font-family: 'Great Vibes', cursive; font-size: 2.5em; color: #fcf6ba; }
+        
+        /* --- HISTORY CONTENT --- */
+        .content-container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+        .history-card { background: var(--paper-bg); padding: 40px; border: 3px double var(--maroon-text); border-radius: 10px; position: relative; box-shadow: 0 0 25px rgba(191, 149, 63, 0.3); text-align: justify; line-height: 1.8; font-size: 1.1em; }
+        .history-card::before { content: "⚜️"; position: absolute; top: -20px; left: 50%; transform: translateX(-50%); font-size: 40px; color: #b38728; background: #000033; padding: 0 10px; border-radius: 50%; border: 2px solid #b38728; }
+        
+        .history-heading { color: var(--maroon-text); font-family: 'Cinzel', serif; font-size: 1.8em; border-bottom: 2px solid #aa8c2c; padding-bottom: 10px; margin-top: 40px; margin-bottom: 20px; display: inline-block; width: 100%; }
+        
+        .drop-cap { float: left; font-size: 4.5em; line-height: 0.8; padding-right: 15px; padding-top: 5px; color: var(--maroon-text); font-family: 'Yatra One', serif; font-weight: bold; }
+        
+        /* Quote Style for 1908 Gazetteer */
+        .royal-quote {
+            background-color: #f0e6d2;
+            border-left: 5px solid var(--maroon-text);
+            padding: 20px;
+            margin: 20px 0;
+            font-style: italic;
+            font-family: 'Playfair Display', serif;
+            color: #4a4a4a;
+            border-radius: 5px;
+        }
+
+        /* Historical Note Box */
+        .history-note {
+            background-color: rgba(138, 28, 28, 0.05);
+            border: 1px solid var(--maroon-text);
+            padding: 15px;
+            margin-top: 10px;
+            font-size: 0.95em;
+            border-radius: 5px;
+        }
+        .history-note strong { color: var(--maroon-text); font-family: 'Cinzel', serif; }
+
+        /* List Styling */
+        .history-list { list-style: none; padding: 0; }
+        .history-list li { margin-bottom: 15px; padding-left: 25px; position: relative; }
+        .history-list li::before { content: "⚔️"; position: absolute; left: 0; color: var(--maroon-text); font-size: 0.9em; }
+        .history-list li.om::before { content: "🕉️"; color: #ff9933; } /* Special icon for religious points */
+
+        /* Button Style */
+        .royal-btn {
+            background: linear-gradient(135deg, #8a1c1c, #5c0e0e);
+            color: #fcf6ba;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-family: 'Cinzel', serif;
+            border: 2px solid #c5a059;
+            display: inline-block;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            font-weight: bold;
+        }
+        .royal-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(138, 28, 28, 0.4);
+            color: #fff;
+        }
+
+        /* --- ओरिजिनल फुटर CSS --- */
+        footer { text-align: center; color: #b38728; padding: 20px 20px; background-color: #000022; background-image: url('footerbg.png'); background-repeat: repeat; border-top: 4px solid #897148; } 
+        .developer-info { margin-top: 0px; padding-top: 10px; border-top: none; } 
+        .royal-name { display: block; font-family: 'Cinzel', serif; font-size: 1.6em; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; letter-spacing: 1px; text-decoration: none; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.8)); } 
+        .fb-link { color: #fff; text-decoration: none; font-size: 1.1em; display: inline-flex; align-items: center; gap: 10px; margin-top: 5px; padding: 5px 15px; border: 1px solid #b38728; border-radius: 20px; } 
+        .fb-link:hover { background: #b38728; color: #000; } 
+        .footer-heading-moved { font-family: 'Cinzel', serif; font-weight: 900; color: #fcf6ba; margin-bottom: 15px; font-size: 1.8em; letter-spacing: 2px; text-transform: uppercase; text-shadow: 0 0 10px #bf953f; display: block; } 
+        @media (max-width: 600px) { footer { padding: 5px 5px !important; } .footer-heading-moved { font-size: 0.9em !important; margin-bottom: 2px; } .developer-info { margin-top: 2px; padding-top: 0; } .developer-info div { font-size: 0.7em !important; } .royal-name { font-size: 0.85em !important; margin-bottom: 2px; } .fb-link { font-size: 0.75em !important; padding: 3px 10px; margin-top: 5px; } }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand-container">
+            <img id="menu-logo" src="menulogo.png" alt="Logo"> 
+            <a class="navbar-brand" href="index.html">KASUMALGARH</a>
+        </div>
+        <div class="menu-toggle" id="mobile-menu-btn" onclick="toggleMenu()">&#9776;</div>
+        <ul class="navbar-links" id="nav-menu">
+            <li><a href="vanshawali.html">VANSHAWALI</a></li>
+            <li><a href="history.html" class="active">HISTORY</a></li>
+            <li><a href="about.html">ABOUT</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+            <li><a href="gallery.html">GALLERY</a></li>
+            <li><a href="admin_login.html">ADMIN(GAJSA)</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero-section">
+        <div class="hero-welcome">The Glorious</div>
+        <h1 class="hero-title">HISTORY</h1>
+        <div style="font-size: 30px; color: #bf953f;">⚜️ ⚜️ ⚜️</div>
+    </header>
+
+    <main class="content-container">
+        <div class="history-card">
+            
+            <span class="drop-cap">ठि</span>काना कसुम्बी (कसुमलगढ़) मारवाड़ (जोधपुर रियासत) के इतिहास में शौर्य, त्याग, भक्ति और स्वाभिमान का प्रतीक है। यह ठिकाना केवल एक जागीर नहीं, बल्कि <strong>केशरी सिंघोत जोधा राठौड़ों</strong> की आन-बान और शान का जीवित दस्तावेज है।
+            
+            <h2 class="history-heading">Ancient Origins (प्राचीन इतिहास)</h2>
+            <p>
+                <strong>ठिकाना कसुम्बी</strong> की ऐतिहासिक जड़ें जोधपुर के <strong>मोटा राजा उदय सिंह जी</strong> और उनके वंशज <strong>ठाकुर केशरी सिंह जी</strong> से जुड़ी हैं। मेहरानगढ़ (जोधपुर) से प्राप्त वंशावली के अनुसार, केशरी सिंघोत शाखा के पास मूल रूप से 12 गाँव थे, जिनमें <strong>'कसुम्बी'</strong> और <strong>'जाखड़ा' (कसुम्बी जाखला)</strong> प्रमुख थे।
+            </p>
+
+            <h2 class="history-heading">Foundation of Fort (गढ़ की स्थापना - 1841)</h2>
+            <p>
+                आधुनिक काल में <strong>ठिकाना कसुम्बी</strong> का इतिहास <strong>विक्रम संवत 1898 (सन् 1841 ई.)</strong> में बसंत पंचमी के पावन पर्व पर शुरू हुआ। इसके संस्थापक महापुरुष <strong>ठाकुर नारायण सिंह जी</strong> थे, जो <strong>'कांकछा तरनाव'</strong> से अपने कुछ <strong>विश्वस्त सरदार साथियों के साथ</strong> यहाँ पधारे थे।
+            </p>
+            <p>
+                ठाकुर नारायण सिंह जी ने <strong>कसुम्बी जाखला</strong> में एक सुदृढ़ गढ़ की <strong>नींव रखी</strong>, जिसे आज <strong>'कसुमलगढ़'</strong> के नाम से जाना जाता है। गढ़ की स्थापना के साथ ही, बुर्ज की नींव के पास <strong>बाबा बालकनाथ जी</strong> की मूर्ति स्थापित की गई, जो ठिकाने की रक्षा और आस्था का प्रथम प्रतीक बनी।
+            </p>
+
+            <h2 class="history-heading">Official Evidence (सरकारी प्रमाण - 1908)</h2>
+            <p>
+                कसुम्बी की प्रतिष्ठा का सबसे सशक्त प्रमाण ब्रिटिशकालीन दस्तावेज <strong>'The Imperial Gazetteer of India (1908)'</strong> में मिलता है।
+            </p>
+            <div class="royal-quote">
+                "The estate of Ladnun consists of seven villages yielding a revenue of about Rs. 20,000, and is held by a Thakur belonging to the Jodha sept of Rathor Rajputs."
+            </div>
+            <p>
+                <strong>ठिकाना कसुम्बी</strong> इस समूह का सबसे प्रमुख और संपन्न अंग था। यह जागीर केवल राजस्व का स्रोत नहीं थी, बल्कि मारवाड़ दरबार में इसे एक विशिष्ट और 'ताजीमी' दर्जा प्राप्त था।
+            </p>
+
+            <h2 class="history-heading">Valour & Honor (शौर्य और शाही सम्मान)</h2>
+            <p>
+                ठिकाना कसुम्बी के इतिहास में <strong>ठाकुर रघुनाथ सिंह जी</strong> का नाम स्वर्ण अक्षरों में अंकित है।
+            </p>
+            <ul class="history-list">
+                <li>
+                    <strong>जोधपुर का आदमखोर नाहर:</strong> जब जोधपुर रियासत में एक आदमखोर नाहर (शेर) का आतंक छा गया और वह एक दुर्गम गुफा में छिप गया, तब ठाकुर रघुनाथ सिंह जी ने अदम्य साहस का परिचय देते हुए गुफा में प्रवेश किया और नाहर का शिकार कर प्रजा को भयमुक्त किया।
+                </li>
+                <li>
+                    <strong>शाही सम्मान (The Royal Privilege):</strong> इस वीरता से प्रसन्न होकर जोधपुर महाराजा ने उन्हें <strong>दरबार में दाढ़ी और मूँछ रखने का विशेष सम्मान (इज्जत)</strong> बक्शा। साथ ही उन्हें एक दोनाली बन्दूक और राजसी आभूषण इनाम स्वरूप भेंट किए गए।
+                </li>
+            </ul>
+            
+            <div class="history-note">
+                <strong>ऐतिहासिक संदर्भ:</strong> सन् 1707 ई. (औरंगजेब की मृत्यु) के बाद, मारवाड़ के महाराजा अजीत सिंह जी ने एक विशेष नियम लागू किया था जिसके तहत राठौड़ सरदारों को केवल मूँछ (गलमूँछ) रखने की अनुमति थी, दाढ़ी रखने की नहीं। ठाकुर रघुनाथ सिंह जी को इस सख्त शाही नियम से <strong>'विशेष छूट' (Exclusive Exemption)</strong> मिलना, दरबार में उनके अत्यंत ऊँचे कद और सम्मान का प्रमाण है।
+            </div>
+
+            <br>
+            <ul class="history-list">
+                <li>
+                    <strong>पाबूजी के प्रति अनन्य भक्ति:</strong> ठाकुर साहब पाबूजी महाराज के परम भक्त थे। उन्होंने गढ़ के पास मंदिर की स्थापना की। उनकी भक्ति इतनी गहरी थी कि वे अग्नि जोत (हाथ पर) धारण करते थे, जो उनकी आध्यात्मिक शक्ति और समर्पण का परिचायक था।
+                </li>
+            </ul>
+
+            <h2 class="history-heading">Cultural & Spiritual Heritage (सांस्कृतिक एवं आध्यात्मिक धरोहर)</h2>
+            <p>
+                कसुम्बी जाखला क्षेत्र आस्था, संस्कृति और परंपराओं का पवित्र संगम है:
+            </p>
+            <ul class="history-list">
+                <li class="om">
+                    <strong>भभूता सिद्ध बाबा का धाम:</strong> यह मंदिर लोक-आस्था का प्रमुख केंद्र है, जो सर्पदंश निवारण के लिए प्रसिद्ध है। इस मंदिर का निर्माण और मूर्ति की स्थापना भी <strong>ठाकुर रघुनाथ सिंह जी</strong> द्वारा की गई थी। यह मूर्ति <strong>कालिनादी धाम</strong> से लाई गई थी। प्रतिवर्ष <strong>भादवा सप्तमी</strong> को यहाँ भव्य जागरण का आयोजन होता है।
+                </li>
+                <li class="om">
+                    <strong>ठाकुरजी का मंदिर:</strong> ठिकाना परिवार द्वारा निर्मित यह मंदिर धार्मिक चेतना का केंद्र है। मंदिर की सेवा-पूजा <strong>स्वामी परिवार</strong> द्वारा की जाती है। प्रतिवर्ष <strong>जलझूलनी एकादशी (Jaljhulni Gyaras)</strong> के पावन अवसर पर यहाँ से ठाकुरजी की भव्य सवारी (बेवाण) निकाली जाती है।
+                </li>
+                <li class="om">
+                    <strong>गणगौर की शाही सवारी:</strong> कसुम्बी की सांस्कृतिक पहचान यहाँ का गणगौर पर्व है। गढ़ से <strong>गणगौर माता की भव्य सवारी</strong> और लवाजमा निकाला जाता है। इस दौरान जो महिलाएँ (अजूणा) व्रत करती हैं, वे गणगौर और ईशर जी की पारंपरिक पूजा करती हैं।
+                </li>
+                <li class="om">
+                    <strong>अन्य प्रमुख मंदिर:</strong> कसुम्बी जाखला में माँ करणी का मंदिर, शिव बगीची बालाजी मंदिर और सती माता मंदिर भी स्थित हैं।
+                </li>
+            </ul>
+
+            <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px dashed var(--maroon-text);">
+                <p style="font-family: 'Cinzel', serif; font-weight: bold; color: var(--maroon-text);">
+                    Discover the Royal Lineage
+                </p>
+                <a href="vanshawali.html" class="royal-btn">VIEW FULL VANSHAWALI</a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="developer-info">
+            <div class="footer-heading-moved">FORT KASUMBI</div>
+            <div style="font-size: 0.9em; color: #888; margin-bottom: 5px;">Developed & Designed By:</div>
+            <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" class="royal-name">Yuvraj Gajraj Singh</a>
+            <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" class="fb-link"><i class="fab fa-facebook"></i> Connect on Facebook</a>
+            <div style="font-size: 0.8em; margin-top: 15px; color: #666;">&copy; 2025 | All Rights Reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById("nav-menu");
+            const btn = document.getElementById("mobile-menu-btn");
+            menu.classList.toggle("active");
+            if (menu.classList.contains("active")) { btn.innerHTML = "&times;"; btn.style.fontSize = "30px"; } 
+            else { btn.innerHTML = "&#9776;"; btn.style.fontSize = "25px"; }
+        }
+    </script>
+</body>
+</html>

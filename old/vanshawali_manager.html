@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="utf-8">
+    <title>Vanshawali Manager - KASUMALGARH</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Playfair+Display:ital,wght@0,400;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
+    <style>
+        /* ----------------------------- */
+        /* ✨ ROYAL DARK THEME */
+        /* ----------------------------- */
+        :root {
+            --bg-dark: #050510;
+            --gold-primary: #d4af37;
+            --gold-gradient: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728, #fbf5b7);
+            --text-light: #e0e0e0;
+            --danger-red: #ff4444;
+            --success-green: #4caf50;
+            --edit-yellow: #ffeb3b;
+        }
+
+        body {
+            margin: 0; padding: 0;
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at 50% 50%, #1a0b0b 0%, #000000 100%);
+            color: var(--text-light);
+            font-family: 'Lato', sans-serif;
+            height: 100vh; /* ✅ FIX: पूरी स्क्रीन की हाइट */
+            overflow: hidden; /* ✅ FIX: बॉडी का स्क्रॉल बंद */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* SILVER TEXTURE OVERLAY */
+        body::before {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/black-scales.png');
+            opacity: 0.3; pointer-events: none; z-index: -1;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 20px;
+            background: rgba(10, 10, 20, 0.95);
+            border-bottom: 2px solid var(--gold-primary);
+            height: 60px; /* फिक्स हाइट */
+            flex-shrink: 0;
+            z-index: 100;
+        }
+
+        .brand-title {
+            font-family: 'Cinzel', serif; font-size: 1.2em; font-weight: 700;
+            background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.1); border: 1px solid var(--gold-primary);
+            color: var(--gold-primary); padding: 5px 15px; border-radius: 20px;
+            text-decoration: none; font-size: 0.9em; transition: 0.3s;
+        }
+        .back-btn:hover { background: var(--gold-primary); color: #000; }
+
+        /* ----------------------------- */
+        /* 📐 SPLIT LAYOUT (FULL HEIGHT) */
+        /* ----------------------------- */
+        .main-container {
+            display: flex;
+            flex: 1; /* बची हुई पूरी जगह लेगा */
+            height: calc(100vh - 60px); /* Navbar को छोड़कर बाकी हाइट */
+            overflow: hidden;
+        }
+
+        /* LEFT SIDE: EDITOR TOOLS */
+        .editor-sidebar {
+            width: 400px;
+            background: rgba(0, 0, 0, 0.8);
+            border-right: 2px solid var(--gold-primary);
+            overflow-y: auto; /* सिर्फ साइडबार में स्क्रॉल होगा */
+            padding: 20px;
+            box-shadow: 5px 0 15px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            flex-shrink: 0;
+        }
+
+        /* RIGHT SIDE: PREVIEW (IFRAME) */
+        .preview-area {
+            flex: 1; /* बाकी पूरी चौड़ाई */
+            background: #fff; /* वेबसाइट के लिए सफेद बैकग्राउंड */
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* ✅ FIX: IFRAME FOR FULL SITE PREVIEW */
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        /* TOOL SECTIONS */
+        .tool-section { padding: 15px; background: rgba(255,255,255,0.05); border-radius: 8px; border-left: 3px solid #555; }
+        .tool-section.add { border-left-color: var(--success-green); }
+        .tool-section.edit { border-left-color: var(--edit-yellow); }
+        .tool-section.delete { border-left-color: var(--danger-red); }
+
+        .section-title { font-weight: bold; font-size: 1em; margin-bottom: 8px; display: block; color: #fff; }
+        .note { font-size: 0.75em; color: #aaa; margin-bottom: 8px; display: block; }
+
+        /* INPUTS */
+        input[type="text"], textarea, input[type="password"] {
+            width: 100%; padding: 10px; margin-bottom: 10px;
+            background: rgba(0,0,0,0.5); border: 1px solid #555;
+            color: #fff; border-radius: 4px; box-sizing: border-box;
+            font-family: 'Lato', sans-serif;
+        }
+        input:focus { border-color: var(--gold-primary); outline: none; }
+
+        /* BUTTONS */
+        .btn {
+            width: 100%; padding: 10px; border: none; border-radius: 4px;
+            font-weight: bold; cursor: pointer; transition: 0.3s;
+            font-family: 'Cinzel', serif; letter-spacing: 1px; font-size: 0.9em;
+        }
+        .btn-load { background: #008080; color: white; margin-bottom: 10px; font-size: 1em; }
+        .btn-add { background: var(--success-green); color: white; }
+        .btn-edit { background: var(--edit-yellow); color: black; }
+        .btn-delete { background: var(--danger-red); color: white; }
+        .btn-save { 
+            background: var(--gold-gradient); color: #2c0e0e; 
+            font-size: 1.1em; margin-top: 10px; border: 2px solid #fff; padding: 12px;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+        }
+        .btn:hover { filter: brightness(1.1); transform: translateY(-2px); }
+
+        /* LOADING & LOGIN */
+        #loadingOverlay, #login-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); z-index: 9999;
+            display: flex; justify-content: center; align-items: center; flex-direction: column;
+        }
+        #loadingOverlay { display: none; background: rgba(0,0,0,0.8); z-index: 2000; color: #fff; }
+        
+        .login-box {
+            background: #111; padding: 30px; border: 1px solid var(--gold-primary);
+            text-align: center; border-radius: 10px; width: 300px;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+        }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 900px) {
+            .main-container { flex-direction: column; height: auto; overflow: auto; }
+            .editor-sidebar { width: 100%; height: auto; box-sizing: border-box; }
+            .preview-area { height: 600px; min-height: 60vh; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="loadingOverlay">
+        <i class="fas fa-spinner fa-spin" style="font-size: 40px; color: var(--gold-primary);"></i>
+        <p style="margin-top:15px;">Processing...</p>
+    </div>
+
+    <div id="login-overlay">
+        <div class="login-box animate__animated animate__zoomIn">
+            <i class="fas fa-user-shield" style="font-size: 40px; color: #d4af37; margin-bottom: 15px;"></i>
+            <h2 style="color:var(--gold-primary); margin:0 0 20px 0; font-family:'Cinzel';">SECURITY CHECK</h2>
+            <input type="password" id="passInput" placeholder="Enter Password" style="text-align:center;">
+            <button onclick="checkPass()" class="btn btn-save">UNLOCK</button>
+            <p id="errorMsg" style="color:red; display:none; margin-top:10px; font-size:0.9em;">Incorrect Password!</p>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="brand-title"><i class="fas fa-sitemap"></i> TREE MANAGER</div>
+        <a href="admin_dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i> Dashboard</a>
+    </nav>
+
+    <div id="main-interface" class="main-container" style="display:none;">
+        
+        <div class="editor-sidebar">
+            
+            <button onclick="fetchLiveCode()" class="btn btn-load"><i class="fas fa-sync"></i> REFRESH / LOAD PREVIEW</button>
+            
+            <div id="manualInputSection" style="display:none; background:#333; padding:10px; border-radius:5px; margin-bottom:10px;">
+                <p style="margin:0 0 5px 0; color:#ffeb3b; font-size:0.8em;">⚠️ <b>Local Mode:</b> Auto-fetch blocked by browser.</p>
+                <textarea id="inputHtml" style="height:60px;" placeholder="Paste code from vanshawali.html here..."></textarea>
+                <button onclick="loadPreview()" class="btn" style="background:#555; color:#fff;">RENDER PREVIEW</button>
+            </div>
+            
+            <textarea id="workingHtml" style="display:none;"></textarea>
+
+            <div class="tool-section add">
+                <span class="section-title" style="color:var(--success-green);"><i class="fas fa-plus-circle"></i> Add Member</span>
+                <span class="note">दादा और पिता का नाम मैच होना ज़रूरी है।</span>
+                <input type="text" id="add_grand" placeholder="Grandfather Name">
+                <input type="text" id="add_father" placeholder="Father Name">
+                <input type="text" id="add_child" placeholder="New Child Name">
+                <button onclick="addName()" class="btn btn-add">ADD NAME</button>
+            </div>
+
+            <div class="tool-section edit">
+                <span class="section-title" style="color:var(--edit-yellow);"><i class="fas fa-pen"></i> Correct Name</span>
+                <span class="note">सुरक्षा के लिए 3 जानकारी भरें।</span>
+                <input type="text" id="edit_grand" placeholder="Grandfather (Verify)">
+                <input type="text" id="edit_father" placeholder="Father (Verify)">
+                <input type="text" id="edit_old" placeholder="Old/Wrong Name">
+                <input type="text" id="edit_new" placeholder="New/Correct Name">
+                <button onclick="editName()" class="btn btn-edit">CORRECT NAME</button>
+            </div>
+
+            <div class="tool-section delete">
+                <span class="section-title" style="color:var(--danger-red);"><i class="fas fa-trash"></i> Delete Member</span>
+                <span class="note">चेतावनी: नाम हमेशा के लिए हट जाएगा।</span>
+                <input type="text" id="del_grand" placeholder="Grandfather (Verify)">
+                <input type="text" id="del_father" placeholder="Father (Verify)">
+                <input type="text" id="del_name" placeholder="Name to Delete">
+                <button onclick="deleteName()" class="btn btn-delete">DELETE NAME</button>
+            </div>
+
+            <hr style="border-color:#333; width:100%; margin:10px 0;">
+            
+            <textarea id="outputHtml" readonly style="display:none;"></textarea>
+            <button onclick="saveToGitHub()" class="btn btn-save"><i class="fas fa-cloud-upload-alt"></i> PUBLISH TO WEBSITE</button>
+        </div>
+
+        <div class="preview-area">
+            <iframe id="liveFrame" title="Live Preview"></iframe>
+        </div>
+
+    </div>
+
+    <script>
+        // ============================
+        // CONFIGURATION
+        // ============================
+        const GITHUB_USERNAME = "kasumalgarh";       
+        const REPO_NAME = "kasumalgarh.github.io";   
+        const FILE_PATH = "vanshawali.html";         
+        const BRANCH = "main";                       
+        const ADMIN_PASSWORD = "kasumalgarh2025";    
+
+        // 1. LOGIN LOGIC
+        function checkPass() {
+            const input = document.getElementById('passInput').value;
+            if(input === ADMIN_PASSWORD) {
+                document.getElementById('login-overlay').style.display = 'none';
+                document.getElementById('main-interface').style.display = 'flex'; // Use flex for split layout
+                fetchLiveCode(); // Try Auto-load
+            } else { 
+                document.getElementById('errorMsg').style.display = 'block';
+                // Shake effect
+                const box = document.querySelector('.login-box');
+                box.classList.add('animate__shakeX');
+                setTimeout(() => box.classList.remove('animate__shakeX'), 1000);
+            }
+        }
+
+        function loading(show) { document.getElementById('loadingOverlay').style.display = show ? 'flex' : 'none'; }
+
+        // 2. FETCH & RENDER (Using IFRAME)
+        async function fetchLiveCode() {
+            loading(true);
+            try {
+                const response = await fetch(FILE_PATH + '?v=' + new Date().getTime());
+                if (!response.ok) throw new Error("File not found");
+                const text = await response.text();
+                
+                // Store code for logic
+                document.getElementById('workingHtml').value = text;
+                document.getElementById('outputHtml').value = text;
+                document.getElementById('inputHtml').value = text; 
+                
+                // ✅ RENDER IN IFRAME
+                updateIframe(text);
+                
+                document.getElementById('manualInputSection').style.display = 'none';
+
+            } catch (err) {
+                console.log("Fetch failed (Local testing likely):", err);
+                // Show manual input if fetch fails (e.g., opening file directly)
+                document.getElementById('manualInputSection').style.display = 'block';
+            } 
+            finally { loading(false); }
+        }
+
+        // Manual Load Button
+        function loadPreview() {
+            const text = document.getElementById('inputHtml').value;
+            document.getElementById('workingHtml').value = text;
+            updateIframe(text);
+        }
+
+        // ✅ CORE FUNCTION: UPDATE IFRAME
+        function updateIframe(htmlContent) {
+            const frame = document.getElementById('liveFrame');
+            const doc = frame.contentDocument || frame.contentWindow.document;
+            doc.open();
+            doc.write(htmlContent);
+            doc.close();
+        }
+
+        // 3. LOGIC HELPER: FIND NODE (Grand -> Father -> Child)
+        function findNode(doc, grandName, fatherName, childName) {
+            const allSpans = doc.querySelectorAll('.member-name');
+            for (let span of allSpans) {
+                if (span.textContent.trim() === childName) {
+                    const childLi = span.closest('li');
+                    const parentUl = childLi.parentElement;
+                    const fatherLi = parentUl.closest('li'); // Father
+                    
+                    if (fatherLi) {
+                        const fatherSpan = fatherLi.querySelector('.member-name');
+                        if (fatherSpan && fatherSpan.textContent.trim() === fatherName) {
+                            const grandUl = fatherLi.parentElement;
+                            const grandLi = grandUl.closest('li'); // Grandfather
+                            
+                            if (grandLi) {
+                                const grandSpan = grandLi.querySelector('.member-name');
+                                if (grandSpan && grandSpan.textContent.trim() === grandName) {
+                                    return { found: true, element: span, li: childLi, fatherLi: fatherLi };
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return { found: false };
+        }
+
+        // 4. ADD NAME
+        function addName() {
+            const grand = document.getElementById('add_grand').value.trim();
+            const father = document.getElementById('add_father').value.trim();
+            const child = document.getElementById('add_child').value.trim();
+            const html = document.getElementById('workingHtml').value;
+
+            if(!grand || !father || !child) return alert("Please fill all fields!");
+
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            
+            // Search for Father (using Grandfather verification)
+            let parentFound = false;
+            const allSpans = doc.querySelectorAll('.member-name');
+            
+            for (let span of allSpans) {
+                if (span.textContent.trim() === father) {
+                    const fatherLi = span.closest('li');
+                    const grandUl = fatherLi.parentElement;
+                    const grandLi = grandUl.closest('li');
+                    
+                    if (grandLi) {
+                        const grandSpan = grandLi.querySelector('.member-name');
+                        if (grandSpan && grandSpan.textContent.trim() === grand) {
+                            // Verified! Add Child
+                            let childUl = fatherLi.querySelector('ul');
+                            if (!childUl) {
+                                childUl = doc.createElement('ul');
+                                fatherLi.appendChild(childUl);
+                            }
+                            const newLi = doc.createElement('li');
+                            newLi.innerHTML = `<div class="member-card"><span class="member-name">${child}</span></div>`;
+                            childUl.appendChild(newLi);
+                            parentFound = true; 
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if(parentFound) {
+                finalizeChanges(doc, "✅ Name Added Successfully! Check Preview.");
+                document.getElementById('add_child').value = "";
+            } else { alert("❌ Father/Grandfather mismatch. Check spellings."); }
+        }
+
+        // 5. CORRECT NAME
+        function editName() {
+            const grand = document.getElementById('edit_grand').value.trim();
+            const father = document.getElementById('edit_father').value.trim();
+            const oldName = document.getElementById('edit_old').value.trim();
+            const newName = document.getElementById('edit_new').value.trim();
+            const html = document.getElementById('workingHtml').value;
+
+            if(!grand || !father || !oldName || !newName) return alert("Fill all fields!");
+
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const result = findNode(doc, grand, father, oldName);
+
+            if(result.found) {
+                result.element.textContent = newName;
+                finalizeChanges(doc, "✅ Name Corrected! Check Preview.");
+                document.getElementById('edit_new').value = "";
+            } else { alert("❌ Verification failed. Check old details."); }
+        }
+
+        // 6. DELETE NAME
+        function deleteName() {
+            const grand = document.getElementById('del_grand').value.trim();
+            const father = document.getElementById('del_father').value.trim();
+            const name = document.getElementById('del_name').value.trim();
+            const html = document.getElementById('workingHtml').value;
+
+            if(!grand || !father || !name) return alert("Fill all fields!");
+            if(!confirm("Are you sure? This cannot be undone.")) return;
+
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const result = findNode(doc, grand, father, name);
+
+            if(result.found) {
+                result.li.remove();
+                finalizeChanges(doc, "🗑️ Member Deleted. Check Preview.");
+            } else { alert("❌ Member not found with these details."); }
+        }
+
+        // UPDATE EVERYTHING
+        function finalizeChanges(doc, msg) {
+            const newHtml = doc.documentElement.outerHTML;
+            document.getElementById('workingHtml').value = newHtml;
+            document.getElementById('outputHtml').value = newHtml;
+            updateIframe(newHtml); // Refresh Preview
+            alert(msg);
+        }
+
+        // 7. PUBLISH TO GITHUB
+        async function saveToGitHub() {
+            const token = prompt("🔑 Please enter GitHub Secret Token:");
+            if (!token) return;
+
+            loading(true);
+            const content = document.getElementById('outputHtml').value;
+            
+            try {
+                // Get SHA
+                const apiUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${FILE_PATH}`;
+                const getRes = await fetch(apiUrl, { headers: { "Authorization": `token ${token}` } });
+                const getData = await getRes.json();
+
+                // Push
+                const putRes = await fetch(apiUrl, {
+                    method: "PUT",
+                    headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        message: "Tree Updated via Admin Panel",
+                        content: btoa(unescape(encodeURIComponent(content))),
+                        sha: getData.sha,
+                        branch: BRANCH
+                    })
+                });
+
+                if (putRes.ok) { alert("🎉 Website Updated Successfully!"); } 
+                else { const err = await putRes.json(); alert("Error: " + err.message); }
+
+            } catch (err) { alert("Error: " + err.message); } 
+            finally { loading(false); }
+        }
+    </script>
+
+</body>
+</html>

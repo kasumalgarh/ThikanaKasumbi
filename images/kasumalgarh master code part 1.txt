@@ -1,0 +1,1311 @@
+========================================================================
+PROJECT: THIKANA KASUMALGARH (MASTER FILE)
+DATE: 20-Dec-2025
+DESCRIPTION: Full Source Code for 19 Files.
+INSTRUCTIONS FOR AI: This text file contains the entire project. 
+Each file starts with "=== FILENAME ===" and ends with "=== END ===".
+========================================================================
+
+=== FILE: index.html ===
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Complete History - KASUMALGARH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;1,400&family=Yatra+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* --- शाही वेरियबल्स --- */
+        :root { 
+            --royal-bg: #000033; 
+            --paper-bg: #fffbf0; 
+            --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c); 
+            --maroon-text: #800000; 
+            --bright-gold-line: #FFD700; 
+            --dark-gold-line: #aa8c2c; 
+        }
+        
+        html { background-color: var(--royal-bg); min-height: 100%; scroll-behavior: smooth; }
+        body { margin: 0; background-color: transparent; color: #333; font-family: 'Playfair Display', serif; overflow-x: hidden; position: relative; }
+        body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://www.transparenttextures.com/patterns/black-scales.png'); filter: invert(1); opacity: 0.4; pointer-events: none; z-index: -1; }
+        
+        /* --- नेविगेशन --- */
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: #000033; border-bottom: 2px solid #b38728; box-shadow: 0 5px 20px rgba(0,0,0,0.8); position: sticky; top: 0; z-index: 2000; }
+        .navbar-brand-container { display: flex; align-items: center; }
+        #menu-logo { width: 50px; height: 50px; border-radius: 50%; border: 2px solid #fcf6ba; box-shadow: 0 0 15px #bf953f; background: white; }
+        .navbar-brand { font-family: 'Cinzel', serif; font-size: 1.5em; font-weight: 900; margin-left: 15px; text-decoration: none; color: #fcf6ba; text-shadow: 0 0 2px #bf953f, 0 0 10px #000; letter-spacing: 1px; }
+        .navbar-links { list-style: none; margin: 0; padding: 0; display: flex; } .navbar-links li { margin-left: 15px; }
+        .navbar-links a { color: #897148; text-decoration: none; padding: 8px 15px; display: block; font-family: 'Cinzel', serif; font-weight: 700; letter-spacing: 1px; border: 1px solid transparent; transition: all 0.5s ease; }
+        .navbar-links a:hover, .navbar-links a.active { color: #fff; text-shadow: 0 0 8px #897148; }
+        .menu-toggle { color: #897148; font-size: 35px; cursor: pointer; display: none; user-select: none; }
+        
+        @media (max-width: 768px) { 
+            .navbar { padding: 5px 15px; } .navbar-brand { font-size: 1.0em; margin-left: 10px; } #menu-logo { width: 35px; height: 35px; } .menu-toggle { display: block; font-size: 25px; } 
+            .navbar-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background-color: #000033; border-top: 1px solid #b38728; border-bottom: 2px solid #b38728; padding: 0; text-align: center; z-index: 1000; box-shadow: 0 10px 20px rgba(0,0,0,0.9); } 
+            .navbar-links.active { display: flex; } .navbar-links li { margin: 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); } .navbar-links a { padding: 5px 10px; font-size: 0.8em; } 
+        }
+
+        /* --- हीरो सेक्शन --- */
+        .hero-section { height: 450px; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; background: linear-gradient(rgba(0,0,51,0.5), rgba(0,0,51,0.8)), url('1.jpg'); background-size: cover; background-position: center; text-align: center; border-bottom: 5px solid #b38728; }
+        .hero-title { font-family: 'Cinzel', serif; font-size: 3.8em; margin: 0; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 2px 2px 10px rgba(0,0,0,0.8); }
+        .hero-welcome { font-family: 'Great Vibes', cursive; font-size: 2.8em; color: #fcf6ba; margin-bottom: 10px; }
+        
+        /* --- मुख्य कंटेंट --- */
+        .content-container { max-width: 1100px; margin: 50px auto; padding: 0 20px; }
+        .history-card { background: var(--paper-bg); padding: 50px; border: 4px double var(--maroon-text); border-radius: 15px; position: relative; box-shadow: 0 0 40px rgba(191, 149, 63, 0.4); text-align: justify; line-height: 1.9; font-size: 1.15em; }
+        .history-card::before { content: "⚜️"; position: absolute; top: -30px; left: 50%; transform: translateX(-50%); font-size: 50px; color: #b38728; background: #000033; padding: 0 20px; border-radius: 50%; border: 3px solid #b38728; }
+        
+        /* हेडलाइन्स */
+        .history-heading { color: var(--maroon-text); font-family: 'Cinzel', serif; font-size: 2em; border-bottom: 3px solid #aa8c2c; padding-bottom: 12px; margin-top: 60px; margin-bottom: 30px; display: block; text-align: center; letter-spacing: 1px; }
+        .history-heading span { background: #fffbf0; padding: 0 15px; position: relative; top: 16px; }
+        
+        .sub-heading { font-family: 'Cinzel', serif; color: #aa8c2c; font-size: 1.4em; margin-top: 30px; margin-bottom: 15px; font-weight: bold; display: flex; align-items: center; }
+        .sub-heading::before { content: "❖"; margin-right: 10px; font-size: 1.2em; }
+
+        .drop-cap { float: left; font-size: 5em; line-height: 0.8; padding-right: 15px; padding-top: 5px; color: var(--maroon-text); font-family: 'Yatra One', serif; font-weight: bold; text-shadow: 2px 2px 0px rgba(0,0,0,0.1); }
+        
+        /* कोट्स और बॉक्स */
+        .royal-quote { background-color: #f4ecd8; border-left: 6px solid var(--maroon-text); padding: 25px; margin: 30px 0; font-style: italic; font-family: 'Playfair Display', serif; color: #444; border-radius: 5px; font-size: 1.1em; box-shadow: inset 0 0 15px rgba(0,0,0,0.05); }
+        
+        .info-box { background: rgba(138, 28, 28, 0.03); border: 2px solid #d4af37; padding: 20px; margin: 25px 0; border-radius: 10px; }
+        .info-box strong { color: var(--maroon-text); font-family: 'Cinzel', serif; font-weight: 900; }
+
+        /* वास्तुकला ग्रिड (Architecture Grid) */
+        .arch-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 30px; }
+        .arch-item { background: #fff; border: 2px solid #e0c080; padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: transform 0.3s; position: relative; overflow: hidden; }
+        .arch-item::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: var(--gold-gradient); }
+        .arch-item:hover { transform: translateY(-7px); box-shadow: 0 10px 25px rgba(0,0,0,0.15); border-color: var(--maroon-text); }
+        .arch-title { color: var(--maroon-text); font-family: 'Cinzel', serif; font-weight: 900; border-bottom: 1px dashed #aa8c2c; padding-bottom: 10px; margin-bottom: 15px; display: block; font-size: 1.3em; }
+
+        /* सूचि (Lists) */
+        .history-list { list-style: none; padding: 0; }
+        .history-list li { margin-bottom: 20px; padding-left: 35px; position: relative; }
+        .history-list li::before { content: "⚔️"; position: absolute; left: 0; top: 4px; color: var(--maroon-text); font-size: 1.1em; }
+        .history-list li.om::before { content: "🕉️"; color: #ff9933; }
+        .history-list li.star::before { content: "✨"; color: #d4af37; }
+        .history-list li.book::before { content: "📜"; }
+
+        /* मैप सेक्शन */
+        .map-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border: 5px solid #b38728; border-radius: 8px; box-shadow: 0 15px 40px rgba(0,0,0,0.6); margin-top: 30px; margin-bottom: 30px; }
+        .map-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+        /* बटन */
+        .royal-btn { background: linear-gradient(135deg, #800000, #500000); color: #fcf6ba; padding: 15px 45px; text-decoration: none; border-radius: 50px; font-family: 'Cinzel', serif; border: 2px solid #d4af37; display: inline-block; margin-top: 30px; transition: all 0.3s ease; box-shadow: 0 6px 20px rgba(0,0,0,0.3); font-weight: bold; font-size: 1.2em; letter-spacing: 1px; text-transform: uppercase; }
+        .royal-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(128, 0, 0, 0.6); color: #fff; background: linear-gradient(135deg, #a00000, #700000); }
+
+        /* रिस्पॉन्सिव */
+        @media (max-width: 600px) { 
+            .history-heading { font-size: 1.5em; margin-top: 40px; } 
+            .hero-title { font-size: 2.2em; } 
+            .history-card { padding: 20px; } 
+            .drop-cap { font-size: 3.5em; } 
+        }
+        
+        /* --- फुटर --- */
+        footer { text-align: center; color: #b38728; padding: 20px 20px; background-color: #000022; background-image: url('footerbg.png'); background-repeat: repeat; border-top: 4px solid #897148; }
+        .developer-info { margin-top: 0px; padding-top: 10px; border-top: none; }
+        .royal-name { display: block; font-family: 'Cinzel', serif; font-size: 1.6em; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; letter-spacing: 1px; text-decoration: none; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.8)); }
+        .fb-link { color: #fff; text-decoration: none; font-size: 1.1em; display: inline-flex; align-items: center; gap: 10px; margin-top: 5px; padding: 5px 15px; border: 1px solid #b38728; border-radius: 20px; }
+        .fb-link:hover { background: #b38728; color: #000; }
+        .footer-heading-moved { font-family: 'Cinzel', serif; font-weight: 900; color: #fcf6ba; margin-bottom: 15px; font-size: 1.8em; letter-spacing: 2px; text-transform: uppercase; text-shadow: 0 0 10px #bf953f; display: block; }
+
+        @media (max-width: 600px) { footer { padding: 5px 5px !important; } .footer-heading-moved { font-size: 0.9em !important; margin-bottom: 2px; } .developer-info { margin-top: 2px; padding-top: 0; } .developer-info div { font-size: 0.7em !important; } .royal-name { font-size: 0.85em !important; margin-bottom: 2px; } .fb-link { font-size: 0.75em !important; padding: 3px 10px; margin-top: 5px; } }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand-container">
+            <img id="menu-logo" src="menulogo.png" alt="Logo"> 
+            <a class="navbar-brand" href="index.html">KASUMALGARH</a>
+        </div>
+        <div class="menu-toggle" id="mobile-menu-btn" onclick="toggleMenu()">☰</div>
+        <ul class="navbar-links" id="nav-menu">
+            <li><a href="vanshawali.html">VANSHAWALI</a></li>
+            <li><a href="history.html" class="active">HISTORY</a></li>
+            <li><a href="about.html">ABOUT</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+            <li><a href="gallery.html">GALLERY</a></li>
+            <li><a href="newadmin.html">ADMIN(GAJSA)</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero-section">
+        <div class="hero-welcome">The Glorious</div>
+        <h1 class="hero-title">HISTORY & LEGACY</h1>
+        <div style="font-size: 30px; color: #bf953f; margin-top: 10px;">⚜️ ⚜️ ⚜️</div>
+    </header>
+
+    <main class="content-container">
+        <div class="history-card">
+            
+            <span class="drop-cap">ठि</span>काना कसुम्बी (कसुमलगढ़) मारवाड़ के इतिहास में शौर्य, त्याग और इंजीनियरिंग का बेजोड़ नमूना है। यह केवल एक गढ़ नहीं, बल्कि <strong>केशरी सिंघोत जोधा राठौड़ों</strong> की आन-बान और शान का जीवित दस्तावेज है। आज यह गाँव सर्व-समाज के सद्भाव का प्रतीक है।
+
+            <h2 class="history-heading"><span>Ancient Origins & Name</span></h2>
+            <p>
+                <strong>पूर्व-इतिहास:</strong> राठौड़ों के आगमन से पहले यहाँ <strong>विदावत राजपूतों</strong> का वास था, जो कालांतर में यहाँ से मिंगना चले गए। यह क्षेत्र <strong>जोधपुर रियासत</strong> का एक अहम हिस्सा रहा है।
+            </p>
+            
+            <div class="sub-heading">नामकरण का रहस्य (The Etymology)</div>
+            <p>
+                अक्सर सवाल उठता है कि 'कसुम्बी' नाम क्यों पड़ा? इसका कारण यहाँ की वनस्पति और एक विशेष समाज है।
+            </p>
+            <div class="info-box">
+                <ul>
+                    <li><strong>छिपा समाज और रंगरेज:</strong> पुराने समय में यहाँ <strong>'छिपा' (Chhipa)</strong> समाज के लोग रहते थे, जिनका मुख्य पेशा रंगाई (रंगरेज) का था।</li>
+                    <li><strong>कसुमल घास:</strong> यहाँ के ताल में एक विशेष <strong>'कसुमल घास'</strong> उगती थी। इसी घास को घोटकर <strong>'केसरिया' (Saffron) रंग</strong> तैयार किया जाता था, जिसे राजस्थानी भाषा में 'कसुमल रंग' कहते हैं। इसी से साफे और पगड़ियाँ रंगी जाती थीं। इसी 'कसुमल' के नाम पर गाँव का नाम <strong>'कसुम्बी'</strong> पड़ा।</li>
+                </ul>
+            </div>
+
+            <h2 class="history-heading"><span>The Foundation (स्थापना - 1841)</span></h2>
+            <p>
+                <strong>विक्रम संवत 1898 (सन् 1841 ई.)</strong> में बसंत पंचमी के पावन पर्व पर <strong>ठाकुर नारायण सिंह जी</strong> ने कसुमलगढ़ की नींव रखी। वे <strong>'कांकछा तरनाव'</strong> से यहाँ पधारे थे।
+            </p>
+            <p>
+                <strong>रेत के टीले पर निर्माण:</strong> सुरक्षा की दृष्टि से उन्होंने गढ़ के लिए समतल जमीन नहीं, बल्कि एक बहुत ऊँचे <strong>'रेत के टीले' (Sand Dune)</strong> को चुना। नींव के पास ही उन्होंने <strong>बाबा बालकनाथ जी</strong> की मूर्ति स्थापित की, जो गढ़ के आध्यात्मिक रक्षक हैं।
+            </p>
+
+            <div class="sub-heading">तीन जागीरों का संगम (The Triad)</div>
+            <p>कसुम्बी तीन जागीरों का एकीकृत रूप है। स्थानीय भाषा में इसे 'त्रिवेणी' जैसा माना जा सकता है:</p>
+            <ul class="history-list">
+                <li class="star"><strong>कसुम्बी जाखड़ा (Kasumbi Jakhada):</strong> यह प्रमुख स्थान है जहाँ <strong>'कसुमलगढ़'</strong> स्थित है। इसकी रेख 18,000 बीघा थी।</li>
+                <li class="star"><strong>कसुम्बी अलीपुर (Alipur):</strong> यह लाडनूं ठाकुरों (बाल सिंह जी) के अधीन था।</li>
+                <li class="star"><strong>कसुम्बी उपादरा (Upadra):</strong> यह तीसरी अलग जागीर थी।</li>
+                <li>साथ ही एक <strong>नलिया बास</strong> भी इसमें शामिल है।</li>
+            </ul>
+
+            <h2 class="history-heading"><span>Architectural Engineering (वास्तुकला)</span></h2>
+            <p>कसुमलगढ़ की बनावट (Design) और इंजीनियरिंग अपने आप में एक शोध का विषय है। इसमें सुरक्षा, मौसम और मजबूती का अद्भुत संगम है:</p>
+            
+            <div class="arch-grid">
+                <div class="arch-item">
+                    <span class="arch-title">🏗️ धोळा की छत (Vaulted Ceiling)</span>
+                    <p>गढ़ के कमरों में पत्थर की पट्टियाँ (Slabs) नहीं डाली गई हैं। यहाँ <strong>'धोळा की छत'</strong> (गुंबददार/Vaulted) तकनीक का प्रयोग हुआ है। इनकी ऊंचाई काफी अधिक है, जिससे भीषण गर्मी में भी कमरे वातानुकूलित (Cool) रहते हैं।</p>
+                </div>
+                <div class="arch-item">
+                    <span class="arch-title">🌳 रोहिड़ा की लकड़ी (Marwar Teak)</span>
+                    <p>मुख्य पोल (Main Gate) की छत में <strong>'रोहिड़ा' (Rohida)</strong> की लकड़ी का इस्तेमाल हुआ है, जिसे मारवाड़ का सागवान कहते हैं। यह <strong>'इंटरलॉकिंग'</strong> तकनीक से बिना सीमेंट के फँसाई गई है। इसमें दीमक नहीं लगती और यह 180 साल से अडिग है।</p>
+                </div>
+                <div class="arch-item">
+                    <span class="arch-title">🧱 जारजा और झाझड़ा भाटा</span>
+                    <p>निर्माण में स्थानीय खुदाई से निकले <strong>'जारजा भाटा'</strong> और <strong>'झाझड़ा भाटा'</strong> (Stones) का प्रयोग हुआ है। इनकी चिनाई चूने (Lime) से की गई है, जो सीमेंट से भी अधिक टिकाऊ है।</p>
+                </div>
+                <div class="arch-item">
+                    <span class="arch-title">🏰 बुर्ज और रंग महल</span>
+                    <p>गढ़ में सुरक्षा के लिए <strong>3 विशाल बुर्ज</strong> हैं। बुर्जों के साथ बने शाही कक्षों को <strong>'रंग महल' (Rang Mahal)</strong> कहा जाता था। गढ़ मुख्य रूप से 2 मंजिला है, लेकिन एक हिस्से में <strong>तीसरी मंजिल</strong> भी बनी है।</p>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <strong>अन्य विशेषताएँ:</strong>
+                <ul class="history-list">
+                    <li><strong>बड़ा चौक और तोड़े:</strong> गढ़ के बीच में एक विशाल चौक है जिसके चारों तरफ पत्थर के सुंदर <strong>'तोड़े' (Brackets)</strong> लगे हैं।</li>
+                    <li><strong>जनानी ड्योढ़ी:</strong> रानियों के निवास (जनानी ड्योढ़ी) के प्रवेश द्वार पर गुलाबी पत्थर की <strong>'कुसुमेदार मेहराब'</strong> और सुंदर नक्काशी है।</li>
+                    <li><strong>पिछला दरवाजा:</strong> गढ़ में आपातकाल या निजी उपयोग के लिए एक पीछे का दरवाजा भी मौजूद है।</li>
+                </ul>
+            </div>
+
+            <h2 class="history-heading"><span>Impregnable Defense (सुरक्षा तंत्र)</span></h2>
+            <ul class="history-list">
+                <li class="book"><strong>संकरी सीढ़ियाँ (Narrow Stairs):</strong> गढ़ की सीढ़ियाँ जानबूझकर बहुत <strong>संकरी और खड़ी</strong> बनाई गई हैं। रणनीति यह थी कि एक बार में <strong>एक ही सैनिक</strong> ऊपर चढ़ सके, जिससे दुश्मन की भीड़ को आसानी से रोका जा सके।</li>
+                <li class="book"><strong>तीरकश (Tirkash/Loop-holes):</strong> दीवारों में जगह-जगह विशेष छेद (तीरकश) बने हैं। इनका उपयोग आड़ में रहकर दुश्मनों पर <strong>तीर या बंदूक</strong> चलाने के लिए होता था।</li>
+                <li class="book"><strong>कीलों वाला दरवाजा:</strong> मुख्य पोल (दरवाजे) पर लोहे की बड़ी-बड़ी <strong>कीलें (Spikes)</strong> लगी हैं ताकि हाथी या भारी टक्कर से दरवाजा तोड़ा न जा सके।</li>
+                <li class="book"><strong>गुप्त द्वार (Gop Dwar):</strong> गढ़ में एक गुप्त रास्ता (Secret Passage) था, जिसे 'गोप द्वार' कहते थे। संकटकाल में राजपरिवार इसका उपयोग करता था।</li>
+            </ul>
+
+            <h2 class="history-heading"><span>Tales of Valour (शौर्य गाथा)</span></h2>
+            <p>ठिकाना कसुम्बी के इतिहास में <strong>ठाकुर रघुनाथ सिंह जी</strong> का नाम स्वर्ण अक्षरों में अंकित है।</p>
+            <ul class="history-list">
+                <li>
+                    <strong>जोधपुर का आदमखोर नाहर:</strong> जब जोधपुर रियासत में एक आदमखोर नाहर (शेर) का आतंक छा गया और वह एक दुर्गम गुफा में छिप गया, तब ठाकुर रघुनाथ सिंह जी ने अदम्य साहस दिखाते हुए गुफा में घुसकर उसका शिकार किया।
+                </li>
+                <li>
+                    <strong>शाही सम्मान (The Royal Privilege):</strong> इस वीरता से प्रसन्न होकर जोधपुर महाराजा ने उन्हें दरबार में <strong>दाढ़ी और मूँछ रखने का विशेष सम्मान (इज्जत)</strong> बक्शा। साथ ही उन्हें एक <strong>बन्दूक</strong> भेंट की गई।
+                    <br><br>
+                    <div class="info-box" style="margin-top: 10px; background: #fff;">
+                        <strong>ऐतिहासिक महत्व:</strong> सन् 1707 ई. (औरंगजेब की मृत्यु) के बाद, मारवाड़ के महाराजा अजीत सिंह जी ने एक विशेष नियम लागू किया था जिसके तहत राठौड़ सरदारों को केवल मूँछ (गलमूँछ) रखने की अनुमति थी, दाढ़ी रखने की नहीं। ठाकुर रघुनाथ सिंह जी को इस सख्त शाही नियम से <strong>'विशेष छूट'</strong> मिलना, दरबार में उनके अत्यंत ऊँचे कद का प्रमाण है।
+                    </div>
+                </li>
+            </ul>
+            <div class="royal-quote">
+                <strong>Imperial Gazetteer of India (1908):</strong> "The estate of Ladnun consists of seven villages yielding a revenue of about Rs. 20,000, and is held by a Thakur belonging to the Jodha sept of Rathor Rajputs."
+            </div>
+
+            <h2 class="history-heading"><span>Spiritual & Modern Kasumbi</span></h2>
+            <div class="sub-heading">आध्यात्मिक संबंध</div>
+            <ul class="history-list">
+                <li class="om">
+                    <strong>पाबूजी राठौड़ की भक्ति:</strong> ठाकुर साहब पाबूजी महाराज के अनन्य भक्त थे। उन्होंने गढ़ के पास मंदिर की स्थापना की। उनकी भक्ति और शक्ति इतनी थी कि वे हाथ पर <strong>'अग्नि जोत'</strong> धारण करते थे।
+                </li>
+                <li class="om">
+                    <strong>ठाकुरजी का मंदिर:</strong> ठिकाना परिवार द्वारा निर्मित यह मंदिर धार्मिक चेतना का केंद्र है। मंदिर की सेवा-पूजा <strong>स्वामी परिवार</strong> द्वारा की जाती है। प्रतिवर्ष <strong>जलझूलनी एकादशी</strong> (Jaljhulni Gyaras) के अवसर पर यहाँ से ठाकुरजी की भव्य सवारी (बेवाण) निकाली जाती है।
+                </li>
+                <li class="om">
+                    <strong>सालासर बालाजी का संबंध:</strong> इतिहास बताता है कि <strong>मोहनदास जी महाराज</strong> असोटा गाँव से दो मूर्तियाँ लाए थे। एक मूर्ति सालासर धाम में स्थापित हुई और <strong>दूसरी मूर्ति कसुम्बी में स्थापित हुई।</strong>
+                </li>
+                <li class="om">
+                    <strong>भभूता सिद्ध बाबा:</strong> सर्पदंश निवारण के लिए प्रसिद्ध यह मंदिर भी ठाकुर परिवार की आस्था का केंद्र है। मूर्ति 'काली नाड़ी' से लाई गई थी।
+                </li>
+                <li class="om">
+                    <strong>गणगौर की सवारी:</strong> कसुम्बी की सांस्कृतिक पहचान यहाँ का गणगौर पर्व है। हर साल गढ़ से <strong>गणगौर माता की भव्य सवारी</strong> और लवाजमा निकाला जाता है।
+                </li>
+            </ul>
+
+            <h2 class="history-heading"><span>Mysteries & Lost Heritage</span></h2>
+            <ul class="history-list">
+                <li class="star">
+                    <strong>खोई हुई रेलवे लाइन:</strong> एक समय था जब कसुम्बी और जसवंतगढ़ के बीच से अंग्रेजों के जमाने की <strong>रेलवे लाइन</strong> गुजरती थी। आज भी खेतों में उस पटरी के निशान (अवशेष) मिलते हैं।
+                </li>
+                <li class="star">
+                    <strong>कचहरी और पर्चर:</strong> पुराने समय में न्याय व्यवस्था गढ़ के बाहर होती थी। <strong>ठाकुर साहब और गाँव के चौधरी</strong> बाहर बने फर्श (जिसे 'पर्चर' कहते थे) पर बैठकर आपसी सहमति से गाँव के फैसले करते थे।
+                </li>
+            </ul>
+
+            <h2 class="history-heading"><span>Location & Legacy</span></h2>
+            <p style="text-align: center;">गढ़ कसुम्बी के दर्शन हेतु मानचित्र (Map) का उपयोग करें:</p>
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3544.207869376646!2d74.4533!3d27.6533!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396b4b4e00000001%3A0x0!2sKasumbi%2C+Rajasthan!5e0!3m2!1sen!2sin!4v1638888888888" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy">
+                </iframe>
+            </div>
+
+            <div style="text-align: center; margin-top: 50px; padding-top: 20px; border-top: 1px dashed var(--maroon-text);">
+                <p style="font-family: 'Cinzel', serif; font-weight: bold; color: var(--maroon-text); font-size: 1.2em;">
+                    Discover the Royal Lineage
+                </p>
+                <a href="vanshawali.html" class="royal-btn">VIEW FULL VANSHAWALI</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="developer-info">
+            <div class="footer-heading-moved">FORT KASUMBI</div>
+            <div style="font-size: 0.9em; color: #888; margin-bottom: 5px;">Developed & Designed By:</div>
+            <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" class="royal-name">Yuvraj Gajraj Singh</a>
+            <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" class="fb-link"><i class="fab fa-facebook"></i> Connect on Facebook</a>
+            <div style="font-size: 0.8em; margin-top: 15px; color: #666;">© 2025 | All Rights Reserved.</div>
+        </div>
+    </footer>
+
+    <div class="audio-player">
+        <button id="music-btn" onclick="toggleMusic()"><i class="fa-solid fa-music"></i></button>
+        <audio id="bg-music" loop><source src="bg-music.mp3" type="audio/mp3"></audio>
+    </div>
+
+    <script src="mainscript.js"></script>
+    <script type="module" src="live_counter.js"></script>
+    
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById("nav-menu");
+            const btn = document.getElementById("mobile-menu-btn");
+            menu.classList.toggle("active");
+            if (menu.classList.contains("active")) { btn.innerHTML = "×"; btn.style.fontSize = "30px"; } 
+            else { btn.innerHTML = "☰"; btn.style.fontSize = "25px"; }
+        }
+    </script>
+</body>
+</html>
+=== END: index.html ===
+
+=== FILE: vanshawali.html ===
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kasumalgarh Vanshavali</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="treestyle.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>emailjs.init("J3okpk4omjrkmUnwz");</script>
+</head>
+<body>
+    <nav class="royal-navbar">
+        <a href="index.html" class="nav-logo"><img src="menulogo.png" class="title-logo"> Kasumalgarh</a>
+        <div class="nav-buttons">
+            <button class="nav-btn" onclick="toggleLeftPanel()"><i class="fas fa-search"></i> Search</button>
+            <button class="nav-btn" onclick="openContactModal()"><i class="fas fa-edit"></i> Request Update</button>
+            <button class="nav-btn" onclick="location.href='index.html'">Home</button>
+        </div>
+    </nav>
+    <aside class="sidebar-left" id="left-panel">
+        <div class="search-container"><span class="close-btn-side" onclick="toggleLeftPanel()">&times;</span><h3>Name Index</h3><input type="text" id="search-box" placeholder="Search..." onkeyup="filterNames()"></div>
+        <div class="index-scroll-area"><ul class="name-list" id="index-list"></ul></div>
+    </aside>
+    <main class="main-content" id="main-area">
+        <div class="tree-container" id="tree-root"></div>
+    </main>
+    <div class="modal-overlay" id="contactModal">
+        <div class="modal-box">
+            <span class="modal-close" onclick="closeContactModal()">&times;</span>
+            <h2>Request Update</h2>
+            <input type="text" id="req-name" placeholder="Name"><textarea id="req-msg" placeholder="Details"></textarea>
+            <button class="send-btn" onclick="sendEmail()">Send</button>
+        </div>
+    </div>
+    <script src="family-data.js"></script>
+    <script src="script.js"></script>
+    <script type="module" src="live_counter.js"></script>
+</body>
+</html>
+=== END: vanshawali.html ===
+
+=== FILE: newadmin.html ===
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="mainstyle.css?v=2">
+    <style>body{background:#000022;color:#fcf6ba;} .login-box{margin:100px auto;width:300px;text-align:center;border:2px solid #b38728;padding:40px;background:#000044;}</style>
+</head>
+<body>
+    <div id="login-overlay">
+        <div class="login-box">
+            <h2>ROYAL ACCESS</h2>
+            <input type="password" id="passwordInput" placeholder="Passcode" style="padding:10px;">
+            <button onclick="checkPassword()" style="padding:10px;background:#b38728;">ENTER</button>
+        </div>
+    </div>
+    <div id="dashboard-content" style="display:none;padding:20px;">
+        <h1>ADMIN DASHBOARD</h1>
+        <button onclick="location.href='gallery_editor.html'" style="padding:20px;margin:10px;">Edit Gallery</button>
+        <button onclick="location.href='vanshawali_editor.html'" style="padding:20px;margin:10px;">Edit Tree</button>
+        <button onclick="location.href='index.html'" style="padding:20px;margin:10px;background:red;">Back</button>
+    </div>
+    <script>
+        function checkPassword(){
+            if(document.getElementById('passwordInput').value==='1221'){
+                document.getElementById('login-overlay').style.display='none';
+                document.getElementById('dashboard-content').style.display='block';
+            } else { alert('Access Denied'); }
+        }
+    </script>
+</body>
+</html>
+=== END: newadmin.html ===
+
+=== FILE: gallery.html ===
+<!DOCTYPE html>
+<html lang="hi">
+<head><title>Gallery</title><link rel="stylesheet" href="mainstyle.css"></head>
+<body>
+    <nav class="navbar"><a href="index.html" class="navbar-brand">KASUMALGARH</a></nav>
+    <div class="main-content">
+        <h1>ROYAL GALLERY</h1>
+        <div class="filter-container">
+            <button onclick="renderGallery('all')">All</button>
+            <button onclick="renderGallery('image')">Images</button>
+            <button onclick="renderGallery('video')">Videos</button>
+        </div>
+        <div class="gallery-grid" id="gallery-grid"></div>
+    </div>
+    <script src="gallery-data.js"></script>
+    <script>
+        function renderGallery(filter) {
+            const grid = document.getElementById('gallery-grid'); grid.innerHTML="";
+            galleryData.forEach(item => {
+                if(filter!=='all' && item.type!==filter) return;
+                let el = document.createElement('div'); el.className='gallery-item';
+                if(item.type==='video') el.innerHTML = `<iframe src="${item.src}" style="width:100%;height:200px;"></iframe>`;
+                else el.innerHTML = `<img src="${item.src}" onclick="openLightbox(this.src)" style="width:100%">`;
+                grid.appendChild(el);
+            });
+        }
+        renderGallery('all');
+    </script>
+    <script src="mainscript.js"></script>
+    <script type="module" src="live_counter.js"></script>
+</body>
+</html>
+=== END: gallery.html ===
+
+=== FILE: history.html ===
+<!DOCTYPE html>
+<html lang="hi">
+<head><title>History</title><link rel="stylesheet" href="mainstyle.css"></head>
+<body>
+    <nav class="navbar"><a href="index.html" class="navbar-brand">KASUMALGARH</a></nav>
+    <div class="main-content">
+        <h1>HISTORY</h1>
+        <p>ठिकाना कसुम्बी (कसुमलगढ़) मारवाड़ के इतिहास में शौर्य, त्याग और स्वाभिमान का प्रतीक है।</p>
+    </div>
+    <script src="mainscript.js"></script><script type="module" src="live_counter.js"></script>
+</body></html>
+=== END: history.html ===
+
+=== FILE: about.html ===
+<!DOCTYPE html>
+<html lang="hi"><head><title>About</title><link rel="stylesheet" href="mainstyle.css"></head>
+<body>
+    <nav class="navbar"><a href="index.html" class="navbar-brand">KASUMALGARH</a></nav>
+    <div class="main-content"><h1>ABOUT US</h1><p>Founded by Thakur Narayan Singh in 1841.</p></div>
+    <script src="mainscript.js"></script><script type="module" src="live_counter.js"></script>
+</body></html>
+=== END: about.html ===
+
+=== FILE: contact.html ===
+<!DOCTYPE html>
+<html lang="hi"><head><title>Contact</title><link rel="stylesheet" href="mainstyle.css"></head>
+<body>
+    <nav class="navbar"><a href="index.html" class="navbar-brand">KASUMALGARH</a></nav>
+    <div class="main-content"><h1>CONTACT</h1><p>Email: gajsa.kasumbi@gmail.com</p></div>
+    <script src="mainscript.js"></script><script type="module" src="live_counter.js"></script>
+</body></html>
+=== END: contact.html ===
+
+=== FILE: rathore.html ===
+<!DOCTYPE html><html><head><title>Rathore Zoom</title><link rel="stylesheet" href="mainstyle.css"></head><body><div id="zoom-result"></div><img id="myimage" src="RathoreVanshavali3000px.gif"></body></html>
+=== END: rathore.html ===
+
+=== FILE: pamplet.html ===
+<!DOCTYPE html><html><head><title>Pamphlet</title><link rel="stylesheet" href="mainstyle.css"></head><body><div class="tree-wrapper">Vertical Tree Here</div></body></html>
+=== END: pamplet.html ===
+
+=== FILE: calculator.html ===
+<!DOCTYPE html><html><head><title>Calculator</title><link rel="stylesheet" href="mainstyle.css"></head><body><h1>Gajsa Calculator</h1><input type="text" id="calcScreen"><script>/*Calc Logic*/</script></body></html>
+=== END: calculator.html ===
+=== FILE: vanshawali_editor.html ===
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vanshawali Editor Pro (Admin)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Playfair+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="mainstyle.css">
+    <style>
+        body { background-color: #000022; color: #fcf6ba; padding-bottom: 120px; }
+        .editor-container { max-width: 1000px; margin: 20px auto; padding: 20px; }
+        .control-bar { background: #000044; border: 1px solid #b38728; padding: 15px; border-radius: 10px; margin-bottom: 20px; display: flex; gap: 15px; flex-wrap: wrap; align-items: center; }
+        input, button { padding: 10px; border-radius: 5px; border: 1px solid #b38728; background: #000; color: white; }
+        button { background: #b38728; color: black; font-weight: bold; cursor: pointer; }
+        .node-item { margin-left: 20px; padding: 10px; border-left: 1px solid #555; position: relative; }
+        .node-item input { width: 200px; }
+    </style>
+</head>
+<body>
+    <div class="editor-container">
+        <h1>🌳 Vanshawali Editor</h1>
+        <div class="control-bar">
+            <input type="password" id="gh-token" placeholder="GitHub Token">
+            <input type="text" id="gh-owner" placeholder="Username">
+            <input type="text" id="gh-repo" placeholder="Repository">
+            <button onclick="loadTree()">📂 Load Tree</button>
+            <button onclick="saveTree()" style="background:#28a745; color:white;">💾 Save Changes</button>
+        </div>
+        <div id="tree-editor-area"></div>
+    </div>
+    <script>
+        let treeData = null, fileSha = "";
+        async function loadTree() {
+            const t = document.getElementById('gh-token').value;
+            const o = document.getElementById('gh-owner').value;
+            const r = document.getElementById('gh-repo').value;
+            try {
+                const res = await fetch(`https://api.github.com/repos/${o}/${r}/contents/family-data.js`, {headers:{'Authorization':`token ${t}`}});
+                const d = await res.json();
+                fileSha = d.sha;
+                const content = atob(d.content).replace("const familyData =", "").replace(";", "");
+                treeData = JSON.parse(content);
+                renderEditor(treeData, document.getElementById('tree-editor-area'));
+                alert("Tree Loaded!");
+            } catch(e) { alert("Error loading: " + e.message); }
+        }
+        function renderEditor(node, container) {
+            container.innerHTML = "";
+            let div = document.createElement('div'); div.className="node-item";
+            div.innerHTML = `👤 <input value="${node.name}" onchange="this.nodeRef.name=this.value"> 
+                             W/o: <input value="${node.spouse||''}" placeholder="Spouse" onchange="this.nodeRef.spouse=this.value">
+                             <button onclick="addChild(this)">+ Child</button> <button onclick="delNode(this)" style="background:red;color:white;">x</button>`;
+            div.querySelector('input').nodeRef = node;
+            div.querySelectorAll('input')[1].nodeRef = node;
+            div.querySelector('button').nodeRef = node; 
+            div.querySelectorAll('button')[1].nodeRef = node;
+
+            let childrenDiv = document.createElement('div');
+            if(node.children) node.children.forEach(c => renderEditor(c, childrenDiv));
+            div.appendChild(childrenDiv);
+            container.appendChild(div);
+        }
+        function addChild(btn) {
+            if(!btn.nodeRef.children) btn.nodeRef.children = [];
+            btn.nodeRef.children.push({name:"New Member", children:[]});
+            loadTree(); // Refresh (simplified)
+        }
+        async function saveTree() {
+            const t = document.getElementById('gh-token').value;
+            const o = document.getElementById('gh-owner').value;
+            const r = document.getElementById('gh-repo').value;
+            const content = btoa("const familyData = " + JSON.stringify(treeData, null, 4) + ";");
+            await fetch(`https://api.github.com/repos/${o}/${r}/contents/family-data.js`, {
+                method:'PUT', headers:{'Authorization':`token ${t}`},
+                body:JSON.stringify({message:"Update Tree", content:content, sha:fileSha})
+            });
+            alert("Saved Successfully!");
+        }
+    </script>
+</body>
+</html>
+=== END: vanshawali_editor.html ===
+
+=== FILE: gallery_editor.html ===
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <title>Gallery Admin Pro</title>
+    <link rel="stylesheet" href="mainstyle.css">
+    <style>
+        body { background-color: #000022; color: #fcf6ba; }
+        .editor-container { max-width: 1000px; margin: 20px auto; padding: 20px; }
+        .list-item { background: #222; border-bottom: 1px solid #444; padding: 10px; display: flex; gap: 10px; align-items: center; }
+        img { height: 60px; border: 1px solid #b38728; }
+        input { background: #111; border: 1px solid #555; color: white; padding: 5px; }
+    </style>
+</head>
+<body>
+    <div class="editor-container">
+        <h1>🖼️ Gallery Manager</h1>
+        <div style="margin-bottom:20px;">
+            <input type="text" id="gh-token" placeholder="GitHub Token">
+            <input type="text" id="gh-owner" placeholder="Username">
+            <input type="text" id="gh-repo" placeholder="Repo">
+            <button onclick="loadGallery()">Load Images</button>
+            <button onclick="saveGallery()" style="background:green;">Save Changes</button>
+        </div>
+        <div id="gallery-list"></div>
+    </div>
+    <script>
+        let galleryData = [], sha = "";
+        async function loadGallery() {
+            const t = document.getElementById('gh-token').value;
+            const o = document.getElementById('gh-owner').value;
+            const r = document.getElementById('gh-repo').value;
+            const res = await fetch(`https://api.github.com/repos/${o}/${r}/contents/gallery-data.js`, {headers:{'Authorization':`token ${t}`}});
+            const d = await res.json();
+            sha = d.sha;
+            let content = atob(d.content).replace("const galleryData =", "").replace(";", "");
+            galleryData = JSON.parse(content);
+            render();
+        }
+        function render() {
+            const list = document.getElementById('gallery-list'); list.innerHTML="";
+            galleryData.forEach((item, i) => {
+                list.innerHTML += `<div class="list-item">
+                    <img src="${item.src}">
+                    <input value="${item.caption}" onchange="galleryData[${i}].caption=this.value">
+                    <button onclick="galleryData.splice(${i},1);render()" style="color:red;">Delete</button>
+                </div>`;
+            });
+        }
+        async function saveGallery() {
+            const t = document.getElementById('gh-token').value;
+            const o = document.getElementById('gh-owner').value;
+            const r = document.getElementById('gh-repo').value;
+            const content = btoa("const galleryData = " + JSON.stringify(galleryData, null, 4) + ";");
+            await fetch(`https://api.github.com/repos/${o}/${r}/contents/gallery-data.js`, {
+                method:'PUT', headers:{'Authorization':`token ${t}`},
+                body:JSON.stringify({message:"Update Gallery", content:content, sha:sha})
+            });
+            alert("Gallery Saved!");
+        }
+    </script>
+</body>
+</html>
+=== END: gallery_editor.html ===
+
+=== FILE: treestyle.css ===
+:root {
+    --bg-color: #fffbf0;        
+    --text-main: #350404;       
+    --maroon-text: #800000;     
+    --gold-border: #b8860b;     
+    --gold-line: #5c4033;       
+    --sidebar-bg: #f4ecd8;      
+}
+body { background-color: var(--bg-color); color: var(--text-main); font-family: 'Cinzel', serif; margin: 0; padding: 0; height: 100vh; overflow: hidden; }
+
+/* NAVBAR FIX for Tree Page */
+.royal-navbar {
+    position: fixed; top: 0; left: 0; width: 100%; height: 60px;
+    background: #000033 url('bg10.png') no-repeat center center; /* FALLBACK IF IMG MISSING */
+    background-size: cover;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5); z-index: 1000; border-bottom: 2px solid var(--gold-border);
+}
+.nav-logo { font-family: 'Great Vibes', cursive; font-size: 1.8rem; color: #fcf6ba; text-decoration: none; text-shadow: 2px 2px 4px #000; }
+.nav-buttons { display: flex; gap: 15px; margin-right: 40px; }
+.nav-btn { background: rgba(0, 0, 0, 0.6); border: 1px solid var(--gold-border); color: #fcf6ba; padding: 8px 15px; cursor: pointer; border-radius: 20px; display: flex; align-items: center; gap: 5px; }
+
+/* SIDEBARS */
+.sidebar-left {
+    position: fixed; top: 60px; left: -320px; width: 300px; height: calc(100% - 60px);
+    background: var(--sidebar-bg); border-right: 2px solid var(--gold-border);
+    transition: 0.4s ease-in-out; z-index: 900; padding: 10px; overflow-y: auto;
+}
+.sidebar-left.open { left: 0; }
+
+/* TREE CONTAINER */
+.main-content { margin-top: 60px; height: calc(100% - 60px); overflow: auto; background-image: radial-gradient(#d4af37 1px, transparent 1px); background-size: 30px 30px; }
+.tree-container { width: fit-content; margin: 50px auto; padding: 50px; }
+.tree ul { padding-top: 20px; position: relative; display: flex; justify-content: center; transition: all 0.5s; }
+.tree li { float: left; text-align: center; list-style-type: none; position: relative; padding: 20px 5px 0 5px; transition: all 0.5s; }
+
+/* CONNECTORS */
+.tree li::before, .tree li::after { content: ''; position: absolute; top: 0; right: 50%; border-top: 2px solid var(--gold-line); width: 50%; height: 20px; }
+.tree li::after { right: auto; left: 50%; border-left: 2px solid var(--gold-line); }
+.tree li:only-child::after, .tree li:only-child::before { display: none; }
+.tree li:only-child { padding-top: 0; }
+.tree li:first-child::before, .tree li:last-child::after { border: 0 none; }
+.tree li:last-child::before { border-right: 2px solid var(--gold-line); border-radius: 0 5px 0 0; }
+.tree li:first-child::after { border-radius: 5px 0 0 0; }
+.tree ul ul::before { content: ''; position: absolute; top: 0; left: 50%; border-left: 2px solid var(--gold-line); width: 0; height: 20px; }
+
+/* MEMBER CARD */
+.member-box {
+    border: 2px solid var(--gold-border); padding: 10px 15px; border-radius: 8px; display: inline-block;
+    background: #fff; color: var(--text-main); font-weight: bold; box-shadow: 3px 3px 8px rgba(0,0,0,0.2);
+    transition: 0.3s; min-width: 120px;
+}
+.member-box:hover { background: var(--maroon-text); color: #fff; transform: scale(1.1); border-color: #ffd700; z-index: 100; cursor: pointer; }
+
+/* MODAL */
+.modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; justify-content: center; align-items: center; }
+.modal-box { background: #fff; padding: 25px; border-radius: 10px; width: 90%; max-width: 400px; border: 3px solid var(--gold-border); text-align: center; }
+.modal-close { float: right; font-size: 24px; cursor: pointer; }
+.send-btn { background: #25D366; color: white; border: none; padding: 10px; width: 100%; margin-top: 10px; cursor: pointer; }
+=== END: treestyle.css ===
+
+=== FILE: mainstyle.css ===
+/* FULL GLOBAL STYLES */
+:root { 
+    --royal-bg: #000033; 
+    --paper-bg: #fffbf0; 
+    --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c); 
+    --maroon-text: #800000; 
+    --dark-gold-line: #aa8c2c; 
+}
+html { background-color: var(--royal-bg); scroll-behavior: smooth; }
+body { margin: 0; font-family: 'Playfair Display', serif; background-color: #fdf5e6; color: #333; overflow-x: hidden; }
+
+/* PRELOADER */
+#preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000033; z-index: 10000; display: flex; justify-content: center; align-items: center; flex-direction: column; }
+.sun-svg { width: 100px; height: 100px; animation: spin 10s linear infinite; }
+@keyframes spin { 100% { transform: rotate(360deg); } }
+.loading-text { font-family: 'Cinzel'; color: #b38728; font-size: 1.5em; margin-top: 20px; letter-spacing: 5px; }
+
+/* ROYAL BORDER FRAME */
+.royal-frame { position: fixed; top: 0; left: 0; width: 100%; height: 100%; border: 5px solid #b38728; pointer-events: none; z-index: 999; box-sizing: border-box; }
+
+/* NAVBAR */
+.navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: #000033; border-bottom: 2px solid #b38728; position: sticky; top: 0; z-index: 2000; }
+.navbar-brand-container { display: flex; align-items: center; }
+#menu-logo { width: 40px; height: 40px; border-radius: 50%; border: 1px solid #b38728; margin-right: 10px; }
+.navbar-brand { font-family: 'Cinzel'; color: #fcf6ba; font-size: 1.2em; text-decoration: none; font-weight: bold; }
+.navbar-links { list-style: none; display: flex; gap: 15px; margin: 0; padding: 0; }
+.navbar-links a { color: #b38728; text-decoration: none; font-family: 'Cinzel'; font-size: 0.9em; transition: 0.3s; }
+.navbar-links a:hover, .navbar-links a.active { color: #fff; }
+.menu-toggle { display: none; color: #b38728; font-size: 25px; cursor: pointer; }
+@media (max-width: 768px) {
+    .menu-toggle { display: block; }
+    .navbar-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: #000033; padding: 20px 0; text-align: center; }
+    .navbar-links.active { display: flex; }
+}
+
+/* HERO SECTION */
+.hero-section { height: 400px; background: linear-gradient(rgba(0,0,51,0.6), rgba(0,0,51,0.9)), url('1.jpg'); background-size: cover; background-position: center; color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+.hero-title { font-family: 'Cinzel'; font-size: 2.5em; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 10px 0; text-shadow: 0 0 10px #000; }
+.divider-ornament { font-size: 1.5em; color: #b38728; margin: 10px 0; }
+.royal-btn { padding: 10px 25px; border: 1px solid #b38728; color: #fcf6ba; text-decoration: none; margin-top: 20px; font-family: 'Cinzel'; transition: 0.3s; background: rgba(0,0,0,0.5); }
+.royal-btn:hover { background: #b38728; color: #000; }
+
+/* MAIN CONTENT */
+.main-content { max-width: 1200px; margin: 0 auto; padding: 40px 20px; text-align: center; }
+.intro-box { background: white; padding: 30px; border-radius: 10px; border: 1px solid #ddd; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 40px; }
+.feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+.feature-card { background: #fff; padding: 20px; border: 1px solid #b38728; border-radius: 10px; cursor: pointer; transition: 0.3s; }
+.feature-card:hover { transform: translateY(-5px); background: #fcf6ba; }
+.feature-card h3 { font-family: 'Cinzel'; color: #800000; }
+.feature-card i { font-size: 40px; color: #b38728; margin-bottom: 15px; }
+
+/* FOOTER */
+footer { background: #000022; color: #b38728; padding: 30px 20px; text-align: center; border-top: 3px solid #b38728; margin-top: 50px; }
+.royal-name { font-family: 'Cinzel'; font-size: 1.2em; color: #fcf6ba; text-decoration: none; }
+
+/* AUDIO PLAYER */
+.audio-player { position: fixed; bottom: 20px; left: 20px; z-index: 2000; }
+#music-btn { background: rgba(0,0,34,0.8); border: 2px solid #b38728; color: #fcf6ba; padding: 15px; border-radius: 50%; cursor: pointer; font-size: 18px; box-shadow: 0 0 10px #b38728; transition: 0.3s; }
+#music-btn:hover { transform: scale(1.1); background: #b38728; color: #000; }
+
+/* GALLERY GRID */
+.gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; }
+.gallery-item { border: 2px solid #b38728; border-radius: 5px; overflow: hidden; height: 250px; }
+.gallery-item img, .gallery-item video { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+.gallery-item:hover img { transform: scale(1.1); }
+=== END: mainstyle.css ===
+
+=== FILE: script.js ===
+// TREE LOGIC FOR VANSHAWALI.HTML
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Build Tree
+    const treeRoot = document.getElementById('tree-root');
+    if(treeRoot && typeof familyData !== 'undefined') {
+        const ul = document.createElement('ul');
+        ul.className = 'tree';
+        ul.appendChild(createTree(familyData));
+        treeRoot.appendChild(ul);
+    }
+    // 2. Build Index
+    populateSearchIndex(familyData);
+});
+
+function createTree(member) {
+    const li = document.createElement('li');
+    
+    const div = document.createElement('div');
+    div.className = 'member-box';
+    div.id = `mem-${member.name.replace(/\s+/g, '_')}`;
+    
+    div.innerHTML = `<div>${member.name}</div>`;
+    if(member.spouse) { div.innerHTML += `<small style="color:gray; font-size:0.8em;">w/o ${member.spouse}</small>`; }
+    
+    // Click Effect
+    div.onclick = () => {
+        alert("Details:\nName: " + member.name + "\n" + (member.spouse ? "Spouse: " + member.spouse : ""));
+    };
+    
+    li.appendChild(div);
+
+    if (member.children && member.children.length > 0) {
+        const ul = document.createElement('ul');
+        member.children.forEach(child => {
+            ul.appendChild(createTree(child));
+        });
+        li.appendChild(ul);
+    }
+    return li;
+}
+
+// SEARCH & SIDEBAR
+let allNames = [];
+function populateSearchIndex(member) {
+    if(!member) return;
+    allNames.push(member.name);
+    if(member.children) member.children.forEach(populateSearchIndex);
+}
+
+function filterNames() {
+    const input = document.getElementById('search-box').value.toLowerCase();
+    const list = document.getElementById('index-list');
+    list.innerHTML = '';
+    
+    if(input.length < 1) return;
+
+    allNames.filter(n => n.toLowerCase().includes(input)).forEach(name => {
+        const li = document.createElement('li');
+        li.style.padding = "8px";
+        li.style.borderBottom = "1px solid #ddd";
+        li.style.cursor = "pointer";
+        li.innerHTML = `<i class="fas fa-user"></i> ${name}`;
+        
+        li.onclick = () => {
+            toggleLeftPanel();
+            const target = document.getElementById(`mem-${name.replace(/\s+/g, '_')}`);
+            if(target) {
+                target.scrollIntoView({behavior: "smooth", block: "center", inline: "center"});
+                target.style.background = "#ffd700";
+                setTimeout(() => target.style.background = "#fff", 2000);
+            }
+        };
+        list.appendChild(li);
+    });
+}
+
+function toggleLeftPanel() { document.getElementById('left-panel').classList.toggle('open'); }
+function openContactModal() { document.getElementById('contactModal').style.display='flex'; }
+function closeContactModal() { document.getElementById('contactModal').style.display='none'; }
+function sendEmail() { alert("Request Sent!"); closeContactModal(); }
+=== END: script.js ===
+
+=== FILE: mainscript.js ===
+// GLOBAL LOGIC (Music, Preloader, Menu)
+window.addEventListener("load", function() {
+    const loader = document.getElementById("preloader");
+    if (loader) {
+        setTimeout(() => {
+            loader.style.opacity = "0";
+            setTimeout(() => { loader.style.display = "none"; }, 800);
+        }, 1500);
+    }
+});
+
+function toggleMenu() {
+    const menu = document.getElementById("nav-menu");
+    const btn = document.getElementById("mobile-menu-btn");
+    menu.classList.toggle("active");
+    if (menu.classList.contains("active")) { btn.innerHTML = "×"; btn.style.fontSize = "30px"; } 
+    else { btn.innerHTML = "☰"; btn.style.fontSize = "25px"; }
+}
+
+// Music
+const music = document.getElementById("bg-music");
+const musicBtn = document.getElementById("music-btn");
+let isPlaying = false;
+function toggleMusic() {
+    if (isPlaying) {
+        music.pause();
+        musicBtn.innerHTML = '<i class="fa-solid fa-music"></i>';
+        isPlaying = false;
+    } else {
+        music.play();
+        musicBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+        isPlaying = true;
+    }
+}
+
+// Lightbox for Gallery
+function openLightbox(src) {
+    let lb = document.getElementById('lightbox');
+    if(!lb) {
+        lb = document.createElement('div'); lb.id='lightbox';
+        lb.style.cssText="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);z-index:9999;display:flex;justify-content:center;align-items:center;";
+        lb.innerHTML=`<span onclick="this.parentElement.style.display='none'" style="position:absolute;top:20px;right:30px;color:white;font-size:40px;cursor:pointer;">&times;</span><img id="lb-img" style="max-width:90%;max-height:80%;border:2px solid gold;">`;
+        document.body.appendChild(lb);
+    }
+    document.getElementById('lb-img').src = src;
+    lb.style.display='flex';
+}
+=== END: mainscript.js ===
+
+=== FILE: live_counter.js ===
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getDatabase, ref, set, onValue, onDisconnect } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+const firebaseConfig = { apiKey: "AIzaSyDJCSdLfT2VnVVt-xPYPHCj8YZNFrYoUIQ", authDomain: "kasumalgarh-live.firebaseapp.com", databaseURL: "https://kasumalgarh-live-default-rtdb.firebaseio.com", projectId: "kasumalgarh-live", storageBucket: "kasumalgarh-live.firebasestorage.app", messagingSenderId: "499782037300", appId: "1:499782037300:web:957745a5510125ce8cbf61", measurementId: "G-87CX7P9WL3" };
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const userId = 'visitor_' + Math.random().toString(36).substr(2, 9);
+let pageName = window.location.pathname.split("/").pop() || "Home";
+const userRef = ref(db, 'online_users/' + userId);
+set(userRef, { page: pageName, time: Date.now() });
+onDisconnect(userRef).remove();
+
+// SHOW WIDGET ONLY ON HOME PAGE
+if (location.pathname.endsWith('index.html') || location.pathname === '/' || location.pathname.endsWith('kasumalgarh.github.io/')) {
+    const div = document.createElement('div');
+    div.innerHTML = `<div id="live-widget" style="position:fixed;bottom:90px;left:20px;background:#000;border:2px solid #b38728;color:#b38728;padding:10px;border-radius:50%;width:50px;height:50px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:9999;box-shadow:0 0 10px #b38728;"><i class="fa-solid fa-chart-simple"></i></div>`;
+    document.body.appendChild(div);
+
+    div.onclick = () => {
+        let box = document.getElementById('live-box');
+        if(box) { box.remove(); } else {
+            box = document.createElement('div'); box.id = 'live-box';
+            box.style.cssText = "position:fixed;bottom:150px;left:20px;background:rgba(0,0,34,0.95);border:1px solid #b38728;padding:15px;color:white;z-index:9999;width:200px;border-radius:5px;";
+            document.body.appendChild(box);
+            onValue(ref(db, 'online_users'), (snap) => {
+                const data = snap.val() || {};
+                let html = `<b style="color:#b38728">⚡ Online: ${Object.keys(data).length}</b><hr style="border-color:#b38728">`;
+                let counts = {};
+                Object.values(data).forEach(u => counts[u.page] = (counts[u.page] || 0) + 1);
+                for(let p in counts) html += `<div style="display:flex;justify-content:space-between;"><span>${p}</span><span>${counts[p]}</span></div>`;
+                box.innerHTML = html;
+            });
+        }
+    };
+}
+=== END: live_counter.js ===
+
+=== FILE: family-data.js ===
+const familyData = {
+  "name": "Raj Shree Thakur Saheb Narayan Singh",
+  "children": [
+    {
+      "name": "Th. Akhe Singh",
+      "children": [
+        {
+          "name": "Th. Mangal Singh",
+          "children": [
+            {
+              "name": "Th. Bakhtawar Singh",
+              "children": [
+                {
+                  "name": "Th. Raghunath Singh",
+                  "children": [
+                    {
+                      "name": "Th. Roop Singh",
+                      "children": [
+                        {
+                          "name": "Th. Ridmal Singh",
+                          "children": [
+                            {
+                              "name": "Th. Bhairu Singh",
+                              "children": [
+                                {
+                                  "name": "Th. Mahendra Singh",
+                                  "children": [
+                                    { "name": "Yuvraj GajRaj Singh", "children": [ { "name": "Bhanwar Khushvendra Singh", "children": [] } ] },
+                                    { "name": "Kr. Shivraj Singh ", "children": [] },
+                                    { "name": "Baisa Hrishiraj Rathore", "children": [] }
+                                  ]
+                                },
+                                {
+                                  "name": "Th. Raghuveer Singh",
+                                  "children": []
+                                },
+                                {
+                                  "name": "Th. Bhagwan Singh",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Th. Partap Singh",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+};
+/* NOTE: This is based on your uploaded snippet. Paste your FULL original data here if this is incomplete. */
+=== END: family-data.js ===
+
+=== FILE: gallery-data.js ===
+const galleryData = [
+    { "type": "image", "category": "other", "src": "YGSR.png", "caption": "Yuvraj GajRaj Singh" },
+    { "type": "image", "category": "events", "src": "3.jpg", "caption": "Royal Event" },
+    { "type": "video", "category": "other", "src": "https://youtu.be/yEjNE2vHFgg", "caption": "Video Link" },
+    { "type": "video", "category": "other", "src": "https://youtu.be/8iqfvTHax0s", "caption": "Video Link 2" }
+];
+=== END: gallery-data.js ===
+=== FILE: rathore.html ===
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Thikana Kasumalgarh - Royal Lineage</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; height: 100%; width: 100%; background-color: #1a0505; font-family: 'Cinzel', serif; overflow: hidden; }
+        .layout-wrapper { display: flex; flex-direction: column; height: 100vh; }
+        #zoom-result { flex: 0 0 40vh; width: 100%; border-bottom: 5px solid #d4af37; background-color: #000; background-repeat: no-repeat; display: flex; justify-content: center; align-items: center; color: #d4af37; text-align: center; position: relative; }
+        #zoom-result::after { content: "⚜️ ठिकाना कसूमलगढ़ ⚜️ \A (नाम पढ़ने के लिए नीचे वंशावली पर टच करें)"; white-space: pre-wrap; font-size: 1.1rem; opacity: 0.8; }
+        #zoom-result.active::after { content: ""; }
+        .scroll-container { flex: 1; position: relative; overflow-y: auto; overflow-x: hidden; background-image: url('https://www.transparenttextures.com/patterns/dark-wood.png'); padding-bottom: 100px; }
+        .center-wrapper { width: 100%; min-height: 100%; display: flex; justify-content: center; padding: 20px 10px; }
+        .img-wrapper { position: relative; display: inline-block; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
+        #myimage { display: block; width: 100%; height: auto; max-width: 1200px; border: 3px solid #9c7c38; }
+        .img-zoom-lens { position: absolute; border: 2px solid #ff4444; background-color: rgba(255, 68, 68, 0.2); cursor: move; width: 80px; height: 60px; display: none; pointer-events: none; }
+    </style>
+</head>
+<body>
+    <div class="layout-wrapper">
+        <div id="zoom-result"></div>
+        <div class="scroll-container">
+            <div class="center-wrapper">
+                <div class="img-wrapper">
+                    <img id="myimage" src="RathoreVanshavali3000px.gif" alt="Rathore Vanshawali">
+                    <div id="lens" class="img-zoom-lens"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function imageZoom(imgID, resultID, lensID) {
+            var img = document.getElementById(imgID), result = document.getElementById(resultID), lens = document.getElementById(lensID);
+            var cx, cy;
+            function startZoom(e) {
+                lens.style.display = "block"; result.classList.add('active');
+                result.style.backgroundImage = "url('" + img.src + "')";
+                cx = result.offsetWidth / lens.offsetWidth; cy = result.offsetHeight / lens.offsetHeight;
+                result.style.backgroundSize = (img.width * cx) + "px " + (img.height * cy) + "px";
+                moveLens(e);
+            }
+            function moveLens(e) {
+                var pos, x, y;
+                e.preventDefault();
+                pos = getCursorPos(e);
+                x = pos.x - (lens.offsetWidth / 2); y = pos.y - (lens.offsetHeight / 2);
+                if (x > img.width - lens.offsetWidth) {x = img.width - lens.offsetWidth;} if (x < 0) {x = 0;}
+                if (y > img.height - lens.offsetHeight) {y = img.height - lens.offsetHeight;} if (y < 0) {y = 0;}
+                lens.style.left = x + "px"; lens.style.top = y + "px";
+                result.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
+            }
+            function getCursorPos(e) {
+                var a, x = 0, y = 0; e = e || window.event; a = img.getBoundingClientRect();
+                if (e.touches) { x = e.touches[0].pageX - a.left; y = e.touches[0].pageY - a.top; } 
+                else { x = e.pageX - a.left; y = e.pageY - a.top; }
+                x = x - window.pageXOffset; y = y - window.pageYOffset; return {x : x, y : y};
+            }
+            img.addEventListener("touchstart", startZoom); img.addEventListener("touchmove", moveLens);
+            img.addEventListener("mouseenter", startZoom); img.addEventListener("mousemove", moveLens);
+        }
+        window.onload = function() { setTimeout(function(){ imageZoom("myimage", "zoom-result", "lens"); }, 100); };
+    </script>
+</body>
+</html>
+=== END: rathore.html ===
+
+=== FILE: calculator.html ===
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gajsa Ultimate Pro Max</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background: #f4f7f6; color: #333; }
+        .card { background: #fff; padding: 20px; margin-bottom: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-top: 4px solid #d35400; }
+        input { padding: 10px; width: 100%; box-sizing: border-box; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px; }
+        button { padding: 10px 20px; background: #2c3e50; color: #fff; border: none; cursor: pointer; border-radius: 5px; margin-right: 5px; }
+        button:hover { background: #34495e; }
+        h3 { color: #d35400; margin-top: 0; }
+        .result { font-weight: bold; color: #27ae60; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Gajsa Calculator & Tools</h1>
+    
+    <div class="card">
+        <h3>1. Land Converter (Bigha to SqFt)</h3>
+        <input type="number" id="bighaInput" placeholder="Enter Bigha">
+        <button onclick="convertLand()">Convert</button>
+        <p class="result" id="landResult">Result: 0 SqFt</p>
+    </div>
+
+    <div class="card">
+        <h3>2. Brick Calculator</h3>
+        <input type="number" id="wallL" placeholder="Length (ft)">
+        <input type="number" id="wallH" placeholder="Height (ft)">
+        <input type="number" id="wallW" placeholder="Width (inch) - usually 9 or 4">
+        <button onclick="calcBricks()">Calculate Bricks</button>
+        <p class="result" id="brickResult">Bricks needed: 0</p>
+    </div>
+
+    <div class="card">
+        <h3>3. Interest Calculator (Desi Hisab)</h3>
+        <input type="number" id="amount" placeholder="Principal Amount">
+        <input type="number" id="rate" placeholder="Rate (Rupees per 100)">
+        <input type="number" id="months" placeholder="Months">
+        <button onclick="calcInterest()">Calculate</button>
+        <p class="result" id="intResult">Total Interest: ₹0</p>
+    </div>
+
+    <script>
+        // 1. Land
+        function convertLand() {
+            const val = document.getElementById('bighaInput').value;
+            // Assuming 1 Bigha = 17424 SqFt (Standard Rajasthan, adjust if needed)
+            document.getElementById('landResult').innerText = "Result: " + (val * 17424).toLocaleString() + " SqFt";
+        }
+        
+        // 2. Bricks
+        function calcBricks() {
+            const l = document.getElementById('wallL').value;
+            const h = document.getElementById('wallH').value;
+            const w = document.getElementById('wallW').value;
+            // Standard brick volume logic approx
+            const vol = l * h * (w/12);
+            const bricks = vol * 13.5; // Approx 13.5 bricks per cubic ft with mortar
+            document.getElementById('brickResult').innerText = "Bricks needed: Approx " + Math.ceil(bricks);
+        }
+
+        // 3. Interest
+        function calcInterest() {
+            const p = document.getElementById('amount').value;
+            const r = document.getElementById('rate').value;
+            const t = document.getElementById('months').value;
+            const interest = (p * r * t) / 100;
+            document.getElementById('intResult').innerText = "Total Interest: ₹" + interest.toLocaleString() + " | Total Amount: ₹" + (parseFloat(p)+interest).toLocaleString();
+        }
+    </script>
+</body>
+</html>
+=== END: calculator.html ===
+
+=== FILE: pamplet.html ===
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <title>Vertical Pamphlet - KASUMALGARH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="mainstyle.css">
+    <style>
+        body { background-color: #000033; color: #fcf6ba; text-align: center; }
+        .pamphlet-container {
+            max-width: 800px; margin: 20px auto; border: 5px double #b38728; padding: 40px;
+            background: #fffbf0; color: #333;
+        }
+        .header-p { font-family: 'Cinzel'; font-size: 2em; color: #800000; text-decoration: underline; margin-bottom: 30px; }
+        .tree-vertical ul { list-style: none; padding-left: 20px; text-align: left; }
+        .tree-vertical li { margin: 10px 0; padding-left: 20px; border-left: 2px solid #b38728; position: relative; }
+        .tree-vertical li::before { content: ''; position: absolute; left: 0; top: 15px; width: 15px; height: 2px; background: #b38728; }
+        .p-name { font-weight: bold; font-size: 1.1em; color: #000; }
+    </style>
+</head>
+<body>
+    <div class="pamphlet-container">
+        <h1 class="header-p">Royal Lineage of Kasumalgarh</h1>
+        <div class="tree-vertical" id="v-tree"></div>
+    </div>
+    <script src="family-data.js"></script>
+    <script>
+        function createVerticalTree(member, container) {
+            const ul = document.createElement('ul');
+            const li = document.createElement('li');
+            li.innerHTML = `<span class="p-name">✦ ${member.name}</span>`;
+            ul.appendChild(li);
+            
+            if(member.children && member.children.length > 0) {
+                member.children.forEach(child => {
+                    createVerticalTree(child, li);
+                });
+            }
+            container.appendChild(ul);
+        }
+        // Init
+        const root = document.getElementById('v-tree');
+        if(typeof familyData !== 'undefined') createVerticalTree(familyData, root);
+    </script>
+</body>
+</html>
+=== END: pamplet.html ===
+
+=== FILE: history.html ===
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Complete History - KASUMALGARH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;1,400&family=Yatra+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="mainstyle.css?v=2">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand-container">
+            <img id="menu-logo" src="menulogo.png" alt="Logo"> 
+            <a class="navbar-brand" href="index.html">KASUMALGARH</a>
+        </div>
+        <div class="menu-toggle" id="mobile-menu-btn" onclick="toggleMenu()">☰</div>
+        <ul class="navbar-links" id="nav-menu">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="vanshawali.html">VANSHAWALI</a></li>
+            <li><a href="history.html" class="active">HISTORY</a></li>
+            <li><a href="about.html">ABOUT</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+            <li><a href="gallery.html">GALLERY</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero-section" style="background: linear-gradient(rgba(0,0,51,0.5), rgba(0,0,51,0.8)), url('1.jpg'); background-size: cover; height: 450px; text-align: center; color: white; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+        <div style="font-family: 'Great Vibes', cursive; font-size: 2.8em; color: #fcf6ba;">The Glorious</div>
+        <h1 style="font-family: 'Cinzel', serif; font-size: 3.8em; margin: 0; background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">HISTORY & LEGACY</h1>
+    </header>
+
+    <main style="max-width: 1100px; margin: 50px auto; padding: 0 20px;">
+        <div style="background: #fffbf0; padding: 50px; border: 4px double #800000; border-radius: 15px; position: relative; box-shadow: 0 0 40px rgba(191, 149, 63, 0.4); text-align: justify; line-height: 1.9; font-size: 1.15em;">
+            
+            <span style="float: left; font-size: 5em; line-height: 0.8; padding-right: 15px; padding-top: 5px; color: #800000; font-family: 'Yatra One', serif;">ठि</span>
+            काना कसुम्बी (कसुमलगढ़) मारवाड़ के इतिहास में शौर्य, त्याग और इंजीनियरिंग का बेजोड़ नमूना है। यह केवल एक गढ़ नहीं, बल्कि <strong>केशरी सिंघोत जोधा राठौड़ों</strong> की आन-बान और शान का जीवित दस्तावेज है।
+
+            <h2 style="color: #800000; font-family: 'Cinzel', serif; font-size: 2em; border-bottom: 3px solid #aa8c2c; padding-bottom: 12px; margin-top: 60px; text-align: center;">Ancient Origins & Name</h2>
+            <p>
+                <strong>पूर्व-इतिहास:</strong> राठौड़ों के आगमन से पहले यहाँ <strong>विदावत राजपूतों</strong> का वास था। नामकरण का रहस्य यह है कि यहाँ के ताल में एक विशेष <strong>'कसुमल घास'</strong> उगती थी जिससे <strong>'केसरिया' (Saffron) रंग</strong> बनता था।
+            </p>
+
+            <h2 style="color: #800000; font-family: 'Cinzel', serif; font-size: 2em; border-bottom: 3px solid #aa8c2c; padding-bottom: 12px; margin-top: 60px; text-align: center;">Foundation (स्थापना - 1841)</h2>
+            <p>
+                <strong>विक्रम संवत 1898 (सन् 1841 ई.)</strong> में बसंत पंचमी के दिन <strong>ठाकुर नारायण सिंह जी</strong> ने कसुमलगढ़ की नींव एक ऊँचे <strong>रेत के टीले</strong> पर रखी।
+            </p>
+            
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="vanshawali.html" class="royal-btn">VIEW FULL VANSHAWALI</a>
+            </div>
+
+        </div>
+    </main>
+    <script src="mainscript.js"></script>
+    <script type="module" src="live_counter.js"></script>
+</body>
+</html>
+=== END: history.html ===
+========================================================================
+=== PROJECT MANUAL: RULES, SETUP & INSTRUCTIONS ===
+(Read this carefully before editing or deploying)
+========================================================================
+
+1. REQUIRED ASSETS (MEDIA FILES)
+--------------------------------------------------
+The code assumes these files exist in the root folder. Without them, the site will look broken:
+- menulogo.png       : Navbar Logo (Size approx 50x50px)
+- favicon.ico        : Browser Tab Icon
+- 1.jpg              : Main Home/History Background Image (High HD)
+- bg10.png           : Background for Vanshawali Tree
+- bg-music.mp3       : Background Audio for Home Page
+- RathoreVanshavali3000px.gif : High-res image for rathore.html (Zoom page)
+- shiv.jpg           : Profile pic for shivbiodata (if used)
+- YGSR.png           : Image used in sample gallery data
+
+2. DATA INTEGRATION (CRITICAL)
+--------------------------------------------------
+- The 'family-data.js' section in this file contains only SAMPLE data.
+- ACTION REQUIRED: You must replace the sample JSON content inside 'family-data.js' with the FULL LINEAGE DATA (Thousand of names) before deploying.
+- Do not change the variable name 'familyData'.
+
+3. HOSTING & LIVE COUNTER
+--------------------------------------------------
+- This project uses ES6 Modules (type="module") for 'live_counter.js'.
+- It will NOT work if you simply double-click the HTML file (file:// protocol).
+- YOU MUST use a Local Server (like Live Server in VS Code) or host it on GitHub Pages/Netlify for the Live Counter and Firebase to work.
+
+4. ADMIN EDITOR SETUP (GITHUB API)
+--------------------------------------------------
+- The 'vanshawali_editor.html' and 'gallery_editor.html' use GitHub API to save changes directly to the code.
+- To make the "SAVE" button work, you need to input:
+  1. GitHub Token: (Personal Access Token with 'repo' scope)
+  2. Username: (e.g., kasumalgarh)
+  3. Repository Name: (e.g., kasumalgarh.github.io)
+- Without these, the editor is "Read-Only".
+
+5. THIRD-PARTY SERVICES CONFIGURATION
+--------------------------------------------------
+- Firebase (Live Counter): Currently configured with a public config. If the limit is reached, create a new Firebase Project and replace 'firebaseConfig' in 'live_counter.js'.
+- EmailJS (Contact Form): Configured with a public key ("J3okpk4omjrkmUnwz"). If emails stop arriving, update the User ID in 'vanshawali.html'.
+
+6. SECURITY & ACCESS
+--------------------------------------------------
+- Admin Login Page: 'newadmin.html' (or 'admin_login.html')
+- Hardcoded PIN: '1221' (Change this in the HTML script tag if you want a new password).
+
+7. AI INSTRUCTIONS (FOR FUTURE EDITS)
+--------------------------------------------------
+- Do not split the CSS into separate files unless requested; keep structure simple.
+- When updating 'script.js', ensure the 'createTree' function remains compatible with the JSON structure of 'family-data.js'.
+- Preserve the ID names (like 'tree-root', 'gallery-grid') as CSS depends on them.
+========================================================================
+sb ho rkha h ,only jo mene code diya h vo samjhane ke liye h jo krna hoga vo me btauga ok

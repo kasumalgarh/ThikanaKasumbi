@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Website Doctor</title>
+    <style>
+        body { background: #111; color: #fff; font-family: sans-serif; padding: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #444; padding: 10px; text-align: left; }
+        th { background: #222; color: #b38728; }
+        .ok { color: #0f0; font-weight: bold; }
+        .missing { color: #f00; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>🏥 Website Health Check</h1>
+    <button onclick="checkSite()" style="padding:10px 20px; background:#b38728; border:none; cursor:pointer;">START SCAN</button>
+    <div id="status">Click button to check...</div>
+    <table id="report">
+        <thead>
+            <tr>
+                <th>Page Name</th>
+                <th>Navbar?</th>
+                <th>Footer?</th>
+                <th>Live Counter?</th>
+            </tr>
+        </thead>
+        <tbody id="resultBody"></tbody>
+    </table>
+
+    <script>
+        // अपनी फाइलों के नाम यहाँ लिखें जो चेक करनी हैं
+        const pages = ['index.html', 'gallery.html', 'history.html', 'about.html', 'contact.html', 'vanshawali.html', 'admin_dashboard.html'];
+
+        async function checkSite() {
+            const tbody = document.getElementById('resultBody');
+            tbody.innerHTML = "";
+            document.getElementById('status').innerText = "Scanning...";
+
+            for (let page of pages) {
+                try {
+                    let res = await fetch(page);
+                    if (res.status === 404) {
+                        addRow(page, "FILE NOT FOUND", "-", "-");
+                        continue;
+                    }
+                    let text = await res.text();
+                    
+                    // Check 1: Navbar (kya 'nav' tag hai?)
+                    let hasNav = text.includes('<nav') || text.includes('navbar');
+                    
+                    // Check 2: Footer (kya 'footer' tag hai?)
+                    let hasFooter = text.includes('<footer') || text.includes('developer-info');
+                    
+                    // Check 3: Live Counter (kya script hai?)
+                    let hasCounter = text.includes('live_counter.js');
+
+                    addRow(page, hasNav, hasFooter, hasCounter);
+
+                } catch (e) {
+                    addRow(page, "Error", "Error", "Error");
+                }
+            }
+            document.getElementById('status').innerText = "Scan Complete! ✅";
+        }
+
+        function addRow(name, nav, footer, counter) {
+            let row = `<tr>
+                <td>${name}</td>
+                <td class="${nav === true ? 'ok' : 'missing'}">${nav === true ? '✅ Yes' : (typeof nav==='string'?nav:'❌ NO')}</td>
+                <td class="${footer === true ? 'ok' : 'missing'}">${footer === true ? '✅ Yes' : '❌ NO'}</td>
+                <td class="${counter === true ? 'ok' : 'missing'}">${counter === true ? '✅ Yes' : '❌ NO'}</td>
+            </tr>`;
+            document.getElementById('resultBody').innerHTML += row;
+        }
+    </script>
+</body>
+</html>

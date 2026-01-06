@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Page - KASUMALGARH</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* ----------------------------- */
+        /* ✨ शाही वेरियबल्स */
+        /* ----------------------------- */
+        :root {
+            --royal-bg: #000033;        
+            --paper-bg: #fffbf0;        
+            --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            --maroon-text: #800000;
+            --dark-gold-line: #aa8c2c; 
+            --theme-gold: #897148;
+        }
+
+        html {
+            background-color: var(--royal-bg);
+            min-height: 100%;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        body { 
+            margin: 0; 
+            background-color: transparent; 
+            color: #333;
+            font-family: 'Playfair Display', serif;
+            width: 100%;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ✨ शाही सिल्वर टेक्सचर */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/black-scales.png');
+            filter: invert(1); 
+            opacity: 0.4; 
+            pointer-events: none;
+            z-index: -1; 
+        }
+
+        /* ----------------------------- */
+        /* ☀️ PRELOADER CSS */
+        /* ----------------------------- */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000033; z-index: 10000;
+            display: flex; justify-content: center; align-items: center; flex-direction: column;
+            transition: opacity 0.8s ease;
+        }
+        .sun-container { position: relative; width: 140px; height: 140px; margin-bottom: 20px; filter: drop-shadow(0 0 25px rgba(255, 140, 0, 0.8)); }
+        .sun-svg { width: 100%; height: 100%; animation: spinSun 8s linear infinite; }
+        .sun-face { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 55px; height: 55px; z-index: 2; }
+        @keyframes spinSun { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .loading-text { font-family: 'Cinzel', serif; color: #fcf6ba; font-size: 1.5em; letter-spacing: 4px; font-weight: 900; text-shadow: 0 0 10px #bf953f; margin-top: 10px; animation: breathe 2s ease-in-out infinite; }
+        .sub-text { margin-top: 8px; color: #ffcc00; font-size: 0.8em; letter-spacing: 3px; text-transform: uppercase; font-weight: bold; }
+        @keyframes breathe { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.7; transform: scale(0.98); } }
+        .progress-container { width: 180px; height: 3px; background: rgba(255, 255, 255, 0.1); margin-top: 25px; border-radius: 2px; overflow: hidden; }
+        .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #ffcc00, #ff4500, #ffcc00); animation: loadingFill 3s ease-in-out forwards; }
+        @keyframes loadingFill { 0% { width: 0%; } 100% { width: 100%; } }
+
+        /* ----------------------------- */
+        /* 🖼️ ROYAL FRAME */
+        /* ----------------------------- */
+        .royal-frame { position: fixed; top: 0; left: 0; width: 100%; height: 100%; border: none; box-sizing: border-box; z-index: 9999; pointer-events: none; overflow: hidden; }
+        .royal-frame span { position: absolute; display: block; }
+        .royal-frame span:nth-child(1) { top: 0; left: -100%; width: 100%; height: 4px; background: linear-gradient(90deg, transparent, var(--dark-gold-line)); animation: btn-anim1 4s linear infinite; }
+        @keyframes btn-anim1 { 0% { left: -100%; } 50%,100% { left: 100%; } }
+        .royal-frame span:nth-child(2) { top: -100%; right: 0; width: 4px; height: 100%; background: linear-gradient(180deg, transparent, var(--dark-gold-line)); animation: btn-anim2 4s linear infinite; animation-delay: 1s; }
+        @keyframes btn-anim2 { 0% { top: -100%; } 50%,100% { top: 100%; } }
+        .royal-frame span:nth-child(3) { bottom: 0; right: -100%; width: 100%; height: 4px; background: linear-gradient(270deg, transparent, var(--dark-gold-line)); animation: btn-anim3 4s linear infinite; animation-delay: 2s; }
+        @keyframes btn-anim3 { 0% { right: -100%; } 50%,100% { right: 100%; } }
+        .royal-frame span:nth-child(4) { bottom: -100%; left: 0; width: 4px; height: 100%; background: linear-gradient(360deg, transparent, var(--dark-gold-line)); animation: btn-anim4 4s linear infinite; animation-delay: 3s; }
+        @keyframes btn-anim4 { 0% { bottom: -100%; } 50%,100% { bottom: 100%; } }
+
+        /* ----------------------------- */
+        /* 🏰 NAVBAR */
+        /* ----------------------------- */
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: #000033; border-bottom: 2px solid #b38728; box-shadow: 0 5px 20px rgba(0,0,0,0.8); position: sticky; top: 0; z-index: 2000; box-sizing: border-box; }
+        .navbar-brand-container { display: flex; align-items: center; }
+        #menu-logo { width: 50px; height: 50px; border-radius: 50%; border: 2px solid #fcf6ba; box-shadow: 0 0 15px #bf953f; background: white; opacity: 0; animation: slideRightToLeft 1.5s ease-out forwards; animation-delay: 3.2s; }
+        .navbar-brand { font-family: 'Cinzel', serif; font-size: 1.5em; font-weight: 900; margin-left: 15px; text-decoration: none; color: #fcf6ba; text-shadow: 0 0 2px #bf953f, 0 0 10px #000; letter-spacing: 1px; display: inline-block; opacity: 0; animation: slideDown 1.5s ease-out forwards; animation-delay: 3.2s; }
+        .navbar-links { list-style: none; margin: 0; padding: 0; display: flex; }
+        .navbar-links li { margin-left: 15px; } 
+        .navbar-links a { color: #897148; text-decoration: none; padding: 8px 15px; display: block; font-family: 'Cinzel', serif; font-weight: 700; letter-spacing: 1px; border: 1px solid transparent; transition: all 0.5s ease; }
+        .navbar-links a:hover { color: #fff; text-shadow: 0 0 8px #897148; }
+        .menu-toggle { color: #897148; font-size: 35px; cursor: pointer; display: none; user-select: none; transition: transform 0.3s ease; }
+
+        @media (max-width: 768px) {
+            .navbar { padding: 5px 15px; }
+            .navbar-brand { font-size: 1.0em; margin-left: 10px; }
+            #menu-logo { width: 35px; height: 35px; }
+            .menu-toggle { display: block; font-size: 25px; } 
+            .navbar-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background-color: #000033; border-top: 1px solid #b38728; border-bottom: 2px solid #b38728; padding: 0; text-align: center; z-index: 1000; box-shadow: 0 10px 20px rgba(0,0,0,0.9); }
+            .navbar-links.active { display: flex; animation: slideDown 0.5s ease; }
+            .navbar-links li { margin: 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+            .navbar-links a { padding: 5px 10px; font-size: 0.8em; }
+        }
+
+        @keyframes slideDown { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes slideRightToLeft { from { transform: translateX(50px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes slideInLeft { from { transform: translateX(-100px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+        /* ----------------------------- */
+        /* 📝 PAGE HEADER (STATIC) */
+        /* ----------------------------- */
+        .page-header {
+            background-size: cover; background-position: center;
+            height: 350px; /* Slider se thoda chhota */
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; color: white;
+            position: relative;
+            /* 👇 2. Header Background Image यहाँ बदलें */
+            background-image: linear-gradient(rgba(0, 0, 51, 0.7), rgba(0, 0, 51, 0.9)), url('1.jpg');
+            border-bottom: 4px solid #b38728;
+        }
+
+        .page-title {
+            font-family: 'Cinzel', serif; 
+            font-size: 3em; margin: 0; line-height: 1.2; font-weight: 900; 
+            background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0px 5px 5px rgba(0,0,0,0.8)); letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: slideInLeft 2s ease-out forwards;
+            animation-delay: 3.5s;
+        }
+
+        /* ----------------------------- */
+        /* 📄 BLANK CONTENT AREA */
+        /* ----------------------------- */
+        .main-content { padding: 40px 20px; min-height: 50vh; }
+        
+        .content-container {
+            max-width: 900px; margin: 0 auto;
+            background: var(--paper-bg); 
+            border: 2px solid #aa8c2c; 
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        /* ----------------------------- */
+        /* ✨ FOOTER */
+        /* ----------------------------- */
+        footer { text-align: center; color: #b38728; padding: 20px 20px; background-color: #000022; background-image: url('footerbg.png'); background-repeat: repeat; border-top: 4px solid #897148; }
+        .developer-info { margin-top: 0px; padding-top: 10px; border-top: none; }
+        .royal-name { display: block; font-family: 'Cinzel', serif; font-size: 1.6em; font-weight: 900; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; letter-spacing: 1px; text-decoration: none; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.8)); }
+        .fb-link { color: #fff; text-decoration: none; font-size: 1.1em; display: inline-flex; align-items: center; gap: 10px; margin-top: 5px; padding: 5px 15px; border: 1px solid #b38728; border-radius: 20px; }
+        .fb-link:hover { background: #b38728; color: #000; }
+        .footer-heading-moved { font-family: 'Cinzel', serif; font-weight: 900; color: #fcf6ba; margin-bottom: 15px; font-size: 1.8em; letter-spacing: 2px; text-transform: uppercase; text-shadow: 0 0 10px #bf953f; display: block; }
+        
+        @media (max-width: 600px) {
+            .page-title { font-size: 2em; }
+            footer { padding: 5px 5px !important; }
+            .footer-heading-moved { font-size: 0.9em !important; margin-bottom: 2px; }
+            .developer-info { margin-top: 2px; padding-top: 0; }
+            .royal-name { font-size: 0.85em !important; margin-bottom: 2px; }
+            .fb-link { font-size: 0.75em !important; padding: 3px 10px; margin-top: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="preloader">
+        <div class="sun-container">
+            <svg class="sun-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs><linearGradient id="sunGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#ffff00;stop-opacity:1" /><stop offset="50%" style="stop-color:#ff9900;stop-opacity:1" /><stop offset="100%" style="stop-color:#ff0000;stop-opacity:1" /></linearGradient></defs>
+                <path fill="url(#sunGrad)" stroke="#b30000" stroke-width="0.5" d="M50 0 L55 15 L68 5 L65 20 L80 15 L72 28 L90 28 L78 40 L95 48 L80 55 L95 68 L78 72 L88 85 L70 80 L65 95 L55 82 L50 100 L45 82 L35 95 L30 80 L12 85 L22 72 L5 68 L20 55 L5 48 L22 40 L10 28 L28 28 L20 15 L35 20 L32 5 L45 15 Z" />
+            </svg>
+            <svg class="sun-face" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="42" fill="#ffcc00" stroke="#b30000" stroke-width="3" /><path d="M50 15 L50 35" stroke="#b30000" stroke-width="4" stroke-linecap="round"/><circle cx="50" cy="40" r="3" fill="#b30000"/><path d="M25 65 Q50 60 75 65" stroke="#000" stroke-width="3" fill="none" /><path d="M25 65 Q20 60 15 62" stroke="#000" stroke-width="2" fill="none" /><path d="M75 65 Q80 60 85 62" stroke="#000" stroke-width="2" fill="none" /><path d="M30 50 Q40 45 45 50" stroke="#000" stroke-width="3" fill="none" /><path d="M55 50 Q60 45 70 50" stroke="#000" stroke-width="3" fill="none" />
+            </svg>
+        </div>
+        <div class="loading-text">KASUMALGARH</div>
+        <div class="sub-text">|| जय सूर्यदेव ||</div>
+        <div class="progress-container"><div class="progress-bar"></div></div>
+    </div>
+
+    <div class="royal-frame"><span></span> <span></span> <span></span> <span></span></div>
+
+    <nav class="navbar">
+        <div class="navbar-brand-container">
+            <img id="menu-logo" src="menulogo.png" alt="Logo"> 
+            <a class="navbar-brand" href="index.html">KASUMALGARH</a>
+        </div>
+        <div class="menu-toggle" id="mobile-menu-btn" onclick="toggleMenu()">&#9776;</div>
+        <ul class="navbar-links" id="nav-menu">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="vanshawali.html">VANSHAWALI</a></li>
+            <li><a href="history.html">HISTORY</a></li>
+            <li><a href="about.html">ABOUT</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+            <li><a href="gallery.html">GALLERY</a></li>
+            <li><a href="admin_login.html">ADMIN(GAJSA)</a></li>
+        </ul>
+    </nav>
+
+    <header class="page-header">
+        <h1 class="page-title">PAGE NAME</h1>
+        <div class="divider-ornament">⚜️ ⚜️ ⚜️</div>
+    </header>
+
+    <main class="main-content">
+        <div class="content-container">
+            <h2 style="color: #800000; font-family: 'Cinzel', serif;">Welcome</h2>
+            <p style="font-size: 1.1em; line-height: 1.6; color: #555;">
+                यहाँ पर आप अपना नया कंटेंट लिख सकते हैं। <br>
+                You can add your text, images, or forms here.
+            </p>
+        </div>
+    </main>
+    <footer>
+        <div class="developer-info">
+            <div class="footer-heading-moved">FORT KASUMBI</div>
+            <div style="font-size: 0.9em; color: #888; margin-bottom: 5px;">Developed & Designed By:</div>
+            <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" class="royal-name">Yuvraj Gajraj Singh</a>
+            <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" class="fb-link"><i class="fab fa-facebook"></i> Connect on Facebook</a>
+            <div style="font-size: 0.8em; margin-top: 15px; color: #666;">&copy; 2025 | All Rights Reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        // PAGE LOADER
+        window.addEventListener("load", function() {
+            const loader = document.getElementById("preloader");
+            setTimeout(() => {
+                loader.style.opacity = "0";
+                setTimeout(() => { loader.style.display = "none"; }, 800);
+            }, 3000); 
+        });
+
+        // MENU LOGIC
+        function toggleMenu() {
+            const menu = document.getElementById("nav-menu");
+            const btn = document.getElementById("mobile-menu-btn");
+            menu.classList.toggle("active");
+            if (menu.classList.contains("active")) {
+                btn.innerHTML = "&times;"; btn.style.fontSize = "30px";
+            } else {
+                btn.innerHTML = "&#9776;"; btn.style.fontSize = "25px";
+            }
+        }
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById("nav-menu");
+            const btn = document.getElementById("mobile-menu-btn");
+            if (!menu.contains(event.target) && !btn.contains(event.target)) {
+                if (menu.classList.contains("active")) {
+                    menu.classList.remove("active"); btn.innerHTML = "&#9776;"; btn.style.fontSize = "25px";
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

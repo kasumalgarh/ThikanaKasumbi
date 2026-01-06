@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kasumalgarh Vanshavali</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="treestyle.css">
+</head>
+<body>
+
+    <nav class="royal-navbar">
+        <a href="#" class="nav-logo">Kasumalgarh</a>
+        <div class="nav-buttons">
+            <button class="nav-btn" onclick="toggleLeftPanel()">
+                <i class="fas fa-search"></i> <span>Search Name</span>
+            </button>
+            <button class="nav-btn" onclick="openContactModal()">
+                <i class="fas fa-edit"></i> <span>Request Update / Contact</span>
+            </button>
+        </div>
+    </nav>
+
+    <aside class="sidebar-left" id="left-panel">
+        <div class="search-container">
+            <span class="close-btn-side" onclick="toggleLeftPanel()">&times;</span>
+            <h3>Name Index</h3>
+            <div class="search-wrapper">
+                <input type="text" id="search-box" placeholder="Search name..." onkeyup="filterNames()">
+                <span id="clear-search" onclick="clearSearch()">&#10005;</span>
+            </div>
+            <div id="total-count" style="text-align:center; font-family: 'Merriweather', serif; font-style: italic; margin-top:10px; color:var(--text-main);"></div>
+        </div>
+        <div class="index-scroll-area">
+            <ul class="name-list" id="index-list"></ul>
+        </div>
+    </aside>
+
+    <aside class="sidebar-right" id="right-panel">
+        <span class="close-btn-side" style="top: 15px; right: 20px;" onclick="closeRightPanel()">&times;</span>
+        <div class="lineage-header-box" id="panel-header"></div>
+        <h4 style="text-align:center; color:var(--gold-line); margin:5px 0;">Ancestral Path</h4>
+        <ul class="lineage-list" id="lineage-content"></ul>
+    </aside>
+
+    <div id="hover-tooltip"></div>
+
+    <main class="main-content" id="main-area">
+        <div class="header-container">
+            <h1>Royal Genealogy Of Thikana Kasumbi Jakhla</h1>
+        </div>
+        
+        <div class="tree-container" id="tree-root"></div>
+
+        <footer class="royal-footer">
+            <div class="note-box">
+                <strong>Important Note:</strong> <br>
+                To add a new member or correct an existing name in the family tree, <br>
+                please click the "Request Update / Contact" button above.
+            </div>
+            <p>&copy; 2025 Thikana Kasumbi. Preserved by Gajsa.</p>
+            <p style="font-size: 0.8rem; color: #b8860b;">Designed & Developed by Yuvraj GajRaj SIngh.</p>
+        </footer>
+    </main>
+
+    <div class="modal-overlay" id="contactModal">
+        <div class="modal-box">
+            <span class="modal-close" onclick="closeContactModal()">&times;</span>
+            <div class="modal-header">
+                <h2>Request Update</h2>
+                <p style="font-size:12px; margin-top:5px;">Send details to update family tree</p>
+            </div>
+            <div class="form-group">
+                <label>Your Name</label>
+                <input type="text" id="req-name" placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label>Correction / Addition Detail</label>
+                <textarea id="req-msg" rows="4" placeholder="Example: Add my son 'Name' under 'Father Name'"></textarea>
+            </div>
+            <button class="send-btn" onclick="sendToWhatsApp()">
+                <i class="fab fa-whatsapp"></i> Send via WhatsApp
+            </button>
+        </div>
+    </div>
+
+<<<<<<<< HEAD:vanshawali.html
+    <script src="family-data.js"></script> <script src="script.js"></script>      </body>
+</html>
+========
+</body></html>
+>>>>>>>> c05d78b888d80f1f66872befa1708d3de1cd26e6:mainvanshawali.html

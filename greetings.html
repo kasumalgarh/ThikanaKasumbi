@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Royal Creator Studio</title>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    
+    <style>
+        /* Royal Fonts Import */
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Rozha+One&family=Yatra+One&family=Playfair+Display:wght@400;700&display=swap');
+
+        :root {
+            /* Default Theme: Maroon */
+            --bg-color: #2a0000;
+            --bg-gradient: radial-gradient(circle, rgba(74,0,0,0.8) 0%, rgba(30,0,0,0.95) 100%);
+            --border-color: #d4af37;
+            --text-gold: #d4af37;
+            --text-msg: #e6c288; /* Default Bronze */
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #0f0f0f;
+            color: #fff;
+            margin: 0;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: #1e1e1e;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        h1 {
+            text-align: center;
+            color: #d4af37;
+            font-family: 'Rozha One', serif;
+            margin-bottom: 20px;
+        }
+
+        /* --- CONTROLS SECTION --- */
+        .control-panel {
+            background: #252525;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #333;
+        }
+
+        .section-title {
+            color: #d4af37;
+            font-size: 14px;
+            font-weight: bold;
+            border-bottom: 1px solid #444;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .row { display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+        .col { flex: 1; min-width: 140px; }
+
+        label { display: block; margin-bottom: 5px; color: #ccc; font-size: 13px; }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            background: #333;
+            border: 1px solid #555;
+            color: white;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="color"] { height: 40px; padding: 2px; cursor: pointer; }
+        input:focus, select:focus { border-color: #d4af37; outline: none; }
+
+        /* Sliders */
+        input[type="range"] { width: 100%; accent-color: #d4af37; cursor: pointer; }
+
+        /* Buttons */
+        .btn {
+            background: linear-gradient(to bottom, #d4af37, #b8860b);
+            color: #2a0000;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .btn-download {
+            background: linear-gradient(to bottom, #2ecc71, #27ae60);
+            color: white;
+            margin-top: 15px;
+        }
+
+        /* Toggle Switch */
+        .toggle-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+        .toggle-switch { position: relative; display: inline-block; width: 40px; height: 20px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #ccc; transition: .4s; border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute; content: ""; height: 14px; width: 14px; left: 3px; bottom: 3px;
+            background-color: white; transition: .4s; border-radius: 50%;
+        }
+        input:checked + .slider { background-color: #d4af37; }
+        input:checked + .slider:before { transform: translateX(20px); }
+
+        /* --- CARD PREVIEW AREA --- */
+        #card-capture-area {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .card-preview {
+            background-color: var(--bg-color); /* Dynamic Theme Color */
+            position: relative;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            min-height: 700px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Texture Layer */
+        .bg-texture {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('klogo1.png');
+            background-size: 150px;
+            background-repeat: repeat;
+            opacity: 0.1; /* Dynamic via JS */
+            mix-blend-mode: overlay;
+            pointer-events: none;
+            filter: grayscale(100%);
+            z-index: 1;
+        }
+
+        .inner-frame {
+            border: 6px double var(--border-color);
+            position: relative;
+            z-index: 2;
+            padding: 40px 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: var(--bg-gradient); /* Dynamic Gradient */
+        }
+
+        /* Corners */
+        .corner { position: absolute; width: 40px; height: 40px; border: 2px solid var(--border-color); opacity: 0.8; }
+        .tl { top: 10px; left: 10px; border-right: none; border-bottom: none; }
+        .tr { top: 10px; right: 10px; border-left: none; border-bottom: none; }
+        .bl { bottom: 10px; left: 10px; border-right: none; border-top: none; }
+        .br { bottom: 10px; right: 10px; border-left: none; border-top: none; }
+
+        /* Logo */
+        .logo {
+            width: 110px; height: 110px;
+            background-image: url('klogo1.png');
+            background-size: contain; background-repeat: no-repeat; background-position: center;
+            filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.6));
+            margin-bottom: 20px;
+        }
+
+        /* Title */
+        .title-text {
+            font-family: 'Rozha One', serif;
+            font-size: 32px;
+            color: var(--text-gold);
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* Photo Frame */
+        .photo-frame {
+            width: 220px; height: 220px;
+            border: 3px solid var(--border-color);
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 25px;
+            background: #000;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            display: none; /* Toggled by JS */
+        }
+        .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Message */
+        .message-text {
+            font-family: 'Yatra One', cursive;
+            font-size: 22px;
+            color: var(--text-msg); /* Dynamic Color */
+            line-height: 1.6;
+            margin-bottom: 30px;
+            padding: 0 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            white-space: pre-line;
+        }
+
+        /* Signature & Seal */
+        .footer-area {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .seal {
+            width: 80px; height: 80px;
+            background-image: url('seal.png'); /* small s */
+            background-size: contain; background-repeat: no-repeat; background-position: center;
+            margin-bottom: 10px;
+            /* Filter will be applied here dynamically */
+            transition: filter 0.3s ease;
+        }
+        
+        /* Bronze Filter Class */
+        .seal-bronze {
+            filter: sepia(1) saturate(1.5) brightness(0.7) hue-rotate(-15deg) contrast(1.2);
+        }
+
+        .signature {
+            font-family: 'Great Vibes', cursive;
+            font-size: 36px;
+            color: var(--text-gold);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+
+        /* Social Footer - SINGLE LINE */
+        .social-footer {
+            border-top: 1px solid rgba(255,255,255, 0.2);
+            margin-top: 20px;
+            padding-top: 15px;
+            width: 100%;
+            display: flex;
+            flex-direction: row; /* Horizontal Line */
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px; /* Spacing between items */
+            font-size: 13px;
+        }
+        
+        .social-item { display: flex; align-items: center; gap: 5px; color: #ddd; white-space: nowrap; }
+        .social-icon { color: var(--text-gold); font-weight: bold; font-size: 14px; }
+        .hidden { display: none !important; }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>👑 Ultimate Royal Creator</h1>
+
+    <div class="control-panel">
+        <div class="section-title">🎨 थीम और डिज़ाइन (Theme & Design)</div>
+        <div class="row">
+            <div class="col">
+                <label>Theme Color:</label>
+                <select id="themeSelect" onchange="updateTheme()">
+                    <option value="maroon">Royal Maroon (शाही लाल)</option>
+                    <option value="blue">Royal Blue (शाही नीला)</option>
+                    <option value="cream">Classic Cream (क्रीम)</option>
+                </select>
+            </div>
+            <div class="col">
+                <label>Text Color (मैसेज का रंग):</label>
+                <input type="color" id="msgColorPicker" value="#e6c288" oninput="updateColor()">
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col">
+                <label>Seal Color (मुहर का रंग):</label>
+                <select id="sealColor" onchange="updateSeal()">
+                    <option value="original">Original (असली रंग)</option>
+                    <option value="bronze" selected>Bronze (कांस्य/तांबा)</option>
+                </select>
+            </div>
+            <div class="col">
+                <label>Texture Intensity (%):</label>
+                <input type="range" id="textureOpacity" min="0" max="0.3" step="0.01" value="0.08" oninput="updateTexture()">
+            </div>
+        </div>
+
+        <div class="toggle-row">
+            <label style="margin:0;">बैकग्राउंड टेक्सचर (Texture On/Off):</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="textureToggle" checked onchange="updateTexture()">
+                <span class="slider"></span>
+            </label>
+        </div>
+    </div>
+
+    <div class="control-panel">
+        <div class="section-title">📝 अवसर और संदेश (Occasion & Message)</div>
+        <div class="row">
+            <div class="col">
+                <label>Occasion:</label>
+                <select id="occasion" onchange="updateOptions()">
+                    <option value="Nav Varsh">नववर्ष (New Year)</option>
+                    <option value="Holi">होली (Holi)</option>
+                    <option value="Diwali">दिपावली (Diwali)</option>
+                    <option value="Birthday">जन्मदिन (Birthday)</option>
+                    <option value="Anniversary">सालगिरह (Anniversary)</option>
+                    <option value="General">शुभकामनाएं (General)</option>
+                </select>
+            </div>
+            <div class="col" id="subCategoryBox" style="display:none;">
+                <label>Category:</label>
+                <select id="subCategory" onchange="updateMessage()">
+                    <option value="General">सामान्य (General)</option>
+                    <option value="Kids">बच्चे (Kids)</option>
+                    <option value="Friends">मित्र (Friends)</option>
+                    <option value="Elders">बड़े-बुजुर्ग (Elders)</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label>Receiver Name (प्राप्तकर्ता):</label>
+                <input type="text" id="receiver" placeholder="Ex: Rahul Banna" oninput="updateMessage()">
+            </div>
+        </div>
+    </div>
+
+    <div class="control-panel">
+        <div class="toggle-row">
+            <span style="color:#d4af37; font-weight:bold;">फोटो लगाएं (Photo On/Off)</span>
+            <label class="toggle-switch">
+                <input type="checkbox" id="photoToggle" onchange="togglePhotoParams()">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div id="photoControls" style="display:none;">
+            <input type="file" id="imageInput" accept="image/*" onchange="loadImage(event)">
+            <div class="row" style="margin-top:10px;">
+                <div class="col"><label>Zoom:</label><input type="range" min="0.5" max="3" step="0.1" value="1" oninput="adjustImage()" id="scale"></div>
+            </div>
+            <div class="row">
+                <div class="col"><label>X Move:</label><input type="range" min="-150" max="150" value="0" oninput="adjustImage()" id="posX"></div>
+                <div class="col"><label>Y Move:</label><input type="range" min="-150" max="150" value="0" oninput="adjustImage()" id="posY"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="control-panel">
+        <div class="section-title">👤 भेजने वाला और लिंक्स (Sender & Links)</div>
+        
+        <label>Sender Name (Signature):</label>
+        <input type="text" id="sender" value="Yuvraj GajRaj Singh" oninput="updateSender()">
+
+        <div class="toggle-row" style="margin-top:15px;">
+            <span style="color:#ccc;">सोशल लिंक (Social Links On/Off)</span>
+            <label class="toggle-switch">
+                <input type="checkbox" id="socialToggle" checked onchange="refreshCard()">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <input type="hidden" id="siteLink1" value="kasumalgarh.site">
+        <input type="hidden" id="siteLink2" value="kasumalgarh.netlify.app">
+        <input type="hidden" id="fbLink" value="facebook.com/gajsa.kasumbi">
+        <input type="hidden" id="instaLink" value="instagram.com/gajsa.kasumbifort">
+
+        <button class="btn" onclick="refreshCard()">🔄 अपडेट कार्ड (Refresh)</button>
+        <button class="btn btn-download" onclick="downloadCard()">⬇️ Full HD डाउनलोड (Download)</button>
+    </div>
+
+    <div id="card-capture-area">
+        <div class="card-preview">
+            <div class="bg-texture" id="textureLayer"></div> <div class="inner-frame">
+                <div class="corner tl"></div><div class="corner tr"></div>
+                <div class="corner bl"></div><div class="corner br"></div>
+
+                <div class="logo"></div>
+
+                <div class="title-text" id="cardTitle">HAPPY NEW YEAR</div>
+
+                <div class="photo-frame" id="cardPhotoFrame">
+                    <img id="cardImage" src="" alt="User Photo">
+                </div>
+
+                <div class="message-text" id="cardMessage">Loading...</div>
+
+                <div class="footer-area">
+                    <div class="seal" id="cardSeal"></div> <div class="signature" id="cardSignature">Yuvraj GajRaj Singh</div>
+                </div>
+
+                <div class="social-footer" id="socialFooter">
+                    <div class="social-item"><span class="social-icon">🌐</span> <span id="dispSite1">kasumalgarh.site</span></div>
+                    <div class="social-item"><span class="social-icon">🌐</span> <span id="dispSite2">kasumalgarh.netlify.app</span></div>
+                    <div class="social-item"><span class="social-icon">fb:</span> <span id="dispFb">gajsa.kasumbi</span></div>
+                    <div class="social-item"><span class="social-icon">ig:</span> <span id="dispInsta">gajsa.kasumbifort</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // --- 1. THEME & COLOR LOGIC ---
+    function updateTheme() {
+        const theme = document.getElementById('themeSelect').value;
+        const root = document.documentElement;
+        
+        if (theme === 'maroon') {
+            root.style.setProperty('--bg-color', '#2a0000');
+            root.style.setProperty('--bg-gradient', 'radial-gradient(circle, rgba(74,0,0,0.8) 0%, rgba(30,0,0,0.95) 100%)');
+            root.style.setProperty('--border-color', '#d4af37');
+            root.style.setProperty('--text-gold', '#d4af37');
+            document.getElementById('msgColorPicker').value = "#e6c288";
+        } else if (theme === 'blue') {
+            root.style.setProperty('--bg-color', '#001a33');
+            root.style.setProperty('--bg-gradient', 'radial-gradient(circle, rgba(0,30,60,0.8) 0%, rgba(0,10,20,0.95) 100%)');
+            root.style.setProperty('--border-color', '#c0c0c0'); 
+            root.style.setProperty('--text-gold', '#c0c0c0');
+            document.getElementById('msgColorPicker').value = "#e0e0e0";
+        } else if (theme === 'cream') {
+            root.style.setProperty('--bg-color', '#fffdd0');
+            root.style.setProperty('--bg-gradient', 'radial-gradient(circle, rgba(255,253,208,0.9) 0%, rgba(245,245,220,1) 100%)');
+            root.style.setProperty('--border-color', '#800000'); 
+            root.style.setProperty('--text-gold', '#800000');
+            document.getElementById('msgColorPicker').value = "#2a0000";
+        }
+        updateColor();
+    }
+
+    function updateColor() {
+        const color = document.getElementById('msgColorPicker').value;
+        document.documentElement.style.setProperty('--text-msg', color);
+    }
+
+    function updateSeal() {
+        const type = document.getElementById('sealColor').value;
+        const seal = document.getElementById('cardSeal');
+        if (type === 'bronze') {
+            seal.classList.add('seal-bronze');
+        } else {
+            seal.classList.remove('seal-bronze');
+        }
+    }
+
+    function updateTexture() {
+        const isOn = document.getElementById('textureToggle').checked;
+        const opacity = document.getElementById('textureOpacity').value;
+        const textureLayer = document.getElementById('textureLayer');
+        
+        if (isOn) {
+            textureLayer.style.display = 'block';
+            textureLayer.style.opacity = opacity;
+        } else {
+            textureLayer.style.display = 'none';
+        }
+    }
+
+    // --- 2. MESSAGES DATABASE ---
+    const messages = {
+        "Nav Varsh": { "General": "नूतन वर्षाभिनंदन।\nयह नव वर्ष आपके और आपके परिवार के लिए असीम सुख, समृद्धि और कीर्ति लेकर आए।\nजय माता दी।" },
+        "Holi": { "General": "रंगों का यह महापर्व आपके जीवन में खुशियों और उत्साह के नए रंग भरे।\nहोली की हार्दिक शुभकामनाएँ।" },
+        "Diwali": { "General": "दीपों का यह पावन पर्व आपके जीवन को सुख-समृद्धि के प्रकाश से आलोकित करे।\nशुभ दीपावली।" },
+        "Birthday": {
+            "General": "जन्मदिन की हार्दिक शुभकामनाएँ।\nईश्वर आपको दीर्घायु, उत्तम स्वास्थ्य और यशस्वी जीवन प्रदान करे।",
+            "Kids": "जन्मदिन मुबारक हो प्यारे बच्चे!\nतुम हमेशा ऐसे ही मुस्कुराते रहो और जीवन में खूब तरक्की करो।",
+            "Friends": "भाई, जन्मदिन की बहुत-बहुत बधाई।\nतेरा ये साल खुशियों और पार्टी से भरा रहे!",
+            "Elders": "सादर प्रणाम। आपके जन्मदिन पर हम सब आपकी दीर्घायु और अच्छे स्वास्थ्य की कामना करते हैं।"
+        },
+        "Anniversary": {
+            "General": "वैवाहिक वर्षगांठ की कोटिशः बधाई।\nआप दोनों का साथ, प्रेम और विश्वास सदैव बना रहे।",
+            "Friends": "Happy Anniversary Yaara!\nतुम दोनों की जोड़ी हमेशा सलामत रहे।",
+            "Elders": "शादी की सालगिरह की ढेरों शुभकामनाएँ।\nआप दोनों का अटूट रिश्ता हमारे लिए प्रेरणा है।"
+        },
+        "General": { "General": "आपको और आपके प्रियजनों को मेरी तरफ से हार्दिक शुभकामनाएँ एवं सादर अभिवादन।" }
+    };
+
+    // --- 3. CORE FUNCTIONS ---
+    window.onload = function() { refreshCard(); updateTheme(); };
+
+    function updateOptions() {
+        const occasion = document.getElementById('occasion').value;
+        const subBox = document.getElementById('subCategoryBox');
+        subBox.style.display = (occasion === 'Birthday' || occasion === 'Anniversary') ? 'block' : 'none';
+        updateMessage();
+    }
+
+    function togglePhotoParams() {
+        const isOn = document.getElementById('photoToggle').checked;
+        document.getElementById('photoControls').style.display = isOn ? 'block' : 'none';
+        document.getElementById('cardPhotoFrame').style.display = isOn ? 'block' : 'none';
+    }
+
+    function loadImage(event) {
+        document.getElementById('cardPhotoFrame').style.display = 'block';
+        document.getElementById('cardImage').src = URL.createObjectURL(event.target.files[0]);
+    }
+
+    function adjustImage() {
+        const scale = document.getElementById('scale').value;
+        const x = document.getElementById('posX').value;
+        const y = document.getElementById('posY').value;
+        document.getElementById('cardImage').style.transform = `scale(${scale}) translate(${x}px, ${y}px)`;
+    }
+
+    function updateSender() {
+        document.getElementById('cardSignature').innerText = document.getElementById('sender').value;
+    }
+
+    function updateMessage() {
+        const occasion = document.getElementById('occasion').value;
+        const receiver = document.getElementById('receiver').value.trim();
+        const category = document.getElementById('subCategory').value;
+        
+        let msgObj = messages[occasion] || messages["General"];
+        let baseMsg = msgObj[category] || msgObj["General"]; 
+
+        if (receiver) {
+            let prefix = (category === 'Elders') ? `आदरणीय ${receiver} जी` : `प्रिय ${receiver} जी`;
+            if (category === 'Kids' || category === 'Friends') prefix = `प्रिय ${receiver}`;
+            baseMsg = `${prefix},\n\n${baseMsg}`;
+        }
+
+        document.getElementById('cardMessage').innerText = baseMsg;
+        
+        let title = occasion;
+        if(occasion === "Nav Varsh") title = "Happy New Year";
+        if(occasion === "General") title = "Best Wishes";
+        document.getElementById('cardTitle').innerText = title;
+    }
+
+    function refreshCard() {
+        updateMessage();
+        updateSender();
+        updateTexture();
+        updateColor();
+        updateSeal(); // Apply Bronze filter if selected
+        
+        // Social Toggle
+        const socialOn = document.getElementById('socialToggle').checked;
+        const footer = document.getElementById('socialFooter');
+        
+        if (socialOn) {
+            footer.classList.remove('hidden');
+            document.getElementById('dispSite1').innerText = document.getElementById('siteLink1').value;
+            document.getElementById('dispSite2').innerText = document.getElementById('siteLink2').value;
+            document.getElementById('dispFb').innerText = document.getElementById('fbLink').value;
+            document.getElementById('dispInsta').innerText = document.getElementById('instaLink').value;
+        } else {
+            footer.classList.add('hidden');
+        }
+    }
+
+    // --- 4. FULL HD DOWNLOAD ---
+    function downloadCard() {
+        const captureArea = document.getElementById('card-capture-area');
+        
+        html2canvas(captureArea, {
+            backgroundColor: null, 
+            scale: 4, 
+            useCORS: true
+        }).then(canvas => {
+            const link = document.createElement('a');
+            link.download = 'Royal-Card-HD.png';
+            link.href = canvas.toDataURL("image/png", 1.0);
+            link.click();
+        });
+    }
+</script>
+
+</body>
+</html>

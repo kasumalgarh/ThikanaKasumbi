@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kasumalgarh - Advanced Editor</title>
+    <style>
+        /* General Styling */
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f9; padding: 20px; color: #333; }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-top: 5px solid #800000; }
+        
+        h1 { color: #800000; text-align: center; margin-bottom: 20px; font-family: serif; }
+        h3 { border-bottom: 2px solid #d4af37; padding-bottom: 5px; color: #555; }
+
+        /* Config Section */
+        .config-box { background: #eef2f5; padding: 20px; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 20px; }
+        label { font-weight: bold; display: block; margin-top: 10px; font-size: 0.9em; }
+        input[type="text"], input[type="password"] { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        
+        /* Buttons */
+        button { cursor: pointer; border: none; border-radius: 5px; font-weight: bold; transition: 0.2s; }
+        .btn-primary { background-color: #000033; color: #fff; padding: 12px 20px; width: 100%; margin-top: 15px; font-size: 1em; }
+        .btn-primary:hover { background-color: #d4af37; color: #000; }
+        
+        .btn-save { background-color: #28a745; color: white; width: 100%; padding: 15px; font-size: 1.2em; margin-top: 20px; }
+        .btn-save:hover { background-color: #218838; }
+
+        /* 🛠️ UNDO / REDO TOOLBAR */
+        .toolbar { display: flex; gap: 10px; margin-bottom: 10px; padding: 10px; background: #eee; border-radius: 5px; border: 1px solid #ddd; }
+        .btn-tool { padding: 8px 15px; background: #fff; border: 1px solid #ccc; color: #333; display: flex; align-items: center; gap: 5px; }
+        .btn-tool:hover { background: #ddd; }
+        .btn-tool:disabled { color: #aaa; cursor: not-allowed; }
+
+        /* Tree Editor Structure */
+        .tree-editor { margin-top: 20px; }
+        .node-container { margin-left: 20px; border-left: 2px solid #ddd; padding-left: 10px; margin-top: 8px; }
+        
+        .node-row { display: flex; align-items: center; gap: 8px; background: #fff; padding: 8px; border: 1px solid #eee; border-radius: 5px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .node-input { flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 1em; }
+        
+        .btn-action { padding: 6px 12px; font-size: 0.9em; color: white; }
+        .btn-add { background-color: #17a2b8; } /* Blue */
+        .btn-del { background-color: #dc3545; } /* Red */
+
+        /* Messages */
+        #status-msg { text-align: center; margin-top: 10px; font-weight: bold; min-height: 20px; }
+        .hidden { display: none; }
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>👑 Vanshawali Editor & Undo/Redo</h1>
+
+        <div class="config-box">
+            <h3>🔐 GitHub Connection</h3>
+            <label>GitHub Token:</label>
+            <input type="password" id="gh-token" placeholder="Paste ghp_... token here">
+            
+            <div style="display:flex; gap:15px;">
+                <div style="flex:1;">
+                    <label>Username:</label>
+                    <input type="text" id="gh-user" placeholder="e.g. gajsa-kasumbi">
+                </div>
+                <div style="flex:1;">
+                    <label>Repository Name:</label>
+                    <input type="text" id="gh-repo" placeholder="e.g. website-name">
+                </div>
+            </div>
+
+            <label>File Path:</label>
+            <input type="text" id="gh-path" value="family-data.json" readonly style="background:#e0e0e0; color:#555;">
+
+            <button class="btn-primary" onclick="loadFromGitHub()">📂 Load Data from Website</button>
+            <p id="status-msg"></p>
+        </div>
+
+        <div id="editor-area" class="hidden">
+            <h3>📝 Edit Family Tree</h3>
+            
+            <div class="toolbar">
+                <button class="btn-tool" id="btn-undo" onclick="undo()" disabled>
+                    <span>↩️</span> Undo (Ctrl+Z)
+                </button>
+                <button class="btn-tool" id="btn-redo" onclick="redo()" disabled>
+                    <span>↪️</span> Redo (Ctrl+Y)
+                </button>
+                <span style="margin-left:auto; font-size:0.9em; color:#666; align-self:center;">Changes are auto-saved to history</span>
+            </div>
+
+            <div id="tree-root" class="tree-editor"></div>
+
+            <button class="btn-save" onclick="saveToGitHub()">💾 SAVE & PUBLISH CHANGES</button>
+        </div>
+    </div>
+
+    <script>
+        // Global Variables
+        let currentData = {};
+        let currentSHA = "";
+        
+        // 🕰️ HISTORY VARIABLES (Undo/Redo)
+        let historyStack = [];
+        let redoStack = [];
+        let tempSnapshot = null; // For Input Focus
+
+        // ---------------------------------------------------------
+        // 1. LOAD DATA
+        // ---------------------------------------------------------
+        async function loadFromGitHub() {
+            const token = document.getElementById('gh-token').value.trim();
+            const user = document.getElementById('gh-user').value.trim();
+            const repo = document.getElementById('gh-repo').value.trim();
+            const path = document.getElementById('gh-path').value.trim();
+            const status = document.getElementById('status-msg');
+
+            if(!token || !user || !repo) {
+                status.className = "error";
+                status.innerText = "Please fill all GitHub details!";
+                return;
+            }
+
+            status.className = "";
+            status.innerText = "Connecting...";
+
+            const url = `https://api.github.com/repos/${user}/${repo}/contents/${path}`;
+
+            try {
+                const response = await fetch(url, { headers: { 'Authorization': `token ${token}` } });
+                if(!response.ok) throw new Error("Connection Failed. Check Token/Repo.");
+
+                const json = await response.json();
+                currentSHA = json.sha;
+                const content = decodeURIComponent(escape(atob(json.content)));
+                
+                currentData = JSON.parse(content);
+                
+                // Reset History on Load
+                historyStack = [];
+                redoStack = [];
+                updateButtons();
+
+                document.getElementById('editor-area').classList.remove('hidden');
+                renderEditor();
+                status.className = "success";
+                status.innerText = "Data Loaded Successfully!";
+                
+            } catch (err) {
+                status.className = "error";
+                status.innerText = "Error: " + err.message;
+            }
+        }
+
+        // ---------------------------------------------------------
+        // 2. RENDER EDITOR
+        // ---------------------------------------------------------
+        function renderEditor() {
+            const root = document.getElementById('tree-root');
+            root.innerHTML = '';
+            root.appendChild(createNodeElement(currentData));
+        }
+
+        function createNodeElement(node) {
+            let container = document.createElement('div');
+            let row = document.createElement('div');
+            row.className = "node-row";
+
+            // INPUT (Name)
+            let input = document.createElement('input');
+            input.type = "text";
+            input.className = "node-input";
+            input.value = node.name;
+            input.placeholder = "Name";
+
+            // 🧠 Logic for capturing Text Change for Undo
+            input.onfocus = () => {
+                // Save state BEFORE typing starts
+                tempSnapshot = JSON.stringify(currentData);
+            };
+            input.onblur = (e) => {
+                // If text changed, Save to History
+                if (tempSnapshot && tempSnapshot !== JSON.stringify(currentData)) {
+                    saveToHistory(JSON.parse(tempSnapshot));
+                }
+                tempSnapshot = null;
+            };
+            input.oninput = (e) => { node.name = e.target.value; };
+
+            // ADD BTN
+            let btnAdd = document.createElement('button');
+            btnAdd.innerText = "+ Child";
+            btnAdd.className = "btn-action btn-add";
+            btnAdd.onclick = () => {
+                saveToHistory(); // Save old state
+                if(!node.children) node.children = [];
+                node.children.push({ name: "New Name", children: [] });
+                renderEditor();
+            };
+
+            // DELETE BTN
+            let btnDel = document.createElement('button');
+            btnDel.innerText = "✖";
+            btnDel.className = "btn-action btn-del";
+            btnDel.onclick = () => {
+                if(confirm(`Delete ${node.name}?`)) {
+                    saveToHistory(); // Save old state
+                    node.deleted = true;
+                    cleanDeletedNodes(currentData);
+                    renderEditor();
+                }
+            };
+
+            row.appendChild(input);
+            row.appendChild(btnAdd);
+            if(node !== currentData) row.appendChild(btnDel);
+
+            container.appendChild(row);
+
+            if (node.children && node.children.length > 0) {
+                let childrenDiv = document.createElement('div');
+                childrenDiv.className = "node-container";
+                node.children.forEach(child => childrenDiv.appendChild(createNodeElement(child)));
+                container.appendChild(childrenDiv);
+            }
+
+            return container;
+        }
+
+        function cleanDeletedNodes(node) {
+            if(!node.children) return;
+            node.children = node.children.filter(n => !n.deleted);
+            node.children.forEach(cleanDeletedNodes);
+        }
+
+        // ---------------------------------------------------------
+        // 3. UNDO / REDO LOGIC 🧠
+        // ---------------------------------------------------------
+        
+        // Save current state to history BEFORE making a change
+        function saveToHistory(customState = null) {
+            // If customState provided (for text edit), use that. Else copy currentData
+            let stateToSave = customState ? customState : JSON.parse(JSON.stringify(currentData));
+            
+            historyStack.push(stateToSave);
+            redoStack = []; // Clear redo stack on new action
+            
+            // Limit history to 50 steps to save memory
+            if(historyStack.length > 50) historyStack.shift();
+            
+            updateButtons();
+        }
+
+        function undo() {
+            if (historyStack.length === 0) return;
+            
+            // 1. Push current state to Redo
+            redoStack.push(JSON.parse(JSON.stringify(currentData)));
+            
+            // 2. Get last state from History
+            currentData = historyStack.pop();
+            
+            renderEditor();
+            updateButtons();
+        }
+
+        function redo() {
+            if (redoStack.length === 0) return;
+
+            // 1. Push current state to History
+            historyStack.push(JSON.parse(JSON.stringify(currentData)));
+
+            // 2. Get last state from Redo
+            currentData = redoStack.pop();
+
+            renderEditor();
+            updateButtons();
+        }
+
+        function updateButtons() {
+            document.getElementById('btn-undo').disabled = historyStack.length === 0;
+            document.getElementById('btn-redo').disabled = redoStack.length === 0;
+        }
+
+        // Keyboard Shortcuts
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
+                e.preventDefault();
+                undo();
+            }
+            if ((e.ctrlKey || e.metaKey) && e.key === 'y') {
+                e.preventDefault();
+                redo();
+            }
+        });
+
+        // ---------------------------------------------------------
+        // 4. SAVE TO GITHUB
+        // ---------------------------------------------------------
+        async function saveToGitHub() {
+            const token = document.getElementById('gh-token').value.trim();
+            const user = document.getElementById('gh-user').value.trim();
+            const repo = document.getElementById('gh-repo').value.trim();
+            const path = document.getElementById('gh-path').value.trim();
+            const status = document.getElementById('status-msg');
+
+            status.className = "";
+            status.innerText = "Saving to GitHub...";
+
+            const jsonString = JSON.stringify(currentData, null, 2);
+            const contentEncoded = btoa(unescape(encodeURIComponent(jsonString)));
+
+            const payload = {
+                message: "Update Tree via Editor",
+                content: contentEncoded,
+                sha: currentSHA
+            };
+
+            const url = `https://api.github.com/repos/${user}/${repo}/contents/${path}`;
+
+            try {
+                const response = await fetch(url, {
+                    method: 'PUT',
+                    headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if(response.ok) {
+                    const resJson = await response.json();
+                    currentSHA = resJson.content.sha;
+                    status.className = "success";
+                    status.innerText = "✅ Saved Successfully!";
+                    alert("Saved! Website will update shortly.");
+                } else {
+                    status.className = "error";
+                    status.innerText = "❌ Save Failed.";
+                }
+            } catch (err) {
+                status.className = "error";
+                status.innerText = "Network Error: " + err.message;
+            }
+        }
+    </script>
+</body>
+</html>

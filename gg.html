@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thikana Kasumalgarh - Royal Vanshawali</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+    <style>
+        /* =========================================
+           1. BASIC & LAYOUT
+           ========================================= */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f4f1ea; /* Royal Cream */
+            margin: 0;
+            padding: 0;
+            overflow: hidden; 
+        }
+
+        /* 🛡️ WATERMARK (Background Text) */
+        .watermark {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            font-size: 80px;
+            font-weight: bold;
+            color: rgba(0, 0, 0, 0.03); /* बहुत हल्का */
+            pointer-events: none;
+            z-index: 0;
+            white-space: nowrap;
+            text-transform: uppercase;
+        }
+
+        /* =========================================
+           🌟 2. NAVIGATION MENU (Dark Blue Transparent)
+           ========================================= */
+        .navbar {
+            /* ✅ Dark Blue Transparent */
+            background-color: rgba(5, 5, 40, 0.95);
+            backdrop-filter: blur(5px);
+            color: #fff;
+            padding: 0 15px;
+            
+            /* ✅ Height 40px */
+            height: 40px; 
+            
+            display: flex; align-items: center; justify-content: space-between;
+            position: fixed; top: 0; left: 0; right: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+
+            /* ✅ BOTTOM ROUNDED 15PX */
+            border-radius: 0 0 15px 15px;
+        }
+
+        .logo {
+            font-size: 1rem; /* Height kam hai to font thoda chhota */
+            font-weight: bold;
+            color: #d4af37; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex; align-items: center; gap: 8px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex; gap: 15px;
+            margin: 0; padding: 0;
+        }
+        .nav-links li { position: relative; padding: 0; margin: 0; }
+        .nav-links li::before, .nav-links li::after { display: none; }
+
+        .nav-links a {
+            color: #fff; text-decoration: none; font-size: 13px; font-weight: 500;
+            transition: 0.3s; padding: 5px 10px; display: block;
+        }
+        .nav-links a:hover { color: #d4af37; }
+
+        /* Mobile Hamburger Icon */
+        .hamburger {
+            display: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #d4af37;
+        }
+
+        /* Dropdown */
+        .dropdown:hover .dropdown-content { display: block; }
+        .dropdown-content {
+            display: none; position: absolute; background-color: rgba(5, 5, 40, 0.95);
+            min-width: 150px; top: 100%; left: 0;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border-radius: 0 0 10px 10px; z-index: 2000;
+        }
+        .dropdown-content li { display: block; }
+        .dropdown-content a { padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+
+        .menu-search-btn {
+            background: #d4af37; color: #000; border: none;
+            padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; cursor: pointer;
+        }
+        .menu-search-btn:hover { background: #b59026; }
+
+        /* =========================================
+           🌟 3. FOOTER (Dark Blue Transparent)
+           ========================================= */
+        .footer {
+            /* ✅ Dark Blue Transparent */
+            background-color: rgba(5, 5, 40, 0.95);
+            backdrop-filter: blur(5px);
+            
+            color: #ccc;
+            text-align: center; padding: 8px;
+            position: fixed; bottom: 0; left: 0; right: 0;
+            z-index: 1000; font-size: 11px;
+
+            /* ✅ TOP ROUNDED 15PX */
+            border-radius: 15px 15px 0 0;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.2);
+        }
+        .footer span { color: #d4af37; font-weight: bold; }
+
+        /* =========================================
+           4. TREE WRAPPER
+           ========================================= */
+        .tree-scroll-wrapper {
+            margin-top: 50px; /* Adjusted for 40px Menu */
+            height: calc(100vh - 90px); /* Adjust for footer */
+            width: 100%;
+            overflow: auto;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center; 
+            scroll-behavior: smooth;
+        }
+
+        /* =========================================
+           5. TREE STRUCTURE
+           ========================================= */
+        ul.tree-ul {
+            padding-left: 20px; 
+            list-style-type: none;
+            margin: 0; padding-top: 0; padding-bottom: 0;
+            position: relative;
+        }
+
+        .tree-li {
+            position: relative; margin: 0;          
+            padding: 5px 0 5px 15px; box-sizing: border-box; 
+        }
+
+        .tree-li::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            border-left-width: 2px; border-left-style: solid; 
+            height: 100%; z-index: 1;
+        }
+        .tree-li::after {
+            content: ''; position: absolute; top: 20px; left: 0;
+            width: 15px; 
+            border-top-width: 2px; border-top-style: solid; 
+            z-index: 1;
+        }
+        
+        .tree-li:last-child::before { height: 21px; }
+        .tree-li:last-child::after { top: 20px; }
+
+        /* 🎨 GENERATION COLORS */
+        .gen-2::before, .gen-2::after { border-color: #d63031; }
+        .gen-3::before, .gen-3::after { border-color: #0984e3; }
+        .gen-4::before, .gen-4::after { border-color: #00b894; }
+        .gen-5::before, .gen-5::after { border-color: #6c5ce7; }
+        .gen-6::before, .gen-6::after { border-color: #e17055; }
+        .gen-7::before, .gen-7::after { border-color: #00cec9; }
+        .gen-8::before, .gen-8::after { border-color: #e84393; }
+        .gen-9::before, .gen-9::after { border-color: #8d6e63; }
+        .gen-10::before, .gen-10::after { border-color: #2c3e50; }
+        .gen-11::before, .gen-11::after { border-color: #827717; }
+        .gen-12::before, .gen-12::after { border-color: #800000; }
+
+        /* Name Box */
+        .member-box {
+            display: inline-block; padding: 4px 10px;
+            background: #fff; border: 1px solid #999; border-radius: 4px;
+            font-size: 14px; font-weight: 600; color: #000;
+            position: relative; z-index: 5; min-height: 20px; line-height: 1.4;
+            cursor: pointer; transition: 0.2s;
+        }
+        .member-box:hover { background-color: #fff8e1; border-color: #000; }
+        .highlight-green { background-color: #28a745 !important; color: #fff !important; }
+
+        /* Root Node */
+        .root-ul { 
+            padding-left: 0 !important; margin: 0 auto !important; 
+            display: inline-block; text-align: left; min-width: 300px;
+        }
+        .root-item { padding: 0 !important; margin: 0 !important; }
+        .root-item::before, .root-item::after { display: none !important; }
+        .root-box {
+            background-color: #2d3436; color: #fff; border: 1px solid #000;
+            font-size: 16px; margin-bottom: 5px; padding: 8px 15px; 
+        }
+
+        /* =========================================
+           6. PANELS
+           ========================================= */
+        .sidebar-left, .sidebar-right {
+            position: fixed; top: 0; width: 280px; height: 100vh;
+            background: #fff; box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            transition: 0.3s; z-index: 2000; display: flex; flex-direction: column;
+        }
+        .sidebar-left { left: -300px; border-right: 1px solid #ccc; }
+        .sidebar-right { right: -320px; border-left: 1px solid #ccc; padding: 20px; box-sizing: border-box; overflow-y: auto; }
+        
+        .sidebar-left.open { left: 0; }
+        .sidebar-right.open { right: 0; }
+
+        .panel-header { padding: 15px; background: #f1f1f1; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; }
+        .close-btn { cursor: pointer; font-size: 24px; font-weight: bold; }
+        #search-box { width: 90%; padding: 8px; margin: 10px auto; display: block; border: 1px solid #ccc; border-radius: 4px;}
+        .list-area { flex-grow: 1; overflow-y: auto; }
+        #index-list li { padding: 10px 15px; border-bottom: 1px solid #eee; cursor: pointer; }
+        #index-list li:hover { background: #f9f9f9; }
+
+        #hover-tooltip {
+            position: fixed; display: none; background: #333; color: #fff;
+            padding: 8px 12px; border-radius: 4px; font-size: 12px; z-index: 5000; pointer-events: none;
+        }
+
+        /* =========================================
+           🎮 SMART CONTROLS
+           ========================================= */
+        .smart-controls {
+            position: fixed; bottom: 60px; right: 20px;
+            display: flex; flex-direction: column; gap: 8px; z-index: 3000;
+        }
+        .smart-controls button {
+            width: 35px; height: 35px; border-radius: 50%;
+            border: 2px solid #b8860b; background-color: #333; color: #fff;
+            font-size: 14px; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transition: 0.3s; display: flex; align-items: center; justify-content: center;
+        }
+        .smart-controls button:hover { background-color: #d4af37; color: #000; transform: scale(1.1); }
+
+        /* =========================================
+           📱 MOBILE RESPONSIVE
+           ========================================= */
+        @media (max-width: 768px) {
+            .hamburger { display: block; order: 3; margin-left: 10px; }
+            .menu-search-btn { order: 2; margin-left: auto; }
+            .logo { order: 1; }
+
+            /* Mobile Menu */
+            .nav-links {
+                display: none; /* Default hidden */
+                position: absolute;
+                top: 40px; /* Below navbar */
+                left: 0; width: 100%;
+                background-color: rgba(5, 5, 40, 0.98);
+                flex-direction: column;
+                padding: 10px 0;
+                text-align: center;
+                border-radius: 0 0 15px 15px;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+            }
+            .nav-links.active { display: flex; } /* Show when active */
+            
+            .nav-links li { margin: 5px 0; width: 100%; }
+            .nav-links a { padding: 10px; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+            /* Tree Adjustments */
+            .tree-li { padding: 5px 0 5px 10px; } 
+            .tree-li::after { width: 10px; top: 18px; }
+            .tree-li:last-child::before { height: 20px; }
+            .member-box { font-size: 13px; padding: 3px 8px; }
+            .sidebar-left, .sidebar-right { width: 85%; }
+            #hover-tooltip { display: none !important; }
+            .smart-controls { bottom: 70px; right: 15px; }
+            .watermark { font-size: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="watermark">Thikana Kasumalgarh</div>
+
+    <nav class="navbar">
+        <div class="logo"><i class="fas fa-crown"></i> Kasumalgarh</div>
+        
+        <div class="hamburger" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <ul class="nav-links" id="mobileMenu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="vanshawali.html">Vanshawali (Kasumalgarh)</a></li>
+            <li><a href="rathorevanshawali.html">Vanshawali (Rathore)</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+
+        <button class="menu-search-btn" onclick="toggleLeftPanel()"><i class="fas fa-search"></i></button>
+    </nav>
+
+    <aside class="sidebar-left" id="left-panel">
+        <div class="panel-header">
+            <span>Member Index</span>
+            <span class="close-btn" onclick="toggleLeftPanel()">&times;</span>
+        </div>
+        <input type="text" id="search-box" placeholder="Search name..." onkeyup="filterNames()">
+        <div class="list-area"><ul id="index-list"></ul></div>
+    </aside>
+
+    <aside class="sidebar-right" id="right-panel">
+        <span class="close-btn" style="float:right;" onclick="closeRightPanel()">&times;</span>
+        <div id="panel-content"></div>
+        <h4 style="border-bottom:1px solid #ccc; padding-bottom:5px;">Ancestral Path</h4>
+        <ul id="lineage-path" style="padding-left:0; list-style:none;"></ul>
+    </aside>
+
+    <div id="hover-tooltip"></div>
+
+    <div class="tree-scroll-wrapper" id="capture-area" onclick="closePanelsOutside(event)">
+        <div id="tree-root">Loading Tree...</div>
+    </div>
+
+    <div class="smart-controls">
+        <button onclick="downloadImage()" title="Download Image" style="background:#2ecc71; border-color:#27ae60;"><i class="fas fa-camera"></i></button>
+        <button onclick="zoomIn()" title="Zoom In"><i class="fas fa-plus"></i></button>
+        <button onclick="zoomOut()" title="Zoom Out"><i class="fas fa-minus"></i></button>
+        <button onclick="resetZoom()" title="Reset"><i class="fas fa-sync-alt"></i></button>
+        <button onclick="toggleFullScreen()" title="Full Screen"><i class="fas fa-expand"></i></button>
+    </div>
+
+    <footer class="footer">
+        Thikana Kasumalgarh | Developed by <span>Yuvraj Gajraj Singh</span>
+        <br>
+        <span id="footer-count" style="font-size:10px; color:#888;">Total Members: 0</span>
+    </footer>
+
+    <script src="family-data.js"></script>
+
+    <script>
+        let allMembers = [];
+        let idCounter = 0;
+        let currentZoom = 1;
+
+        window.onload = function() {
+            if (typeof familyData === 'undefined') {
+                document.getElementById('tree-root').innerText = "Error: family-data.js not loaded.";
+                return;
+            }
+            const container = document.getElementById('tree-root');
+            container.innerHTML = "";
+            const ul = document.createElement('ul');
+            ul.className = "root-ul tree-ul";
+            
+            ul.appendChild(buildNode(familyData, true, 1));
+            container.appendChild(ul);
+
+            allMembers.sort((a, b) => a.name.localeCompare(b.name));
+            document.getElementById('footer-count').innerText = "Total Members: " + allMembers.length;
+            renderIndex(allMembers);
+        };
+
+        function buildNode(member, isRoot = false, depth = 1) {
+            const li = document.createElement('li');
+            li.classList.add('tree-li'); 
+            li.classList.add('gen-' + depth);
+
+            if (isRoot) li.classList.add('root-item');
+            
+            idCounter++;
+            const uniqueID = "node-" + idCounter;
+            allMembers.push({ name: member.name, id: uniqueID });
+
+            const span = document.createElement('span');
+            span.innerText = member.name;
+            span.className = 'member-box';
+            span.id = uniqueID;
+            if (isRoot) span.classList.add('root-box');
+            
+            span.onclick = function(e) { e.stopPropagation(); handleNameClick(uniqueID, span, li); };
+            span.onmouseenter = function() { if(window.innerWidth > 768) showTooltip(span, li); };
+            span.onmouseleave = function() { document.getElementById('hover-tooltip').style.display = 'none'; };
+
+            li.appendChild(span);
+
+            if (member.children && member.children.length > 0) {
+                const ul = document.createElement('ul');
+                ul.className = "tree-ul";
+                member.children.forEach(child => {
+                    ul.appendChild(buildNode(child, false, depth + 1));
+                });
+                li.appendChild(ul);
+            }
+            return li;
+        }
+
+        /* --- MENU LOGIC --- */
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+        }
+        function toggleLeftPanel() {
+            document.getElementById('left-panel').classList.toggle('open');
+            document.getElementById('right-panel').classList.remove('open');
+            document.getElementById('mobileMenu').classList.remove('active'); // Close menu
+        }
+
+        /* --- FEATURES --- */
+        function renderIndex(list) {
+            const ul = document.getElementById('index-list');
+            ul.innerHTML = "";
+            list.forEach(item => {
+                let li = document.createElement('li');
+                li.innerText = item.name;
+                li.onclick = function() {
+                    toggleLeftPanel();
+                    let target = document.getElementById(item.id);
+                    if(target) {
+                        target.scrollIntoView({behavior: "smooth", block: "center", inline: "center"});
+                        target.click();
+                    }
+                };
+                ul.appendChild(li);
+            });
+        }
+        function filterNames() {
+            let val = document.getElementById('search-box').value.toLowerCase();
+            renderIndex(allMembers.filter(m => m.name.toLowerCase().includes(val)));
+        }
+        function handleNameClick(id, span, li) {
+            document.querySelectorAll('.highlight-green').forEach(el => el.classList.remove('highlight-green'));
+            highlightPath(li);
+            span.classList.add('highlight-green');
+            showRightPanel(span, li);
+        }
+        function highlightPath(li) {
+            let current = li;
+            while (current) {
+                if (current.tagName === 'LI') {
+                    let s = current.querySelector('span');
+                    if(s) s.classList.add('highlight-green');
+                }
+                current = current.parentElement ? current.parentElement.closest('li') : null;
+            }
+        }
+        function showRightPanel(span, li) {
+            const panel = document.getElementById('right-panel');
+            const content = document.getElementById('panel-content');
+            const pathList = document.getElementById('lineage-path');
+            let details = getDetails(span, li);
+            
+            content.innerHTML = `
+                <div style="font-size:1.5rem; color:#800000; margin-bottom:10px;">${span.innerText}</div>
+                <div style="background:#fffbe6; padding:10px; border:1px solid #dacba6; margin-bottom:15px;">
+                    <strong>${details.relation}</strong><br>${details.father}<br><br><small>${details.gen}</small>
+                </div>`;
+            
+            pathList.innerHTML = "";
+            let current = li;
+            let pathArr = [];
+            while(current) {
+                let s = current.querySelector('span');
+                if(s) pathArr.unshift(s.innerText);
+                current = current.parentElement ? current.parentElement.closest('li') : null;
+            }
+            pathArr.forEach(name => {
+                let pLi = document.createElement('li');
+                pLi.innerText = name;
+                pLi.style.padding = "5px 0";
+                pLi.style.borderBottom = "1px dashed #ccc";
+                pLi.style.fontSize = "13px";
+                pathList.appendChild(pLi);
+            });
+            panel.classList.add('open');
+            document.getElementById('left-panel').classList.remove('open');
+            document.getElementById('mobileMenu').classList.remove('active');
+        }
+        function closeRightPanel() {
+            document.getElementById('right-panel').classList.remove('open');
+            document.querySelectorAll('.highlight-green').forEach(el => el.classList.remove('highlight-green'));
+        }
+        function getDetails(span, li) {
+            let father = "Founder";
+            let parentLi = li.parentElement.closest('li');
+            if(parentLi) father = "Child of: " + parentLi.querySelector('span').innerText;
+            
+            let depth = 1;
+            let temp = li;
+            while(temp.parentElement.closest('li')) { depth++; temp = temp.parentElement.closest('li'); }
+            
+            return { father: father, gen: `Generation: ${depth}`, relation: (depth===1)?"Root Ancestor":"Member" };
+        }
+        function showTooltip(span, li) {
+            let tooltip = document.getElementById('hover-tooltip');
+            let details = getDetails(span, li);
+            tooltip.innerHTML = `<strong>${span.innerText}</strong><br>${details.father}`;
+            tooltip.style.display = 'block';
+            let rect = span.getBoundingClientRect();
+            tooltip.style.left = rect.left + 'px';
+            tooltip.style.top = (rect.bottom + 5) + 'px';
+        }
+        function closePanelsOutside(e) {
+            if(!e.target.closest('.member-box') && !e.target.closest('.smart-controls')) {
+                closeRightPanel();
+                document.getElementById('left-panel').classList.remove('open');
+                document.getElementById('mobileMenu').classList.remove('active');
+            }
+        }
+
+        /* --- CONTROLS --- */
+        function zoomIn() { if (currentZoom < 2) { currentZoom += 0.1; applyZoom(); } }
+        function zoomOut() { if (currentZoom > 0.3) { currentZoom -= 0.1; applyZoom(); } }
+        function resetZoom() { currentZoom = 1; applyZoom(); }
+        function applyZoom() {
+            const treeRoot = document.getElementById('tree-root');
+            treeRoot.style.transform = `scale(${currentZoom})`;
+            treeRoot.style.transformOrigin = "top center"; 
+            treeRoot.style.marginTop = (currentZoom > 1) ? `${(currentZoom - 1) * 20}px` : "0";
+        }
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) { document.documentElement.requestFullscreen(); } 
+            else { if (document.exitFullscreen) document.exitFullscreen(); }
+        }
+
+        /* --- 📸 DOWNLOAD IMAGE --- */
+        function downloadImage() {
+            const element = document.getElementById('tree-root'); // Capture only tree
+            
+            // Temporary styles for better capture
+            const originalTransform = element.style.transform;
+            const originalMargin = element.style.margin;
+            element.style.transform = "none";
+            element.style.margin = "0";
+            element.style.backgroundColor = "#f4f1ea"; // Match body bg
+            element.style.padding = "20px";
+
+            html2canvas(element, { scale: 2 }).then(canvas => {
+                let link = document.createElement('a');
+                link.download = 'kasumalgarh-vanshawali.png';
+                link.href = canvas.toDataURL();
+                link.click();
+
+                // Restore styles
+                element.style.transform = originalTransform;
+                element.style.margin = originalMargin;
+                element.style.padding = "0"; // Reset padding
+            });
+        }
+    </script>
+</body>
+</html>

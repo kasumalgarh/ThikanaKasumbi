@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal Biodata - Kr. Shivraj Singh Rathore</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Rozha+One&family=Yatra+One&display=swap');
+
+        :root {
+            --royal-gold: #d4af37;
+            --royal-red: #800000;
+            --cream: #fffdd0;
+            --dark-text: #2c2c2c;
+            --whatsapp-green: #25D366;
+            --call-blue: #007bff;
+            --share-purple: #8e44ad;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            font-family: 'Cinzel', serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px 0;
+            -webkit-print-color-adjust: exact;
+        }
+
+        .royal-card {
+            background-color: var(--cream);
+            width: 100%;
+            max-width: 700px; /* थोड़ा चौड़ा किया है ताकि 2 कॉलम अच्छे लगें */
+            border: 8px double var(--royal-gold);
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-align: center;
+            position: relative;
+            background-image: radial-gradient(circle, transparent 20%, #f4e4bc 20%, #f4e4bc 80%, transparent 80%);
+            background-size: 20px 20px;
+        }
+
+        /* बटन कंटेनर */
+        .top-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .print-btn {
+            background-color: var(--dark-text);
+            color: white;
+            border: 2px solid var(--royal-gold);
+            padding: 5px 15px;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 20px;
+            font-family: 'Cinzel', serif;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .lang-btn {
+            background-color: var(--royal-red);
+            color: var(--royal-gold);
+            border: 2px solid var(--royal-gold);
+            padding: 5px 15px;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 20px;
+            font-family: 'Cinzel', serif;
+            flex-grow: 1;
+        }
+
+        .top-symbols {
+            font-size: 24px;
+            color: var(--royal-red);
+            margin-bottom: 5px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .header-title {
+            color: var(--royal-red);
+            font-family: 'Yatra One', cursive;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .profile-frame {
+            width: 130px;
+            height: 130px;
+            margin: 5px auto;
+            border-radius: 50%;
+            border: 4px solid var(--royal-gold);
+            padding: 4px;
+            background: white;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        h1 {
+            color: var(--dark-text);
+            margin: 5px 0 15px 0;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--royal-gold);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        /* ग्रिड लेआउट (Grid Layout) */
+        .main-content-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            text-align: left;
+        }
+
+        .col-left, .col-right {
+            flex: 1;
+            min-width: 300px; /* मोबाइल पर एक के नीचे एक आएगा */
+        }
+
+        .section {
+            margin-bottom: 15px;
+            padding: 0 5px;
+        }
+
+        .section-title {
+            color: var(--royal-red);
+            font-weight: bold;
+            font-size: 1.0rem;
+            margin-bottom: 8px;
+            text-align: center;
+            border-bottom: 1px solid var(--royal-gold);
+            background-color: rgba(212, 175, 55, 0.1);
+            padding: 2px;
+        }
+
+        .detail-row {
+            margin-bottom: 8px;
+            border-bottom: 1px dashed rgba(212, 175, 55, 0.5);
+            padding-bottom: 2px;
+        }
+
+        .label {
+            font-weight: bold;
+            color: var(--royal-red);
+            font-size: 0.85rem;
+        }
+
+        .value {
+            color: var(--dark-text);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-left: 5px;
+        }
+
+        .sub-detail {
+            margin-left: 10px;
+            font-size: 0.8rem;
+            color: #555;
+            font-style: italic;
+        }
+
+        .contact-section {
+            background-color: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--royal-gold);
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 10px;
+            width: 100%;
+        }
+
+        .contact-title {
+            color: var(--royal-red);
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-weight: bold;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.8rem;
+            border: none;
+            cursor: pointer;
+            font-family: 'Cinzel', serif;
+        }
+        .btn-call { background-color: var(--call-blue); }
+        .btn-wa { background-color: var(--whatsapp-green); }
+        .btn-share { background-color: var(--share-purple); }
+
+        /* --- PRINT SETTINGS (महत्वपूर्ण) --- */
+        @media print {
+            @page {
+                size: A4;
+                margin: 0.5cm; /* मार्जिन कम किया */
+            }
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .royal-card {
+                box-shadow: none;
+                border: 2px solid var(--royal-gold); /* बॉर्डर पतला किया */
+                width: 100%;
+                max-width: 100%;
+                padding: 10px;
+            }
+            /* बटन छुपाएं */
+            .top-controls, .action-buttons, .lang-btn, .print-btn {
+                display: none !important;
+            }
+            /* 2 कॉलम फोर्स करें */
+            .main-content-grid {
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                gap: 15px;
+            }
+            .col-left, .col-right {
+                flex: 1;
+                width: 48%; /* बराबर हिस्सा */
+            }
+            /* फॉन्ट छोटा करें ताकि 1 पेज में आए */
+            .header-title { font-size: 1rem; }
+            h1 { font-size: 1.4rem; margin: 5px 0; }
+            .section-title { font-size: 0.9rem; background-color: #f4e4bc !important; }
+            .label { font-size: 0.8rem; }
+            .value { font-size: 0.85rem; }
+            .sub-detail { font-size: 0.75rem; margin-bottom: 2px; }
+            .profile-frame { width: 110px; height: 110px; }
+            .section { margin-bottom: 10px; page-break-inside: avoid; }
+            .detail-row { border-bottom: 1px solid #ccc; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="royal-card">
+    <button onclick="window.print()" class="print-btn">🖨️ Print / Save as PDF</button>
+    
+    <div class="top-controls">
+        <button class="lang-btn" onclick="toggleLanguage()">Switch Language (English / हिंदी)</button>
+    </div>
+
+    <div class="top-symbols">
+        <span class="om-symbol">|| 卐 ||</span>
+        <span class="om-symbol">|| ॐ ||</span>
+    </div>
+
+    <div class="header-title" id="invocation">
+        ॥ ॐ श्री गणेशाय नमः ॥
+    </div>
+
+    <div class="profile-frame">
+        <img src="shiv.jpg" alt="Kr. Shivraj Singh Rathore" class="profile-img">
+    </div>
+
+    <h1 id="name">कुंवर शिवराज सिंह राठौड़</h1>
+
+    <div class="main-content-grid">
+        
+        <div class="col-left">
+            <div class="section">
+                <div class="section-title" id="personal-title">व्यक्तिगत विवरण (Personal Details)</div>
+                <div class="detail-row">
+                    <span class="label" id="birth-name-label">जन्म नाम (Birth Name):</span>
+                    <span class="value" id="birth-name">डूंगर सिंह राठौड़ (मांगलिक)</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label" id="dob-label">जन्म तिथि (DOB):</span>
+                    <span class="value" id="dob">28 अक्टूबर 1994</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label" id="birth-time-label">जन्म समय (Birth Time):</span>
+                    <span class="value" id="birth-time">रात्रि 9:00 बजे</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label" id="birth-place-label">जन्म स्थान (Birth Place):</span>
+                    <span class="value" id="birth-place">कासुम्बी (नागौर) राजस्थान</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label" id="height-label">ऊंचाई (Height):</span>
+                    <span class="value" id="height">5 फुट 11 इंच</span>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title" id="job-edu-title">व्यवसाय और शिक्षा (Job and Education)</div>
+                <div class="detail-row">
+                    <span class="label" id="career-label">व्यवसाय (Career):</span>
+                    <span class="value" id="career">टैक्स कंसल्टेंट, MY CPE ONE (MNC) अहमदाबाद</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label" id="education-label">शिक्षा (Education):</span>
+                    <span class="value" id="education">M.B.A., M.COM, CA Final (Pursuing)</span>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title" id="parents-title">माता श्री - पिता श्री (Parents Details)</div>
+                <div class="detail-row">
+                    <span class="label" id="father-label">पिता श्री (Father):</span>
+                    <span class="value" id="father">ठा. महेंद्र सिंह राठौड़</span>
+                    <div class="sub-detail" id="father-gotra">गोत्र: केसरीसिंहोत जोधा</div>
+                </div>
+                <div class="detail-row">
+                    <span class="label" id="mother-label">माता श्री (Mother):</span>
+                    <span class="value" id="mother">पुष्पा कंवर</span>
+                    <div class="sub-detail" id="mother-gotra">गोत्र: भोजराज जी के सालेदी सिंह जी के शेखावत</div>
+                </div>
+                 <div class="detail-row">
+                    <span class="label" id="grandfather-label">दादा जी (Grand Father):</span>
+                    <span class="value" id="grandfather">स्व. ठा. भेरू सिंह राठौड़</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label" id="dadera-label">दादेरा (Dadera):</span>
+                    <span class="value" id="dadera">सुजन सिंह नाथावत, मेहस्वास (जयपुर)</span>
+                </div>
+                 <div class="detail-row">
+                    <span class="label" id="nanihal-label">ननिहाल (Nanihal):</span>
+                    <span class="value" id="nanihal">नानोसा जमन सिंह शेखावत, चैनगढ़ (नवलगढ़)</span>
+                    <div class="sub-detail" id="nanihal-gotra">गोत्र: भोजराज जी के सालेदी सिंह जी के शेखावत</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-right">
+             <div class="section">
+                <div class="section-title" id="siblings-title">भाई-बहन (Brother and Sister)</div>
+                <div class="detail-row">
+                    <span class="label" id="elder-brother-label">भाईसाहब (Elder Brother):</span>
+                    <span class="value" id="elder-brother">कु. गजराज सिंह राठौड़</span>
+                    <div class="sub-detail" id="elder-brother-job">व्यवसाय: अकाउंट्स एक्जीक्यूटिव, द उम्मेद जोधपुर</div>
+                    <div class="sub-detail" id="elder-brother-married">विवाहित: रघुवर कंवर (अचलदास जी के शेखावत)</div>
+                    <div class="sub-detail" id="elder-brother-thikana">ठिकाना: लखेर</div>
+                </div>
+                <div class="detail-row">
+                    <span class="label" id="younger-sister-label">छोटी बहन (Younger Sister):</span>
+                    <span class="value" id="younger-sister">ऋषिराज राठौड़</span>
+                    <div class="sub-detail" id="younger-sister-cont">संपर्क: 8619145173</div>
+                    <div class="sub-detail" id="younger-sister-married">विवाहित: मोहन सिंह शेखावत (मेंटर एट अमेज़न) (गोपाल जी के शेखावत)</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title" id="bhuwa-title">भुवा सा हुकुम (Bhuwasa Hukum)</div>
+                <div class="detail-row">
+                    <span class="label" id="bhuwa1-label">1. नाम:</span>
+                    <span class="value" id="bhuwa1-name">बसंत कंवर</span>
+                    <div class="sub-detail" id="bhuwa1-detail">विवाहित: मोहन सिंह शेखावत (पूर्व इंस्पेक्टर) (अचलदास जी के शेखावत)</div>
+                    <div class="sub-detail" id="bhuwa1-thikana">ठिकाना: मानपुरा</div>
+                </div>
+                <div class="detail-row">
+                    <span class="label" id="bhuwa2-label">2. नाम:</span>
+                    <span class="value" id="bhuwa2-name">संतोष कंवर</span>
+                    <div class="sub-detail" id="bhuwa2-detail">विवाहित: बलवीर सिंह शेखावत (इंस्पेक्टर, CRPF) (उगरसेन जी के शेखावत)</div>
+                    <div class="sub-detail" id="bhuwa2-thikana">ठिकाना: दिवराला</div>
+                </div>
+            </div>
+
+            <div class="section">
+                 <div class="section-title">निवास (Residence)</div>
+                 <div class="detail-row" style="border:none;">
+                    <span class="label" id="village-label">गांव (Village):</span>
+                    <span class="value" id="village">फोर्ट कसुम्बी, कसुम्बी जाखला, तेह लाडनूं, जिला डीडवाना-कुचामन 341304</span>
+                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="contact-section">
+        <div class="contact-title" id="contact-head">संपर्क सूत्र (Contact)</div>
+        <span class="contact-number">
+            <strong id="family-label">पिता श्री (Family):</strong> +91 92520 17645
+        </span>
+        <span class="contact-number">
+            <strong id="sis-label">बहन (Sister):</strong> +91 86191 45173
+        </span>
+
+        <div class="action-buttons">
+            <a href="tel:+919252017645" class="btn btn-call">📞 Call</a>
+            <a href="https://wa.me/919252017645" class="btn btn-wa">💬 WhatsApp</a>
+            <button onclick="shareBiodata()" class="btn btn-share">➤ Share</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let isHindi = true;
+
+    async function shareBiodata() {
+        const shareData = {
+            title: 'Royal Biodata - Kr. Shivraj Singh Rathore',
+            text: 'Check out the Royal Biodata of Kr. Shivraj Singh Rathore.',
+            url: window.location.href
+        };
+        try {
+            if (navigator.share) {
+                await navigator.share(shareData);
+            } else {
+                alert('Sharing not supported on this browser. Link copied!');
+                navigator.clipboard.writeText(window.location.href);
+            }
+        } catch (err) {
+            console.log('Error sharing:', err);
+        }
+    }
+
+    function toggleLanguage() {
+        const data = {
+            hindi: {
+                invocation: "॥ ॐ श्री गणेशाय नमः ॥",
+                name: "कुंवर शिवराज सिंह राठौड़",
+                personalTitle: "व्यक्तिगत विवरण (Personal Details)",
+                birthNameLabel: "जन्म नाम (Birth Name):",
+                birthName: "डूंगर सिंह राठौड़ (मांगलिक)",
+                dobLabel: "जन्म तिथि (DOB):",
+                dob: "28 अक्टूबर 1994",
+                birthTimeLabel: "जन्म समय (Birth Time):",
+                birthTime: "रात्रि 9:00 बजे",
+                birthPlaceLabel: "जन्म स्थान (Birth Place):",
+                birthPlace: "कासुम्बी (नागौर) राजस्थान",
+                heightLabel: "ऊंचाई (Height):",
+                height: "5 फुट 11 इंच",
+                parentsTitle: "माता श्री - पिता श्री (Parents Details)",
+                grandfatherLabel: "दादा जी (Grand Father):",
+                grandfather: "स्व. ठा. भेरू सिंह राठौड़",
+                daderaLabel: "दादेरा (Dadera):",
+                dadera: "सुजन सिंह नाथावत, मेहस्वास (जयपुर)",
+                fatherLabel: "पिता श्री (Father):",
+                father: "ठा. महेंद्र सिंह राठौड़",
+                fatherGotra: "गोत्र: केसरीसिंहोत जोधा",
+                villageLabel: "गांव (Village):",
+                village: "फोर्ट कसुम्बी, कसुम्बी जाखला, तेह लाडनूं, जिला डीडवाना-कुचामन 341304",
+                motherLabel: "माता श्री (Mother):",
+                mother: "पुष्पा कंवर",
+                motherGotra: "गोत्र: भोजराज जी के सालेदी सिंह जी के शेखावत",
+                nanihalLabel: "ननिहाल (Nanihal):",
+                nanihal: "नानोसा जमन सिंह शेखावत, चैनगढ़ (नवलगढ़)",
+                nanihalGotra: "गोत्र: भोजराज जी के सालेदी सिंह जी के शेखावत",
+                siblingsTitle: "भाई-बहन (Brother and Sister)",
+                elderBrotherLabel: "भाईसाहब (Elder Brother):",
+                elderBrother: "कु. गजराज सिंह राठौड़",
+                elderBrotherJob: "व्यवसाय: अकाउंट्स एक्जीक्यूटिव, द उम्मेद जोधपुर",
+                elderBrotherMarried: "विवाहित: रघुवर कंवर (अचलदास जी के शेखावत)",
+                elderBrotherThikana: "ठिकाना: लखेर",
+                youngerSisterLabel: "छोटी बहन (Younger Sister):",
+                youngerSister: "ऋषिराज राठौड़",
+                youngerSisterCont: "संपर्क: 8619145173",
+                youngerSisterMarried: "विवाहित: मोहन सिंह शेखावत (मेंटर एट अमेज़न) (गोपाल जी के शेखावत)",
+                jobEduTitle: "व्यवसाय और शिक्षा (Job and Education)",
+                careerLabel: "व्यवसाय (Career):",
+                career: "टैक्स कंसल्टेंट, MY CPE ONE (MNC) अहमदाबाद",
+                educationLabel: "शिक्षा (Education):",
+                education: "M.B.A., M.COM, CA Final (Pursuing)",
+                bhuwaTitle: "भुवा सा हुकुम (Bhuwasa Hukum)",
+                bhuwa1Label: "1. नाम:",
+                bhuwa1Name: "बसंत कंवर",
+                bhuwa1Detail: "विवाहित: मोहन सिंह शेखावत (पूर्व इंस्पेक्टर) (अचलदास जी के शेखावत)",
+                bhuwa1Thikana: "ठिकाना: मानपुरा",
+                bhuwa2Label: "2. नाम:",
+                bhuwa2Name: "संतोष कंवर",
+                bhuwa2Detail: "विवाहित: बलवीर सिंह शेखावत (इंस्पेक्टर, CRPF) (उगरसेन जी के शेखावत)",
+                bhuwa2Thikana: "ठिकाना: दिवराला",
+                contactHead: "संपर्क सूत्र (Contact)",
+                familyLabel: "पिता श्री (Family):",
+                sisLabel: "बहन (Sister):"
+            },
+            english: {
+                invocation: "|| ॐ Shree Ganeshay Namah ||",
+                name: "Kr. Shivraj Singh Rathore",
+                personalTitle: "Personal Details",
+                birthNameLabel: "Birth Name:",
+                birthName: "Dungar Singh Rathore (Manglik)",
+                dobLabel: "Date of Birth (DOB):",
+                dob: "28 Oct. 1994",
+                birthTimeLabel: "Birth Time:",
+                birthTime: "9:00 PM",
+                birthPlaceLabel: "Birth Place:",
+                birthPlace: "Kasumbi (Nagaur) Rajasthan",
+                heightLabel: "Height:",
+                height: "5.11",
+                parentsTitle: "Mata Shree - Pita Shree (Parents Details)",
+                grandfatherLabel: "Grand Father:",
+                grandfather: "LT. Th. Bheru Singh Rathore",
+                daderaLabel: "Dadera:",
+                dadera: "Sujan Singh Nathawat, Mehswas (Jaipur)",
+                fatherLabel: "Pita Shree (Father):",
+                father: "Th. Mahendra Singh Rathore",
+                fatherGotra: "Gotra: Kesarisinghot Jodha",
+                villageLabel: "Village:",
+                village: "Fort Kasumbi, Kasumbi Jakhla, Teh. Ladnun, Dist. Deedwana-Kuchaman 341304",
+                motherLabel: "Mata Shree (Mother):",
+                mother: "Pushpa Kanwar",
+                motherGotra: "Gotra: Bhojraj Ji Ke Shaledhi Singh Ji Ke Shekhawat",
+                nanihalLabel: "Nanihal:",
+                nanihal: "Nanosha Jaman Singh Shekhawat, Chaingarh (Nawalgarh)",
+                nanihalGotra: "Gotra: Bhojraj Ji Ke Shaledhi Singh Ji Ke Shekhawat",
+                siblingsTitle: "Brother and Sister",
+                elderBrotherLabel: "Bhaisahab (Elder Brother):",
+                elderBrother: "Kr. Gajraj Singh Rathore",
+                elderBrotherJob: "Career: Accounts Executive at The Ummed Jodhpur",
+                elderBrotherMarried: "Married with: Raghuvar Kanwar (Achaldas ji ke Shekhawat)",
+                elderBrotherThikana: "Thikana: Lakher",
+                youngerSisterLabel: "Younger Sister:",                youngerSister: "Rishiraj Rathore",                youngerSisterCont: "Contact: 8619145173",                youngerSisterMarried: "Married with: Mohan Singh Shekhawat (Mentor At Amazon) (Gopal Ji ke Shekhawat)",                jobEduTitle: "Job and Education Details",                careerLabel: "Career:",                career: "Tax Consultant at MY CPE ONE (MNC) Ahmedabad",                educationLabel: "Education:",                education: "M.B.A., M.COM, CA Final (Pursuing)",                bhuwaTitle: "Bhuwasa Hukum (Aunts)",                bhuwa1Label: "1. Name:",                bhuwa1Name: "Basant Kanwar",                bhuwa1Detail: "Married with: Mohan Singh Shekhawat (Ex. Inspector) (Achaldas ji ke Shekhawat)",                bhuwa1Thikana: "Thikana: Manpura",                bhuwa2Label: "2. Name:",                bhuwa2Name: "Santosh Kanwar",                bhuwa2Detail: "Married with: Balveer Singh Shekhawat (Inspector at CRPF) (Ugarsen ji ke Shekhawat)",                bhuwa2Thikana: "Thikana: Divrala",                contactHead: "Contact Details",                familyLabel: "Pita Shree (Family):",                sisLabel: "Sister:"            }        };        const updateContent = (langData) => {            const safeUpdate = (id, value) => {                const el = document.getElementById(id);                if (el) el.innerHTML = value;            };            safeUpdate('invocation', langData.invocation);            safeUpdate('name', langData.name);            safeUpdate('personal-title', langData.personalTitle);            safeUpdate('birth-name-label', langData.birthNameLabel);            safeUpdate('birth-name', langData.birthName);            safeUpdate('dob-label', langData.dobLabel);            safeUpdate('dob', langData.dob);            safeUpdate('birth-time-label', langData.birthTimeLabel);            safeUpdate('birth-time', langData.birthTime);            safeUpdate('birth-place-label', langData.birthPlaceLabel);            safeUpdate('birth-place', langData.birthPlace);            safeUpdate('height-label', langData.heightLabel);            safeUpdate('height', langData.height);            safeUpdate('parents-title', langData.parentsTitle);            safeUpdate('grandfather-label', langData.grandfatherLabel);            safeUpdate('grandfather', langData.grandfather);            safeUpdate('dadera-label', langData.daderaLabel);            safeUpdate('dadera', langData.dadera);            safeUpdate('father-label', langData.fatherLabel);            safeUpdate('father', langData.father);            safeUpdate('father-gotra', langData.fatherGotra);            safeUpdate('village-label', langData.villageLabel);            safeUpdate('village', langData.village);            safeUpdate('mother-label', langData.motherLabel);            safeUpdate('mother', langData.mother);            safeUpdate('mother-gotra', langData.motherGotra);            safeUpdate('nanihal-label', langData.nanihalLabel);            safeUpdate('nanihal', langData.nanihal);            safeUpdate('nanihal-gotra', langData.nanihalGotra);                        safeUpdate('siblings-title', langData.siblingsTitle);            safeUpdate('elder-brother-label', langData.elderBrotherLabel);            safeUpdate('elder-brother', langData.elderBrother);            safeUpdate('elder-brother-job', langData.elderBrotherJob);            safeUpdate('elder-brother-married', langData.elderBrotherMarried);            safeUpdate('elder-brother-thikana', langData.elderBrotherThikana);            safeUpdate('younger-sister-label', langData.youngerSisterLabel);            safeUpdate('younger-sister', langData.youngerSister);            safeUpdate('younger-sister-cont', langData.youngerSisterCont);            safeUpdate('younger-sister-married', langData.youngerSisterMarried);            safeUpdate('job-edu-title', langData.jobEduTitle);            safeUpdate('career-label', langData.careerLabel);            safeUpdate('career', langData.career);            safeUpdate('education-label', langData.educationLabel);            safeUpdate('education', langData.education);            safeUpdate('bhuwa-title', langData.bhuwaTitle);            safeUpdate('bhuwa1-label', langData.bhuwa1Label);            safeUpdate('bhuwa1-name', langData.bhuwa1Name);            safeUpdate('bhuwa1-detail', langData.bhuwa1Detail);            safeUpdate('bhuwa1-thikana', langData.bhuwa1Thikana);            safeUpdate('bhuwa2-label', langData.bhuwa2Label);            safeUpdate('bhuwa2-name', langData.bhuwa2Name);            safeUpdate('bhuwa2-detail', langData.bhuwa2Detail);            safeUpdate('bhuwa2-thikana', langData.bhuwa2Thikana);            safeUpdate('contact-head', langData.contactHead);            safeUpdate('family-label', langData.familyLabel);            safeUpdate('sis-label', langData.sisLabel);        };        if (isHindi) {            updateContent(data.english);            isHindi = false;        } else {            updateContent(data.hindi);            isHindi = true;        }    }</script>
+</body>
+</html>

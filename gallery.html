@@ -2,237 +2,359 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Royal Gallery - KASUMALGARH</title>
     
-    <title>Royal Gallery | Thikana Kasumbi (Jakhlan)</title>
-    <meta name="description" content="Explore the royal gallery of Thikana Kasumbi. A collection of rare photos, videos, and heritage moments of Yuvraj Gajraj Singh and Rathore lineage.">
-    <meta name="keywords" content="Thikana Kasumbi Gallery, Rajputana Photos, Royal Heritage Images, Gajraj Singh Photos, Kasumalgarh Videos, Marwar History Gallery">
-    <meta name="author" content="Yuvraj Gajraj Singh">
-
-    <meta property="og:title" content="Royal Gallery | Thikana Kasumbi">
-    <meta property="og:description" content="विरासत और शौर्य की झलकियाँ। देखिये ठिकाना कसुम्बी का इतिहास तस्वीरों में।">
-    <meta property="og:image" content="https://www.kasumalgarh.site/sunset_kasumbifort.png">
-    <meta property="og:url" content="https://www.kasumalgarh.site/gallery.html">
-    <meta property="og:type" content="website">
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Playfair+Display:wght@400;700&family=Noto+Serif+Devanagari:wght@400;700&family=Berkshire+Swash&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-    <link rel="stylesheet" href="royal_global.css">
-
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script type="text/javascript">
-       (function(){ emailjs.init("KpyNvZBBeX0ZJisG8"); })();
-    </script>
-</head>
-<body oncontextmenu="return false;">
-
-    <div class="navbar-wrapper">
-        <div class="container">
-            <nav class="navbar navbar-inverse">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-                        <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="index.html">
-                        <img src="menulogo.png" alt="Logo" class="menu-logo-img">
-                        KASUMALGARH
-                    </a>
-                </div>
-                <div id="navbar" class="collapse navbar-collapse">
-                   <ul class="nav navbar-nav navbar-right">
-                        <li><a href="index.html">HOME</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">VANSHAWALI <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="vanshawali.html">Kasumalgarh</a></li>
-                                <li><a href="rathorevanshawali.html">Rathore</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">HISTORY <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="kasumbi_history.html">Kasumalgarh History</a></li>
-                                <li><a href="rathore_history.html">Rathore History</a></li>
-                            </ul>
-                        </li>
-                        <li class="active"><a href="gallery.html">GALLERY</a></li>
-                        <li><a href="royalalliances.html">ROYAL ALLIANCES</a></li>
-                        <li><a href="about.html">ABOUT</a></li>
-                        <li><a href="contact.html">CONTACT</a></li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-    </div>
-
-    <header class="video-header">
     
-    <video autoplay muted loop playsinline class="bg-video">
-        <source src="slow_motion_fort.mp4" type="video/mp4">
-        Your browser does not support HTML5 video.
-    </video>
+    <link rel="stylesheet" href="mainstyle.css">
 
-    <div class="video-overlay"></div>
-
-    <div class="container header-content">
-        <h1 class="shining-text" style="font-size: 3em; margin-bottom: 5px;">|| स्मृतियों के झरोखे ||</h1>
-        <div style="font-family: 'Cinzel'; color: #d4af37; letter-spacing: 2px; text-transform: uppercase;">|| Glimpses of Memories ||</div>
+    <style>
+        /* ✅ GLOBAL FIX */
+        * { box-sizing: border-box; }
         
-        <div style="font-family: 'Noto Serif Devanagari'; font-style: italic; color: #ddd; margin-top: 15px;">
-            "बीता हुआ कल कभी मरता नहीं, तस्वीरों में इतिहास हमेशा साँस लेता है।"<br>
-            <span style="font-size: 0.9em; font-family: 'Playfair Display';">"Yesterday never dies, history always breathes in pictures."</span>
-        </div>
+        body { background-color: #000022; }
+        .gallery-wrapper { padding: 40px 20px; max-width: 1200px; margin: 0 auto; }
+        
+        /* --- FILTER BUTTONS --- */
+        .filter-container { text-align: center; margin-bottom: 30px; }
+        .filter-btn {
+            background: transparent; border: 1px solid #b38728; color: #b38728;
+            padding: 10px 25px; margin: 5px; font-family: 'Cinzel'; cursor: pointer;
+            transition: 0.3s; font-weight: bold; text-transform: uppercase; border-radius: 5px;
+            font-size: 0.9em;
+        }
+        .filter-btn:hover, .filter-btn.active { 
+            background: #b38728; color: #000; box-shadow: 0 0 15px rgba(179, 135, 40, 0.5); 
+        }
 
-        <div class="header-social-icons">
-           <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.kasumalgarh.site" target="_blank"><i class="fab fa-facebook"></i></a>
-           <a href="https://www.instagram.com/gajsa.kasumbifort" target="_blank"><i class="fab fa-instagram"></i></a>
-           <a href="https://wa.me/?text=Check out Thikana Kasumbi Gallery" target="_blank"><i class="fab fa-whatsapp"></i></a>
-        </div>
-    </div>
-</header>
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        
+        /* Royal Box */
+        .gallery-item {
+            background: rgba(0, 0, 0, 0.6); border: 2px solid #b38728; border-radius: 8px;
+            overflow: hidden; transition: 0.3s; cursor: pointer; display: flex; flex-direction: column;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .gallery-item:hover { transform: translateY(-5px); border-color: #fcf6ba; box-shadow: 0 10px 25px rgba(179, 135, 40, 0.4); }
+        
+        .gallery-media-wrapper { position: relative; width: 100%; height: 250px; overflow: hidden; border-bottom: 2px solid #b38728; background: #000; }
+        .gallery-media-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .gallery-item:hover img { transform: scale(1.1); }
+        
+        .play-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3rem; color: rgba(255, 255, 255, 0.9); pointer-events: none; }
+        
+        .royal-caption { padding: 15px 10px; text-align: center; background: linear-gradient(to bottom, #000033, #000011); }
+        .caption-text { font-family: 'Cinzel'; color: #fcf6ba; font-size: 1.2em; display: block; }
+        .caption-ornament { font-size: 0.8em; color: #b38728; display: block; }
 
-    <div class="container">
-        <div class="filter-container">
-            <button class="filter-btn active" onclick="filterGallery('all')">सभी (All)</button>
-            <button class="filter-btn" onclick="filterGallery('photo')">तस्वीरें (Photos)</button>
-            <button class="filter-btn" onclick="filterGallery('video')">चलचित्र (Videos)</button>
-        </div>
+        /* Lightbox */
+        .lightbox { display: none; position: fixed; z-index: 5000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); justify-content: center; align-items: center; flex-direction: column; }
+        .lightbox-content-wrapper { position: relative; width: 90%; max-width: 900px; height: 60vh; display: flex; justify-content: center; align-items: center; }
+        .lightbox-media { width: 100%; height: 100%; border: 3px solid #b38728; object-fit: contain; background: #000; }
+        
+        .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(179, 135, 40, 0.2); color: #fcf6ba; border: 1px solid #b38728; padding: 15px 20px; cursor: pointer; font-size: 2rem; z-index: 5001; }
+        .prev-btn { left: 10px; } .next-btn { right: 10px; }
+        .close-btn { position: absolute; top: 20px; right: 30px; font-size: 50px; color: #fff; cursor: pointer; z-index: 5002; }
+        #lightbox-caption-text { margin-top: 20px; color: #fcf6ba; font-family: 'Cinzel'; font-size: 1.5em; text-align: center; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        <div id="photos-section">
-            <h2 class="section-header"><span>IMAGES (तस्वीरें)</span></h2>
-            <div class="gallery-grid">
-                <div class="gallery-item photo">
-                    <img src="sunset_kasumbifort.png" alt="Sunset View" onclick="openGalleryModal(this, 'photo')">
-                </div>
-                <div class="gallery-item photo">
-                    <img src="view_from_fort1.png" alt="Fort View" onclick="openGalleryModal(this, 'photo')">
-                </div>
-                <div class="gallery-item photo">
-                    <img src="fort_kasumbi_2.png" alt="Kasumbi Fort" onclick="openGalleryModal(this, 'photo')">
-                </div>
-                <div class="gallery-item photo">
-                    <img src="thikana_kasumbi_share.png" alt="Share Card" onclick="openGalleryModal(this, 'photo')">
-                </div>
-                <div class="gallery-item photo">
-                    <img src="YGSR.png" alt="Yuvraj Gajraj Singh" onclick="openGalleryModal(this, 'photo')">
-                </div>
-                <div class="gallery-item photo">
-                    <img src="fort_kasumbi_full_view.jpg" alt="Gallery Memory" onclick="openGalleryModal(this, 'photo')">
-                </div>
-            </div>
-        </div>
+        /* Mobile Fixes */
+        @media (max-width: 600px) {
+            .hero-title { font-size: 2.2em; }
+            .gallery-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
 
-        <div id="videos-section">
-            <h2 class="section-header"><span>VIDEOS (चलचित्र)</span></h2>
-            <div class="gallery-grid">
-                <div class="gallery-item video" data-video-id="yEjNE2vHFgg">
-                    <img src="https://img.youtube.com/vi/yEjNE2vHFgg/hqdefault.jpg" alt="Video">
-                    <div class="video-icon"><i class="fas fa-play-circle"></i></div>
-                    <a href="javascript:void(0)" style="position:absolute; top:0; left:0; width:100%; height:100%;" onclick="openGalleryModal(this.parentElement, 'video')"></a>
-                </div>
-                <div class="gallery-item video" data-video-id="xnFG9cwj5kI">
-                    <img src="https://img.youtube.com/vi/xnFG9cwj5kI/hqdefault.jpg" alt="Video">
-                    <div class="video-icon"><i class="fas fa-play-circle"></i></div>
-                    <a href="javascript:void(0)" style="position:absolute; top:0; left:0; width:100%; height:100%;" onclick="openGalleryModal(this.parentElement, 'video')"></a>
-                </div>
-                <div class="gallery-item video" data-video-id="8iqfvTHax0s">
-                    <img src="https://img.youtube.com/vi/8iqfvTHax0s/hqdefault.jpg" alt="Video">
-                    <div class="video-icon"><i class="fas fa-play-circle"></i></div>
-                    <a href="javascript:void(0)" style="position:absolute; top:0; left:0; width:100%; height:100%;" onclick="openGalleryModal(this.parentElement, 'video')"></a>
-                </div>
-                <div class="gallery-item video" data-video-id="KsLIrM8SGmE">
-                    <img src="https://img.youtube.com/vi/KsLIrM8SGmE/hqdefault.jpg" alt="Video">
-                    <div class="video-icon"><i class="fas fa-play-circle"></i></div>
-                    <a href="javascript:void(0)" style="position:absolute; top:0; left:0; width:100%; height:100%;" onclick="openGalleryModal(this.parentElement, 'video')"></a>
-                </div>
-            </div>
-        </div>
+    <div class="royal-frame">
+        <span></span> <span></span> <span></span> <span></span>
     </div>
 
-    <div id="galleryModal" class="gallery-modal-overlay">
-        <span onclick="closeGalleryModal()" style="position:absolute; top:20px; right:30px; color:#fff; font-size:40px; cursor:pointer; z-index:10001;">&times;</span>
-        <div class="gallery-modal-box">
-            <img id="modalImg" class="modal-media-img" style="display:none;">
-            <iframe id="modalVideo" class="modal-video-frame" src="" allow="autoplay; encrypted-media" allowfullscreen style="display:none;"></iframe>
+    <nav class="navbar">
+        <div class="navbar-brand-container">
+            <img id="menu-logo" src="menulogo.png" alt="Kasumalgarh Logo"> 
+            <a class="navbar-brand" href="index.html">KASUMALGARH</a>
+        </div>
+        
+        <div class="menu-toggle" onclick="toggleMobilePopup()">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+
+        <ul class="navbar-links">
+            <li><a href="index.html">HOME</a></li>
             
-            <div style="padding:10px; border-top:2px solid #7A5D28; text-align:center;">
-                <p style="color:#d4af37; font-family:'Cinzel'; margin:0;">Thikana Kasumbi Gallery</p>
-            </div>
+            <li class="dropdown">
+                <a href="index.html" class="brand-name" style="text-decoration:none; color:inherit; font-weight: bold; cursor: pointer;">VANSHAWALI</a>
+                <div class="dropdown-content">
+                    <a href="vanshawali.html">Kasumalgarh Vanshawali</a>
+                    <a href="rathorevanshawali.html">Rathore Vanshawali</a>
+                </div>
+            </li>
+
+            <li><a href="history.html">HISTORY</a></li>
+            <li><a href="gallery.html" class="active">GALLERY</a></li>
+            <li><a href="about.html">ABOUT</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+            
+            <li><button id="lang-btn" class="lang-btn" onclick="toggleLanguage()">🌐 EN</button></li>
+        </ul>
+    </nav>
+
+    <div id="mobile-popup" class="mobile-menu-overlay">
+        <ul class="mobile-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#" style="background:rgba(0,0,0,0.3); cursor:default;">-- Vanshawali --</a></li>
+            <li><a href="vanshawali.html" class="mobile-sub-link">Kasumalgarh Tree</a></li>
+            <li><a href="rathorevanshawali.html" class="mobile-sub-link">Rathore Chart</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            
+            
+        </ul>
+    </div>
+
+    <header class="hero-section" style="background-image: linear-gradient(rgba(0,0,51,0.6), rgba(0,0,51,0.9)), url('3.jpg'); height: 350px;">
+        <div style="font-family: 'Great Vibes'; font-size: 2.5em; color: #fcf6ba;">Royal Collection</div>
+        <h1 class="hero-title">GALLERY</h1>
+        <div class="divider-ornament">⚜️ ⚜️ ⚜️</div>
+    </header>
+
+    <div id="lightbox" class="lightbox">
+        <span class="close-btn" onclick="closeLightbox()">&times;</span>
+        <div class="nav-btn prev-btn" onclick="changeSlide(-1)">&#10094;</div>
+        <div class="lightbox-content-wrapper" id="lightbox-wrapper"></div>
+        <div class="nav-btn next-btn" onclick="changeSlide(1)">&#10095;</div>
+        <div id="lightbox-caption-text"></div>
+    </div>
+
+    <main class="gallery-wrapper">
+        <div class="filter-container">
+            <button class="filter-btn active" onclick="filterGallery('all')">All</button>
+            <button class="filter-btn" onclick="filterGallery('images')">Images</button>
+            <button class="filter-btn" onclick="filterGallery('videos')">Videos</button>
+            <button class="filter-btn" onclick="filterGallery('events')">Events</button>
         </div>
-    </div>
-
-    <div id="addYoursModal" class="gallery-modal-overlay" style="z-index: 9999;">
-        <span onclick="closeForm()" style="position:absolute; top:20px; right:20px; color:#fff; font-size:30px; cursor:pointer;">&times;</span>
-        <div class="gallery-modal-box" style="background: transparent; border: none;">
-            <div class="modal-form-content">
-                <h3 style="font-family: 'Berkshire Swash'; color: #7A5D28; text-align:center; margin-top:0;">Share Your Memory</h3>
-                
-                <label class="form-label">आपका नाम</label>
-                <input type="text" id="senderName" class="form-input" placeholder="Name">
-
-                <label class="form-label">ईमेल</label>
-                <input type="email" id="senderEmail" class="form-input" placeholder="Email">
-
-                <label class="form-label">संदेश</label>
-                <textarea id="senderMsg" class="form-input" rows="3" placeholder="Message"></textarea>
-
-                <label class="form-label">फोटो चुनें</label>
-                <input type="file" id="senderFile" class="form-input" accept="image/*" style="background:none; border:none; color:#fff;">
-
-                <button class="submit-btn" onclick="sendData()" style="background:#b8860b; color:#fff; width:100%; padding:10px; border:none; font-family:'Cinzel'; border-radius:5px; margin-top:10px;">SUBMIT</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="add-yours-float" onclick="openForm()" title="Add Yours">
-        <i class="fas fa-camera"></i>
-    </div>
+        <div class="gallery-grid" id="gallery-container"></div>
+    </main>
 
     <footer class="royal-footer">
-        <div class="container">
-            <div style="font-size: 0.9em; color: #ccc; letter-spacing: 1px;">Developed & Designed By:</div>
+        <address class="developer-info" style="font-style: normal;">
+            <div style="font-size: 0.9em; color: #888; margin-bottom: 5px;">Developed & Designed By:</div>
             
-            <div style="color:#d4af37; font-size:1.6rem; font-family: 'Cinzel', serif; margin: 10px 0; text-shadow: 1px 1px 2px #000;">
+            <span class="royal-name" translate="no" style="cursor: default;">
                 Yuvraj Gajraj Singh
-            </div>
+            </span>
             
-            <div class="footer-social-icons" style="margin: 20px 0;">
-                <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.kasumalgarh.site" target="_blank">
-                    <i class="fab fa-facebook"></i>
-                </a>
-                
-                <a href="https://www.instagram.com/gajsa.kasumbifort" target="_blank">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                
-                <a href="https://wa.me/?text=Check out Thikana Kasumbi: https://www.kasumalgarh.site" target="_blank">
-                    <i class="fab fa-whatsapp"></i>
-                </a>
-            </div>
-
-            <div style="font-size: 0.85em; color: #888; border-top: 1px solid #333; padding-top: 15px; width: 80%; margin: 0 auto;">
-                &copy; <span id="year">2026</span> Thikana Kasumbi | All Rights Reserved. | Vikram Samvat 2082
-                <a href="admin.html" style="color: #555; margin-left: 10px;"><i class="fas fa-lock"></i></a>
-            </div>
+            <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" rel="noopener noreferrer" class="fb-link">
+                <i class="fab fa-facebook"></i> Connect on Facebook
+            </a>
             
-            <div style="margin-top: 15px; font-size: 0.9rem; color: #b8860b;">
-                <i class="fas fa-users"></i> Total Royal Guests: <span id="visitor-count" style="color:#fff; font-weight:bold;">12,543</span>
+            <div style="font-size: 0.8em; margin-top: 15px; color: #666;">
+                © <span id="current-year">2025</span> | All Rights Reserved.
             </div>
-        </div>
+        </address>
     </footer>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    
-    <script src="royal_global.js"></script>
+    <script src="gallery-data.js"></script>
+    <script type="module" src="mainscript.js"></script>
+
     <script>
-    // वीडियो ढूंढें
-    var video = document.querySelector(".bg-video");
-    
-    // रफ़्तार सेट करें (1.0 = नार्मल, 0.5 = आधी, 0.3 = बहुत धीमी)
-    video.playbackRate = 0.4; 
-</script>
+        // 1. Auto Update Year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // 2. Mobile Popup Menu Toggle
+        function toggleMobilePopup() {
+            const menu = document.getElementById('mobile-popup');
+            if(menu.classList.contains('open')) {
+                menu.classList.remove('open');
+            } else {
+                menu.classList.add('open');
+            }
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('mobile-popup');
+            const toggleBtn = document.querySelector('.menu-toggle');
+            if (menu && menu.classList.contains('open')) {
+                if (!menu.contains(event.target) && !toggleBtn.contains(event.target)) {
+                    menu.classList.remove('open');
+                }
+            }
+        });
+
+        // 3. Language Toggle (UI Only for Gallery)
+        let currentLang = localStorage.getItem('lang') || 'hi'; 
+        function updateLangButton() {
+            const btn = document.getElementById('lang-btn');
+            const mobileBtn = document.getElementById('mobile-lang-btn');
+            if(currentLang === 'hi') {
+                if(btn) btn.innerText = "🌐 EN";
+                if(mobileBtn) mobileBtn.innerText = "🌐 Switch to English";
+            } else {
+                if(btn) btn.innerText = "🌐 HI";
+                if(mobileBtn) mobileBtn.innerText = "🌐 Switch to Hindi";
+            }
+        }
+        function toggleLanguage() {
+            currentLang = currentLang === 'hi' ? 'en' : 'hi';
+            localStorage.setItem('lang', currentLang);
+            updateLangButton();
+        }
+        window.addEventListener('DOMContentLoaded', updateLangButton);
+
+        // 4. GALLERY LOGIC
+        let currentIndex = 0;
+        let filteredData = [];
+
+        // Load 'ALL' by default when page opens
+        document.addEventListener("DOMContentLoaded", function() {
+            if (typeof galleryData !== 'undefined') {
+                filterGallery('all'); 
+            }
+        });
+
+        // Helper: Extract ID from YouTube URL
+        function getYouTubeId(url) {
+            let videoId = url.split('v=')[1];
+            if(!videoId) {
+                const parts = url.split('/');
+                videoId = parts[parts.length - 1];
+            }
+            const ampersandPosition = videoId ? videoId.indexOf('&') : -1;
+            if(ampersandPosition !== -1) {
+                videoId = videoId.substring(0, ampersandPosition);
+            }
+            return videoId ? videoId.split('?')[0] : null;
+        }
+
+        // FILTER LOGIC
+        function filterGallery(category) {
+            const container = document.getElementById("gallery-container");
+            container.innerHTML = "";
+            
+            // Update Active Button Style
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // 1. ALL
+            if(category === 'all') {
+                filteredData = galleryData;
+            } 
+            // 2. VIDEOS (Includes local videos AND YouTube links)
+            else if (category === 'videos') {
+                filteredData = galleryData.filter(item => 
+                    item.type === 'video' || 
+                    item.src.includes('youtube.com') || 
+                    item.src.includes('youtu.be')
+                );
+            }
+            // 3. IMAGES (Only images, no videos)
+            else if (category === 'images') {
+                filteredData = galleryData.filter(item => 
+                    item.type === 'image' && 
+                    !item.src.includes('youtube') && 
+                    !item.src.includes('youtu.be')
+                );
+            }
+            // 4. EVENTS (Only items marked as 'events')
+            else if (category === 'events') {
+                filteredData = galleryData.filter(item => item.category === 'events');
+            }
+
+            // Render
+            if (filteredData.length > 0) {
+                filteredData.forEach((item, index) => {
+                    const div = document.createElement("div");
+                    div.className = "gallery-item";
+                    div.onclick = function() { openLightbox(index); };
+                    
+                    let mediaHtml = "";
+
+                    // Is it YouTube? (Show Thumbnail)
+                    if (item.src.includes('youtube.com') || item.src.includes('youtu.be')) {
+                        const vidId = getYouTubeId(item.src);
+                        const thumb = `https://img.youtube.com/vi/${vidId}/hqdefault.jpg`;
+                        mediaHtml = `<div class="gallery-media-wrapper">
+                            <img src="${thumb}" loading="lazy">
+                            <div class="play-icon"><i class="fa-brands fa-youtube" style="color:red;"></i></div>
+                        </div>`;
+                    } 
+                    // Is it Local Video?
+                    else if (item.type === 'video') {
+                        mediaHtml = `<div class="gallery-media-wrapper">
+                            <img src="${item.thumb || 'menulogo.png'}" loading="lazy">
+                            <div class="play-icon"><i class="fas fa-play-circle"></i></div>
+                        </div>`;
+                    } 
+                    // It's an Image
+                    else {
+                        mediaHtml = `<div class="gallery-media-wrapper"><img src="${item.src}" loading="lazy" onerror="this.src='menulogo.png'"></div>`;
+                    }
+
+                    div.innerHTML = `${mediaHtml}<div class="royal-caption"><span class="caption-text">${item.caption}</span><span class="caption-ornament">~ ⚜️ ~</span></div>`;
+                    container.appendChild(div);
+                });
+            } else {
+                container.innerHTML = "<p style='color:#fff; text-align:center; width:100%; grid-column:1/-1; padding:20px;'>No items found in this category.</p>";
+            }
+        }
+
+        // Lightbox Logic
+        function openLightbox(index) {
+            currentIndex = index;
+            document.getElementById("lightbox").style.display = "flex";
+            updateLightboxContent();
+        }
+        function closeLightbox() {
+            document.getElementById("lightbox").style.display = "none";
+            document.getElementById("lightbox-wrapper").innerHTML = "";
+        }
+        function changeSlide(step) {
+            currentIndex += step;
+            if (currentIndex >= filteredData.length) currentIndex = 0;
+            if (currentIndex < 0) currentIndex = filteredData.length - 1;
+            updateLightboxContent();
+        }
+
+        function updateLightboxContent() {
+            const wrapper = document.getElementById("lightbox-wrapper");
+            const captionText = document.getElementById("lightbox-caption-text");
+            const item = filteredData[currentIndex];
+            wrapper.innerHTML = "";
+
+            if (item.src.includes('youtube.com') || item.src.includes('youtu.be')) {
+                const vidId = getYouTubeId(item.src);
+                const iframe = document.createElement('iframe');
+                iframe.className = "lightbox-media";
+                iframe.src = `https://www.youtube.com/embed/${vidId}?autoplay=1`;
+                iframe.frameBorder = "0";
+                iframe.allow = "autoplay; encrypted-media";
+                iframe.allowFullscreen = true;
+                wrapper.appendChild(iframe);
+            } 
+            else if (item.type === 'video') {
+                const video = document.createElement('video');
+                video.className = "lightbox-media"; video.controls = true; video.autoplay = true; video.src = item.src;
+                wrapper.appendChild(video);
+            } 
+            else {
+                const img = document.createElement('img');
+                img.className = "lightbox-media"; img.src = item.src;
+                wrapper.appendChild(img);
+            }
+            captionText.innerHTML = item.caption;
+        }
+        
+        document.getElementById("lightbox").addEventListener("click", function(e) { 
+            if (e.target === this) closeLightbox(); 
+        });
+    </script>
 </body>
 </html>

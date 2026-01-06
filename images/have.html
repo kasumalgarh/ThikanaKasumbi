@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal Vanshavali - Thikana Kasumbi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Merriweather:wght@300;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <style>
+        :root {
+            --bg-color: #fdf5e6; /* Creamy Parchment */
+            --line-color: #8b0000; /* Royal Maroon */
+            --text-color: #2c1b18;
+            --gold: #d4af37;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Merriweather', serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Control Panel */
+        .controls {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255,255,255,0.8);
+            border-bottom: 2px solid var(--gold);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .btn {
+            background-color: var(--line-color);
+            color: #fff;
+            border: 2px solid var(--gold);
+            padding: 12px 25px;
+            font-family: 'Cinzel', serif;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn:hover {
+            background-color: #5a0000;
+            transform: scale(1.05);
+        }
+
+        /* Tree Styles */
+        .tree-wrapper {
+            display: inline-block;
+            padding: 50px;
+            background-color: var(--bg-color); /* Ensure bg exists for image capture */
+            min-width: 100%;
+        }
+
+        .tree ul {
+            padding-top: 20px; 
+            position: relative;
+            transition: all 0.5s;
+            display: flex;
+            justify-content: center;
+        }
+
+        .tree li {
+            float: left; text-align: center;
+            list-style-type: none;
+            position: relative;
+            padding: 20px 5px 0 5px;
+            transition: all 0.5s;
+        }
+
+        /* Connecting Lines */
+        .tree li::before, .tree li::after {
+            content: '';
+            position: absolute; top: 0; right: 50%;
+            border-top: 2px solid var(--line-color);
+            width: 50%; height: 20px;
+        }
+
+        .tree li::after {
+            right: auto; left: 50%;
+            border-left: 2px solid var(--line-color);
+        }
+
+        .tree li:only-child::after, .tree li:only-child::before {
+            display: none;
+        }
+
+        .tree li:only-child { padding-top: 0; }
+
+        .tree li:first-child::before, .tree li:last-child::after {
+            border: 0 none;
+        }
+
+        .tree li:last-child::before{
+            border-right: 2px solid var(--line-color);
+            border-radius: 0 5px 0 0;
+        }
+        
+        .tree li:first-child::after{
+            border-radius: 5px 0 0 0;
+        }
+
+        .tree ul ul::before{
+            content: '';
+            position: absolute; top: 0; left: 50%;
+            border-left: 2px solid var(--line-color);
+            width: 0; height: 20px;
+        }
+
+        /* Member Card */
+        .member {
+            border: 1px solid var(--line-color);
+            padding: 8px 12px;
+            text-decoration: none;
+            color: var(--text-color);
+            font-family: 'Cinzel', serif;
+            font-size: 12px;
+            font-weight: 700;
+            display: inline-block;
+            border-radius: 5px;
+            background: #fff;
+            box-shadow: 3px 3px 0px rgba(139, 0, 0, 0.1);
+            min-width: 120px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .member:hover {
+            background: #ffe4c4;
+            border-color: var(--gold);
+        }
+
+        /* Header Styling in Image */
+        .tree-header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--line-color);
+        }
+        .tree-header h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            margin: 0;
+            border-bottom: 3px solid var(--gold);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        .tree-header p {
+            font-size: 1.2rem;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="controls">
+        <button id="downloadBtn" class="btn">
+            <i class="fas fa-file-image"></i> Download HD Vanshavali Image
+        </button>
+        <p style="font-size: 12px; margin-top:5px; color:#555;">Note: Image generation may take a few seconds due to high quality.</p>
+    </div>
+
+    <div id="captureArea" class="tree-wrapper">
+        <div class="tree-header">
+            <h1>Thikana Kasumbi</h1>
+            <p>Royal Genealogy (Vanshavali)</p>
+        </div>
+        <div class="tree">
+            <ul id="treeRoot"></ul>
+        </div>
+        <div style="text-align: right; margin-top: 30px; font-size: 10px; color: #8b0000; font-family: 'Cinzel', serif;">
+            Created by Yuvraj GajRaj Singh
+        </div>
+    </div>
+
+    <script>
+        // --- YOUR DATA ---
+        const familyData = {
+          "name": "Raj Shree Thakur Saheb Narayan Singh",
+          "children": [
+            {
+              "name": "Th. Akhe Singh",
+              "children": [
+                {
+                  "name": "Th. Mangal Singh",
+                  "children": [
+                    {
+                      "name": "Th. Bakhtawar Singh",
+                      "children": [
+                        {
+                          "name": "Th. Raghunath Singh",
+                          "children": [
+                            {
+                              "name": "Th. Roop Singh",
+                              "children": [
+                                {
+                                  "name": "Th. Ridmal Singh",
+                                  "children": [
+                                    {
+                                      "name": "Th. Bhairu Singh",
+                                      "children": [
+                                        {
+                                          "name": "Th. Mahendra Singh",
+                                          "children": [
+                                            {
+                                              "name": "Yuvraj GajRaj Singh",
+                                              "children": [
+                                                { "name": "Bhanwar Khushvendra Singh", "children": [] }
+                                              ]
+                                            },
+                                            { "name": "Kr. Shivraj Singh", "children": [] },
+                                            { "name": "Baisa Hrishiraj Rathore", "children": [] }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "Th. Partap Singh",
+                                      "children": [
+                                        {
+                                          "name": "Th. Rajendra Singh",
+                                          "children": [
+                                            {
+                                              "name": "Kr. Arun Singh",
+                                              "children": [
+                                                { "name": "Bhanwar Baisa Raghvi Rathore", "children": [] }
+                                              ]
+                                            },
+                                            { "name": "Baisa Rajlaxmi Rathore", "children": [] }
+                                          ]
+                                        },
+                                        {
+                                          "name": "Th. Ravindra Singh",
+                                          "children": [
+                                            { "name": "Baisa Yogita Rathore", "children": [] },
+                                            { "name": "Baisa Garima Rathore", "children": [] },
+                                            { "name": "Kr. Yashvardhan Singh Rathore", "children": [] }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                { "name": "Th. Gopinath Singh", "children": [] },
+                                { "name": "Th. Sonath Singh", "children": [] }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Th. Jawahar Singh",
+                      "children": [
+                        { "name": "Th. Sabal Singh", "children": [] },
+                        { "name": "Th. Balnwant Singh", "children": [] },
+                        { "name": "Th. Sawant Singh", "children": [] },
+                        {
+                          "name": "Th. Bhiv Singh",
+                          "children": [
+                            {
+                              "name": "Th. Lal Singh",
+                              "children": [
+                                {
+                                  "name": "Th. Richhpal Singh",
+                                  "children": [
+                                    {
+                                      "name": "Th. Bhawani Singh",
+                                      "children": [
+                                        {
+                                          "name": "Kr. Devendra Singh",
+                                          "children": [
+                                            { "name": "Bh. Daksh Rathore", "children": [] }
+                                          ]
+                                        },
+                                        { "name": "Kr. Ajeet Singh", "children": [] }
+                                      ]
+                                    },
+                                    {
+                                      "name": "Th. Ratan Singh",
+                                      "children": [
+                                        { "name": "Kr. Vikram Singh", "children": [] }
+                                      ]
+                                    },
+                                    {
+                                      "name": "Kr. Narpat Singh",
+                                      "children": [
+                                        { "name": "Th. Yogendra Singh", "children": [] },
+                                        { "name": "Th. Kuldeep Singh", "children": [] }
+                                      ]
+                                    },
+                                    {
+                                      "name": "Th. Tej Singh",
+                                      "children": [
+                                        { "name": "Kr. Jaydeep Singh", "children": [] }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Th. Bhagirath Singh",
+                                  "children": [
+                                    { "name": "Kr. Rajendra Singh", "children": [] },
+                                    { "name": "Kr. Manohar Singh", "children": [] },
+                                    { "name": "Kr. Anand Singh", "children": [] },
+                                    { "name": "Kr. Gajendra Singh", "children": [] }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Th. Keshar Singh",
+                              "children": [
+                                {
+                                  "name": "Th. Sopal Singh",
+                                  "children": [
+                                    { "name": "Kr. Indra Singh", "children": [] },
+                                    { "name": "Kr. Narendra Singh", "children": [] }
+                                  ]
+                                },
+                                { "name": "Th. Ugam Singh", "children": [] },
+                                {
+                                  "name": "Th. Baagh Singh",
+                                  "children": [
+                                    { "name": "Kr. Laxman Singh", "children": [] },
+                                    { "name": "Kr. Narpat Singh", "children": [] }
+                                  ]
+                                },
+                                { "name": "Th. Partap Singh", "children": [] }
+                              ]
+                            },
+                            { "name": "Th. Bane Singh", "children": [] }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Th. Bhairu Singh",
+                  "children": [
+                    { "name": "Th. Laxman Singh", "children": [] },
+                    {
+                      "name": "Th. Bhopal Singh",
+                      "children": [
+                        {
+                          "name": "Th. Aman Singh",
+                          "children": [
+                            {
+                              "name": "Th. Hari Singh",
+                              "children": [
+                                { "name": "Th. Bhanwar Singh", "children": [] },
+                                { "name": "Th. Bhagirath Singh", "children": [] }
+                              ]
+                            },
+                            {
+                              "name": "Th. Sujan Singh",
+                              "children": [
+                                {
+                                  "name": "Th. Nawal Singh",
+                                  "children": [
+                                    { "name": "Th. Ranveer Singh", "children": [] },
+                                    {
+                                      "name": "Th. Sumer Singh",
+                                      "children": [
+                                        {
+                                          "name": "Kr. Sudhir Partap Singh",
+                                          "children": [
+                                            { "name": "Bh. Anirudh Partap Singh", "children": [] }
+                                          ]
+                                        },
+                                        { "name": "Kr. Himmt Singh", "children": [] },
+                                        { "name": "Kr. Kishan Singh", "children": [] }
+                                      ]
+                                    },
+                                    {
+                                      "name": "Th. Girdhari Singh",
+                                      "children": [
+                                        { "name": "Kr. Aaditya Singh", "children": [] }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            { "name": "Th. Khuman Singh", "children": [] },
+                            { "name": "Th. Banne Singh", "children": [] },
+                            { "name": "Th. Ugam Singh", "children": [] },
+                            { "name": "Th. Kan Singh", "children": [] },
+                            {
+                              "name": "Th. Sawant Singh",
+                              "children": [
+                                {
+                                  "name": "Th. Mahaveer Singh",
+                                  "children": [
+                                    { "name": "Th. Nitendra Singh", "children": [] },
+                                    { "name": "Th. Hem Singh", "children": [] }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Th. Achal Singh",
+                              "children": [
+                                { "name": "Th. Ram Singh", "children": [] },
+                                { "name": "Th. Moti Singh", "children": [] }
+                              ]
+                            }
+                          ]
+                        },
+                        { "name": "Th. Balwant Singh", "children": [] },
+                        { "name": "Th. Bakshiram Singh", "children": [] },
+                        {
+                          "name": "Th. Chatar Singh",
+                          "children": [
+                            {
+                              "name": "Th. Ganesh Singh",
+                              "children": [
+                                {
+                                  "name": "Th. Bhanwar Singh",
+                                  "children": [
+                                    {
+                                      "name": "Kr. Gajendra Singh",
+                                      "children": [
+                                        { "name": "Bh. Tanmay Singh", "children": [] }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Th. Mohan Singh",
+                                  "children": [
+                                    {
+                                      "name": "Kr. Bajrang Singh",
+                                      "children": [
+                                        { "name": "Bh. Rudrapartap Singh", "children": [] }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Th. Dungar Singh",
+                                  "children": [
+                                    { "name": "Kr. Ajeet Singh", "children": [] }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Th. Tool Singh",
+                              "children": [
+                                {
+                                  "name": "Th. Rawant Singh",
+                                  "children": [
+                                    {
+                                      "name": "Th. Govind Singh",
+                                      "children": [
+                                        { "name": "Kr. Harshvardhan Singh", "children": [] },
+                                        { "name": "Kr. Yashvardhan Singh", "children": [] }
+                                      ]
+                                    },
+                                    {
+                                      "name": "Th. Mahendra Singh",
+                                      "children": [
+                                        { "name": "Kr. SuryaVardhan Singh", "children": [] }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Th. Kishor Singh",
+                              "children": [
+                                {
+                                  "name": "Kr. Karan Singh",
+                                  "children": [
+                                    { "name": "Bh. Jitendra Singh", "children": [] }
+                                  ]
+                                },
+                                {
+                                  "name": "Kr. Rajveer Singh",
+                                  "children": [
+                                    { "name": "Bh. Aryan Rathore", "children": [] }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Th. Ranjit Singh",
+                  "children": [
+                    {
+                      "name": "Th. Bachan Singh",
+                      "children": [
+                        {
+                          "name": "Th. Ganga Singh",
+                          "children": [
+                            { "name": "Th. Sardar Singh", "children": [] },
+                            { "name": "Th. Selab Singh", "children": [] },
+                            {
+                              "name": "Th. Bhoor Singh",
+                              "children": [
+                                {
+                                  "name": "Th. Dhukal Singh",
+                                  "children": [
+                                    { "name": "Th. Madan Singh", "children": [] },
+                                    { "name": "Th. Chhagan Singh", "children": [] },
+                                    {
+                                      "name": "Th. Bhagirath Singh",
+                                      "children": [
+                                        {
+                                          "name": "Th. Norang Singh",
+                                          "children": [
+                                            { "name": "Kr. Govind Singh", "children": [] },
+                                            { "name": "Kr. Manvendra Singh", "children": [] }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    { "name": "Th. Laxman Singh", "children": [] },
+                                    { "name": "Th. Manohar Singh", "children": [] },
+                                    { "name": "Th. Bhanwar Singh", "children": [] }
+                                  ]
+                                },
+                                { "name": "Th. Hukam Singh", "children": [] },
+                                { "name": "Th. Megh Singh", "children": [] }
+                              ]
+                            },
+                            { "name": "Th. Ajeet Singh", "children": [] },
+                            { "name": "Th. Sarup Singh", "children": [] }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Th. Om Singh",
+                      "children": [
+                        { "name": "Th. Ganga Singh", "children": [] },
+                        { "name": "Th. Dhan Singh", "children": [] },
+                        {
+                          "name": "Th. Sujan Singh",
+                          "children": [
+                            { "name": "Th. Rawat Singh", "children": [] },
+                            { "name": "Th. Dhir Singh", "children": [] },
+                            {
+                              "name": "Th. Fool Singh",
+                              "children": [
+                                {
+                                  "name": "Kr. Raghuveer Singh",
+                                  "children": [
+                                    { "name": "Kr. Mahipal Singh", "children": [] },
+                                    { "name": "Kr. Sarwan Singh", "children": [] },
+                                    { "name": "Kr. Hari Singh", "children": [] }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            { "name": "Th. Sangram Singh", "children": [] },
+            {
+              "name": "Th. Surat Singh",
+              "children": [
+                {
+                  "name": "Th. Hanwant Singh",
+                  "children": [
+                    {
+                      "name": "Th. Jagat Singh",
+                      "children": [
+                        {
+                          "name": "Th. Baldev Singh",
+                          "children": [
+                            { "name": "Th. Sadul Singh", "children": [] },
+                            {
+                              "name": "Th. Guman Singh",
+                              "children": [
+                                { "name": "Th. Mool Singh", "children": [] },
+                                { "name": "Th. Dool Singh", "children": [] }
+                              ]
+                            },
+                            { "name": "Th. Devi Singh", "children": [] }
+                          ]
+                        },
+                        { "name": "Th. Kushal Singh", "children": [] },
+                        {
+                          "name": "Th. Gangabaks Singh",
+                          "children": [
+                            {
+                              "name": "Th. Daal Singh",
+                              "children": [
+                                {
+                                  "name": "Th. Fate Singh",
+                                  "children": [
+                                    {
+                                      "name": "Kr. Bhanwar Singh",
+                                      "children": [
+                                        { "name": "Bh. Yashpal Singh", "children": [] },
+                                        { "name": "Bh. Shakti Singh", "children": [] }
+                                      ]
+                                    },
+                                    {
+                                      "name": "Kr. Mahendra Singh",
+                                      "children": [
+                                        { "name": "Bh. Vijaypal Singh", "children": [] },
+                                        { "name": "Bh. Ajaypal Singh", "children": [] }
+                                      ]
+                                    },
+                                    {
+                                      "name": "Kr. Girwar Singh",
+                                      "children": [
+                                        { "name": "Bh. Narendra Singh", "children": [] },
+                                        { "name": "Bh. Gopal Singh", "children": [] }
+                                      ]
+                                    },
+                                    {
+                                      "name": "Kr. Bhawani Singh",
+                                      "children": [
+                                        { "name": "Bh. Shivraj Singh", "children": [] },
+                                        { "name": "Bh. Jivraj Singh", "children": [] }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Th. Nathu Singh",
+                                  "children": [
+                                    { "name": "Kr. Bhagwan Singh", "children": [] },
+                                    { "name": "Kr. Bajrang Singh", "children": [] },
+                                    { "name": "Kr. Prithvi Singh", "children": [] },
+                                    { "name": "Kr. Vikram Singh", "children": [] }
+                                  ]
+                                }
+                              ]
+                            },
+                            { "name": "Th. Ganpat Singh", "children": [] },
+                            { "name": "Th. Sodan Singh", "children": [] }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Th. Hamir Singh",
+                      "children": [
+                        {
+                          "name": "Th. Pem Singh",
+                          "children": [
+                            {
+                              "name": "Th. Govind Singh",
+                              "children": [
+                                {
+                                  "name": "Th. Jagmal Singh",
+                                  "children": [
+                                    { "name": "Th. Mangu Singh", "children": [] },
+                                    { "name": "Th. Partap Singh", "children": [] }
+                                  ]
+                                },
+                                {
+                                  "name": "Th. Sopal Singh",
+                                  "children": [
+                                    { "name": "Kr. Raghuveer Singh", "children": [] },
+                                    { "name": "Kr. Bhagwan Singh", "children": [] }
+                                  ]
+                                },
+                                {
+                                  "name": "Th. Ugam Singh",
+                                  "children": [
+                                    { "name": "Kr. Manmohan Singh", "children": [] },
+                                    { "name": "Kr. Man Singh", "children": [] },
+                                    { "name": "Kr. Kan Singh", "children": [] }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Th. Jet Singh",
+                              "children": [
+                                { "name": "Th. Sawai Singh", "children": [] },
+                                { "name": "Th. Ranveer Singh", "children": [] }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    { "name": "Th. Metab Singh", "children": [] },
+                    { "name": "Th. Shal Singh", "children": [] },
+                    { "name": "Th. Onad Singh", "children": [] }
+                  ]
+                },
+                { "name": "Th. Bagh Singh", "children": [] }
+              ]
+            },
+            { "name": "Th. Sardar Singh", "children": [] }
+          ]
+        };
+
+        // --- TREE BUILDING LOGIC ---
+        function createTree(member) {
+            const li = document.createElement('li');
+            
+            // Create the Box
+            const div = document.createElement('div');
+            div.className = 'member';
+            div.textContent = member.name;
+            li.appendChild(div);
+
+            // Recursion for children
+            if (member.children && member.children.length > 0) {
+                const ul = document.createElement('ul');
+                member.children.forEach(child => {
+                    ul.appendChild(createTree(child));
+                });
+                li.appendChild(ul);
+            }
+
+            return li;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            const rootUl = document.getElementById('treeRoot');
+            // Data provided is an Object, but the function returns an LI. 
+            // We need to just append the result of createTree(familyData).
+            rootUl.appendChild(createTree(familyData));
+        });
+
+        // --- DOWNLOAD LOGIC ---
+        document.getElementById('downloadBtn').addEventListener('click', () => {
+            const captureArea = document.getElementById('captureArea');
+            const btn = document.getElementById('downloadBtn');
+            const originalText = btn.innerHTML;
+
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating HD Image...';
+            btn.style.opacity = '0.7';
+
+            // Increase scale for HD Quality (scale: 4)
+            html2canvas(captureArea, {
+                scale: 4, 
+                backgroundColor: "#fdf5e6",
+                scrollX: 0,
+                scrollY: 0,
+                windowWidth: document.documentElement.scrollWidth,
+                windowHeight: document.documentElement.scrollHeight
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'Kasumalgarh_Vanshavali_HD.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+
+                btn.innerHTML = originalText;
+                btn.style.opacity = '1';
+                alert("Image Downloaded Successfully! Please check your downloads folder.");
+            }).catch(err => {
+                console.error(err);
+                alert("Error generating image.");
+                btn.innerHTML = originalText;
+                btn.style.opacity = '1';
+            });
+        });
+    </script>
+</body>
+</html>

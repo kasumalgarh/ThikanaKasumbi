@@ -1,175 +1,250 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Vanshawali | Thikana Kasumbi (Jakhlan)</title>
-    <link rel="icon" href="YGSR.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thikana Kasumalgarh - Royal Vanshawali</title>
     
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Noto+Serif+Devanagari:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="vstyle.css">
+    <style>
+        /* Kala Background */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 5000; 
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.6); 
+            backdrop-filter: blur(3px);
+        }
+
+        /* Box Design */
+        .modal-content {
+            background-color: #fffbf0; /* Royal Cream */
+            margin: 15% auto; 
+            padding: 20px;
+            border: 2px solid #d4af37; /* Gold Border */
+            width: 90%; 
+            max-width: 400px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            position: relative;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        /* Close Button (X) */
+        .close-modal {
+            color: #800000;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close-modal:hover { color: red; }
+
+        /* Animation */
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Inputs */
+        .modal input, .modal textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; /* Width fix */
+        }
+    </style>
+
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
-        (function(){ emailjs.init("KpyNvZBBeX0ZJisG8"); })();
+        (function(){
+            emailjs.init("J3okpk4omjrkmUnwz");
+        })();
     </script>
-
-    <link rel="stylesheet" href="royal_global.css">
-    <link rel="stylesheet" href="vstyle.css">
-  
 </head>
-<body oncontextmenu="return false;">
+<body>
 
-    <div id="loadingOverlay">
-        <img src="klogo1.png" alt="Logo" class="breathing-logo">
-        <div style="font-family:'Cinzel'; color:#800000; font-size:1.2em;">|| जय माँ नागणेच्या ||<br><span style="font-size:0.7em">वंशावली लोड हो रही है</span></div>
-    </div>
+    <div class="watermark">Thikana Kasumalgarh Yuvraj Gajraj Singh</div>
 
-    <div class="navbar-wrapper">
-        <div class="container">
-            <nav class="navbar navbar-inverse">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-                        <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-                    </button>
-                    <div class="mobile-search-btn" onclick="toggleLeftPanel()"><i class="fas fa-search"></i></div>
-                    <a class="navbar-brand" href="index.html">
-                        <img src="menulogo.png" alt="Logo" class="menu-logo-img"> KASUMALGARH
-                    </a>
-                </div>
-                <div id="navbar" class="collapse navbar-collapse">
-                   <ul class="nav navbar-nav navbar-right">
-                        <li><a href="index.html">HOME</a></li>
-                        <li class="dropdown active">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">VANSHAWALI <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="vanshawali.html">Kasumalgarh</a></li>
-                                <li><a href="rathorevanshawali.html">Rathore</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">HISTORY <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                <li><a href="kasumbi_history.html">Kasumalgarh History</a></li>
-                <li><a href="rathore_history.html">Rathore History</a></li>
-            </ul>
-        </li>
-                        <li><a href="gallery.html">GALLERY</a></li>
-                        <li><a href="contact.html">CONTACT</a></li>
-                        <li class="hidden-xs"><a href="#" onclick="toggleLeftPanel()"><i class="fas fa-search"></i> Search</a></li>
-                        <li><a href="#" onclick="openRequestModal()"><i class="fas fa-user-plus"></i> Add</a></li>
-                    </ul>
-                </div>
-            </nav>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="menulogo.png" alt="Logo" style="height: 30px; margin-right: 5px;"> 
+            Kasumalgarh
         </div>
-    </div>
-
-    <header class="index-header" style="min-height: 400px; padding-top: 100px; background-image:url('kasumbi_fort_4.jpeg');">
-        <div class="container">
-            <h1 class="shining-text" style="font-size: 2.5em;">|| वंशावली ||</h1>
-            <div style="font-family: 'Cinzel'; color: #d4af37; letter-spacing: 2px; text-transform: uppercase;">Thikana Kasumbi (Jakhlan)</div>
+        
+        <div class="hamburger" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
         </div>
-    </header>
 
-    <div class="tree-container" id="treeWrapper">
-        <div class="container">
-            <div class="top-controls">
-                <button class="expand-main-btn" onclick="toggleRootChildren()">
-                    <i class="fas fa-sitemap"></i> Expand Tree (वंशावली खोलें)
-                </button>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="treeArea" style="display: inline-block; min-width: 100%; transform-origin: top left; transition: transform 0.3s;">
-                        <div class="royal-tree" id="royalTreeArea"></div>
-                    </div>
-                </div>
-            </div>
+        <ul class="nav-links" id="mobileMenu">
+            <li><a href="index.html">Home</a></li>
+            
+            <li class="dropdown">
+                <a href="#">Vanshawali <i class="fas fa-caret-down"></i></a>
+                <ul class="dropdown-content">
+                    <li><a href="vanshawali.html">Kasumalgarh</a></li>
+                    <li><a href="rathorevanshawali.html">Rathore</a></li>
+                </ul>
+            </li>
+
+            <li><a href="history.html">History</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+
+        <div style="display:flex; gap:10px; align-items:center;">
+            <button class="menu-search-btn" onclick="openRequestModal()" title="Request Add">
+    <i class="fas fa-user-plus"></i>
+</button>
+            
+            <button class="menu-search-btn" onclick="toggleLeftPanel()">
+                <i class="fas fa-search"></i>
+            </button>
         </div>
-    </div>
+    </nav>
 
-    <aside class="sidebar-left" id="leftPanel">
-        <div class="panel-header"><span><i class="fas fa-list"></i> Member Index</span><i class="fas fa-times" onclick="toggleLeftPanel()" style="cursor:pointer; font-size:20px;"></i></div>
-        <div class="search-container"><input type="text" id="searchBox" class="search-box-panel" placeholder="नाम खोजें..." onkeyup="filterIndex()"><i class="fas fa-times clear-search" id="clearSearchBtn" onclick="clearSearch()"></i></div>
-        <div class="panel-content"><ul class="index-list" id="indexList"></ul></div>
+    <aside class="sidebar-left" id="left-panel">
+        <div class="panel-header">
+            <span>Member Index</span>
+            <span class="close-btn" onclick="toggleLeftPanel()">&times;</span>
+        </div>
+        
+        <div class="search-wrapper">
+            <input type="text" id="search-box" placeholder="Search name..." onkeyup="filterNames()">
+            <i class="fas fa-times search-clear-btn" id="clear-btn" onclick="clearSearch()"></i>
+        </div>
+
+        <div class="list-area"><ul id="index-list"></ul></div>
     </aside>
 
-    <aside class="sidebar-right" id="rightPanel">
-        <div class="panel-header"><span><i class="fas fa-info-circle"></i> Family Details</span><i class="fas fa-times" onclick="closeRightPanel()" style="cursor:pointer; font-size:20px;"></i></div>
-        <div class="panel-content" id="captureTarget" style="background: #fffbf0; position:relative;">
-            <div id="memberDetails" style="text-align: center; margin-bottom: 20px;"></div>
-            <h5 style="color:#800000; font-family:'Cinzel'; border-bottom: 1px dashed #d4af37; padding-bottom: 5px;">Ancestral Path (वंशावली क्रम)</h5>
-            <div id="ancestralPath" style="margin-top: 15px;"></div>
-            <div style="margin-top:30px; font-size:10px; color:#999; text-align:center; border-top:1px solid #ebd5a0; padding-top:10px;">
-                Generated by Kasumalgarh.site
-            </div>
-        </div>
+    <aside class="sidebar-right" id="right-panel">
+        <span class="close-btn" style="float:right;" onclick="closeRightPanel()">&times;</span>
+        <div id="panel-content"></div>
+        <h4 style="border-bottom:1px solid #ccc; padding-bottom:5px;">Ancestral Path</h4>
+        <ul id="lineage-path" style="padding-left:0; list-style:none;"></ul>
     </aside>
 
-    <div id="hoverTooltip"></div>
+    <div id="hover-tooltip"></div>
 
-    <div class="fab-container">
-        <div class="main-fab" onclick="toggleFab(this)"><i class="fas fa-plus"></i></div>
-        <div class="fab-options" id="fabOptions">
-            <button class="mini-fab" onclick="shareWhatsApp()" title="Share on WhatsApp" style="background:#25D366; color:#fff; border-color:#25D366;"><i class="fab fa-whatsapp"></i></button>
-            <button class="mini-fab" onclick="toggleFullScreen()" title="Full Screen"><i class="fas fa-expand"></i></button> 
-            <button class="mini-fab" onclick="resetTree()" title="Reset Tree"><i class="fas fa-sync-alt"></i></button>
-            <button class="mini-fab" onclick="zoomIn()" title="Zoom In"><i class="fas fa-plus"></i></button>
-            <button class="mini-fab" onclick="zoomOut()" title="Zoom Out"><i class="fas fa-minus"></i></button>
-            <button class="mini-fab" onclick="captureRightPanel()" title="Download Full HD" style="background:#2ecc71; color:#fff; border-color:#27ae60;"><i class="fas fa-camera"></i></button>
+    <div class="tree-scroll-wrapper" id="capture-area" onclick="closePanelsOutside(event)">
+        <div id="tree-root">Loading Tree...</div>
+    </div>
+<div class="smart-tools-container">
+        
+        <button class="tools-toggle-btn" onclick="toggleSmartMenu()" title="Tools">
+            <i class="fas fa-cog fa-spin-hover"></i> </button>
+
+        <div class="smart-options" id="smartOptions">
+            <button class="smart-btn" onclick="toggleFullScreen()" title="Full Screen"><i class="fas fa-expand"></i></button>
+            <button class="smart-btn" onclick="resetZoom()" title="Reset"><i class="fas fa-sync-alt"></i></button>
+            <button class="smart-btn" onclick="zoomIn()" title="Zoom In"><i class="fas fa-plus"></i></button>
+            <button class="smart-btn" onclick="zoomOut()" title="Zoom Out"><i class="fas fa-minus"></i></button>
+            <button class="smart-btn" onclick="downloadImage()" title="Download" style="background:#2ecc71; color:white;"><i class="fas fa-camera"></i></button>
         </div>
+
     </div>
 
-    <div id="requestModal" class="modal-overlay">
-        <div class="modal-box">
-            <span onclick="closeRequestModal()" style="position:absolute; right:15px; top:10px; font-size:24px; cursor:pointer; color:#800000;">&times;</span>
-            <h4 style="color:#800000; text-align:center; font-family:'Cinzel';">Request Correction</h4>
-            <input type="text" id="reqName" class="modal-input" placeholder="Your Name">
-            <textarea id="reqMsg" class="modal-input" rows="4" placeholder="Details..."></textarea>
-            <button onclick="sendRequest()" class="gold-btn">Send Request</button>
-        </div>
-    </div>
+    <footer class="footer">
+        Developed & Designed by <span>Yuvraj GajRaj Singh</span><br><br>
+           
+            <button class="menu-search-btn" onclick="openRequestModal()" title="Request Add">Click for corrections
+    <i class="fas fa-user-plus"></i>
+</button>
+            
 
-    <footer class="royal-footer">
-        <div class="container">
-            <div style="font-size: 0.9em; color: #ccc; letter-spacing: 1px;">Developed & Designed By:</div>
-            
-            <div style="color:#d4af37; font-size:1.6rem; font-family: 'Cinzel', serif; margin: 10px 0; text-shadow: 1px 1px 2px #000;">
-                Yuvraj Gajraj Singh
-            </div>
-            
-            <div class="footer-social-icons" style="margin: 20px 0;">
-                <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.kasumalgarh.site" target="_blank">
-                    <i class="fab fa-facebook"></i>
-                </a>
-                
-                <a href="https://www.instagram.com/gajsa.kasumbifort" target="_blank">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                
-                <a href="https://wa.me/?text=Check out Thikana Kasumbi: https://www.kasumalgarh.site" target="_blank">
-                    <i class="fab fa-whatsapp"></i>
-                </a>
-            </div>
-
-            <div style="font-size: 0.85em; color: #888; border-top: 1px solid #333; padding-top: 15px; width: 80%; margin: 0 auto;">
-                &copy; <span id="year">2026</span> Thikana Kasumbi | All Rights Reserved. | Vikram Samvat 2082
-                <a href="admin.html" style="color: #555; margin-left: 10px;"><i class="fas fa-lock"></i></a>
-            </div>
-            
-            <div style="margin-top: 15px; font-size: 0.9rem; color: #b8860b;">
-                <i class="fas fa-users"></i> Total Royal Guests: <span id="visitor-count" style="color:#fff; font-weight:bold;">12,543</span>
-            </div>
-        </div>
+        
+        <br>
+        <a href="https://facebook.com/yourid" target="_blank" class="fb-btn">
+            <i class="fab fa-facebook"></i> Connect on Facebook
+        </a>
+        <br>
+        <span id="footer-count" style="font-size:10px; color:#fff;">Total Members: 0</span>
     </footer>
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> 
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="royal_global.js"></script>
+<div id="requestModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeRequestModal()">&times;</span>
+        <h3>Request to Add Member</h3>
+        
+        <label>Your Name:</label>
+        <input type="text" id="req-name" placeholder="Enter name...">
+        
+        <label>Details / Message:</label>
+        <textarea id="req-msg" rows="4" placeholder="Father's name, relation, etc..."></textarea>
+        
+        <button class="send-btn" onclick="sendEmailNow()" style="background:#2ecc71; color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer; margin-top:10px; width:100%;">
+            Send Request <i class="fas fa-paper-plane"></i>
+        </button>
+    </div>
+</div>
+
     <script src="family-data.js"></script>
-    <script src="vjs.js"></script>
- 
+    <script src="vscript.js"></script>
+    <script>
+    // 1. Popup Kholo
+    function openRequestModal() {
+        console.log("Button Clicked!"); // Check karne ke liye
+        var modal = document.getElementById('requestModal');
+        if(modal) {
+            modal.style.display = "block";
+        } else {
+            alert("Error: Modal box nahi mila!");
+        }
+    }
+
+    // 2. Popup Band Karo
+    function closeRequestModal() {
+        document.getElementById('requestModal').style.display = "none";
+    }
+
+    // 3. Email Bhejo (Direct Function)
+    function sendEmailNow() {
+        let name = document.getElementById('req-name').value;
+        let msg = document.getElementById('req-msg').value;
+
+        if(name === "" || msg === "") {
+            alert("Hukum, please write your name and message first.");
+            return;
+        }
+
+        let btn = document.querySelector(".send-btn");
+        let originalText = btn.innerHTML;
+        btn.innerHTML = "Sending...";
+        btn.disabled = true;
+
+        var templateParams = { from_name: name, message: msg, reply_to: "User" };
+
+        // EmailJS Send
+        emailjs.send("service_vdnox8p", "template_xx3a4tt", templateParams)
+            .then(function() {
+                alert("Message sent successfully!");
+                document.getElementById('req-name').value = "";
+                document.getElementById('req-msg').value = "";
+                closeRequestModal();
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }, function(error) {
+                alert("Failed: " + JSON.stringify(error));
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            });
+    }
+
+    // 4. Bahar click karne par band ho
+    window.onclick = function(event) {
+        let modal = document.getElementById('requestModal');
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
 </body>
 </html>

@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Tree - Thikana KASUMALGARH</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* ========================================= */
+        /* 👑 ROYAL THEME VARIABLES & RESET */
+        /* ========================================= */
+        :root {
+            --royal-gold: #d4af37;
+            --royal-maroon: #800000;
+            --bg-paper: #fffbf0;
+            --text-dark: #2c0e0e;
+            --panel-bg: #fff8e1;
+            
+            /* Generation Line Colors (Looping Pattern) */
+            --lc-1: #800000; /* Maroon */
+            --lc-2: #000080; /* Navy */
+            --lc-3: #006400; /* Green */
+            --lc-4: #4b0082; /* Indigo */
+            --lc-5: #8b4500; /* Chocolate */
+            --lc-6: #2f4f4f; /* Slate Gray */
+            --lc-7: #dc143c; /* Crimson */
+            --lc-8: #008b8b; /* Dark Cyan */
+            --lc-9: #556b2f; /* Olive */
+            --lc-10: #8b008b; /* Dark Magenta */
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Georgia', serif;
+            background-color: var(--bg-paper);
+            color: var(--text-dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        a { text-decoration: none; color: inherit; }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center; color: #b38728; padding: 20px 20px;
+            background-color: #000022; background-image: url('footerbg.png'); background-repeat: repeat;
+            border-top: 4px solid #897148;
+            position: relative; z-index: 10;
+        }
+        .developer-info { margin-top: 0px; padding-top: 10px; border-top: none; }
+        .royal-name {
+            display: block; font-family: 'Cinzel', serif; font-size: 1.6em; font-weight: 900;
+            background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 5px; letter-spacing: 1px;
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.8));
+        }
+        
+        .fb-royal-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: linear-gradient(to bottom, #b8860b, #806000);
+            color: #fff; text-decoration: none; font-size: 0.95em; font-weight: bold;
+            padding: 8px 20px; border: 2px solid #fcf6ba; border-radius: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            transition: all 0.3s ease; margin-top: 10px;
+        }
+        .fb-royal-btn:hover {
+            background: linear-gradient(to bottom, #800000, #500000);
+            transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+        }
+
+        .footer-heading-moved {
+            font-family: 'Cinzel', serif; font-weight: 900; color: #fcf6ba;
+            margin-bottom: 15px; font-size: 1.8em; letter-spacing: 2px;
+            text-transform: uppercase; text-shadow: 0 0 10px #bf953f; display: block;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 20px; background: #000033;
+            border-bottom: 2px solid #b38728;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.8);
+            position: sticky; top: 0; z-index: 2000;
+        }
+        .navbar-brand-container { display: flex; align-items: center; }
+        #menu-logo {
+            width: 50px; height: 50px; border-radius: 50%; border: 2px solid #fcf6ba;
+            box-shadow: 0 0 15px #bf953f; background: white; margin-right: 15px;
+        }
+        .navbar-brand {
+            font-size: 1.5em; font-weight: 900; color: #fcf6ba;
+            text-shadow: 0 0 2px #bf953f, 0 0 10px #000; letter-spacing: 1px;
+        }
+        .navbar-links { list-style: none; margin: 0; padding: 0; display: flex; }
+        .navbar-links li { margin-left: 15px; }
+        .navbar-links a {
+            color: #897148; padding: 8px 15px; display: block;
+            font-weight: 700; letter-spacing: 1px; transition: all 0.5s ease;
+        }
+        .navbar-links a:hover { color: #fff; text-shadow: 0 0 8px #897148; }
+        .menu-toggle { color: #897148; font-size: 35px; cursor: pointer; display: none; user-select: none; }
+
+        /* --- LAYOUT CONTAINER --- */
+        .container {
+            display: flex; max-width: 100%; margin: 0; padding: 0; position: relative;
+            height: calc(100vh - 80px);
+            overflow: hidden;
+        }
+
+        /* --- LEFT SIDEBAR (INDEX) --- */
+        .sidebar {
+            width: 260px; flex-shrink: 0;
+            background: var(--bg-paper);
+            border-right: 3px double var(--royal-maroon);
+            padding: 15px; overflow-y: auto; height: 100%; z-index: 50;
+        }
+        .sidebar h3 {
+            color: var(--royal-maroon); border-bottom: 2px solid var(--royal-gold);
+            padding-bottom: 5px; text-align: center; margin-top: 0;
+        }
+        #search-box {
+            width: 100%; padding: 8px; border: 2px solid #b8860b;
+            border-radius: 4px; color: var(--royal-maroon); margin-bottom: 10px;
+        }
+        .name-list { list-style: none; padding: 0; }
+        .name-list li { margin-bottom: 4px; }
+        .name-list a {
+            display: block; padding: 5px 10px; font-size: 0.9rem;
+            color: var(--royal-maroon); border-radius: 4px; cursor: pointer;
+            transition: 0.2s; border-bottom: 1px solid rgba(128,0,0,0.1);
+        }
+        .name-list a:hover { background-color: var(--royal-maroon); color: #fff; padding-left: 15px; }
+
+        /* --- CENTER CONTENT (MAIN TREE) --- */
+        .content {
+            flex-grow: 1;
+            padding: 20px 40px;
+            overflow-y: auto;
+            overflow-x: auto;
+            background-color: #fffbf0;
+            
+            /* 👑 WATERMARK FIX: Extra Light using Overlay */
+            /* This puts a 92% opaque cream layer ON TOP of the image to fade it out */
+            background-image: 
+                linear-gradient(rgba(255, 251, 240, 0.92), rgba(255, 251, 240, 0.92)),
+                url('watermark.png'), 
+                radial-gradient(#d4af37 1px, transparent 1px);
+            
+            background-repeat: no-repeat, no-repeat, repeat;
+            background-position: center center, center center, 0 0;
+            background-size: cover, 40% auto, 25px 25px;
+            background-blend-mode: normal, normal, multiply;
+        }
+
+        .header-action-area {
+            display: flex; align-items: center; justify-content: space-between;
+            border-bottom: 1px dashed #800000; padding-bottom: 10px; margin-bottom: 20px;
+            background: rgba(255, 251, 240, 0.6);
+            padding: 10px; border-radius: 8px;
+        }
+        .tree-heading { margin: 0; color: #800000; font-size: 1.5rem; }
+        .action-btn {
+            background-color: #b8860b; color: white; padding: 8px 15px;
+            border: 1px solid #897148; border-radius: 20px; font-weight: bold;
+            cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); transition: 0.3s;
+        }
+        .action-btn:hover { background-color: #800000; }
+
+        /* --- RIGHT SIDEBAR (SLIM TIMELINE) --- */
+        .right-panel {
+            position: fixed; top: 70px; right: -350px; width: 300px;
+            height: calc(100vh - 70px); background: var(--panel-bg);
+            border-left: 4px solid var(--royal-maroon);
+            box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+            transition: right 0.4s ease-in-out;
+            z-index: 1000; padding: 15px;
+            overflow-y: auto; display: flex; flex-direction: column;
+            background-image: linear-gradient(135deg, #fff8e1 25%, #fffdf5 25%, #fffdf5 50%, #fff8e1 50%, #fff8e1 75%, #fffdf5 75%, #fffdf5 100%);
+            background-size: 20px 20px;
+        }
+        .right-panel.active { right: 0; }
+        
+        .panel-header {
+            border-bottom: 2px solid var(--royal-maroon);
+            padding-bottom: 10px; margin-bottom: 15px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .panel-title { font-family: 'Cinzel', serif; color: var(--royal-maroon); font-weight: bold; font-size: 1.1rem; }
+        .close-btn { background: none; border: none; font-size: 1.5rem; color: #800000; cursor: pointer; }
+
+        /* Timeline Style */
+        .timeline { position: relative; padding-left: 15px; border-left: 3px solid #d4af37; margin-left: 5px; }
+        .timeline-item { position: relative; margin-bottom: 15px; padding-left: 15px; }
+        .timeline-marker {
+            position: absolute; left: -24px; top: 5px;
+            width: 14px; height: 14px; background: #800000;
+            border: 2px solid #d4af37; border-radius: 50%; z-index: 2;
+        }
+        .timeline-card {
+            background: #fff; border: 1px solid #d4af37; padding: 8px; border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .timeline-card.target { background: #ffeeb0; border: 2px solid #800000; }
+        .t-role { font-size: 0.7rem; color: #666; text-transform: uppercase; margin-bottom: 2px; }
+        .t-name { font-size: 0.9rem; font-weight: bold; color: #2c0e0e; }
+        .t-icon { float: right; color: #b8860b; opacity: 0.5; }
+
+        /* ========================================= */
+        /* 🌳 FAMILY TREE CSS */
+        /* ========================================= */
+        .tree, .tree ul { list-style: none; margin: 0; padding: 0; padding-left: 40px; }
+        .tree li { margin: 0; padding: 0; line-height: 20px; position: relative; padding-top: 20px; }
+
+        /* Connectors */
+        .tree ul li::before { content: ""; position: absolute; top: 0; left: -20px; border-left: 2px solid #ccc; height: 100%; width: 1px; }
+        .tree ul li::after { content: ""; position: absolute; top: 20px; left: -20px; border-top: 2px solid #ccc; height: 1px; width: 20px; }
+        .tree ul li:last-child::before { height: 20px; }
+        .tree > ul > li::before, .tree > ul > li::after { display: none; }
+
+        /* 🌈 DYNAMIC LINE COLORS (Up to 20 Depths) */
+        li.depth-1 > ul > li::before, li.depth-1 > ul > li::after { border-color: var(--lc-1); }
+        li.depth-2 > ul > li::before, li.depth-2 > ul > li::after { border-color: var(--lc-2); }
+        li.depth-3 > ul > li::before, li.depth-3 > ul > li::after { border-color: var(--lc-3); }
+        li.depth-4 > ul > li::before, li.depth-4 > ul > li::after { border-color: var(--lc-4); }
+        li.depth-5 > ul > li::before, li.depth-5 > ul > li::after { border-color: var(--lc-5); }
+        li.depth-6 > ul > li::before, li.depth-6 > ul > li::after { border-color: var(--lc-6); }
+        li.depth-7 > ul > li::before, li.depth-7 > ul > li::after { border-color: var(--lc-7); }
+        li.depth-8 > ul > li::before, li.depth-8 > ul > li::after { border-color: var(--lc-8); }
+        li.depth-9 > ul > li::before, li.depth-9 > ul > li::after { border-color: var(--lc-9); }
+        li.depth-10 > ul > li::before, li.depth-10 > ul > li::after { border-color: var(--lc-10); }
+        li.depth-11 > ul > li::before, li.depth-11 > ul > li::after { border-color: var(--lc-1); }
+        li.depth-12 > ul > li::before, li.depth-12 > ul > li::after { border-color: var(--lc-2); }
+        li.depth-13 > ul > li::before, li.depth-13 > ul > li::after { border-color: var(--lc-3); }
+        li.depth-14 > ul > li::before, li.depth-14 > ul > li::after { border-color: var(--lc-4); }
+        li.depth-15 > ul > li::before, li.depth-15 > ul > li::after { border-color: var(--lc-5); }
+
+        /* Member Card Styling */
+        .member-card {
+            display: inline-block; padding: 8px 12px;
+            border: 1px solid #ccc; background: #fff;
+            border-radius: 5px; transition: all 0.3s ease;
+            cursor: pointer; position: relative;
+            min-width: 120px; text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 5px;
+            z-index: 2;
+        }
+        .member-name { font-weight: bold; color: #4a4a4a; font-size: 0.95rem; text-transform: capitalize; }
+        .member-card:hover { transform: translateY(-2px); box-shadow: 0 5px 10px rgba(0,0,0,0.15); border-color: #008000; }
+
+        /* 🟢 GREEN PATH */
+        .path-green > .member-card { background-color: #e8f5e9 !important; border: 2px solid #2e7d32 !important; color: #1b5e20; }
+        .path-green > ul > li::before { border-left-color: #2e7d32 !important; border-width: 2px; }
+        .path-green > ul > li::after { border-top-color: #2e7d32 !important; border-width: 2px; }
+
+        /* 🔄 TOGGLE BUTTON (ABSOLUTE POSITION) */
+        .toggle-btn {
+            position: absolute; left: -28px; top: 22px;
+            width: 16px; height: 16px;
+            background: #fff; color: #800000;
+            text-align: center; line-height: 14px;
+            border-radius: 50%; font-size: 14px; font-weight: bold;
+            cursor: pointer; border: 1px solid #800000; z-index: 10;
+        }
+        .toggle-btn:hover { background: #800000; color: #fff; }
+        .collapsed > ul { display: none; }
+
+        /* --- 🏷️ VIP TAGS --- */
+        .vip-tag-container {
+            position: absolute; top: -22px; left: 50%; transform: translateX(-50%);
+            white-space: nowrap; font-size: 0.75rem; font-weight: bold;
+            padding: 2px 8px; border-radius: 10px; color: #fff; z-index: 5;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .vip-founder { border: 2px solid #FFD700 !important; background: linear-gradient(to bottom, #fff, #fff5d7) !important; transform: scale(1.1); margin-bottom: 25px !important; }
+        .tag-founder { background: #800000; border: 1px solid #FFD700; }
+        .vip-tikai { border: 2px solid #800000 !important; background: #fff0f0 !important; margin-top: 15px; }
+        .tag-tikai { background: #b8860b; color: #000; }
+        .vip-yuvraj { border: 2px solid #ff4500 !important; background: #fff !important; margin-top: 15px; }
+        .tag-yuvraj { background: #ff4500; }
+
+        /* --- 💡 FIXED TOOLTIP (Bottom) --- */
+        #tooltip {
+            position: fixed; display: none;
+            background: linear-gradient(to bottom, #946f36, #7a5620);
+            color: #fff; padding: 10px; border: 2px solid #fff; border-radius: 8px;
+            font-size: 0.85rem; z-index: 3000; pointer-events: none;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6); max-width: 250px;
+            line-height: 1.4; text-align: left;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .navbar-links { display: none; }
+            .container { flex-direction: column; height: auto; overflow: visible; }
+            .sidebar { width: 100%; height: auto; border-bottom: 2px solid #800000; border-right: none; }
+            .content { padding: 10px; overflow-x: scroll; }
+            .right-panel { width: 85%; right: -100%; top: 60px; height: calc(100vh - 60px); }
+            .right-panel.active { right: 0; }
+            .menu-toggle { display: block; }
+            .header-action-area { flex-direction: column; gap: 10px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="navbar-brand-container">
+            <img id="menu-logo" src="menulogo.png" alt="Logo" onerror="this.style.display='none'"> 
+            <a class="navbar-brand" href="#">KASUMALGARH</a>
+        </div>
+        <div class="menu-toggle" id="mobile-menu-btn" onclick="toggleMenu()">☰</div>
+        <ul class="navbar-links" id="nav-menu">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Vanshawali</a></li>
+            <li><a href="#">History</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <aside class="sidebar">
+            <h3>Name Index</h3>
+            <div class="search-container">
+                <input type="text" id="search-box" placeholder="Search name..." onkeyup="filterNames()">
+            </div>
+            <div id="member-count" style="text-align: center; font-style: italic; font-size: 0.9em; margin-bottom: 5px;"></div>
+            <ul class="name-list" id="index-list"></ul>
+            
+            <div style="margin-top: 30px;">
+                <h3>🔗 Social Links</h3>
+                <ul class="name-list">
+                    <li><a href="#" target="_blank"><i class="fab fa-facebook"></i> Yuvraj Gajraj Singh</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="content">
+            <div class="header-action-area">
+                <h2 class="tree-heading">Family Tree of Thikana Kasumalgarh</h2>
+                <button class="action-btn" onclick="alert('Feature coming soon!')">Add / Correct Name</button>
+            </div>
+            
+            <div id="tooltip"></div>
+
+            <div class="tree" id="main-tree-root">
+                <ul>
+                    <li class="root-li">
+                        <div class="member-card vip-founder">
+                            <div class="vip-tag-container tag-founder">👑 Founder</div>
+                            <span class="member-name">Raj Shri Thakur Saheb Narayan Singh Ji</span>
+                        </div>
+                        
+                        <ul>
+                            <li>
+                                <div class="member-card"><span class="member-name">Th. Akhe Singh</span></div>
+                                <ul>
+                                    <li><div class="member-card"><span class="member-name">Th. Mangal Singh</span></div>
+                                        <ul>
+                                            <li><div class="member-card"><span class="member-name">Th. Bakhtawar Singh</span></div>
+                                                <ul>
+                                                    <li><div class="member-card"><span class="member-name">Th. Raghunath Singh</span></div>
+                                                        <ul>
+                                                            <li><div class="member-card"><span class="member-name">Th. Roop Singh</span></div>
+                                                                <ul>
+                                                                    <li><div class="member-card"><span class="member-name">Th. Ridmal Singh</span></div>
+                                                                        <ul>
+                                                                            <li><div class="member-card"><span class="member-name">Th. Bhairu Singh</span></div>
+                                                                                <ul>
+                                                                                    <li>
+                                                                                        <div class="member-card vip-tikai">
+                                                                                            <div class="vip-tag-container tag-tikai">⚔️ Tikai / Head</div>
+                                                                                            <span class="member-name">Th. Mahendra Singh</span>
+                                                                                        </div>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <div class="member-card vip-yuvraj">
+                                                                                                    <div class="vip-tag-container tag-yuvraj">🎖️ Yuvraj</div>
+                                                                                                    <span class="member-name">Yuvraj GajRaj Singh</span>
+                                                                                                </div>
+                                                                                                <ul><li><div class="member-card"><span class="member-name">Bhanwar Khushvendra Singh</span></div></li></ul>
+                                                                                            </li>
+                                                                                            <li><div class="member-card"><span class="member-name">Kr. Shivraj Singh</span></div></li>
+                                                                                            <li><div class="member-card"><span class="member-name">Baisa Hrishiraj Rathore</span></div></li>
+                                                                                        </ul>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </li>
+                                                                            <li><div class="member-card"><span class="member-name">Th. Partap Singh</span></div>
+                                                                                <ul>
+                                                                                    <li><div class="member-card"><span class="member-name">Th. Rajendra Singh</span></div><ul><li><div class="member-card"><span class="member-name">Kr. Arun Singh</span></div><ul><li><div class="member-card"><span class="member-name">Bhanwar Baisa Raghvi</span></div></li></ul></li><li><div class="member-card"><span class="member-name">Baisa Rajlaxmi Rathore</span></div></li></ul></li>
+                                                                                    <li><div class="member-card"><span class="member-name">Th. Ravindra Singh</span></div><ul><li><div class="member-card"><span class="member-name">Baisa Yogita Rathore</span></div></li><li><div class="member-card"><span class="member-name">Baisa Garima Rathore</span></div></li><li><div class="member-card"><span class="member-name">Kr. Yashvardhan Singh</span></div></li></ul></li>
+                                                                                </ul>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                            <li><div class="member-card"><span class="member-name">Th. Gopinath Singh</span></div></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><div class="member-card"><span class="member-name">Th. Sonath Singh</span></div></li>
+                                                </ul>
+                                            </li>
+                                            <li><div class="member-card"><span class="member-name">Th. Jawahar Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Sabal Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Balwant Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Sawant Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Bhiv Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Lal Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Richhpal Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Bhawani Singh</span></div><ul><li><div class="member-card"><span class="member-name">Kr. Devendra Singh</span></div><ul><li><div class="member-card"><span class="member-name">Bh. Daksh Rathore</span></div></li></ul></li><li><div class="member-card"><span class="member-name">Kr. Ajeet Singh</span></div></li></ul></li><li><div class="member-card"><span class="member-name">Th. Ratan Singh</span></div><ul><li><div class="member-card"><span class="member-name">Kr. Vikram Singh</span></div></li></ul></li><li><div class="member-card"><span class="member-name">Kr. Narpat Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Yogendra Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Kuldeep Singh</span></div></li></ul></li><li><div class="member-card"><span class="member-name">Th. Tej Singh</span></div><ul><li><div class="member-card"><span class="member-name">Kr. Jaydeep Singh</span></div></li></ul></li></ul></li><li><div class="member-card"><span class="member-name">Th. Bhagirath Singh</span></div><ul><li><div class="member-card"><span class="member-name">Kr. Rajendra Singh</span></div></li><li><div class="member-card"><span class="member-name">Kr. Manohar Singh</span></div></li><li><div class="member-card"><span class="member-name">Kr. Anand Singh</span></div></li><li><div class="member-card"><span class="member-name">Kr. Gajendra Singh</span></div></li></ul></li></ul></li><li><div class="member-card"><span class="member-name">Th. Keshar Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Sopal Singh</span></div><ul><li><div class="member-card"><span class="member-name">Kr. Indra Singh</span></div></li><li><div class="member-card"><span class="member-name">Kr. Narendra Singh</span></div></li></ul></li><li><div class="member-card"><span class="member-name">Th. Ugam Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Baagh Singh</span></div><ul><li><div class="member-card"><span class="member-name">Kr. Laxman Singh</span></div></li><li><div class="member-card"><span class="member-name">Kr. Narpat Singh</span></div></li></ul></li><li><div class="member-card"><span class="member-name">Th. Partap Singh</span></div></li></ul></li><li><div class="member-card"><span class="member-name">Th. Bane Singh</span></div></li></ul></li>
+                                        </ul>
+                                    </li>
+                                    <li><div class="member-card"><span class="member-name">Th. Bhairu Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Laxman Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Bhopal Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Aman Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Hari Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Bhanwar Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Bhagirath Singh</span></div></li></ul></li><li><div class="member-card"><span class="member-name">Th. Sujan Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Nawal Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Ranveer Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Sumer Singh</span></div><ul><li><div class="member-card"><span class="member-name">Kr. Sudhir Partap Singh</span></div><ul><li><div class="member-card"><span class="member-name">Bh. Anirudh Partap Singh</span></div></li></ul></li><li><div class="member-card"><span class="member-name">Kr. Himmat Singh</span></div></li><li><div class="member-card"><span class="member-name">Kr. Kishan Singh</span></div></li></ul></li><li><div class="member-card"><span class="member-name">Th. Girdhari Singh</span></div><ul><li><div class="member-card"><span class="member-name">Kr. Aaditya Singh</span></div></li></ul></li></ul></li></ul></li><li><div class="member-card"><span class="member-name">Th. Khuman Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Banne Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Ugam Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Kan Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Sawant Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Mahaveer Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Nitendra Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Hem Singh</span></div></li></ul></li></ul></li><li><div class="member-card"><span class="member-name">Th. Achal Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Ram Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Moti Singh</span></div></li></ul></li></ul></li><li><div class="member-card"><span class="member-name">Th. Balwant Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Bakshiram Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Chatar Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Ganesh Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Bhanwar Singh</span></div><ul><li><div class="member-card"><span class="member-name">Kr. Gajendra Singh</span></div><ul><li><div class="member-card"><span class="member-name">Bh. Tanmay Singh</span></div></li></ul></li></ul></li><li><div class="member-card"><span class="member-name">Th. Mohan Singh</span></div><ul><li><div class="member-card"><span class="member-name">Kr. Bajrang Singh</span></div><ul><li><div class="member-card"><span class="member-name">Bh. Rudrapartap Singh</span></div></li></ul></li></ul></li><li><div class="member-card"><span class="member-name">Th. Dungar Singh</span></div><ul><li><div class="member-card"><span class="member-name">Kr. Ajeet Singh</span></div></li></ul></li></ul></li><li><div class="member-card"><span class="member-name">Th. Tool Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Rawant Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Govind Singh</span></div><ul><li><div class="member-card"><span class="member-name">Kr. Harshvardhan Singh</span></div></li><li><div class="member-card"><span class="member-name">Kr. Yashvardhan Singh</span></div></li></ul></li><li><div class="member-card"><span class="member-name">Th. Mahendra Singh</span></div><ul><li><div class="member-card"><span class="member-name">Kr. SuryaVardhan Singh</span></div></li></ul></li></ul></li></ul></li><li><div class="member-card"><span class="member-name">Th. Kishore Singh</span></div><ul><li><div class="member-card"><span class="member-name">Kr. Karan Singh</span></div><ul><li><div class="member-card"><span class="member-name">Bh. Jitendra Singh</span></div></li></ul></li><li><div class="member-card"><span class="member-name">Kr. Rajveer Singh</span></div><ul><li><div class="member-card"><span class="member-name">Bh. Aryan Rathore</span></div></li></ul></li></ul></li></ul></li></ul></li></ul></li>
+                                    <li><div class="member-card"><span class="member-name">Th. Ranjit Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Bachan Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Ganga Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Sardar Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Selab Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Bhoor Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Dhukal Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Madan Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Chhagan Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Bhagirath Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Norang Singh</span></div><ul><li><div class="member-card"><span class="member-name">Kr. Govind Singh</span></div></li><li><div class="member-card"><span class="member-name">Kr. Manvendra Singh</span></div></li></ul></li></ul></li><li><div class="member-card"><span class="member-name">Th. Laxman Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Manohar Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Bhanwar Singh</span></div></li></ul></li><li><div class="member-card"><span class="member-name">Th. Hukam Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Megh Singh</span></div></li></ul></li><li><div class="member-card"><span class="member-name">Th. Ajeet Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Sarup Singh</span></div></li></ul></li></ul></li><li><div class="member-card"><span class="member-name">Th. Om Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Ganga Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Dhan Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Sujan Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Rawat Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Dhir Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Fool Singh</span></div><ul><li><div class="member-card"><span class="member-name">Kr. Raghuveer Singh</span></div><ul><li><div class="member-card"><span class="member-name">Kr. Mahipal Singh</span></div></li><li><div class="member-card"><span class="member-name">Kr. Sarwan Singh</span></div></li><li><div class="member-card"><span class="member-name">Kr. Hari Singh</span></div></li></ul></li></ul></li></ul></li></ul></li></ul></li>
+                                </ul>
+                            </li>
+                            <li><div class="member-card"><span class="member-name">Th. Sangram Singh</span></div></li>
+                            <li>
+                                <div class="member-card"><span class="member-name">Th. Surat Singh</span></div>
+                                <ul>
+                                    <li><div class="member-card"><span class="member-name">Th. Hanwant Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Jagat Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Baldev Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Sadul Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Guman Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Mool Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Dool Singh</span></div></li></ul></li><li><div class="member-card"><span class="member-name">Th. Devi Singh</span></div></li></ul></li><li><div class="member-card"><span class="member-name">Th. Kushal Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Gangabaks Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Daal Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Fate Singh</span></div><ul><li><div class="member-card"><span class="member-name">Kr. Bhanwar Singh</span></div><ul><li><div class="member-card"><span class="member-name">Bh. Yashpal Singh</span></div></li><li><div class="member-card"><span class="member-name">Bh. Shakti Singh</span></div></li></ul></li><li><div class="member-card"><span class="member-name">Kr. Mahendra Singh</span></div><ul><li><div class="member-card"><span class="member-name">Bh. Vijaypal Singh</span></div></li><li><div class="member-card"><span class="member-name">Bh. Ajaypal Singh</span></div></li></ul></li><li><div class="member-card"><span class="member-name">Kr. Girwar Singh</span></div><ul><li><div class="member-card"><span class="member-name">Bh. Narendra Singh</span></div></li><li><div class="member-card"><span class="member-name">Bh. Gopal Singh</span></div></li></ul></li><li><div class="member-card"><span class="member-name">Kr. Bhawani Singh</span></div><ul><li><div class="member-card"><span class="member-name">Bh. Shivraj Singh</span></div></li><li><div class="member-card"><span class="member-name">Bh. Jivraj Singh</span></div></li></ul></li></ul></li><li><div class="member-card"><span class="member-name">Th. Nathu Singh</span></div><ul><li><div class="member-card"><span class="member-name">Kr. Bhagwan Singh</span></div></li><li><div class="member-card"><span class="member-name">Kr. Bajrang Singh</span></div></li><li><div class="member-card"><span class="member-name">Kr. Prithvi Singh</span></div></li><li><div class="member-card"><span class="member-name">Kr. Vikram Singh</span></div></li></ul></li></ul></li><li><div class="member-card"><span class="member-name">Th. Ganpat Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Sodan Singh</span></div></li></ul></li></ul></li>
+                                    <li><div class="member-card"><span class="member-name">Th. Hamir Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Pem Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Govind Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Jagmal Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Mangu Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Partap Singh</span></div></li></ul></li><li><div class="member-card"><span class="member-name">Th. Sopal Singh</span></div><ul><li><div class="member-card"><span class="member-name">Kr. Raghuveer Singh</span></div></li><li><div class="member-card"><span class="member-name">Kr. Bhagwan Singh</span></div></li></ul></li><li><div class="member-card"><span class="member-name">Th. Ugam Singh</span></div><ul><li><div class="member-card"><span class="member-name">Kr. Manmohan Singh</span></div></li><li><div class="member-card"><span class="member-name">Kr. Man Singh</span></div></li><li><div class="member-card"><span class="member-name">Kr. Kan Singh</span></div></li></ul></li></ul></li><li><div class="member-card"><span class="member-name">Th. Jet Singh</span></div><ul><li><div class="member-card"><span class="member-name">Th. Sawai Singh</span></div></li><li><div class="member-card"><span class="member-name">Th. Ranveer Singh</span></div></li></ul></li></ul></li></ul></li>
+                                    <li><div class="member-card"><span class="member-name">Th. Metab Singh</span></div></li>
+                                    <li><div class="member-card"><span class="member-name">Th. Shal Singh</span></div></li>
+                                    <li><div class="member-card"><span class="member-name">Th. Onad Singh</span></div></li>
+                                    <li><div class="member-card"><span class="member-name">Th. Bagh Singh</span></div></li>
+                                </ul>
+                            </li>
+                            <li><div class="member-card"><span class="member-name">Th. Sardar Singh</span></div></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </main>
+        
+        <aside id="right-panel" class="right-panel">
+            <div class="panel-header">
+                <span class="panel-title">Royal Lineage</span>
+                <button class="close-btn" onclick="closePanel()">&times;</button>
+            </div>
+            <div id="lineage-content">
+                <p style="text-align:center; color:#666; font-size:0.85em;">Select a name from the index to view.</p>
+            </div>
+        </aside>
+    </div>
+
+    <footer>
+        <div class="developer-info">
+            <div class="footer-heading-moved">FORT KASUMBI</div>
+            <div style="font-size: 0.9em; color: #888; margin-bottom: 5px;">Developed &amp; Designed By:</div>
+            <a href="#" class="royal-name">Yuvraj Gajraj Singh</a>
+            
+            <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" class="fb-royal-btn">
+                <i class="fab fa-facebook"></i> Connect on Facebook
+            </a>
+            <br>
+            <div style="font-size: 0.8em; margin-top: 15px; color: #666;">© 2025 | All Rights Reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const treeCards = document.querySelectorAll('.tree .member-card');
+            const indexList = document.getElementById('index-list');
+            const tooltip = document.getElementById('tooltip');
+            const memberCountLabel = document.getElementById('member-count');
+            const allLis = document.querySelectorAll('.tree li');
+            let namesArray = [];
+            
+            // 1. SETUP IDs, TOGGLES & DEPTH CLASSES
+            allLis.forEach((li, index) => {
+                let depth = 0;
+                let temp = li;
+                while(temp.parentElement.closest('ul') && temp.parentElement.closest('ul').parentElement.closest('li')) {
+                    depth++;
+                    temp = temp.parentElement.closest('ul').parentElement.closest('li');
+                }
+                li.classList.add(`depth-${depth}`);
+
+                let card = li.querySelector('.member-card');
+                if(card) {
+                    let name = card.querySelector('.member-name').textContent;
+                    let id = 'node-' + index;
+                    card.setAttribute('id', id);
+                    namesArray.push({ name: name, id: id });
+                    
+                    // TOGGLE BUTTON (Placed LEFT using insertBefore)
+                    let childUl = li.querySelector('ul');
+                    if(childUl && childUl.children.length > 0) {
+                        let btn = document.createElement('span');
+                        btn.className = 'toggle-btn';
+                        btn.textContent = '-';
+                        btn.onclick = function(e) {
+                            e.stopPropagation();
+                            li.classList.toggle('collapsed');
+                            btn.textContent = li.classList.contains('collapsed') ? '+' : '-';
+                        };
+                        // INSERT BEFORE THE CARD
+                        card.parentNode.insertBefore(btn, card);
+                    }
+                }
+            });
+
+            memberCountLabel.textContent = `Total Members: ${namesArray.length}`;
+
+            // 2. BUILD INDEX LIST
+            namesArray.sort((a, b) => a.name.localeCompare(b.name));
+            namesArray.forEach(item => {
+                let li = document.createElement('li');
+                li.innerHTML = `<a onclick="openRightPanel('${item.id}', event)">${item.name}</a>`;
+                indexList.appendChild(li);
+            });
+
+            // 3. HOVER LOGIC (FIXED TOOLTIP)
+            treeCards.forEach(card => {
+                card.addEventListener('mouseenter', function(e) {
+                    let name = this.querySelector('.member-name').textContent;
+                    let isFemale = name.includes('Baisa');
+                    
+                    let pathNode = this;
+                    while (pathNode) {
+                        let li = pathNode.closest('li');
+                        if (li) {
+                            li.classList.add('path-green');
+                            pathNode = li.parentElement.closest('li'); 
+                        } else {
+                            pathNode = null;
+                        }
+                    }
+
+                    let depth = 0;
+                    let tempEl = this;
+                    while(tempEl.parentElement.closest('ul')) {
+                        depth++;
+                        tempEl = tempEl.parentElement.closest('ul').parentElement;
+                        if(tempEl.id === 'main-tree-root') break;
+                    }
+                    let generation = depth;
+
+                    let parentLi = this.closest('li').parentElement.closest('li');
+                    let fatherName = "Unknown";
+                    if (parentLi) {
+                        let fCard = parentLi.querySelector('.member-card .member-name');
+                        if(fCard) fatherName = fCard.textContent;
+                    }
+
+                    let currentLi = this.closest('li');
+                    let parentUl = currentLi.parentElement;
+                    let siblings = Array.from(parentUl.children).filter(child => child.tagName === 'LI');
+                    let totalSiblings = siblings.length;
+                    let myIndex = siblings.indexOf(currentLi);
+                    
+                    let ordStr = "";
+                    if (totalSiblings === 1) ordStr = isFemale ? "only daughter" : "only son";
+                    else if (myIndex === 0) ordStr = isFemale ? "eldest daughter" : "eldest son";
+                    else if (myIndex === totalSiblings - 1) ordStr = isFemale ? "youngest daughter" : "youngest son";
+                    else {
+                        let ord = (myIndex + 1);
+                        let suffix = 'th'; if(ord===2) suffix='nd'; if(ord===3) suffix='rd';
+                        ordStr = `${ord}${suffix} ${isFemale ? "daughter" : "son"}`;
+                    }
+                    let otherSiblings = totalSiblings - 1;
+                    let genSuffix = 'th';
+                    if(generation === 1) genSuffix = 'st'; else if(generation === 2) genSuffix = 'nd'; else if(generation === 3) genSuffix = 'rd';
+
+                    let content = ``;
+                    if(this.classList.contains('vip-founder')) {
+                        content = `<strong>${name}</strong><br>The Founder of Thikana Kasumalgarh Dynasty.`;
+                    } else {
+                        content = `<strong>${name}</strong><br>`;
+                        content += `${name} is the ${ordStr} of <b>${fatherName}</b>.<br>`;
+                        let pronoun = isFemale ? "She" : "He";
+                        let sibText = otherSiblings > 0 ? `has ${otherSiblings} more sibling${otherSiblings > 1 ? 's' : ''}` : `is the only child`;
+                        content += `${pronoun} ${sibText} and are ${generation}${genSuffix} generation of progeny of <b>Raj Shri Thakur Saheb Narayan Singh Ji</b>.`;
+                    }
+
+                    tooltip.innerHTML = content;
+                    tooltip.style.display = 'block';
+                    
+                    // FIXED BOTTOM POSITION
+                    let rect = this.getBoundingClientRect();
+                    let tooltipWidth = 250;
+                    
+                    let topPos = rect.bottom + 10; 
+                    let leftPos = rect.left + (rect.width / 2) - (tooltipWidth / 2);
+
+                    if (leftPos < 10) leftPos = 10;
+                    if (leftPos + tooltipWidth > window.innerWidth) leftPos = window.innerWidth - tooltipWidth - 20;
+
+                    tooltip.style.top = topPos + 'px';
+                    tooltip.style.left = leftPos + 'px';
+                });
+
+                card.addEventListener('mouseleave', function() { 
+                    tooltip.style.display = 'none';
+                    document.querySelectorAll('.path-green').forEach(el => el.classList.remove('path-green'));
+                });
+            });
+        });
+
+        // --- RIGHT PANEL LOGIC ---
+        function openRightPanel(targetId, event) {
+            if(event) event.stopPropagation();
+            const panel = document.getElementById('right-panel');
+            const contentDiv = document.getElementById('lineage-content');
+            const targetCard = document.getElementById(targetId);
+            
+            let temp = targetCard;
+            while(temp) {
+                let pLi = temp.closest('li');
+                if(pLi && pLi.classList.contains('collapsed')) {
+                    pLi.classList.remove('collapsed');
+                    let btn = pLi.querySelector('.toggle-btn');
+                    if(btn) btn.textContent = '-';
+                }
+                temp = pLi.parentElement.closest('li');
+            }
+
+            targetCard.scrollIntoView({behavior: "smooth", block: "center"});
+            
+            let path = [];
+            let curr = targetCard;
+            while(curr) {
+                let name = curr.querySelector('.member-name').textContent;
+                path.unshift({ name: name, id: curr.id });
+                let pLi = curr.closest('li').parentElement.closest('li');
+                curr = pLi ? pLi.querySelector('.member-card') : null;
+            }
+
+            let html = `<div class="timeline">`;
+            path.forEach((node, index) => {
+                let isTarget = (node.id === targetId);
+                let role = (index === 0) ? "Founder" : `Generation ${index}`;
+                if(isTarget) role = "Selected Profile";
+                let isFemale = node.name.includes('Baisa');
+                let icon = isFemale ? '<i class="fas fa-venus"></i>' : '<i class="fas fa-mars"></i>';
+                
+                html += `
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-card ${isTarget ? 'target' : ''}">
+                        <div class="t-role">${role}</div>
+                        <div class="t-name">${node.name} <span class="t-icon">${icon}</span></div>
+                    </div>
+                </div>`;
+            });
+            html += `</div>`;
+            contentDiv.innerHTML = html;
+            panel.classList.add('active');
+        }
+
+        function closePanel() {
+            document.getElementById('right-panel').classList.remove('active');
+        }
+
+        document.addEventListener('click', function(e) {
+            const panel = document.getElementById('right-panel');
+            const sidebar = document.querySelector('.sidebar');
+            if (!panel.contains(e.target) && !sidebar.contains(e.target) && panel.classList.contains('active')) {
+                closePanel();
+            }
+        });
+
+        function filterNames() {
+            let input = document.getElementById('search-box').value.toLowerCase();
+            let ul = document.getElementById("index-list");
+            let li = ul.getElementsByTagName('li');
+            for (let i = 0; i < li.length; i++) {
+                let a = li[i].getElementsByTagName("a")[0];
+                let txtValue = a.textContent || a.innerText;
+                li[i].style.display = txtValue.toLowerCase().indexOf(input) > -1 ? "" : "none";
+            }
+        }
+
+        function toggleMenu() {
+            const menu = document.getElementById("nav-menu");
+            const btn = document.getElementById("mobile-menu-btn");
+            menu.classList.toggle("active");
+            btn.innerHTML = menu.classList.contains("active") ? "&times;" : "&#9776;";
+        }
+    </script>
+</body>
+</html>

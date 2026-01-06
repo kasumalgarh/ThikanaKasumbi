@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Family Tree - Thikana KASUMALGARH</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+    /* ========================================= */
+    /* 👑 ROYAL THEME VARIABLES & RESET */
+    /* ========================================= */
+    :root {
+        --royal-gold: #d4af37;
+        --royal-maroon: #800000;
+        --bg-paper: #fffbf0;
+        --text-dark: #2c0e0e;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+        margin: 0; padding: 0;
+        font-family: 'Georgia', serif;
+        background-color: var(--bg-paper);
+        color: var(--text-dark);
+        min-height: 100vh;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* FOOTER */
+    footer { 
+        text-align: center; color: #b38728; 
+        padding: 20px 20px;
+        background-color: #000022; 
+        background-image: url('footerbg.png');
+        background-repeat: repeat; 
+        border-top: 4px solid #897148;
+    }
+    .developer-info { margin-top: 0px; padding-top: 10px; border-top: none; }
+    .royal-name {
+        display: block; font-family: 'Cinzel', serif; font-size: 1.6em; font-weight: 900;
+        background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728); 
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        margin-bottom: 10px; letter-spacing: 1px; text-decoration: none;
+        filter: drop-shadow(0 2px 2px rgba(0,0,0,0.8));
+    }
+    .fb-link {
+        color: #fff; text-decoration: none; font-size: 1.1em;
+        display: inline-flex; align-items: center; gap: 10px; margin-top: 5px;
+        padding: 5px 15px; border: 1px solid #b38728; border-radius: 20px;
+    }
+    .fb-link:hover { background: #b38728; color: #000; }
+    .footer-heading-moved {
+        font-family: 'Cinzel', serif; font-weight: 900; 
+        color: #fcf6ba; margin-bottom: 15px; font-size: 1.8em; letter-spacing: 2px;
+        text-transform: uppercase; text-shadow: 0 0 10px #bf953f;
+        display: block;
+    }
+
+    /* MENU CSS */
+    .navbar {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 15px 20px; background: #000033;
+        border-bottom: 2px solid #b38728;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.8);
+        position: sticky; top: 0; z-index: 2000;
+    }
+    .navbar-brand-container { display: flex; align-items: center; }
+    #menu-logo {
+        width: 50px; height: 50px; border-radius: 50%; 
+        border: 2px solid #fcf6ba; box-shadow: 0 0 15px #bf953f;
+        background: white; margin-right: 15px;
+    }
+    .navbar-brand {
+        font-size: 1.5em; font-weight: 900; 
+        text-decoration: none; color: #fcf6ba; 
+        text-shadow: 0 0 2px #bf953f, 0 0 10px #000; letter-spacing: 1px;
+    }
+    .navbar-links { list-style: none; margin: 0; padding: 0; display: flex; }
+    .navbar-links li { margin-left: 15px; } 
+    .navbar-links a {
+        color: #897148; text-decoration: none; padding: 8px 15px; display: block;
+        font-weight: 700; letter-spacing: 1px; transition: all 0.5s ease;
+    }
+    .navbar-links a:hover { color: #fff; text-shadow: 0 0 8px #897148; }
+    .menu-toggle { 
+        color: #897148; font-size: 35px; cursor: pointer; display: none; user-select: none;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+        .navbar { padding: 5px 15px; }
+        .navbar-brand { font-size: 1.2em; }
+        #menu-logo { width: 40px; height: 40px; }
+        .menu-toggle { display: block; font-size: 25px; } 
+        .navbar-links {
+            display: none; flex-direction: column; position: absolute;
+            top: 100%; left: 0; width: 100%; background-color: #000033;
+            border-top: 1px solid #b38728; border-bottom: 2px solid #b38728;
+            padding: 0; text-align: center;
+        }
+        .navbar-links.active { display: flex; }
+        .navbar-links li { margin: 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+        .navbar-links a { padding: 10px; }
+        footer { padding: 5px 5px !important; }
+        .footer-heading-moved { font-size: 0.9em !important; margin-bottom: 2px; }
+        .developer-info { margin-top: 2px; padding-top: 0; }
+        .developer-info div { font-size: 0.7em !important; }
+        .royal-name { font-size: 0.85em !important; margin-bottom: 2px; }
+        .fb-link { font-size: 0.75em !important; padding: 3px 10px; margin-top: 5px; }
+    }
+
+    /* HEADER */
+    header {
+        background: linear-gradient(to bottom, #fffbf0, #fcf6ba);
+        position: relative; text-align: center; padding-top: 15px;
+    }
+    .header-content { padding-bottom: 15px; }
+    .main-title {
+        font-size: 2.5rem; color: var(--text-dark); text-transform: uppercase;
+        margin: 5px 0; font-weight: 900; letter-spacing: 3px;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
+    .main-title span { color: var(--royal-maroon); }
+
+    /* SIDEBAR & CONTAINER */
+    .container {
+        display: flex; max-width: 1400px; margin: 0 auto;
+        padding: 20px; position: relative;
+    }
+    .sidebar {
+        width: 280px; flex-shrink: 0; position: sticky; 
+        top: 60px; height: calc(100vh - 80px); overflow-y: auto;
+        border-right: 2px solid var(--royal-maroon);
+        padding-right: 15px; margin-right: 20px; background: var(--bg-paper);
+        scrollbar-width: thin; scrollbar-color: var(--royal-maroon) var(--bg-paper);
+    }
+    .sidebar h3 {
+        color: var(--royal-maroon); border-bottom: 2px solid var(--royal-gold);
+        padding-bottom: 5px; margin-top: 0; text-align: center;
+    }
+    .search-container { margin-bottom: 10px; text-align: center; }
+    #search-box {
+        width: 100%; padding: 8px; border: 2px solid #b8860b;
+        border-radius: 4px; font-family: 'Georgia', serif; color: var(--royal-maroon);
+    }
+    #member-count {
+        font-size: 0.9rem; color: #555; text-align: center;
+        margin-bottom: 10px; font-style: italic;
+    }
+    .name-list { list-style: none; padding: 0; }
+    .name-list li { margin-bottom: 4px; }
+    .name-list a {
+        display: block; padding: 4px 8px; font-size: 0.95rem;
+        color: var(--royal-maroon); transition: all 0.2s;
+        border-radius: 4px; text-transform: capitalize; cursor: pointer;
+    }
+    .name-list a:hover {
+        background-color: var(--royal-maroon); color: #fff; padding-left: 15px;
+    }
+    .content { flex-grow: 1; padding-left: 10px; position: relative; }
+
+    /* FAMILY TREE CSS */
+    .tree, .tree ul { list-style: none; margin: 0; padding: 0; padding-left: 40px; }
+    .tree li { margin: 0; padding: 0; line-height: 20px; position: relative; }
+    .tree ul li::before {
+        content: ""; position: absolute; top: 0; left: -20px;
+        border-left: 2px solid #b8860b; height: 100%; width: 1px;
+    }
+    .tree ul li::after {
+        content: ""; position: absolute; top: 15px; left: -20px;
+        border-top: 2px solid #b8860b; height: 1px; width: 20px;
+    }
+    .tree ul li:last-child::before { height: 16px; }
+    .tree > ul > li::before, .tree > ul > li::after { display: none; }
+
+    /* Member Card */
+    .member-card {
+        display: inline-block; margin: 5px 0; padding: 5px 10px;
+        border: 1px solid transparent; transition: all 0.2s ease;
+        cursor: pointer; position: relative; 
+    }
+    .founder-card .member-name {
+        font-size: 1.2rem; color: var(--royal-maroon);
+        border: 2px solid var(--royal-gold); background: #fff;
+        padding: 5px 10px; font-weight: bold;
+    }
+    .member-name {
+        font-weight: bold; color: #4a4a4a; font-size: 1rem;
+        text-transform: capitalize; border-radius: 4px; padding: 2px 5px;
+    }
+    .member-card:hover .member-name { color: var(--royal-maroon); }
+
+    /* Highlights */
+    .path-active .member-name {
+        background-color: #ffeeb0; color: #800000 !important;
+        border: 1px solid #d4af37; transform: scale(1.05); z-index: 10;
+    }
+    .locked-active .member-name {
+        background-color: #ffd700 !important; color: #800000 !important;
+        border: 2px solid #800000 !important;
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.9);
+        transform: scale(1.15); font-weight: 900; z-index: 20;
+    }
+
+    /* 🛠️ UPDATED TOOLTIP CSS */
+    #tooltip {
+        position: absolute; display: none;
+        background: rgba(0, 0, 0, 0.9); /* Dark bg for contrast */
+        color: #fff; padding: 10px 15px; border: 1px solid #d4af37;
+        border-radius: 5px; font-size: 0.9rem; z-index: 99999;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        pointer-events: none; white-space: nowrap;
+        min-width: 150px; text-align: center;
+    }
+    #tooltip::after {
+        content: ""; position: absolute; top: 100%; left: 50%;
+        margin-left: -6px; border-width: 6px; border-style: solid;
+        border-color: #d4af37 transparent transparent transparent;
+    }
+    
+    /* Loading Message */
+    #loading-msg {
+        text-align: center; color: var(--royal-maroon); 
+        font-size: 1.2em; margin-top: 50px; font-weight: bold;
+    }
+</style>
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <p style="margin:0; color:#b8860b; font-family:cursive;">Rathore Family of Thikana</p>
+            <h1 class="main-title">KASUMALGARH</h1>
+        </div>
+    </header>
+
+    <nav class="navbar">
+        <div class="navbar-brand-container">
+            <img id="menu-logo" src="menulogo.png" alt="Logo" onerror="this.style.display='none'"> 
+            <a class="navbar-brand" href="#">KASUMALGARH</a>
+        </div>
+        
+        <div class="menu-toggle" id="mobile-menu-btn" onclick="toggleMenu()">☰</div>
+        
+        <ul class="navbar-links" id="nav-menu">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Vanshawali</a></li>
+            <li><a href="#">History</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+  
+    <div class="container">
+        <aside class="sidebar">
+            <h3>Name Index</h3>
+            <div class="search-container">
+                <input type="text" id="search-box" placeholder="Search name..." onkeyup="filterNames()">
+            </div>
+            <div id="member-count">Total Members: ...</div>
+            <ul class="name-list" id="index-list"></ul>
+            
+            <div style="margin-top: 30px;">
+                <h3>🔗 Social Links</h3>
+                <ul class="name-list" id="social-link-list">
+                    <li>
+                        <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank">
+                            <i class="fab fa-facebook" style="color: #4267B2;"></i> Yuvraj Gajraj Singh
+                        </a>
+                    </li>
+                    <li>
+                        <a href="www.instagram.com/gajsa.kasumbifort" target="_blank">
+                            <i class="fab fa-instagram" style="color: #C13584;"></i> Yuvraj GajRaj Singh
+                        </a>
+                    </li>
+                </ul>
+                <p style="font-size:0.8rem; color:#800000; text-align: center; margin-top: 10px;">(Only linked members appear here)</p>
+            </div>
+        </aside>
+
+        <main class="content">
+            <h2 style="color: #800000; border-bottom: 1px dashed #800000; padding-bottom: 10px;">
+                Family Tree of Thikana Kasumalgarh
+            </h2>
+            
+            <div id="tooltip"></div>
+
+            <div class="tree" id="tree-container">
+                <div id="loading-msg">⏳ Loading Vanshawali Data...</div>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <div class="developer-info">
+            <div class="footer-heading-moved">FORT KASUMBI</div>
+            <div style="font-size: 0.9em; color: #888; margin-bottom: 5px;">Developed &amp; Designed By:</div>
+            
+            <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" class="royal-name">
+                Yuvraj Gajraj Singh
+            </a>
+            <br>
+            <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" class="fb-link">
+                <i class="fab fa-facebook"></i> Connect on Facebook
+            </a>
+            
+            <div style="font-size: 0.8em; margin-top: 15px; color: #666;">
+                © 2025 | All Rights Reserved.
+            </div>
+        </div>
+    </footer>   
+
+    <script>
+        // =========================================
+        // 1. DATA LOADING LOGIC
+        // =========================================
+        document.addEventListener("DOMContentLoaded", async function() {
+            try {
+                const response = await fetch('family-data.json'); 
+                if(!response.ok) throw new Error("File not found");
+
+                const data = await response.json();
+                
+                // Tree Build
+                const treeContainer = document.getElementById('tree-container');
+                treeContainer.innerHTML = "<ul>" + buildTreeHTML(data, 0) + "</ul>";
+
+                // Index Update
+                updateIndex(data);
+
+            } catch (error) {
+                document.getElementById('tree-container').innerHTML = 
+                    `<p style="color:red; text-align:center;">Error: ${error.message}</p>`;
+            }
+        });
+
+        // HTML Builder with Generation Data
+        function buildTreeHTML(node, depth) {
+            let cleanID = node.name.replace(/[^a-zA-Z0-9]/g, '') + "_" + Math.floor(Math.random()*1000);
+            let cardClass = depth === 0 ? "member-card founder-card" : "member-card";
+            
+            // Store generation number in data-gen attribute (Depth 0 = 1st Gen)
+            let generation = depth + 1;
+
+            let html = `<li>
+                <div class="${cardClass}" id="mem-${cleanID}" data-name="${node.name}" data-gen="${generation}">
+                    <span class="member-name">${node.name}</span>
+                </div>`;
+            
+            if (node.children && node.children.length > 0) {
+                html += "<ul>";
+                node.children.forEach(child => {
+                    html += buildTreeHTML(child, depth + 1);
+                });
+                html += "</ul>";
+            }
+            html += "</li>";
+            return html;
+        }
+
+        // =========================================
+        // 2. ADVANCED TOOLTIP LOGIC
+        // =========================================
+        
+        function getGender(name) {
+            let lower = name.toLowerCase();
+            if(lower.includes('baisa') || lower.includes('bai') || lower.includes('smt') || lower.includes('kumari') || lower.includes('rani')) {
+                return 'female';
+            }
+            return 'male';
+        }
+
+        function getOrdinal(n) {
+            let s = ["th", "st", "nd", "rd"];
+            let v = n % 100;
+            return n + (s[(v - 20) % 10] || s[v] || s[0]);
+        }
+
+        // MOUSE ENTER (Hover)
+        document.body.addEventListener('mouseover', function(e) {
+            let card = e.target.closest('.member-card');
+            if (!card) return;
+
+            let name = card.getAttribute('data-name');
+            let generation = card.getAttribute('data-gen');
+            let tooltip = document.getElementById('tooltip');
+            let gender = getGender(name);
+
+            // --- RELATIONSHIP LOGIC ---
+            let htmlContent = "";
+            let parentLi = card.closest('li').parentElement.closest('li');
+
+            if (parentLi) {
+                // Father Name
+                let fatherCard = parentLi.querySelector('.member-card');
+                let fatherName = fatherCard ? fatherCard.getAttribute('data-name') : "Unknown";
+
+                // Sibling Logic
+                let currentLi = card.closest('li');
+                let parentUl = currentLi.parentElement;
+                let siblings = Array.from(parentUl.children).filter(c => c.tagName === 'LI');
+                
+                let totalSiblings = siblings.length;
+                let myIndex = siblings.indexOf(currentLi); 
+
+                // Eldest/Youngest Logic
+                let relation = gender === 'female' ? "Daughter" : "Son";
+                let orderStr = "";
+                
+                if (totalSiblings === 1) { orderStr = "Only"; }
+                else if (myIndex === 0) { orderStr = "Eldest"; }
+                else if (myIndex === totalSiblings - 1) { orderStr = "Youngest"; }
+                else {
+                    let n = myIndex + 1;
+                    let ord = 'th';
+                    if(n===2) ord='nd'; if(n===3) ord='rd';
+                    orderStr = `${n}${ord}`;
+                }
+
+                // Sibling Count Text
+                let siblingText = "";
+                if(totalSiblings > 1) {
+                    let count = totalSiblings - 1;
+                    let pronoun = gender === 'female' ? "She" : "He";
+                    let siblingType = "siblings"; 
+                    siblingText = `<br><span style="color:#ccc; font-size:0.85em;">${pronoun} has ${count} ${siblingType}</span>`;
+                }
+
+                // Generation Text
+                let genText = getOrdinal(generation);
+
+                // ✨ GOLD NAME & STYLING ✨
+                htmlContent = `
+                    <div style="border-bottom:1px solid #d4af37; padding-bottom:5px; margin-bottom:5px;">
+                        <strong style="font-size:1.1em; color:#ffd700; text-shadow: 0 0 5px #b38728;">${name}</strong>
+                    </div>
+                    <span style="color:#fcf6ba;">${orderStr} ${relation} of <b>${fatherName}</b></span>
+                    ${siblingText}
+                    <br><span style="color:#d4af37; font-size:0.9em; font-weight:bold;">✨ ${genText} Generation</span>
+                `;
+            } else {
+                // Founder Case
+                htmlContent = `
+                    <strong style="font-size:1.2em; color:#ffd700; text-shadow: 0 0 5px #b38728;">👑 ${name}</strong><br>
+                    <span>Founder of Thikana Kasumalgarh</span>
+                    <br><span style="color:#d4af37; font-size:0.9em;">(1st Generation)</span>
+                `;
+            }
+
+            // SHOW TOOLTIP
+            tooltip.innerHTML = htmlContent;
+            tooltip.style.display = 'block';
+
+            // POSITIONING
+            let rect = card.getBoundingClientRect();
+            let tooltipRect = tooltip.getBoundingClientRect();
+            let topPos = rect.top + window.scrollY - tooltipRect.height - 15;
+            let leftPos = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
+            if(leftPos < 10) leftPos = 10;
+            
+            tooltip.style.top = topPos + 'px';
+            tooltip.style.left = leftPos + 'px';
+
+            // HIGHLIGHT PATH
+            let ancestor = card;
+            while (ancestor) {
+                ancestor.classList.add('path-active'); 
+                let pLi = ancestor.closest('li').parentElement.closest('li');
+                if (pLi) ancestor = pLi.querySelector('.member-card'); 
+                else ancestor = null;
+            }
+        });
+
+        // MOUSE LEAVE
+        document.body.addEventListener('mouseout', function(e) {
+            let card = e.target.closest('.member-card');
+            if (card) {
+                document.getElementById('tooltip').style.display = 'none';
+                document.querySelectorAll('.path-active').forEach(el => el.classList.remove('path-active'));
+            }
+        });
+
+        // =========================================
+        // 3. SEARCH & MENU LOGIC
+        // =========================================
+        let globalNameList = [];
+        function updateIndex(node) {
+            if(!node) return;
+            function collect(n) {
+                globalNameList.push(n.name);
+                if(n.children) n.children.forEach(collect);
+            }
+            if(node.name && globalNameList.length === 0) collect(node);
+            globalNameList.sort();
+            document.getElementById('member-count').textContent = "Total Members: " + globalNameList.length;
+            
+            const listEl = document.getElementById('index-list');
+            listEl.innerHTML = globalNameList.map(name => 
+                `<li><a onclick="locateMember('${name}')">${name}</a></li>`
+            ).join('');
+        }
+
+        window.filterNames = function() {
+            let input = document.getElementById('search-box').value.toLowerCase();
+            let lis = document.getElementById('index-list').getElementsByTagName('li');
+            for (let li of lis) {
+                let txt = li.textContent || li.innerText;
+                li.style.display = txt.toLowerCase().includes(input) ? "" : "none";
+            }
+        };
+
+        window.locateMember = function(name) {
+            let targets = document.querySelectorAll('.member-card');
+            for(let t of targets) {
+                if(t.getAttribute('data-name') === name) {
+                    document.querySelectorAll('.locked-active').forEach(el => el.classList.remove('locked-active'));
+                    t.scrollIntoView({behavior: "smooth", block: "center"});
+                    
+                    let ancestor = t;
+                    while (ancestor) {
+                        ancestor.classList.add('locked-active');
+                        let parentLi = ancestor.closest('li').parentElement.closest('li');
+                        if (parentLi) ancestor = parentLi.querySelector('.member-card');
+                        else ancestor = null;
+                    }
+                    return;
+                }
+            }
+        };
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('#index-list')) {
+                document.querySelectorAll('.locked-active').forEach(el => el.classList.remove('locked-active'));
+            }
+        });
+
+        window.toggleMenu = function() {
+            const menu = document.getElementById("nav-menu");
+            const btn = document.getElementById("mobile-menu-btn");
+            menu.classList.toggle("active");
+            btn.innerHTML = menu.classList.contains("active") ? "&times;" : "&#9776;";
+        };
+    </script>
+</body>
+</html>

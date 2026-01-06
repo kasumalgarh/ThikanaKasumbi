@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="utf-8">
+    <title>Vanshawali Manager - KASUMALGARH</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Playfair+Display:ital,wght@0,400;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
+    <style>
+        /* ----------------------------- */
+        /* ✨ ROYAL DARK THEME */
+        /* ----------------------------- */
+        :root {
+            --bg-dark: #050510;
+            --glass-bg: rgba(20, 20, 35, 0.95);
+            --gold-primary: #d4af37;
+            --gold-gradient: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728, #fbf5b7);
+            --text-light: #e0e0e0;
+            --danger-red: #ff4444;
+            --success-green: #4caf50;
+            --edit-yellow: #ffeb3b;
+        }
+
+        body {
+            margin: 0; padding: 0;
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at 50% 50%, #1a0b0b 0%, #000000 100%);
+            color: var(--text-light);
+            font-family: 'Lato', sans-serif;
+            height: 100vh; /* Full Height */
+            overflow: hidden; /* No Body Scroll */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 20px;
+            background: #111;
+            border-bottom: 2px solid var(--gold-primary);
+            height: 50px;
+            flex-shrink: 0;
+        }
+
+        .brand-title {
+            font-family: 'Cinzel', serif; font-size: 1.2em; font-weight: 700;
+            background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.1); border: 1px solid var(--gold-primary);
+            color: var(--gold-primary); padding: 5px 15px; border-radius: 20px;
+            text-decoration: none; font-size: 0.9em; transition: 0.3s;
+        }
+        .back-btn:hover { background: var(--gold-primary); color: #000; }
+
+        /* ----------------------------- */
+        /* 📐 SPLIT LAYOUT (FULL HEIGHT) */
+        /* ----------------------------- */
+        .main-container {
+            display: flex;
+            flex: 1; /* Fills remaining height */
+            height: calc(100vh - 72px); /* Navbar hata kar */
+            overflow: hidden;
+        }
+
+        /* LEFT SIDE: EDITOR TOOLS */
+        .editor-sidebar {
+            width: 380px;
+            background: rgba(0, 0, 0, 0.6);
+            border-right: 2px solid var(--gold-primary);
+            overflow-y: auto; /* Scroll inside sidebar */
+            padding: 20px;
+            box-shadow: 5px 0 15px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* RIGHT SIDE: PREVIEW (IFRAME) */
+        .preview-area {
+            flex: 1; /* Takes remaining width */
+            background: #fff; /* White background for preview */
+            position: relative;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        /* TOOL SECTIONS */
+        .tool-section { padding: 15px; background: rgba(255,255,255,0.05); border-radius: 8px; border-left: 3px solid #555; }
+        .tool-section.add { border-color: var(--success-green); }
+        .tool-section.edit { border-color: var(--edit-yellow); }
+        .tool-section.delete { border-color: var(--danger-red); }
+
+        .section-title { font-weight: bold; font-size: 1em; margin-bottom: 8px; display: block; color: #fff; }
+        
+        /* INPUTS */
+        input[type="text"], textarea, input[type="password"] {
+            width: 100%; padding: 8px; margin-bottom: 8px;
+            background: #222; border: 1px solid #555;
+            color: #fff; border-radius: 4px; box-sizing: border-box;
+        }
+        input:focus { border-color: var(--gold-primary); outline: none; }
+
+        /* BUTTONS */
+        .btn {
+            width: 100%; padding: 8px; border: none; border-radius: 4px;
+            font-weight: bold; cursor: pointer; transition: 0.3s;
+            font-family: 'Cinzel', serif; letter-spacing: 1px; font-size: 0.85em;
+        }
+        .btn-load { background: #008080; color: white; margin-bottom: 10px; padding: 12px; font-size: 1em; }
+        .btn-add { background: var(--success-green); color: white; }
+        .btn-edit { background: var(--edit-yellow); color: black; }
+        .btn-delete { background: var(--danger-red); color: white; }
+        .btn-save { 
+            background: var(--gold-gradient); color: #2c0e0e; 
+            font-size: 1.1em; margin-top: 10px; border: 2px solid #fff; padding: 12px;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+        }
+        .btn:hover { filter: brightness(1.1); }
+
+        /* LOADING & LOGIN */
+        #loadingOverlay, #login-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); z-index: 9999;
+            display: flex; justify-content: center; align-items: center; flex-direction: column;
+        }
+        #loadingOverlay { display: none; background: rgba(0,0,0,0.8); z-index: 2000; color: #fff; }
+        
+        .login-box {
+            background: #111; padding: 30px; border: 1px solid var(--gold-primary);
+            text-align: center; border-radius: 10px; width: 300px;
+        }
+
+        /* Mobile Fix */
+        @media (max-width: 900px) {
+            .main-container { flex-direction: column; height: auto; overflow: auto; }
+            .editor-sidebar { width: 100%; height: auto; box-sizing: border-box; }
+            .preview-area { height: 600px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="loadingOverlay">
+        <i class="fas fa-spinner fa-spin" style="font-size: 40px; color: var(--gold-primary);"></i>
+        <p>Working...</p>
+    </div>
+
+    <div id="login-overlay">
+        <div class="login-box animate__animated animate__zoomIn">
+            <h2 style="color:var(--gold-primary); margin-top:0;">SECURITY</h2>
+            <input type="password" id="passInput" placeholder="Enter Password" style="text-align:center;">
+            <button onclick="checkPass()" class="btn btn-save">UNLOCK</button>
+            <p id="errorMsg" style="color:red; display:none; margin-bottom:0;">Incorrect!</p>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="brand-title"><i class="fas fa-sitemap"></i> TREE MANAGER</div>
+        <a href="admin_dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i> Dashboard</a>
+    </nav>
+
+    <div id="main-interface" class="main-container" style="display:none;">
+        
+        <div class="editor-sidebar">
+            
+            <button onclick="fetchLiveCode()" class="btn btn-load"><i class="fas fa-sync"></i> REFRESH / LOAD PREVIEW</button>
+            
+            <div id="manualInputSection" style="display:none; background:#333; padding:10px; border-radius:5px;">
+                <p style="margin:0 0 5px 0; color:#ffeb3b; font-size:0.8em;">⚠️ Local Mode: Paste Code Here</p>
+                <textarea id="inputHtml" style="height:50px;" placeholder="Paste vanshawali.html code..."></textarea>
+                <button onclick="loadPreview()" class="btn" style="background:#555; color:#fff;">RENDER</button>
+            </div>
+            
+            <textarea id="workingHtml" style="display:none;"></textarea>
+
+            <div class="tool-section add">
+                <span class="section-title" style="color:var(--success-green);"><i class="fas fa-plus-circle"></i> Add Member</span>
+                <input type="text" id="add_grand" placeholder="Grandfather Name">
+                <input type="text" id="add_father" placeholder="Father Name">
+                <input type="text" id="add_child" placeholder="New Child Name">
+                <button onclick="addName()" class="btn btn-add">ADD</button>
+            </div>
+
+            <div class="tool-section edit">
+                <span class="section-title" style="color:var(--edit-yellow);"><i class="fas fa-pen"></i> Correct Name</span>
+                <input type="text" id="edit_grand" placeholder="Grandfather (Verify)">
+                <input type="text" id="edit_father" placeholder="Father (Verify)">
+                <input type="text" id="edit_old" placeholder="Old/Wrong Name">
+                <input type="text" id="edit_new" placeholder="New/Correct Name">
+                <button onclick="editName()" class="btn btn-edit">CORRECT</button>
+            </div>
+
+<<<<<<< HEAD
+            <div class="tool-section delete">
+                <span class="section-title" style="color:var(--danger-red);"><i class="fas fa-trash"></i> Delete Member</span>
+                <input type="text" id="del_grand" placeholder="Grandfather (Verify)">
+                <input type="text" id="del_father" placeholder="Father (Verify)">
+                <input type="text" id="del_name" placeholder="Name to Delete">
+                <button onclick="deleteName()" class="btn btn-delete">DELETE</button>
+=======
+            <div class="admin-card">
+                <div class="card-header">
+                    <i class="fas fa-tools card-icon"></i>
+                    <div class="card-title">Tools & Utils</div>
+                </div>
+                <div class="action-list">
+                    <a href="page_creator.html" class="action-item">
+                        <span><span class="badge b-new">NEW</span> Create New Page</span>
+                        <i class="fas fa-plus"></i>
+                    </a>
+                    <a href="calculator.html" class="action-item">
+                        <span>Utility Calculator</span>
+                        <i class="fas fa-calculator"></i>
+                    </a>
+                    <a href="404.html" class="action-item">
+                        <span>Check 404 Page</span>
+                        <i class="fas fa-bug"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="admin-card">
+                <div class="card-header">
+                    <i class="fas fa-globe card-icon"></i>
+                    <div class="card-title">Live Pages</div>
+                </div>
+                <div class="action-list">
+                    <a href="index.html" class="action-item">Home Page <i class="fas fa-home"></i></a>
+                    <a href="history.html" class="action-item">History Page <i class="fas fa-history"></i></a>
+                    <a href="about.html" class="action-item">About Page <i class="fas fa-info-circle"></i></a>
+                    <a href="contact.html" class="action-item">Contact Page <i class="fas fa-envelope"></i></a>
+                </div>
+>>>>>>> 95e97bfd9d452be1273979ae38151af5761cfe39
+            </div>
+
+            <hr style="border-color:#333; width:100%;">
+            
+            <textarea id="outputHtml" readonly style="display:none;"></textarea>
+            <button onclick="saveToGitHub()" class="btn btn-save"><i class="fas fa-cloud-upload-alt"></i> PUBLISH TO WEBSITE</button>
+        </div>
+
+        <div class="preview-area">
+            <iframe id="liveFrame" title="Live Preview"></iframe>
+        </div>
+
+    </div>
+
+    <script>
+        // CONFIG
+        const GITHUB_USERNAME = "kasumalgarh";       
+        const REPO_NAME = "kasumalgarh.github.io";   
+        const FILE_PATH = "vanshawali.html";         
+        const BRANCH = "main";                       
+        const ADMIN_PASSWORD = "kasumalgarh2025";    
+
+        // 1. LOGIN
+        function checkPass() {
+            if(document.getElementById('passInput').value === ADMIN_PASSWORD) {
+                document.getElementById('login-overlay').style.display = 'none';
+                document.getElementById('main-interface').style.display = 'flex';
+                fetchLiveCode();
+            } else { document.getElementById('errorMsg').style.display = 'block'; }
+        }
+
+        function loading(show) { document.getElementById('loadingOverlay').style.display = show ? 'flex' : 'none'; }
+
+        // 2. FETCH & RENDER (Using IFRAME)
+        async function fetchLiveCode() {
+            loading(true);
+            try {
+                const response = await fetch(FILE_PATH + '?v=' + new Date().getTime());
+                if (!response.ok) throw new Error("File not found");
+                const text = await response.text();
+                
+                // Store in hidden textarea for logic
+                document.getElementById('workingHtml').value = text;
+                document.getElementById('inputHtml').value = text; // Sync manual box
+                document.getElementById('outputHtml').value = text;
+                
+                // Render in Iframe
+                updateIframe(text);
+                
+                // Hide manual input if successful
+                document.getElementById('manualInputSection').style.display = 'none';
+
+            } catch (err) {
+                console.log("Fetch failed, showing manual input");
+                alert("⚠️ Local Mode: Auto-fetch blocked. Paste code manually.");
+                document.getElementById('manualInputSection').style.display = 'block';
+            } 
+            finally { loading(false); }
+        }
+
+        function loadPreview() {
+            const text = document.getElementById('inputHtml').value;
+            document.getElementById('workingHtml').value = text;
+            updateIframe(text);
+        }
+
+        // UPDATE IFRAME CONTENT
+        function updateIframe(htmlContent) {
+            const frame = document.getElementById('liveFrame');
+            const doc = frame.contentDocument || frame.contentWindow.document;
+            doc.open();
+            doc.write(htmlContent);
+            doc.close();
+        }
+
+        // LOGIC HELPER: FIND NODE
+        function findNode(doc, grandName, fatherName, childName) {
+            const allSpans = doc.querySelectorAll('.member-name');
+            for (let span of allSpans) {
+                if (span.textContent.trim() === childName) {
+                    const childLi = span.closest('li');
+                    const fatherLi = childLi.parentElement.closest('li');
+                    
+                    if (fatherLi) {
+                        const fatherSpan = fatherLi.querySelector('.member-name');
+                        if (fatherSpan && fatherSpan.textContent.trim() === fatherName) {
+                            const grandLi = fatherLi.parentElement.closest('li');
+                            if (grandLi) {
+                                const grandSpan = grandLi.querySelector('.member-name');
+                                if (grandSpan && grandSpan.textContent.trim() === grandName) {
+                                    return { found: true, element: span, li: childLi, fatherLi: fatherLi };
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return { found: false };
+        }
+
+        // 3. ADD NAME
+        function addName() {
+            const grand = document.getElementById('add_grand').value.trim();
+            const father = document.getElementById('add_father').value.trim();
+            const child = document.getElementById('add_child').value.trim();
+            const html = document.getElementById('workingHtml').value;
+
+            if(!grand || !father || !child) return alert("Fill all fields!");
+
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            
+            // Logic to find Father (checking Grandfather)
+            let parentFound = false;
+            const allSpans = doc.querySelectorAll('.member-name');
+            
+            for (let span of allSpans) {
+                if (span.textContent.trim() === father) {
+                    const fatherLi = span.closest('li');
+                    const grandLi = fatherLi.parentElement.closest('li');
+                    if (grandLi) {
+                        const grandSpan = grandLi.querySelector('.member-name');
+                        if (grandSpan && grandSpan.textContent.trim() === grand) {
+                            // Add Child
+                            let childUl = fatherLi.querySelector('ul');
+                            if (!childUl) {
+                                childUl = doc.createElement('ul');
+                                fatherLi.appendChild(childUl);
+                            }
+                            const newLi = doc.createElement('li');
+                            newLi.innerHTML = `<div class="member-card"><span class="member-name">${child}</span></div>`;
+                            childUl.appendChild(newLi);
+                            parentFound = true; break;
+                        }
+                    }
+                }
+            }
+
+            if(parentFound) {
+                const newHtml = doc.documentElement.outerHTML;
+                document.getElementById('workingHtml').value = newHtml;
+                document.getElementById('outputHtml').value = newHtml;
+                updateIframe(newHtml);
+                alert("✅ Name Added! Click Publish.");
+                document.getElementById('add_child').value = "";
+            } else { alert("❌ Father/Grandfather mismatch."); }
+        }
+
+        // 4. EDIT NAME
+        function editName() {
+            const grand = document.getElementById('edit_grand').value.trim();
+            const father = document.getElementById('edit_father').value.trim();
+            const oldName = document.getElementById('edit_old').value.trim();
+            const newName = document.getElementById('edit_new').value.trim();
+            const html = document.getElementById('workingHtml').value;
+
+            if(!grand || !father || !oldName || !newName) return alert("Fill all fields!");
+
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const result = findNode(doc, grand, father, oldName);
+
+            if(result.found) {
+                result.element.textContent = newName;
+                const newHtml = doc.documentElement.outerHTML;
+                document.getElementById('workingHtml').value = newHtml;
+                document.getElementById('outputHtml').value = newHtml;
+                updateIframe(newHtml);
+                alert("✅ Name Corrected! Click Publish.");
+                document.getElementById('edit_new').value = "";
+            } else { alert("❌ Details didn't match."); }
+        }
+
+        // 5. DELETE NAME
+        function deleteName() {
+            const grand = document.getElementById('del_grand').value.trim();
+            const father = document.getElementById('del_father').value.trim();
+            const name = document.getElementById('del_name').value.trim();
+            const html = document.getElementById('workingHtml').value;
+
+            if(!grand || !father || !name) return alert("Fill all fields!");
+            if(!confirm("Permanently delete?")) return;
+
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const result = findNode(doc, grand, father, name);
+
+            if(result.found) {
+                result.li.remove();
+                const newHtml = doc.documentElement.outerHTML;
+                document.getElementById('workingHtml').value = newHtml;
+                document.getElementById('outputHtml').value = newHtml;
+                updateIframe(newHtml);
+                alert("🗑️ Deleted. Click Publish.");
+            } else { alert("❌ Not found."); }
+        }
+
+        // 6. SAVE TO GITHUB
+        async function saveToGitHub() {
+            const token = prompt("🔑 GitHub Token:");
+            if (!token) return;
+
+            loading(true);
+            const content = document.getElementById('outputHtml').value;
+            
+            try {
+                const apiUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${FILE_PATH}`;
+                const getRes = await fetch(apiUrl, { headers: { "Authorization": `token ${token}` } });
+                const getData = await getRes.json();
+
+                const putRes = await fetch(apiUrl, {
+                    method: "PUT",
+                    headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        message: "Tree Updated via Admin Panel",
+                        content: btoa(unescape(encodeURIComponent(content))),
+                        sha: getData.sha,
+                        branch: BRANCH
+                    })
+                });
+
+                if (putRes.ok) { alert("🎉 Website Updated!"); } 
+                else { const err = await putRes.json(); alert("Error: " + err.message); }
+
+            } catch (err) { alert("Error: " + err.message); } 
+            finally { loading(false); }
+        }
+    </script>
+
+</body>
+</html>

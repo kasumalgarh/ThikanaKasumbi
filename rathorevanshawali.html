@@ -4,187 +4,198 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta name="google-adsense-account" content="ca-pub-9544480240826054">
-    
-    <title>Rathore Vanshawali - KASUMALGARH</title>
+    <title>Vanshawali - KASUMALGARH</title>
     
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="apple-touch-icon" href="menulogo.png">
-    
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Playfair+Display:wght@400;700&family=Noto+Serif+Devanagari:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="canonical" href="https://kasumalgarh.site/rathorevanshawali.html" />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="royal_global.css">
+    
+    <link rel="stylesheet" href="mainstyle.css">
 
     <style>
-        /* --- PAGE SPECIFIC STYLES (ZOOM FEATURES ONLY) --- */
+        /* ✅ GLOBAL FIX */
+        * { box-sizing: border-box; }
         
-        /* Background Adjustment to match Royal Theme */
         body {
-            background-color: #fffbf0; /* Cream background like other pages */
-            /* If you want Maroon bg, uncomment below: */
-            /* background: linear-gradient(rgba(3, 2, 48, 0.9), rgba(128, 0, 0, 0.9)); */
+            background-color: #000033;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
-        .vanshawali-container {
-            padding: 40px 10px;
-            text-align: center;
-            min-height: 80vh;
-            background-image: url('pattern.png'); /* If you have a pattern */
+        /* =========================================
+           ✅ MAIN CONTENT & IMAGE STYLES
+           ========================================= */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
         }
 
         /* Instructions Text */
         .zoom-instruction {
-            color: #800000;
+            color: #b8860b;
             font-family: 'Cinzel', serif;
-            font-size: 1.1rem;
-            margin-bottom: 25px;
-            background: #fff;
-            display: inline-block;
-            padding: 10px 30px;
-            border: 2px solid #d4af37;
-            border-radius: 5px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            font-size: 1rem;
+            margin-bottom: 20px;
+            background: rgba(0,0,0,0.6);
+            padding: 10px 25px;
+            border-radius: 20px;
+            border: 1px solid #b8860b;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(184, 134, 11, 0.2);
         }
 
-        /* Image Wrapper (Royal Frame Style) */
         .img-wrapper {
             position: relative;
             display: inline-block;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
             line-height: 0;
-            border: 10px solid #fff;
-            outline: 5px double #d4af37;
-            outline-offset: -5px;
-            background: #fff;
-            max-width: 100%;
+            border: 4px double #b8860b;
+            border-radius: 5px;
+            overflow: hidden; /* For neat corners */
         }
 
         #myimage {
             display: block;
             width: 100%;
             height: auto;
-            max-width: 1000px; /* Limit max width for PC */
+            max-width: 1000px;
         }
 
-        /* --- ZOOM LENS (PC ONLY) --- */
+        /* ✅ MAGNIFYING GLASS LENS (PC ONLY) */
         .img-zoom-lens {
             position: absolute;
-            border: 3px solid #d4af37;
+            border: 3px solid #b8860b;
             border-radius: 50%;
-            cursor: none;
+            pointer-events: none; /* Prevents vibration */
             width: 150px;
             height: 150px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.5), inset 0 0 10px rgba(0,0,0,0.2);
+            box-shadow: 0 0 15px rgba(0,0,0,0.8), inset 0 0 10px rgba(0,0,0,0.3);
             background-repeat: no-repeat;
             background-color: #fff;
-            display: none; /* Hidden by default */
+            display: none;
             z-index: 100;
         }
 
-        /* --- FLOATING CONTROLS (ZOOM BUTTONS) --- */
+        /* ✅ ZOOM CONTROLS (FAB) */
         .zoom-fab {
             position: fixed; bottom: 30px; right: 30px;
-            width: 55px; height: 55px;
-            background: #800000;
-            color: #d4af37;
+            width: 50px; height: 50px;
+            background: #b8860b; color: #000033;
             border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
-            font-size: 22px; cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            font-size: 20px; cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
             z-index: 9000;
-            border: 2px solid #d4af37;
-            transition: 0.3s;
+            transition: transform 0.2s, background 0.3s;
+            border: 2px solid #fff;
         }
-        .zoom-fab:hover { transform: scale(1.1); background: #d4af37; color: #800000; }
+        .zoom-fab:hover { transform: scale(1.1); background: #fff; color: #b8860b; }
 
         .zoom-panel {
-            position: fixed; bottom: 95px; right: 30px;
-            background: rgba(255, 251, 240, 0.95);
-            border: 2px solid #800000;
-            padding: 15px; border-radius: 5px;
+            position: fixed; bottom: 90px; right: 30px;
+            background: rgba(0, 0, 34, 0.95); 
+            border: 2px solid #b8860b;
+            padding: 15px; border-radius: 10px;
             display: none; flex-direction: column; gap: 10px;
             z-index: 9000;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.8);
             min-width: 160px;
         }
         .zoom-panel.show { display: flex; animation: slideUp 0.3s ease; }
         
         @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .panel-title { color: #800000; font-size: 0.9rem; text-align: center; margin-bottom: 5px; font-family: 'Cinzel', serif; font-weight: bold; }
+        .panel-title { color: #b8860b; font-size: 0.8rem; text-align: center; margin-bottom: 5px; font-family: 'Cinzel', serif; text-transform: uppercase; font-weight: bold; }
         
         .zoom-btn {
-            background: #800000; border: none;
-            color: #fff; padding: 8px; cursor: pointer; 
-            font-family: 'Cinzel', serif; font-size: 0.8rem;
-            border-radius: 3px;
+            background: rgba(255,255,255,0.1); border: 1px solid #b8860b;
+            color: #fcf6ba; padding: 8px; cursor: pointer; 
+            font-family: 'Cinzel', serif; font-size: 0.9rem;
+            transition: 0.2s; display: flex; justify-content: center; align-items: center; gap: 5px;
+            border-radius: 4px;
         }
-        .zoom-btn:hover { background: #b8860b; }
+        .zoom-btn:hover { background: #b8860b; color: #000; }
 
-        /* Mobile Adjustments */
+        /* ✅ MOBILE ADJUSTMENTS */
         @media (max-width: 768px) {
-            .img-zoom-lens { display: none !important; } /* No lens on mobile */
-            .img-wrapper { border-width: 5px; }
+            .main-content { padding: 80px 10px 20px 10px; } /* Top padding for Navbar */
+            .img-wrapper { box-shadow: none; border: 2px solid #b8860b; width: 100%; }
+            #myimage { width: 100%; max-width: none; }
+            
+            /* Hide PC Elements on Mobile */
+            .img-zoom-lens { display: none !important; }
+            .zoom-fab { display: none !important; }
+            .zoom-panel { display: none !important; }
         }
     </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
 
-    <div class="navbar-wrapper">
-        <div class="container">
-            <nav class="navbar navbar-inverse">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-                        <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="index.html">
-                        <img src="menulogo.png" alt="Logo" class="menu-logo-img">
-                        KASUMALGARH
-                    </a>
-                </div>
-                <div id="navbar" class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="index.html">HOME</a></li>
-                        
-                        <li class="dropdown active"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">VANSHAWALI <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="vanshawali.html">Kasumalgarh</a></li>
-                                <li class="active"><a href="rathorevanshawali.html">Rathore</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">HISTORY <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="kasumbi_history.html">Kasumalgarh History</a></li>
-                                <li><a href="rathore_history.html">Rathore History</a></li>
-                            </ul>
-                        </li>
-
-                        <li><a href="gallery.html">GALLERY</a></li>
-                        <li><a href="royalalliances.html">ROYAL ALLIANCES</a></li>
-                        <li><a href="about.html">ABOUT</a></li>
-                        <li><a href="contact.html">CONTACT</a></li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
+    <div class="royal-frame">
+        <span></span> <span></span> <span></span> <span></span>
     </div>
 
-    <div class="container vanshawali-container">
+    <nav class="navbar">
+        <div class="navbar-brand-container">
+            <img id="menu-logo" src="menulogo.png" alt="Kasumalgarh Logo"> 
+            <a class="navbar-brand" href="index.html">KASUMALGARH</a>
+        </div>
         
-        <h1 class="shining-text" style="font-size: 2.5em; margin-bottom: 20px;">|| राठौड़ वंशावली ||</h1>
+        <div class="menu-toggle" onclick="toggleMobilePopup()">
+            <i class="fa-solid fa-bars"></i>
+        </div>
 
+        <ul class="navbar-links">
+            <li><a href="index.html">HOME</a></li>
+            
+            <li class="dropdown">
+                <a href="index.html" class="brand-name active" style="text-decoration:none; color:inherit; font-weight: bold; cursor: pointer;">VANSHAWALI</a>
+                <div class="dropdown-content">
+                    <a href="vanshawali.html">Kasumalgarh Vanshawali</a>
+                    <a href="rathorevanshawali.html">Rathore Vanshawali</a>
+                </div>
+            </li>
+
+            <li><a href="history.html">HISTORY</a></li>
+            <li><a href="gallery.html">GALLERY</a></li>
+            <li><a href="about.html">ABOUT</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+            
+            <li><button id="lang-btn" class="lang-btn" onclick="toggleLanguage()">🌐 EN</button></li>
+        </ul>
+    </nav>
+
+    <div id="mobile-popup" class="mobile-menu-overlay">
+        <ul class="mobile-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#" style="background:rgba(0,0,0,0.3); cursor:default;">-- Vanshawali --</a></li>
+            <li><a href="vanshawali.html" class="mobile-sub-link">Kasumalgarh Tree</a></li>
+            <li><a href="rathorevanshawali.html" class="mobile-sub-link">Rathore Chart</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            
+            
+        </ul>
+    </div>
+
+    <div class="main-content">
+        
         <div class="zoom-instruction" id="instructText">
             <i class="fas fa-search-plus"></i> PC: Hover to Magnify | Mobile: Pinch to Zoom
         </div>
 
-        <br>
         <div class="img-wrapper" id="imgWrapper">
-            <img id="myimage" src="RathoreVanshavali3000px.gif" alt="Rathore Vanshawali Full Tree">
+            <img id="myimage" src="RathoreVanshavali3000px.gif" alt="Rathore Vanshawali">
             <div id="lens" class="img-zoom-lens"></div>
         </div>
-
     </div>
 
     <div class="zoom-fab" onclick="toggleZoomPanel()" title="Zoom Settings">
@@ -192,64 +203,104 @@
     </div>
 
     <div class="zoom-panel" id="zoomPanel">
-        <div class="panel-title">Zoom Power</div>
+        <div class="panel-title">Magnification Power</div>
         <div style="display:flex; gap:5px;">
             <button class="zoom-btn" style="flex:1" onclick="changePower(-0.5)"><i class="fas fa-minus"></i></button>
-            <span id="powerDisplay" style="color:#800000; padding:5px; font-weight:bold; min-width: 40px; text-align: center;">2.5x</span>
+            <span id="powerDisplay" style="color:#fff; padding:5px; font-family:sans-serif; font-weight:bold; min-width: 40px; text-align: center;">2.5x</span>
             <button class="zoom-btn" style="flex:1" onclick="changePower(0.5)"><i class="fas fa-plus"></i></button>
         </div>
-        <div style="height:1px; background:#d4af37; margin:5px 0; opacity:0.5;"></div>
+        <div style="height:1px; background:#b8860b; margin:5px 0;"></div>
         <button class="zoom-btn" onclick="toggleLensVisibility()">
             <i class="fas fa-eye-slash"></i> Toggle Lens
         </button>
     </div>
 
-
     <footer class="royal-footer">
-        <div class="container">
-            <div style="font-size: 0.9em; color: #ccc; letter-spacing: 1px;">Developed & Designed By:</div>
+        <address class="developer-info" style="font-style: normal;">
+            <div style="font-size: 0.9em; color: #888; margin-bottom: 5px;">Developed & Designed By:</div>
             
-            <div style="color:#d4af37; font-size:1.6rem; font-family: 'Cinzel', serif; margin: 10px 0; text-shadow: 1px 1px 2px #000;">
+            <span class="royal-name" translate="no" style="cursor: default;">
                 Yuvraj Gajraj Singh
-            </div>
+            </span>
             
-            <div class="footer-social-icons" style="margin: 20px 0;">
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" rel="noopener noreferrer" class="fb-link">
+                <i class="fab fa-facebook"></i> Connect on Facebook
+            </a>
+            
+            <div style="font-size: 0.8em; margin-top: 15px; color: #666;">
+                © <span id="current-year">2025</span> | All Rights Reserved.
             </div>
-
-            <div style="font-size: 0.85em; color: #888; border-top: 1px solid #333; padding-top: 15px; width: 80%; margin: 0 auto;">
-                &copy; <span id="year">2026</span> Thikana Kasumbi | All Rights Reserved.
-            </div>
-        </div>
+        </address>
     </footer>
 
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="royal_global.js"></script>
+    <script type="module" src="mainscript.js"></script>
 
     <script>
-        // --- 1. Mobile vs PC Text Logic ---
+        // 1. Auto Update Year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // 2. Mobile Popup Menu Toggle
+        function toggleMobilePopup() {
+            const menu = document.getElementById('mobile-popup');
+            if(menu.classList.contains('open')) {
+                menu.classList.remove('open');
+            } else {
+                menu.classList.add('open');
+            }
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('mobile-popup');
+            const toggleBtn = document.querySelector('.menu-toggle');
+            if (menu && menu.classList.contains('open')) {
+                if (!menu.contains(event.target) && !toggleBtn.contains(event.target)) {
+                    menu.classList.remove('open');
+                }
+            }
+        });
+
+        // 3. Language Toggle (UI Only)
+        let currentLang = localStorage.getItem('lang') || 'hi'; 
+        function updateLangButton() {
+            const btn = document.getElementById('lang-btn');
+            const mobileBtn = document.getElementById('mobile-lang-btn');
+            if(currentLang === 'hi') {
+                if(btn) btn.innerText = "🌐 EN";
+                if(mobileBtn) mobileBtn.innerText = "🌐 Switch to English";
+            } else {
+                if(btn) btn.innerText = "🌐 HI";
+                if(mobileBtn) mobileBtn.innerText = "🌐 Switch to Hindi";
+            }
+        }
+        function toggleLanguage() {
+            currentLang = currentLang === 'hi' ? 'en' : 'hi';
+            localStorage.setItem('lang', currentLang);
+            updateLangButton();
+        }
+        window.addEventListener('DOMContentLoaded', updateLangButton);
+
+        // --- 4. MAGNIFYING GLASS LOGIC (PC Only) ---
+        // Mobile text update
         if (window.innerWidth <= 768) {
             document.getElementById('instructText').innerHTML = '<i class="fas fa-hand-pointer"></i> Use two fingers to zoom (Pinch)';
         }
 
-        // --- 2. Magnifying Glass Logic (PC) ---
         var img = document.getElementById('myimage');
         var lens = document.getElementById('lens');
-        var zoomLevel = 2.5; 
+        var zoomLevel = 2.5; // Default Power
         var isLensEnabled = true;
 
+        // Check PC
         if (window.innerWidth > 768) {
+            
             img.onload = function() { setBackground(); };
-            if (img.complete) { setBackground(); } // If cached
+            if (img.complete) { setBackground(); }
 
-            // Move event on wrapper
+            // Mouse Move on WRAPPER (because lens has pointer-events:none)
             document.querySelector('.img-wrapper').addEventListener("mousemove", moveMagnifier);
             
-            // Show/Hide Lens
+            // Show/Hide
             document.querySelector('.img-wrapper').addEventListener("mouseenter", function() { 
                 if(isLensEnabled) lens.style.display = "block"; 
             });
@@ -271,16 +322,21 @@
             var x = pos.x;
             var y = pos.y;
 
+            // Center lens on cursor
             var lensHalfW = lens.offsetWidth / 2;
             var lensHalfH = lens.offsetHeight / 2;
 
+            // Boundaries
             if (x > img.width - lensHalfW) { x = img.width - lensHalfW; }
             if (x < lensHalfW) { x = lensHalfW; }
             if (y > img.height - lensHalfH) { y = img.height - lensHalfH; }
             if (y < lensHalfH) { y = lensHalfH; }
 
+            // Move Lens
             lens.style.left = (x - lensHalfW) + "px";
             lens.style.top = (y - lensHalfH) + "px";
+
+            // Move Background (Reverse movement * zoom)
             lens.style.backgroundPosition = "-" + ((x * zoomLevel) - lensHalfW) + "px -" + ((y * zoomLevel) - lensHalfH) + "px";
         }
 
@@ -295,7 +351,7 @@
             return {x : x, y : y};
         }
 
-        // --- 3. Panel Logic ---
+        // --- OPTIONS PANEL LOGIC ---
         function toggleZoomPanel() {
             document.getElementById('zoomPanel').classList.toggle('show');
         }
@@ -306,7 +362,7 @@
             if (zoomLevel > 5) zoomLevel = 5;
             
             document.getElementById('powerDisplay').innerText = zoomLevel + "x";
-            setBackground(); 
+            setBackground(); // Update lens background size
         }
 
         function toggleLensVisibility() {

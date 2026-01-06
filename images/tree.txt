@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kasumalgarh Vanshavali</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- Royal Theme Variables --- */
+        :root {
+            --bg-color: #fffbf0;        
+            --text-main: #350404;       
+            --maroon-text: #800000;     
+            --gold-border: #b8860b;     
+            --gold-line: #5c4033;       
+            --sidebar-bg: #f4ecd8;      
+            --highlight-green: #006400; 
+            
+            --royal-dark-gold: #996515; 
+            --tooltip-bg: #b8860b;      
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Cinzel', serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh; 
+            overflow: hidden; 
+        }
+
+        /* --- 1. ROYAL TOP NAVIGATION BAR (MENU) --- */
+        .royal-navbar {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            height: 60px;
+            background-color: var(--maroon-text);
+            border-bottom: 3px double var(--gold-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-sizing: border-box;
+            z-index: 3500;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+        }
+
+        .nav-logo {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.8rem;
+            color: #fff;
+            text-shadow: 1px 1px 2px #000;
+            text-decoration: none;
+        }
+
+        .nav-buttons {
+            display: flex; gap: 15px;
+        }
+
+        .nav-btn {
+            background-color: var(--bg-color);
+            color: var(--maroon-text);
+            border: 1px solid var(--gold-border);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-family: 'Merriweather', serif;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex; align-items: center; gap: 5px;
+        }
+        .nav-btn:hover {
+            background-color: var(--gold-border);
+            color: #fff;
+        }
+
+        /* --- 2. LEFT SIDEBAR (Search) --- */
+        .sidebar-left {
+            position: fixed;
+            top: 60px; /* Below Navbar */
+            left: -320px;
+            width: 300px;
+            height: calc(100vh - 60px);
+            background-color: var(--sidebar-bg);
+            border-right: 3px double var(--gold-line);
+            display: flex;        
+            flex-direction: column; 
+            box-shadow: 5px 0 15px rgba(0,0,0,0.3);
+            z-index: 3000;
+            transition: left 0.3s ease-in-out;
+        }
+        .sidebar-left.open { left: 0; }
+
+        /* SEARCH BAR STYLING */
+        .search-container {
+            padding: 20px 15px;
+            background-color: var(--sidebar-bg);
+            border-bottom: 2px solid var(--gold-border);
+            flex-shrink: 0; 
+            position: relative;
+        }
+
+        .close-btn-side {
+            position: absolute;
+            top: 10px; right: 15px;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--maroon-text);
+        }
+
+        .search-container h3 {
+            text-align: center; margin: 5px 0 15px 0;
+            color: var(--maroon-text); font-family: 'Merriweather', serif; font-size: 1.2rem;
+        }
+
+        .search-wrapper { position: relative; width: 100%; }
+
+        #search-box {
+            width: 100%;
+            padding: 10px 35px 10px 15px;
+            background-color: var(--royal-dark-gold); 
+            border: 2px solid var(--maroon-text);      
+            border-radius: 25px;                       
+            font-family: 'Merriweather', serif;
+            color: #fff;                               
+            outline: none;
+            box-sizing: border-box;
+        }
+        #search-box::placeholder { color: #e0e0e0; }
+        #clear-search {
+            position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+            color: #fff; cursor: pointer; display: none; 
+        }
+
+        /* Name List */
+        .index-scroll-area { flex-grow: 1; overflow-y: auto; padding-bottom: 20px; }
+        .name-list { list-style: none; padding: 0; margin: 0; }
+        .name-list li a {
+            display: block; padding: 12px 20px;
+            text-decoration: none; color: var(--maroon-text);
+            font-family: 'Merriweather', serif; font-size: 14px; font-weight: bold;
+            border-bottom: 1px solid rgba(184, 134, 11, 0.3);
+            cursor: pointer; transition: 0.2s;
+        }
+        .name-list li a:hover {
+            background-color: var(--maroon-text); color: #fff; padding-left: 25px;
+        }
+
+        /* --- 3. RIGHT SIDEBAR (Ancestral Line Panel) --- */
+        .sidebar-right {
+            position: fixed;
+            top: 60px; /* Below Navbar */
+            right: -400px; 
+            width: 320px; 
+            height: calc(100vh - 60px);
+            background-color: var(--bg-color); 
+            border-left: 3px double var(--gold-line);
+            box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+            z-index: 3000;
+            transition: right 0.3s ease-in-out;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex; flex-direction: column;
+        }
+        .sidebar-right.open { right: 0; } 
+
+        .lineage-header-box {
+            text-align: center; border-bottom: 2px solid var(--gold-border);
+            margin-bottom: 20px; padding-bottom: 15px; position: relative;
+        }
+        .lineage-title-name {
+            font-family: 'Great Vibes', cursive; font-size: 2rem;
+            color: var(--maroon-text); margin: 0; line-height: 1.2; padding-top: 10px;
+        }
+        .lineage-details {
+            font-family: 'Merriweather', serif; font-size: 0.85rem;
+            color: var(--text-main); margin-top: 10px; font-style: italic;
+            background: rgba(212, 175, 55, 0.1); padding: 10px;
+            border-radius: 5px; border: 1px dashed var(--gold-line);
+        }
+        .lineage-list { list-style: none; padding: 0; position: relative; margin-top: 10px; }
+        .lineage-list::before {
+            content: ''; position: absolute; top: 10px; left: 15px;
+            width: 2px; height: 95%; background: var(--gold-line); z-index: 0;
+        }
+        .lineage-item { position: relative; margin-bottom: 15px; padding-left: 40px; z-index: 1; }
+        .lineage-item::before {
+            content: ''; position: absolute; top: 8px; left: 11px;
+            width: 10px; height: 10px; background: var(--maroon-text);
+            border-radius: 50%; border: 2px solid #fff;
+        }
+        .lineage-name {
+            font-family: 'Merriweather', serif; font-size: 13px;
+            color: var(--text-main); font-weight: bold;
+            background: #fff; padding: 4px 10px; border: 1px solid var(--gold-border);
+            border-radius: 4px; display: inline-block;
+        }
+        .lineage-item:last-child .lineage-name {
+            background-color: var(--highlight-green); color: #fff;
+            border-color: var(--highlight-green);
+        }
+
+        /* --- 4. MAIN TREE AREA --- */
+        .main-content {
+            margin-top: 60px; /* Offset for Navbar */
+            height: calc(100vh - 60px); 
+            overflow: auto;
+            background-color: var(--bg-color);
+            position: relative;
+        }
+        h1 {
+            text-align: center; font-family: 'Merriweather', serif;
+            color: var(--maroon-text); font-size: 2.5rem;
+            margin-top: 50px;
+            margin-bottom: 40px; border-bottom: 2px dotted var(--maroon-text);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        .header-container { text-align: center; }
+
+        .tree-container {
+            padding-left: 10px; padding-bottom: 50px; min-width: 800px;
+            display: flex; justify-content: center;
+        }
+
+        /* Tree Structure */
+        ul { list-style: none; padding-left: 20px; }
+        li { position: relative; padding-left: 20px; margin: 0; padding-top: 5px; padding-bottom: 5px; }
+        li::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            border-left: 2px solid var(--gold-line); height: 100%;
+        }
+        li::after {
+            content: ''; position: absolute; top: 15px; left: 0;
+            width: 20px; border-top: 2px solid var(--gold-line);
+        }
+        
+        ul ul li::before { border-left-color: #006400; } ul ul li::after { border-top-color: #006400; }
+        ul ul ul li::before { border-left-color: #00008B; } ul ul ul li::after { border-top-color: #00008B; }
+        
+        li:last-child::before { height: 17px; }
+        .tree-container > ul { padding-left: 0; }
+        .tree-container > ul > li { padding-left: 0; padding-top: 0; }
+        .tree-container > ul > li::before, .tree-container > ul > li::after { display: none; }
+
+        /* Name Box Styles */
+        .member-text {
+            display: inline-flex; align-items: center; 
+            color: var(--maroon-text);
+            font-family: 'Merriweather', serif;
+            font-size: 13px; font-weight: bold;
+            padding: 4px 10px;
+            border: 2px solid var(--gold-border);
+            background-color: #fff;
+            cursor: pointer;
+            transition: 0.3s; white-space: nowrap; border-radius: 4px;
+        }
+        .member-text:hover { box-shadow: 0 0 8px rgba(184, 134, 11, 0.6); }
+
+        .root-text {
+            background-color: var(--maroon-text) !important;
+            border: 2px solid var(--gold-border) !important;
+            padding: 8px 30px; border-radius: 5px;
+            font-size: 20px; font-weight: bold; color: #fff !important;
+            display: inline-block;
+        }
+
+        .social-link {
+            display: inline-flex; justify-content: center; align-items: center;
+            width: 20px; height: 20px; background-color: #996515; color: #fff;
+            border-radius: 50%; margin-left: 5px; font-size: 10px;
+            text-decoration: none; transition: 0.3s;
+        }
+        .social-link:hover { transform: scale(1.2); background-color: #b8860b; }
+
+        /* --- FIXED TOOLTIP --- */
+        #hover-tooltip {
+            position: fixed; display: none;
+            background-color: var(--tooltip-bg); color: #fff; 
+            padding: 10px; border-radius: 6px;
+            font-family: 'Merriweather', serif; font-size: 12px;
+            border: 1px solid #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            z-index: 5000; pointer-events: none; min-width: 200px;
+            text-align: left; line-height: 1.5;
+        }
+        #hover-tooltip strong { color: #ffffcc; display: block; border-bottom: 1px solid rgba(255,255,255,0.3); margin-bottom: 4px; }
+
+        .highlight-green {
+            background-color: var(--highlight-green) !important;
+            color: #fff !important;
+            border-color: #004d00 !important;
+            box-shadow: 0 0 10px #00ff00;
+        }
+        .active-click { transform: scale(1.1); }
+
+        /* --- FOOTER STYLE --- */
+        .royal-footer {
+            background-color: #350404; /* Dark Maroon */
+            color: #f4ecd8;
+            padding: 30px 20px;
+            text-align: center;
+            border-top: 4px solid var(--gold-border);
+            margin-top: 50px; /* Space from tree */
+        }
+        .royal-footer p { margin: 5px 0; font-family: 'Merriweather', serif; font-size: 0.9rem; }
+        .note-box {
+            background-color: rgba(184, 134, 11, 0.2);
+            border: 1px dashed var(--gold-border);
+            display: inline-block; padding: 10px 20px;
+            margin-bottom: 15px; border-radius: 5px;
+        }
+
+        /* --- CONTACT POPUP MODAL --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7); z-index: 6000;
+            display: none; align-items: center; justify-content: center;
+        }
+        .modal-box {
+            background: var(--bg-color);
+            width: 90%; max-width: 400px;
+            padding: 25px; border-radius: 10px;
+            border: 3px double var(--maroon-text);
+            box-shadow: 0 0 20px rgba(184, 134, 11, 0.5);
+            position: relative;
+        }
+        .modal-header { text-align: center; margin-bottom: 15px; }
+        .modal-header h2 { margin: 0; font-family: 'Cinzel', serif; color: var(--maroon-text); }
+        .modal-close {
+            position: absolute; top: 10px; right: 15px;
+            font-size: 24px; cursor: pointer; color: var(--maroon-text);
+        }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-family: 'Merriweather', serif; font-weight: bold; margin-bottom: 5px; }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 8px; border: 1px solid var(--gold-border);
+            border-radius: 4px; font-family: 'Merriweather', serif;
+            box-sizing: border-box;
+        }
+        .send-btn {
+            width: 100%; background-color: var(--highlight-green);
+            color: white; border: none; padding: 10px;
+            font-size: 16px; font-family: 'Cinzel', serif;
+            cursor: pointer; border-radius: 5px;
+        }
+        .send-btn:hover { background-color: #004d00; }
+
+        /* --- MOBILE VIEW ADJUSTMENTS (Update this part) --- */
+@media (max-width: 768px) {
+    
+    .sidebar-left, .sidebar-right {
+        width: 85% !important; 
+        
+        /* FIX 1: Use 'dvh' instead of 'vh' (Dynamic Viewport Height for Mobile) */
+        height: calc(100dvh - 60px) !important; 
+        
+        /* FIX 2: Add extra padding at bottom so content doesn't hide behind edges */
+        padding: 15px 10px 80px 10px !important; /* Top, Right, Bottom(80px), Left */
+        
+        box-sizing: border-box !important;
+    }
+
+    /* बाकी का कोड वैसा ही रहने दें... */
+    .sidebar-left { left: -120%; }
+    .sidebar-right { right: -120%; }
+    
+    .tree-container { justify-content: flex-start; }
+    h1 { font-size: 1.8rem; margin-top: 20px; }
+    .nav-btn span { display: none; }
+    
+    /* ... (नीचे का बाकी कोड भी सेम रखें) */
+}
+           /* --- MOBILE VIEW ADJUSTMENTS (Paste at the bottom of CSS) --- */
+@media (max-width: 768px) {
+    
+    /* 1. Tree (वंशावली) को छोटा और घना करना */
+    .member-text {
+        font-size: 10px !important;       /* नाम का अक्षर छोटा किया */
+        padding: 3px 6px !important;      /* नाम के बॉक्स का साइज़ कम किया */
+        border-width: 1px !important;     /* बॉर्डर पतला किया */
+        
+    }
+    
+    .root-text {
+        font-size: 14px !important;       /* मुख्य नाम (Narayan Singh) का साइज़ */
+        padding: 5px 15px !important;
+    }
+
+    /* Tree की लाइनों और गैप को पास-पास करना */
+    li {
+        padding-left: 12px !important;    /* लेफ्ट गैप कम किया */
+        padding-top: 2px !important;      /* ऊपर-नीचे का गैप कम किया */
+        padding-bottom: 2px !important;
+    }
+    li::after {
+        width: 12px !important;           /* लाइन की लंबाई कम की */
+        top: 12px !important;             /* लाइन की पोजीशन सेट की */
+    }
+    li::before {
+        top: -3px !important;             /* खड़ी लाइन को एडजस्ट किया */
+    }
+
+    /* 2. Right & Left Panels (साइड पैनल्स) के टेक्स्ट को छोटा करना */
+    .lineage-title-name {
+        font-size: 1.5rem !important;     /* पैनल में नाम का हेडिंग छोटा किया */
+    }
+    .lineage-details, .lineage-name {
+        font-size: 0.75rem !important;    /* बाकी जानकारी का टेक्स्ट छोटा किया */
+    }
+    .name-list li a {
+        padding: 10px 15px !important;    /* सर्च लिस्ट का गैप कम किया */
+        font-size: 12px !important;       /* सर्च लिस्ट का फॉन्ट छोटा किया */
+    }
+
+    /* 3. Panels की चौड़ाई और छिपने की पोजीशन (ताकि वे साइड में न दिखें) */
+    .sidebar-left { 
+        width: 100%; 
+        left: -120%; /* स्क्रीन से पूरी तरह बाहर */
+    }
+    .sidebar-right { 
+        width: 100%; 
+        right: -120%; /* स्क्रीन से पूरी तरह बाहर */
+    }
+    
+    /* 4. हेडिंग और टॉप गैप एडजस्टमेंट */
+    /* मोबाइल वाली सेटिंग्स (@media max-width: 768px) में इसे बदलें */
+
+h1 {
+    font-size: 1.5rem !important;      /* फॉन्ट साइज़ */
+    margin-top: 50px !important;       /* पहले यह 15px था, इसे 50px कर दिया ताकि Navbar के नीचे न छिपे */
+    margin-bottom: 20px !important;    /* नीचे का गैप */
+    line-height: 1.3 !important;       /* लाइनों के बीच का गैप ठीक किया */
+    padding: 0 10px !important;        /* साइड से न कटे इसके लिए थोड़ी जगह दी */
+}
+    .tree-container {
+        padding-bottom: 150px;            /* नीचे स्क्रॉल के लिए जगह */
+        min-width: auto;                  /* मोबाइल पर जबरदस्ती चौड़ा न हो */
+    }
+    .nav-btn span { display: none; }      /* बटन का टेक्स्ट छिपाएं, सिर्फ आइकॉन दिखे */
+}
+/* --- CLOSE BUTTON FIX (इसे <style> में सबसे नीचे डालें) --- */
+.close-btn, .close-btn-side {
+    position: absolute !important;
+    top: 10px !important;
+    right: 15px !important;
+    font-size: 28px !important;   /* बटन का साइज़ बड़ा किया */
+    font-weight: bold !important;
+    color: #800000 !important;    /* गहरा लाल रंग */
+    cursor: pointer !important;
+    z-index: 5000 !important;     /* इसे सबसे ऊपर लाने के लिए */
+    display: block !important;
+    line-height: 1 !important;
+}
+
+/* मोबाइल पर टच करने में आसानी हो, इसके लिए टच एरिया बढ़ा दिया */
+@media (max-width: 768px) {
+    .close-btn, .close-btn-side {
+        font-size: 30px !important;
+        padding: 5px !important;
+        top: 5px !important;
+        right: 10px !important;
+    }
+}
+    </style>
+</head>
+<body>
+
+    <nav class="royal-navbar">
+        <a href="#" class="nav-logo">Kasumalgarh</a>
+        <div class="nav-buttons">
+            <button class="nav-btn" onclick="toggleLeftPanel()">
+                <i class="fas fa-search"></i> <span>Search Name</span>
+            </button>
+            <button class="nav-btn" onclick="openContactModal()">
+                <i class="fas fa-edit"></i> <span>Request Update / Contact</span>
+            </button>
+        </div>
+    </nav>
+
+    <aside class="sidebar-left" id="left-panel">
+        <div class="search-container">
+            <span class="close-btn-side" onclick="toggleLeftPanel()">&times;</span>
+            <h3>Name Index</h3>
+            <div class="search-wrapper">
+                <input type="text" id="search-box" placeholder="Search name..." onkeyup="filterNames()">
+                <span id="clear-search" onclick="clearSearch()">&#10005;</span>
+            </div>
+            <div id="total-count" style="text-align:center; font-family: 'Merriweather', serif; font-style: italic; margin-top:10px; color:var(--text-main);"></div>
+        </div>
+        <div class="index-scroll-area">
+            <ul class="name-list" id="index-list"></ul>
+        </div>
+    </aside>
+
+    <aside class="sidebar-right" id="right-panel">
+        <span class="close-btn-side" style="top: 15px; right: 20px;" onclick="closeRightPanel()">&times;</span>
+        <div class="lineage-header-box" id="panel-header"></div>
+        <h4 style="text-align:center; color:var(--gold-line); margin:5px 0;">Ancestral Path</h4>
+        <ul class="lineage-list" id="lineage-content"></ul>
+    </aside>
+
+    <div id="hover-tooltip"></div>
+
+    <main class="main-content" id="main-area">
+        <div class="header-container">
+            <h1>Royal Genealogy Of Thikana Kasumbi Jakhla</h1>
+        </div>
+        
+        <div class="tree-container" id="tree-root"></div>
+
+        <footer class="royal-footer">
+            <div class="note-box">
+                <strong>Important Note:</strong> <br>
+                To add a new member or correct an existing name in the family tree, <br>
+                please click the "Request Update / Contact" button above.
+            </div>
+            <p>&copy; 2025 Thikana Kasumbi. Preserved by Gajsa.</p>
+            <p style="font-size: 0.8rem; color: #b8860b;">Designed & Developed by Yuvraj GajRaj SIngh.</p>
+        </footer>
+    </main>
+
+    <div class="modal-overlay" id="contactModal">
+        <div class="modal-box">
+            <span class="modal-close" onclick="closeContactModal()">&times;</span>
+            <div class="modal-header">
+                <h2>Request Update</h2>
+                <p style="font-size:12px; margin-top:5px;">Send details to update family tree</p>
+            </div>
+            <div class="form-group">
+                <label>Your Name</label>
+                <input type="text" id="req-name" placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label>Correction / Addition Detail</label>
+                <textarea id="req-msg" rows="4" placeholder="Example: Add my son 'Name' under 'Father Name'"></textarea>
+            </div>
+            <button class="send-btn" onclick="sendToWhatsApp()">
+                <i class="fab fa-whatsapp"></i> Send via WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // --- DATA ---
+        const familyData = {
+          "name": "Th. Narayan Singh",
+          "children": [
+            {
+              "name": "Th. Akhe Singh",
+              "children": [
+                {
+                  "name": "Th. Mangal Singh",
+                  "children": [
+                    {
+                      "name": "Th. Bakhtawar Singh",
+                      "children": [
+                        {
+                          "name": "Th. Raghunath Singh",
+                          "children": [
+                            {
+                              "name": "Th. Roop Singh",
+                              "children": [
+                                {
+                                  "name": "Th. Ridmal Singh",
+                                  "children": [
+                                    {
+                                      "name": "Th. Bhairu Singh",
+                                      "children": [
+                                        {
+                                          "name": "Th. Mahendra Singh",
+                                          "children": [
+                                            {
+                                              "name": "Yuvraj GajRaj Singh",
+                                              "children": [
+                                                { "name": "Bhanwar Khushvendra Singh", "children": [] }
+                                              ]
+                                            },
+                                            { "name": "Kr. Shivraj Singh ", "children": [] },
+                                            { "name": "Baisa Hrishiraj Rathore", "children": [] }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "Th. Partap Singh",
+                                      "children": [
+                                        {
+                                          "name": "Th. Rajendra Singh",
+                                          "children": [
+                                            {
+                                              "name": "Kr. Arun Singh",
+                                              "children": [
+                                                { "name": "Bhanwar Baisa Raghvi", "children": [] }
+                                              ]
+                                            },
+                                            { "name": "Baisa Rajlaxmi Rathore", "children": [] }
+                                          ]
+                                        },
+                                        {
+                                          "name": "Th. Ravindra Singh",
+                                          "children": [
+                                            { "name": "Baisa Yogita Rathore", "children": [] },
+                                            { "name": "Baisa Garima Rathore", "children": [] },
+                                            { "name": "Kr. Yashvardhan Singh", "children": [] }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            { "name": "Th. Gopinath Singh", "children": [] }
+                          ]
+                        },
+                        { "name": "Th. Sonath Singh", "children": [] }
+                      ]
+                    },
+                    {
+                      "name": "Th. Jawahar Singh",
+                      "children": [
+                        { "name": "Th. Sabal Singh", "children": [] },
+                        { "name": "Th. Balwant Singh", "children": [] },
+                        { "name": "Th. Sawant Singh", "children": [] },
+                        {
+                          "name": "Th. Bhiv Singh",
+                          "children": [
+                            {
+                              "name": "Th. Lal Singh",
+                              "children": [
+                                {
+                                  "name": "Th. Richhpal Singh",
+                                  "children": [
+                                    {
+                                      "name": "Th. Bhawani Singh",
+                                      "children": [
+                                        {
+                                          "name": "Kr. Devendra Singh",
+                                          "children": [
+                                            { "name": "Bh. Daksh Rathore", "children": [] }
+                                          ]
+                                        },
+                                        { "name": "Kr. Ajeet Singh", "children": [] }
+                                      ]
+                                    },
+                                    {
+                                      "name": "Th. Ratan Singh",
+                                      "children": [
+                                        { "name": "Kr. Vikram Singh", "children": [] }
+                                      ]
+                                    },
+                                    {
+                                      "name": "Kr. Narpat Singh",
+                                      "children": [
+                                        { "name": "Th. Yogendra Singh", "children": [] },
+                                        { "name": "Th. Kuldeep Singh", "children": [] }
+                                      ]
+                                    },
+                                    {
+                                      "name": "Th. Tej Singh",
+                                      "children": [
+                                        { "name": "Kr. Jaydeep Singh", "children": [] }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Th. Bhagirath Singh",
+                                  "children": [
+                                    { "name": "Kr. Rajendra Singh", "children": [] },
+                                    { "name": "Kr. Manohar Singh", "children": [] },
+                                    { "name": "Kr. Anand Singh", "children": [] },
+                                    { "name": "Kr. Gajendra Singh", "children": [] }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Th. Keshar Singh",
+                              "children": [
+                                {
+                                  "name": "Th. Sopal Singh",
+                                  "children": [
+                                    { "name": "Kr. Indra Singh", "children": [] },
+                                    { "name": "Kr. Narendra Singh", "children": [] }
+                                  ]
+                                },
+                                { "name": "Th. Ugam Singh", "children": [] },
+                                {
+                                  "name": "Th. Baagh Singh",
+                                  "children": [
+                                    { "name": "Kr. Laxman Singh", "children": [] },
+                                    { "name": "Kr. Narpat Singh", "children": [] }
+                                  ]
+                                },
+                                { "name": "Th. Partap Singh", "children": [] }
+                              ]
+                            },
+                            { "name": "Th. Bane Singh", "children": [] }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Th. Bhairu Singh",
+                  "children": [
+                    { "name": "Th. Laxman Singh", "children": [] },
+                    {
+                      "name": "Th. Bhopal Singh",
+                      "children": [
+                        {
+                          "name": "Th. Aman Singh",
+                          "children": [
+                            {
+                              "name": "Th. Hari Singh",
+                              "children": [
+                                { "name": "Th. Bhanwar Singh", "children": [] },
+                                { "name": "Th. Bhagirath Singh", "children": [] }
+                              ]
+                            },
+                            {
+                              "name": "Th. Sujan Singh",
+                              "children": [
+                                {
+                                  "name": "Th. Nawal Singh",
+                                  "children": [
+                                    { "name": "Th. Ranveer Singh", "children": [] },
+                                    {
+                                      "name": "Th. Sumer Singh",
+                                      "children": [
+                                        {
+                                          "name": "Kr. Sudhir Partap Singh",
+                                          "children": [
+                                            { "name": "Bh. Anirudh Partap Singh", "children": [] }
+                                          ]
+                                        },
+                                        { "name": "Kr. Himmat Singh", "children": [] },
+                                        { "name": "Kr. Kishan Singh", "children": [] }
+                                      ]
+                                    },
+                                    {
+                                      "name": "Th. Girdhari Singh",
+                                      "children": [
+                                        { "name": "Kr. Aaditya Singh", "children": [] }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            { "name": "Th. Khuman Singh", "children": [] },
+                            { "name": "Th. Banne Singh", "children": [] },
+                            { "name": "Th. Ugam Singh", "children": [] },
+                            { "name": "Th. Kan Singh", "children": [] },
+                            {
+                              "name": "Th. Sawant Singh",
+                              "children": [
+                                {
+                                  "name": "Th. Mahaveer Singh",
+                                  "children": [
+                                    { "name": "Th. Nitendra Singh", "children": [] },
+                                    { "name": "Th. Hem Singh", "children": [] }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Th. Achal Singh",
+                              "children": [
+                                { "name": "Th. Ram Singh", "children": [] },
+                                { "name": "Th. Moti Singh", "children": [] }
+                              ]
+                            }
+                          ]
+                        },
+                        { "name": "Th. Balwant Singh", "children": [] },
+                        { "name": "Th. Bakshiram Singh", "children": [] },
+                        {
+                          "name": "Th. Chatar Singh",
+                          "children": [
+                            {
+                              "name": "Th. Ganesh Singh",
+                              "children": [
+                                {
+                                  "name": "Th. Bhanwar Singh",
+                                  "children": [
+                                    {
+                                      "name": "Kr. Gajendra Singh",
+                                      "children": [
+                                        { "name": "Bh. Tanmay Singh", "children": [] }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Th. Mohan Singh",
+                                  "children": [
+                                    {
+                                      "name": "Kr. Bajrang Singh",
+                                      "children": [
+                                        { "name": "Bh. Rudrapartap Singh", "children": [] }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Th. Dungar Singh",
+                                  "children": [
+                                    { "name": "Kr. Ajeet Singh", "children": [] }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Th. Tool Singh",
+                              "children": [
+                                {
+                                  "name": "Th. Rawant Singh",
+                                  "children": [
+                                    {
+                                      "name": "Th. Govind Singh",
+                                      "children": [
+                                        { "name": "Kr. Harshvardhan Singh", "children": [] },
+                                        { "name": "Kr. Yashvardhan Singh", "children": [] }
+                                      ]
+                                    },
+                                    {
+                                      "name": "Th. Mahendra Singh",
+                                      "children": [
+                                        { "name": "Kr. SuryaVardhan Singh", "children": [] }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Th. Kishore Singh",
+                              "children": [
+                                {
+                                  "name": "Kr. Karan Singh",
+                                  "children": [
+                                    { "name": "Bh. Jitendra Singh", "children": [] }
+                                  ]
+                                },
+                                {
+                                  "name": "Kr. Rajveer Singh",
+                                  "children": [
+                                    { "name": "Bh. Aryan Rathore", "children": [] }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Th. Ranjit Singh",
+                  "children": [
+                    {
+                      "name": "Th. Bachan Singh",
+                      "children": [
+                        {
+                          "name": "Th. Ganga Singh",
+                          "children": [
+                            { "name": "Th. Sardar Singh", "children": [] },
+                            { "name": "Th. Selab Singh", "children": [] },
+                            {
+                              "name": "Th. Bhoor Singh",
+                              "children": [
+                                {
+                                  "name": "Th. Dhukal Singh",
+                                  "children": [
+                                    { "name": "Th. Madan Singh", "children": [] },
+                                    { "name": "Th. Chhagan Singh", "children": [] },
+                                    {
+                                      "name": "Th. Bhagirath Singh",
+                                      "children": [
+                                        {
+                                          "name": "Th. Norang Singh",
+                                          "children": [
+                                            { "name": "Kr. Govind Singh", "children": [] },
+                                            { "name": "Kr. Manvendra Singh", "children": [] }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    { "name": "Th. Laxman Singh", "children": [] },
+                                    { "name": "Th. Manohar Singh", "children": [] },
+                                    { "name": "Th. Bhanwar Singh", "children": [] }
+                                  ]
+                                },
+                                { "name": "Th. Hukam Singh", "children": [] },
+                                { "name": "Th. Megh Singh", "children": [] }
+                              ]
+                            },
+                            { "name": "Th. Ajeet Singh", "children": [] },
+                            { "name": "Th. Sarup Singh", "children": [] }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Th. Om Singh",
+                      "children": [
+                        { "name": "Th. Ganga Singh", "children": [] },
+                        { "name": "Th. Dhan Singh", "children": [] },
+                        {
+                          "name": "Th. Sujan Singh",
+                          "children": [
+                            { "name": "Th. Rawat Singh", "children": [] },
+                            { "name": "Th. Dhir Singh", "children": [] },
+                            {
+                              "name": "Th. Fool Singh",
+                              "children": [
+                                {
+                                  "name": "Kr. Raghuveer Singh",
+                                  "children": [
+                                    { "name": "Kr. Mahipal Singh", "children": [] },
+                                    { "name": "Kr. Sarwan Singh", "children": [] },
+                                    { "name": "Kr. Hari Singh", "children": [] }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            { "name": "Th. Sangram Singh", "children": [] },
+            {
+              "name": "Th. Surat Singh",
+              "children": [
+                {
+                  "name": "Th. Hanwant Singh",
+                  "children": [
+                    {
+                      "name": "Th. Jagat Singh",
+                      "children": [
+                        {
+                          "name": "Th. Baldev Singh",
+                          "children": [
+                            { "name": "Th. Sadul Singh", "children": [] },
+                            {
+                              "name": "Th. Guman Singh",
+                              "children": [
+                                { "name": "Th. Mool Singh", "children": [] },
+                                { "name": "Th. Dool Singh", "children": [] }
+                              ]
+                            },
+                            { "name": "Th. Devi Singh", "children": [] }
+                          ]
+                        },
+                        { "name": "Th. Kushal Singh", "children": [] },
+                        {
+                          "name": "Th. Gangabaks Singh",
+                          "children": [
+                            {
+                              "name": "Th. Daal Singh",
+                              "children": [
+                                {
+                                  "name": "Th. Fate Singh",
+                                  "children": [
+                                    {
+                                      "name": "Kr. Bhanwar Singh",
+                                      "children": [
+                                        { "name": "Bh. Yashpal Singh", "children": [] },
+                                        { "name": "Bh. Shakti Singh", "children": [] }
+                                      ]
+                                    },
+                                    {
+                                      "name": "Kr. Mahendra Singh",
+                                      "children": [
+                                        { "name": "Bh. Vijaypal Singh", "children": [] },
+                                        { "name": "Bh. Ajaypal Singh", "children": [] }
+                                      ]
+                                    },
+                                    {
+                                      "name": "Kr. Girwar Singh",
+                                      "children": [
+                                        { "name": "Bh. Narendra Singh", "children": [] },
+                                        { "name": "Bh. Gopal Singh", "children": [] }
+                                      ]
+                                    },
+                                    {
+                                      "name": "Kr. Bhawani Singh",
+                                      "children": [
+                                        { "name": "Bh. Shivraj Singh", "children": [] },
+                                        { "name": "Bh. Jivraj Singh", "children": [] }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Th. Nathu Singh",
+                                  "children": [
+                                    { "name": "Kr. Bhagwan Singh", "children": [] },
+                                    { "name": "Kr. Bajrang Singh", "children": [] },
+                                    { "name": "Kr. Prithvi Singh", "children": [] },
+                                    { "name": "Kr. Vikram Singh", "children": [] }
+                                  ]
+                                }
+                              ]
+                            },
+                            { "name": "Th. Ganpat Singh", "children": [] },
+                            { "name": "Th. Sodan Singh", "children": [] }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Th. Hamir Singh",
+                      "children": [
+                        {
+                          "name": "Th. Pem Singh",
+                          "children": [
+                            {
+                              "name": "Th. Govind Singh",
+                              "children": [
+                                {
+                                  "name": "Th. Jagmal Singh",
+                                  "children": [
+                                    { "name": "Th. Mangu Singh", "children": [] },
+                                    { "name": "Th. Partap Singh", "children": [] }
+                                  ]
+                                },
+                                {
+                                  "name": "Th. Sopal Singh",
+                                  "children": [
+                                    { "name": "Kr. Raghuveer Singh", "children": [] },
+                                    { "name": "Kr. Bhagwan Singh", "children": [] }
+                                  ]
+                                },
+                                {
+                                  "name": "Th. Ugam Singh",
+                                  "children": [
+                                    { "name": "Kr. Manmohan Singh", "children": [] },
+                                    { "name": "Kr. Man Singh", "children": [] },
+                                    { "name": "Kr. Kan Singh", "children": [] }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Th. Jet Singh",
+                              "children": [
+                                { "name": "Th. Sawai Singh", "children": [] },
+                                { "name": "Th. Ranveer Singh", "children": [] }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    { "name": "Th. Metab Singh", "children": [] },
+                    { "name": "Th. Shal Singh", "children": [] },
+                    { "name": "Th. Onad Singh", "children": [] }
+                  ]
+                },
+                { "name": "Th. Bagh Singh", "children": [] }
+              ]
+            },
+            { "name": "Th. Sardar Singh", "children": [] }
+          ]
+        };
+
+        let allMembers = [];
+        let idCounter = 0;
+
+        // --- 1. BUILD TREE ---
+        function buildTree(member) {
+            const li = document.createElement('li');
+            idCounter++;
+            const uniqueID = "node-" + idCounter;
+            allMembers.push({ name: member.name, id: uniqueID });
+
+            const span = document.createElement('span');
+            span.innerText = member.name;
+            span.id = uniqueID;
+            
+            if(idCounter === 1) { 
+                span.classList.add('root-text');
+            } else {
+                span.classList.add('member-text');
+            }
+
+            // ADD SOCIAL ICONS (For GajRaj Singh)
+            if(member.name.includes("GajRaj")) {
+                let insta = document.createElement('a');
+                insta.href = "https://instagram.com/gajsa.kasumbifort"; // Your Link
+                insta.target = "_blank";
+                insta.className = "social-link";
+                insta.innerHTML = '<i class="fab fa-instagram"></i>';
+                
+                let fb = document.createElement('a');
+                fb.href = "https://facebook.com/gajsa.kasumbi"; // Your Link
+                fb.target = "_blank";
+                fb.className = "social-link";
+                fb.innerHTML = '<i class="fab fa-facebook-f"></i>';
+
+                span.appendChild(insta);
+                span.appendChild(fb);
+            }
+
+            li.appendChild(span);
+
+            // --- HOVER TOOLTIP LOGIC ---
+            span.addEventListener('mouseenter', function(e) {
+                e.stopPropagation();
+                
+                // 1. Ancestor Path Green Logic
+                let current = li;
+                while (current) {
+                    if (current.tagName === 'LI') {
+                        let nameSpan = current.querySelector('span');
+                        if(nameSpan) nameSpan.classList.add('highlight-green');
+                    }
+                    if(current.parentElement) {
+                        current = current.parentElement.closest('li');
+                    } else {
+                        current = null;
+                    }
+                }
+
+                // 2. SHOW TOOLTIP LOGIC (FIXED POSITION)
+                showTooltip(this, li);
+            });
+
+            span.addEventListener('mouseleave', function() {
+                // Remove Green Path
+                document.querySelectorAll('.highlight-green').forEach(el => {
+                    if(!el.classList.contains('active-click')) {
+                        el.classList.remove('highlight-green');
+                    }
+                });
+                // Hide Tooltip
+                document.getElementById('hover-tooltip').style.display = 'none';
+            });
+
+            // Click to Open Right Panel
+            span.addEventListener('click', function(e) {
+                 e.stopPropagation();
+                 handleNameClick(uniqueID, span);
+            });
+
+            if (member.children && member.children.length > 0) {
+                const ul = document.createElement('ul');
+                member.children.forEach(child => {
+                    ul.appendChild(buildTree(child));
+                });
+                li.appendChild(ul);
+            }
+            return li;
+        }
+
+        // TOOLTIP CALCULATION FUNCTION (FIXED)
+        function showTooltip(spanElement, liElement) {
+            let tooltip = document.getElementById('hover-tooltip');
+            let name = spanElement.childNodes[0].nodeValue || spanElement.innerText; // Get text only
+            
+            // A. Find Father
+            let fatherName = "Th. Narayan Singh (Founder)";
+            let parentLi = liElement.parentElement.closest('li');
+            if(parentLi) {
+                fatherName = parentLi.querySelector('span').firstChild.textContent;
+                fatherName = "Son of <br>" + fatherName;
+            } else {
+                fatherName = "Founder";
+            }
+
+            // B. Find Siblings
+            let siblingsCount = 0;
+            let parentUl = liElement.parentElement;
+            if(parentUl && parentUl.tagName === 'UL') {
+                siblingsCount = parentUl.querySelectorAll(':scope > li').length - 1;
+            }
+            let siblingText = siblingsCount > 0 ? `He has ${siblingsCount} more sibling(s).` : "He is the only child.";
+
+            // C. Find Generation
+            let depth = 1;
+            let temp = liElement;
+            while(temp.parentElement.closest('li')) {
+                depth++;
+                temp = temp.parentElement.closest('li');
+            }
+            let suffix = (depth==1)?'st':(depth==2)?'nd':(depth==3)?'rd':'th';
+            let genText = `${depth}${suffix} Gen. of Th. Narayan Singh`;
+
+            // HTML
+            tooltip.innerHTML = `
+                <strong>${name}</strong>
+                ${fatherName} <br>
+                ${siblingText} <br>
+                <span style="color:#ddd; font-size:11px;">${genText}</span>
+            `;
+
+            // Position (Fixed logic based on Viewport)
+            tooltip.style.display = 'block';
+            let rect = spanElement.getBoundingClientRect();
+            
+            // Set Left
+            tooltip.style.left = rect.left + 'px';
+            
+            // Set Top (Below element)
+            let topPos = rect.bottom + 10;
+            
+            // Check if tooltip goes off bottom of screen
+            if (topPos + tooltip.offsetHeight > window.innerHeight) {
+                 topPos = rect.top - tooltip.offsetHeight - 10; // Show above
+            }
+            tooltip.style.top = topPos + 'px';
+        }
+
+        const root = document.getElementById('tree-root');
+        const mainUl = document.createElement('ul');
+        mainUl.appendChild(buildTree(familyData)); 
+        root.appendChild(mainUl);
+
+        // --- INDEX LOGIC ---
+        const indexList = document.getElementById('index-list');
+        document.getElementById('total-count').innerText = "Total Members: " + allMembers.length;
+        allMembers.sort((a, b) => a.name.localeCompare(b.name));
+
+        function renderIndex(listData) {
+            indexList.innerHTML = "";
+            listData.forEach(item => {
+                let li = document.createElement('li');
+                let a = document.createElement('a');
+                a.innerText = item.name;
+                a.onclick = function(e) {
+                    e.stopPropagation(); 
+                    toggleLeftPanel(); 
+                    handleNameClick(item.id, null); 
+                };
+                li.appendChild(a);
+                indexList.appendChild(li);
+            });
+        }
+        renderIndex(allMembers);
+
+        // --- SIDEBAR TOGGLES ---
+        function toggleLeftPanel() {
+            document.getElementById('left-panel').classList.toggle('open');
+            document.getElementById('right-panel').classList.remove('open');
+        }
+
+        function closeRightPanel() {
+            document.getElementById('right-panel').classList.remove('open');
+            clearHighlights();
+        }
+
+        // --- MODAL LOGIC ---
+        function openContactModal() {
+            document.getElementById('contactModal').style.display = 'flex';
+        }
+        function closeContactModal() {
+            document.getElementById('contactModal').style.display = 'none';
+        }
+        
+        function sendToWhatsApp() {
+            let name = document.getElementById('req-name').value;
+            let msg = document.getElementById('req-msg').value;
+            
+            if(name === "" || msg === "") {
+                alert("Please fill in your name and message.");
+                return;
+            }
+            
+            // Format for WhatsApp
+            let text = `Jai Mata Di,\nI want to request a change/addition in Kasumalgarh Tree.\n\n*Name:* ${name}\n*Request:* ${msg}`;
+            let encodedText = encodeURIComponent(text);
+            
+            // Replace this number with Gajsa's number if you have it, else it opens empty chat to select contact
+            window.open(`https://wa.me/?text=${encodedText}`, '_blank');
+            closeContactModal();
+        }
+
+        // --- SEARCH LOGIC ---
+        function filterNames() {
+            let input = document.getElementById('search-box');
+            let clearBtn = document.getElementById('clear-search');
+            let val = input.value.toLowerCase();
+            
+            if(val.length > 0) clearBtn.style.display = 'block';
+            else clearBtn.style.display = 'none';
+
+            let filtered = allMembers.filter(member => member.name.toLowerCase().includes(val));
+            renderIndex(filtered);
+        }
+
+        function clearSearch() {
+            let input = document.getElementById('search-box');
+            input.value = "";
+            filterNames(); 
+        }
+
+        // --- CLICK & DETAILS LOGIC ---
+        function handleNameClick(id, indexLinkElement) {
+            clearHighlights();
+            let targetSpan = document.getElementById(id);
+            if(targetSpan) {
+                targetSpan.classList.add('highlight-green');
+                targetSpan.classList.add('active-click');
+                targetSpan.scrollIntoView({behavior: "smooth", block: "center", inline: "center"});
+                showRightPanel(targetSpan);
+            }
+        }
+
+        function clearHighlights() {
+            document.querySelectorAll('.highlight-green').forEach(el => el.classList.remove('highlight-green'));
+            document.querySelectorAll('.active-click').forEach(el => el.classList.remove('active-click'));
+        }
+
+        // --- RIGHT PANEL FUNCTION ---
+        function showRightPanel(targetNode) {
+            const panel = document.getElementById('right-panel');
+            const headerBox = document.getElementById('panel-header');
+            const list = document.getElementById('lineage-content');
+            list.innerHTML = ""; 
+
+            let personName = targetNode.childNodes[0].nodeValue || targetNode.innerText;
+            let path = [];
+            let current = targetNode;
+            let generationCount = 0;
+            
+            while(current) {
+                if(current.tagName === 'SPAN') {
+                    let txt = current.childNodes[0].nodeValue || current.innerText;
+                    path.unshift(txt); 
+                    generationCount++;
+                }
+                let parentLi = current.closest('li').parentElement.closest('li');
+                if(parentLi) {
+                    current = parentLi.querySelector('span');
+                } else {
+                    current = null;
+                }
+            }
+
+            let fatherName = path.length > 1 ? path[path.length - 2] : "Founder";
+            let parentUl = targetNode.closest('li').parentElement;
+            let siblingsCount = (parentUl && parentUl.tagName === 'UL') ? parentUl.querySelectorAll(':scope > li').length - 1 : 0;
+
+            let relationText = personName.toLowerCase().includes('baisa') ? "Daughter of" : "Son of";
+            if(generationCount === 1) relationText = "Founder";
+
+            let siblingText = siblingsCount === 0 ? "He is the only child." : `He has ${siblingsCount} more sibling(s).`;
+            let suffix = (generationCount==1)?'st':(generationCount==2)?'nd':(generationCount==3)?'rd':'th';
+
+            headerBox.innerHTML = `
+                <h2 class="lineage-title-name">${personName}</h2>
+                <div class="lineage-details">
+                    <div><strong>${relationText}</strong> <br> ${fatherName}</div>
+                    <hr style="border:0; border-top:1px dashed #ccc; margin:5px 0;">
+                    <div>${siblingText}</div>
+                    <div><strong>${generationCount}${suffix} Gen.</strong> of Th. Narayan Singh</div>
+                </div>
+            `;
+
+            path.forEach(name => {
+                let li = document.createElement('li');
+                li.className = 'lineage-item';
+                li.innerHTML = `<span class="lineage-name">${name}</span>`;
+                list.appendChild(li);
+            });
+
+            panel.classList.add('open');
+            document.getElementById('left-panel').classList.remove('open');
+        }
+
+        // Close panels on outside click
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.sidebar-left') && 
+                !e.target.closest('.sidebar-right') && 
+                !e.target.closest('.nav-btn') &&
+                !e.target.closest('.modal-box') &&
+                !e.target.classList.contains('member-text')) {
+                
+                document.getElementById('left-panel').classList.remove('open');
+                closeRightPanel();
+                closeContactModal();
+            }
+        });
+
+    </script>
+</body>
+</html>

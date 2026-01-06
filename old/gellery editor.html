@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="utf-8">
+    <title>ADVANCED GALLERY MANAGER (UPLOAD)</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- ADMIN PANEL THEME --- */
+        body { background-color: #1a0000; color: #f4f4f4; font-family: 'Playfair Display', serif; text-align: center; margin: 0; padding: 10px; }
+        .container { display: flex; flex-direction: column; gap: 20px; max-width: 100%; margin: 0 auto; }
+        .editor-panel { background: rgba(255,255,255,0.05); padding: 15px; border: 2px solid #d4af37; border-radius: 10px; }
+        
+        /* PREVIEW PANEL */
+        .preview-panel { 
+            background: #fffbf0; 
+            color: #333; 
+            border: 2px solid #d4af37; 
+            border-radius: 10px; 
+            height: 600px; 
+            overflow: auto; 
+            text-align: center;
+            padding: 15px;
+        }
+
+        h3 { color: #d4af37; margin-top: 5px; border-bottom: 1px solid #444; padding-bottom: 5px; }
+        
+        input[type="text"], input[type="url"] { width: 100%; padding: 12px; margin: 8px 0; background: #330000; color: #fff; border: 1px solid #d4af37; border-radius: 4px; box-sizing: border-box; font-size: 16px; }
+        
+        /* STYLE FOR FILE INPUT */
+        input[type="file"] {
+            display: none; /* Hide original button */
+        }
+        .custom-file-upload {
+            border: 2px dashed #d4af37;
+            display: inline-block;
+            padding: 12px;
+            cursor: pointer;
+            width: 90%;
+            margin: 10px 0;
+            background: rgba(212, 175, 55, 0.1);
+            color: #d4af37;
+            font-weight: bold;
+        }
+        
+        button { width: 100%; padding: 14px; margin-top: 8px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 14px; transition: 0.2s; }
+        
+        .btn-load { background: #008080; color: white; }
+        .btn-add { background: #006400; color: white; }
+        .btn-del { background: #8b0000; color: white; }
+        .btn-save { background: #ff4500; color: white; font-size: 1.1em; border: 2px solid white; margin-top: 20px; }
+
+        /* PREVIEW ITEM STYLING */
+        .preview-panel .gallery-item {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            text-align: left;
+            background: white;
+            border-radius: 5px;
+        }
+        .preview-panel .gallery-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            margin-right: 15px;
+            border-radius: 4px;
+        }
+        .preview-panel .image-title {
+            font-weight: bold;
+            color: #800000;
+            font-size: 1em;
+            margin: 0;
+        }
+        .preview-panel .image-date {
+            font-size: 0.8em;
+            color: #666;
+            margin: 0;
+        }
+        
+    </style>
+</head>
+
+<body>
+
+    <h2 style="color:#d4af37;">🖼️ ADVANCED GALLERY MANAGER ⚜️</h2>
+
+    <div class="container">
+        
+        <div class="editor-panel">
+            <button onclick="loadHtml()" class="btn-load">1. LOAD LIVE GALLERY CODE 🔄</button>
+            <p id="status" style="color:#ffd700; font-size:0.8em;">Status: Waiting...</p>
+            <textarea id="hiddenCode" style="display:none;"></textarea>
+
+            <hr>
+
+            <h3>➕ ADD NEW PHOTO (UPLOAD)</h3>
+            
+            <label for="fileInput" class="custom-file-upload">
+                📁 1. Select Photo from Mobile
+            </label>
+            <input type="file" id="fileInput" accept="image/*">
+            <p id="fileNameDisplay" style="color:#ccc; font-size:0.8em;">No file selected</p>
+
+            <input type="text" id="addImageTitle" placeholder="2. Title (नाम)">
+            <input type="text" id="addImageDate" placeholder="3. Date (दिनांक)">
+            
+            <button onclick="uploadAndAddPhoto()" class="btn-add" id="uploadBtn">⬆️ Upload & Add to Gallery</button>
+
+            <hr>
+
+            <h3 style="color:#ff6666">🗑️ DELETE PHOTO</h3>
+            <input type="text" id="deleteTarget" placeholder="Title या Image URL डालें">
+            <button onclick="deletePhoto()" class="btn-del">Delete Photo</button>
+
+            <hr>
+            <button onclick="saveToGithub()" class="btn-save">💾 SAVE GALLERY HTML</button>
+        </div>
+
+        <div class="preview-panel">
+            <div style="background:#ddd; padding:5px; font-weight:bold; position:sticky; top:0; z-index:10; border-bottom:1px solid #999;">
+                LIVE GALLERY LIST
+            </div>
+            <div id="livePreview">
+                <br>Click "LOAD LIVE GALLERY CODE"<br>to see photos.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- CONFIGURATION ---
+        const USER = "kasumalgarh";      
+        const REPO = "kasumalgarh.github.io";  
+        
+        // --- NOTE: Using the correct filename 'gallery.html' now ---
+        const FILE = "gallery.html";   
+        const IMAGE_FOLDER = "images/"; // Folder for uploaded images
+        
+        const PASS = "kasumalgarh2025";
+        // ---------------------
+
+        let currentSha = null;
+        let githubToken = null; // Need token for upload too
+
+        // Show selected filename
+        document.getElementById('fileInput').addEventListener('change', function() {
+            const fileName = this.files[0] ? this.files[0].name : "No file selected";
+            document.getElementById('fileNameDisplay').innerText = "Selected: " + fileName;
+        });
+
+
+        // 1. LOAD CODE
+        async function loadHtml() {
+            let p = prompt("Enter Admin Password:");
+            if(p !== PASS) { alert("Wrong Password!"); return; }
+
+            document.getElementById('status').innerText = "Status: Loading...";
+            
+            try {
+                const res = await fetch(`https://api.github.com/repos/${USER}/${REPO}/contents/${FILE}?t=${Date.now()}`);
+                if(!res.ok) throw new Error("File 'gallery.html' not found!");
+                
+                const data = await res.json();
+                currentSha = data.sha; 
+                
+                let cleanContent = data.content.replace(/\s/g, '');
+                let decoded = decodeURIComponent(escape(window.atob(cleanContent)));
+                
+                document.getElementById('hiddenCode').value = decoded;
+                updateVisualPreview(decoded);
+                
+                document.getElementById('status').innerText = "Status: Code Loaded ✅";
+                alert("Gallery Loaded Successfully!");
+
+            } catch(e) {
+                alert("Error: " + e.message);
+            }
+        }
+
+        // PREVIEW HELPER
+        function updateVisualPreview(htmlContent) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(htmlContent, 'text/html');
+            const galleryContainer = doc.getElementById('mainGallery');
+            
+            if (galleryContainer) {
+                let previewHtml = '';
+                const items = galleryContainer.querySelectorAll('.gallery-item');
+                
+                items.forEach(item => {
+                    const img = item.querySelector('img');
+                    const title = item.querySelector('.image-title');
+                    const date = item.querySelector('.image-date');
+
+                    if (img && title) {
+                        previewHtml += `
+                            <div class="gallery-item">
+                                <img src="${img.getAttribute('src')}" alt="${title.textContent}">
+                                <div>
+                                    <p class="image-title">${title.textContent}</p>
+                                    <p class="image-date">${date ? date.textContent : ''}</p>
+                                </div>
+                            </div>`;
+                    }
+                });
+                document.getElementById('livePreview').innerHTML = previewHtml || "No items found.";
+            } else {
+                document.getElementById('livePreview').innerHTML = "Gallery Container (ID: mainGallery) nahi mila.";
+            }
+        }
+
+        // --- NEW: UPLOAD AND ADD FUNCTION ---
+        async function uploadAndAddPhoto() {
+            if(!currentSha) { alert("Pehle Code Load karein!"); return; }
+
+            const fileInput = document.getElementById('fileInput');
+            const title = document.getElementById('addImageTitle').value.trim();
+            const date = document.getElementById('addImageDate').value.trim();
+
+            if(fileInput.files.length === 0) { alert("Please select a photo first!"); return; }
+            if(!title) { alert("Title is required!"); return; }
+
+            // Ask for Token if not available
+            if(!githubToken) {
+                githubToken = prompt("Enter GitHub Key for Upload:");
+                if(!githubToken) return;
+            }
+
+            const btn = document.getElementById('uploadBtn');
+            btn.innerText = "⏳ Uploading Image... (Please wait)";
+            btn.disabled = true;
+
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            // When file is read, upload it
+            reader.onload = async function(e) {
+                try {
+                    // Convert to Base64 (remove data:image/...;base64, part)
+                    const contentBase64 = e.target.result.split(',')[1];
+                    
+                    // Create a unique filename (e.g., image_123456789.jpg)
+                    const fileExt = file.name.split('.').pop();
+                    const newFileName = `image_${Date.now()}.${fileExt}`;
+                    const uploadPath = IMAGE_FOLDER + newFileName;
+
+                    // Upload to GitHub
+                    const uploadRes = await fetch(`https://api.github.com/repos/${USER}/${REPO}/contents/${uploadPath}`, {
+                        method: "PUT",
+                        headers: { "Authorization": `token ${githubToken}`, "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            message: "Upload image via Admin Panel",
+                            content: contentBase64,
+                            branch: "main"
+                        })
+                    });
+
+                    if(!uploadRes.ok) throw new Error("Image Upload Failed!");
+                    const uploadData = await uploadRes.json();
+                    
+                    // Get the new URL (using jsDelivr for faster loading, or raw.githubusercontent)
+                    // A safe bet is to use the relative path if HTML is in root
+                    const newImageUrl = uploadPath; 
+
+                    // Now ADD to HTML Gallery
+                    addPhotoToHtml(newImageUrl, title, date);
+
+                    alert("✅ Photo Uploaded & Added! \nNow click 'SAVE GALLERY HTML' to finish.");
+
+                } catch(err) {
+                    alert("Upload Error: " + err.message);
+                } finally {
+                    btn.innerText = "⬆️ Upload & Add to Gallery";
+                    btn.disabled = false;
+                }
+            };
+
+            // Read the file
+            reader.readAsDataURL(file);
+        }
+
+        // HELPER: Add HTML after upload
+        function addPhotoToHtml(url, title, date) {
+            let html = document.getElementById('hiddenCode').value;
+            
+            const newItemHtml = `
+                <div class="gallery-item" data-title="${title}">
+                    <img src="${url}" alt="${title}">
+                    <div class="image-caption">
+                        <p class="image-title">${title}</p>
+                        <p class="image-date">Date: ${date}</p>
+                    </div>
+                </div>
+            `;
+
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const galleryContainer = doc.getElementById('mainGallery');
+            
+            if (galleryContainer) {
+                galleryContainer.insertAdjacentHTML('afterbegin', newItemHtml);
+                updateAll(doc);
+                // Clear inputs
+                document.getElementById('fileInput').value = "";
+                document.getElementById('fileNameDisplay').innerText = "No file selected";
+                document.getElementById('addImageTitle').value = "";
+                document.getElementById('addImageDate').value = "";
+            }
+        }
+
+        // 3. DELETE PHOTO
+        function deletePhoto() {
+            if(!currentSha) { alert("Pehle Code Load karein!"); return; }
+            let html = document.getElementById('hiddenCode').value;
+            let target = document.getElementById('deleteTarget').value.trim();
+            
+            if(!target) { alert("Title ya URL dalein!"); return; }
+            if(!confirm("Delete karna hai?")) return;
+
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const galleryContainer = doc.getElementById('mainGallery');
+            let deleted = false;
+            
+            if (galleryContainer) {
+                const items = galleryContainer.querySelectorAll('.gallery-item');
+                items.forEach(item => {
+                    const title = item.querySelector('.image-title').textContent.trim();
+                    const imgUrl = item.querySelector('img').getAttribute('src').trim();
+                    if (title === target || imgUrl === target) {
+                        item.remove();
+                        deleted = true;
+                    }
+                });
+            }
+
+            if(deleted) {
+                updateAll(doc);
+                alert("🗑️ Deleted! Ab Save Karein.");
+                document.getElementById('deleteTarget').value = "";
+            } else {
+                alert("❌ Photo nahi mili.");
+            }
+        }
+
+        function updateAll(doc) {
+            let newHtml = doc.documentElement.outerHTML;
+            document.getElementById('hiddenCode').value = newHtml;
+            updateVisualPreview(newHtml);
+        }
+
+        // 4. SAVE HTML TO GITHUB
+        async function saveToGithub() {
+            const html = document.getElementById('hiddenCode').value;
+            if(!html) return;
+            
+            // Use already entered token or ask
+            if(!githubToken) {
+                 githubToken = prompt("Enter GitHub Key:");
+                 if(!githubToken) return;
+            }
+
+            const btn = document.querySelector('.btn-save');
+            btn.innerText = "⏳ Saving HTML...";
+
+            try {
+                const checkRes = await fetch(`https://api.github.com/repos/${USER}/${REPO}/contents/${FILE}`);
+                const checkData = await checkRes.json();
+                currentSha = checkData.sha; 
+
+                const content = btoa(unescape(encodeURIComponent(html)));
+                
+                const res = await fetch(`https://api.github.com/repos/${USER}/${REPO}/contents/${FILE}`, {
+                    method: "PUT",
+                    headers: { "Authorization": `token ${githubToken}`, "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        message: "Gallery HTML Update",
+                        content: content,
+                        sha: currentSha, 
+                        branch: "main"
+                    })
+                });
+
+                if(res.ok) {
+                    const d = await res.json();
+                    currentSha = d.content.sha;
+                    alert("🎉 GALLERY HTML SAVED!");
+                    btn.innerText = "💾 SAVE GALLERY HTML";
+                } else {
+                    const err = await res.json();
+                    alert("Error: " + err.message);
+                }
+            } catch(e) {
+                alert("Network Error: " + e.message);
+            }
+        }
+    </script>
+</body>
+</html>

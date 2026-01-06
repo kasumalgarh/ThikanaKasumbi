@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal Menu - KASUMALGARH</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* =========================================
+           INTERNAL CSS (Royal Theme: Blue Back + Transparent Img)
+           ========================================= */
+        
+        :root {
+            --bg-color: #fffbf0;        
+            --text-main: #350404;       
+            --maroon-text: #800000;     
+            --gold-border: #b8860b;     
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Cinzel', serif;
+            margin: 0;
+            padding: 0;
+            padding-top: 60px; /* Curve spacing */
+        }
+
+        /* --- MAIN MENU BAR --- */
+        .royal-navbar {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            height: 45px; 
+            
+            /* ✅ 1. BACKGROUND COLOR (सबसे पीछे गहरा नीला) */
+            background-color: #040444 !important; 
+            
+            /* ✅ 2. BACKGROUND IMAGE (नीले रंग के ऊपर फोटो) */
+            background-image: url('bg10.png') !important; 
+            
+            /* फोटो की सेटिंग (Cover ताकि पूरी पट्टी पर आए) */
+            background-position: center !important;
+            background-size: cover !important;
+            background-repeat: no-repeat !important;
+            
+            /* ✅ 3. CURVED SHAPE (फूला हुआ डिजाइन) */
+            border-bottom-left-radius: 50% 20px;
+            border-bottom-right-radius: 50% 20px;
+
+            /* शाही बॉर्डर और परछाई */
+            border-bottom: 2px solid #b8860b; 
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6); 
+            
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            
+            /* Padding (Normal 20px as requested) */
+            padding: 0 20px;
+            box-sizing: border-box;
+            z-index: 3500;
+        }
+
+        /* --- LOGO --- */
+        .nav-logo {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.5rem; 
+            color: #fff;
+            text-shadow: 2px 2px 4px #000;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .title-logo {
+            height: 28px;
+            width: auto;
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.5));
+        }
+
+        .nav-buttons {
+            display: flex; gap: 10px;
+        }
+
+        /* --- BUTTON STYLE (Search/Request) --- */
+        .nav-btn {
+            background-color: rgba(0,0,0,0.3); 
+            color: #fcf6ba; 
+            border: 1px solid var(--gold-border);
+            padding: 3px 12px;
+            border-radius: 15px;
+            font-family: 'Merriweather', serif;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex; align-items: center; gap: 5px;
+        }
+        
+        /* ✅ BUTTON HOVER: GOLD-BRONZE GRADIENT */
+        .nav-btn:hover {
+            background: linear-gradient(to right, #d4af37, #cd7f32);
+            color: #fff;
+            border-color: #fcf6ba;
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.6);
+        }
+
+        /* --- DESKTOP LINKS --- */
+        .desktop-menu-links {
+            list-style: none; display: flex; gap: 10px; margin: 0; padding: 0;
+            margin-bottom: 3px;
+        }
+        .desktop-menu-links li {
+            padding: 0; margin: 0; border: none;
+        }
+        
+        .desktop-menu-links li a {
+            text-decoration: none; 
+            color: #fff; 
+            font-family: 'Merriweather', serif; 
+            font-size: 13px; 
+            text-transform: uppercase;
+            transition: 0.3s; 
+            padding: 5px 15px;      
+            border-radius: 15px;    
+            border: 1px solid transparent;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+        }
+
+        /* ✅ LINK HOVER: GOLD-BRONZE GRADIENT */
+        .desktop-menu-links li a:hover, .active-page {
+            background: linear-gradient(135deg, #b8860b 0%, #d4af37 100%) !important;
+            color: #fff !important;
+            border: 1px solid #fcf6ba !important;
+            box-shadow: 0 0 10px rgba(184, 134, 11, 0.4);
+        }
+
+        /* --- HAMBURGER ICON (Mobile) --- */
+        .hamburger-icon {
+            display: none; 
+            font-size: 20px; 
+            color: #fff; cursor: pointer;
+            text-shadow: 0 2px 2px #000;
+        }
+
+        /* --- MOBILE MENU OVERLAY --- */
+        .mobile-menu-overlay {
+            position: fixed !important;
+            top: 55px !important; 
+            left: 10px !important;
+            width: 180px !important;
+            height: auto !important;
+            
+            /* Mobile Background (Matching Theme) */
+            background: linear-gradient(to bottom, #000033, #1a0b00) !important;
+            border: 2px solid #b8860b !important;
+            border-radius: 8px !important;
+            
+            transform: scale(0);
+            transform-origin: top left;
+            transition: transform 0.2s ease-out !important;
+            padding: 5px 0 !important;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.8) !important;
+            display: block !important;
+            z-index: 4000;
+        }
+
+        .mobile-menu-overlay.open {
+            transform: scale(1) !important;
+        }
+
+        .mobile-links { list-style: none; padding: 0; margin: 0; }
+        .mobile-links li { margin: 0 !important; padding: 0 !important; border: none !important; }
+        
+        .mobile-links li a {
+            font-size: 13px !important;      
+            text-align: left !important;
+            padding: 8px 15px !important;   
+            width: auto !important;
+            border-bottom: 1px solid rgba(184, 134, 11, 0.2) !important;
+            display: block !important;
+            color: #f4ecd8 !important;
+            font-family: 'Merriweather', serif !important;
+            text-decoration: none !important;
+        }
+        .mobile-links li a:hover {
+            background: linear-gradient(to right, #b8860b, #d4af37) !important;
+            color: #fff !important;
+        }
+
+        /* --- MOBILE RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .desktop-menu-links { display: none; }
+            .hamburger-icon { display: block; margin-right: 15px; }
+            .desktop-only { display: none; }
+            
+            .royal-navbar {
+                height: 45px !important; 
+                padding: 0 10px !important;
+                border-bottom-left-radius: 30% 15px;
+                border-bottom-right-radius: 30% 15px;
+            }
+            .nav-logo { font-size: 1.3rem !important; }
+            .title-logo { height: 26px !important; }
+            .nav-btn { padding: 3px 10px !important; font-size: 10px !important; }
+            .mobile-menu-overlay { top: 50px !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="royal-navbar">
+        <div class="hamburger-icon" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <a href="index.html" class="nav-logo">
+            <img src="menulogo.png" alt="Logo" class="title-logo"> 
+            Kasumalgarh
+        </a>
+
+        <ul class="desktop-menu-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="vanshawali.html" class="active-page">Vanshawali</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li id="admin-link" style="display:none;"><a href="admin_dashboard.html">Admin</a></li>
+        </ul>
+
+        <div class="nav-buttons">
+            <button class="nav-btn" onclick="alert('Search Panel needs full Vanshawali page')">
+                <i class="fas fa-search"></i> <span class="desktop-only">Search</span>
+            </button>
+            <button class="nav-btn" onclick="alert('Request Modal needs full Vanshawali page')">
+                <i class="fas fa-edit"></i> <span class="desktop-only">Request</span>
+            </button>
+        </div>
+    </nav>
+
+    <div id="mobile-menu-overlay" class="mobile-menu-overlay">
+        <ul class="mobile-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="vanshawali.html">Vanshawali</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li id="mobile-admin-link" style="display:none;"><a href="admin_dashboard.html">Admin</a></li>
+        </ul>
+    </div>
+
+    <script>
+        function toggleMobileMenu() {
+            let menu = document.getElementById('mobile-menu-overlay');
+            menu.classList.toggle('open');
+        }
+
+        document.addEventListener('click', function(event) {
+            let menu = document.getElementById('mobile-menu-overlay');
+            let hamburger = document.querySelector('.hamburger-icon');
+            if (menu && menu.classList.contains('open')) {
+                if (!menu.contains(event.target) && !hamburger.contains(event.target)) {
+                    menu.classList.remove('open');
+                }
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            if (isLoggedIn) {
+                document.getElementById('admin-link').style.display = 'block';
+                document.getElementById('mobile-admin-link').style.display = 'block';
+            }
+        });
+    </script>
+
+</body>
+</html>

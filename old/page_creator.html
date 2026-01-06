@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="utf-8">
+    <title>Kasumalgarh Ultimate Builder</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    <style>
+        /* --- UI THEME --- */
+        :root { --dark: #1e1e24; --panel: #25252b; --gold: #d4af37; --text: #e0e0e0; --accent: #0d6efd; --border: #333; }
+        * { box-sizing: border-box; scrollbar-width: thin; scrollbar-color: #444 #222; }
+        body { margin: 0; background: var(--dark); color: var(--text); font-family: 'Lato', sans-serif; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+
+        /* TOP BAR */
+        .navbar { height: 50px; background: #000; border-bottom: 2px solid var(--gold); display: flex; justify-content: space-between; align-items: center; padding: 0 15px; z-index: 100; }
+        .brand { font-family: 'Cinzel'; color: var(--gold); font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
+        
+        .toolbar-group { display: flex; gap: 5px; background: #333; padding: 3px; border-radius: 4px; }
+        .tool-btn { background: transparent; border: none; color: #ccc; padding: 5px 10px; cursor: pointer; border-radius: 3px; font-size: 0.9rem; }
+        .tool-btn:hover { background: #444; color: #fff; }
+        .tool-btn.active { background: var(--gold); color: #000; }
+        
+        .action-btn { background: var(--panel); border: 1px solid var(--border); color: #fff; padding: 5px 12px; cursor: pointer; border-radius: 4px; display: flex; gap: 5px; align-items: center; font-size: 0.85rem; }
+        .action-btn.primary { background: var(--gold); color: #000; border-color: var(--gold); font-weight: bold; }
+
+        /* WORKSPACE */
+        .workspace { display: flex; flex: 1; overflow: hidden; }
+
+        /* LEFT SIDEBAR (Layers & Blocks) */
+        .sidebar-left { width: 280px; background: var(--panel); border-right: 1px solid var(--border); display: flex; flex-direction: column; }
+        .tab-header { display: flex; border-bottom: 1px solid var(--border); }
+        .tab-link { flex: 1; padding: 10px; text-align: center; cursor: pointer; background: #1a1a1a; color: #777; font-size: 0.8rem; }
+        .tab-link.active { background: var(--panel); color: var(--gold); border-top: 2px solid var(--gold); }
+        
+        .sidebar-content { flex: 1; overflow-y: auto; padding: 10px; display: none; }
+        .sidebar-content.active { display: block; }
+
+        .block-item { display: flex; align-items: center; gap: 10px; padding: 10px; background: #333; border: 1px solid #444; margin-bottom: 6px; cursor: grab; border-radius: 4px; font-size: 0.9rem; transition: 0.2s; }
+        .block-item:hover { border-color: var(--gold); transform: translateX(3px); }
+        
+        /* LAYER TREE */
+        .layer-item { padding: 4px 8px; font-size: 0.85rem; cursor: pointer; color: #bbb; border-bottom: 1px solid #333; }
+        .layer-item:hover { background: #333; color: #fff; }
+        .layer-item.selected { background: #444; color: var(--gold); border-left: 3px solid var(--gold); }
+
+        /* CENTER CANVAS */
+        .canvas-area { flex: 1; background: #3a3a3a; display: flex; justify-content: center; align-items: center; position: relative; padding: 30px; }
+        iframe { transition: all 0.3s ease; background: #fff; border: none; box-shadow: 0 0 50px rgba(0,0,0,0.5); }
+        iframe.desktop { width: 100%; height: 100%; max-width: 1400px; }
+        iframe.tablet { width: 768px; height: 100%; }
+        iframe.mobile { width: 375px; height: 100%; border: 10px solid #111; border-radius: 20px; }
+
+        /* RIGHT SIDEBAR (Styles) */
+        .sidebar-right { width: 300px; background: var(--panel); border-left: 1px solid var(--border); display: flex; flex-direction: column; overflow-y: auto; }
+        .panel-section { border-bottom: 1px solid var(--border); padding: 15px; }
+        .panel-title { color: var(--gold); font-size: 0.75rem; font-weight: bold; text-transform: uppercase; margin-bottom: 10px; display: flex; justify-content: space-between; }
+        
+        .prop-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+        .prop-label { flex: 1; font-size: 0.85rem; color: #aaa; }
+        .prop-input { flex: 1.5; background: #111; border: 1px solid #444; color: #fff; padding: 5px; border-radius: 3px; width: 100%; font-size: 0.85rem; }
+        input[type="color"] { padding: 0; height: 25px; cursor: pointer; }
+
+        /* CODE EDITOR OVERLAY */
+        #codeOverlay { position: absolute; inset: 0; background: #1e1e1e; z-index: 50; display: none; padding: 20px; }
+        #codeTextarea { width: 100%; height: 90%; background: #111; color: #0f0; font-family: monospace; border: 1px solid #444; padding: 15px; }
+
+        /* MODALS */
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 200; justify-content: center; align-items: center; }
+        .modal-content { background: #222; padding: 20px; width: 400px; border: 1px solid var(--gold); border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="brand"><i class="fas fa-chess-rook"></i> KASUMALGARH V3</div>
+        
+        <div class="toolbar-group">
+            <button class="tool-btn" onclick="execCmd('undo')" title="Undo (Ctrl+Z)"><i class="fas fa-undo"></i></button>
+            <button class="tool-btn" onclick="execCmd('redo')" title="Redo (Ctrl+Y)"><i class="fas fa-redo"></i></button>
+            <div style="width:1px; background:#555; margin:0 5px;"></div>
+            <button class="tool-btn active" onclick="setDevice('desktop')"><i class="fas fa-desktop"></i></button>
+            <button class="tool-btn" onclick="setDevice('tablet')"><i class="fas fa-tablet-alt"></i></button>
+            <button class="tool-btn" onclick="setDevice('mobile')"><i class="fas fa-mobile-alt"></i></button>
+        </div>
+
+        <div style="display:flex; gap:10px;">
+            <button class="action-btn" onclick="toggleCode()"><i class="fas fa-code"></i> Code</button>
+            <button class="action-btn" onclick="openLoadModal()"><i class="fas fa-cloud-download-alt"></i> Load</button>
+            <button class="action-btn primary" onclick="publishSite()"><i class="fas fa-save"></i> Publish</button>
+        </div>
+    </nav>
+
+    <div class="workspace">
+        
+        <div class="sidebar-left">
+            <div class="tab-header">
+                <div class="tab-link active" onclick="switchTab('blocks')">BLOCKS</div>
+                <div class="tab-link" onclick="switchTab('layers')">LAYERS</div>
+                <div class="tab-link" onclick="switchTab('global')">SEO</div>
+            </div>
+
+            <div id="tab-blocks" class="sidebar-content active">
+                <small style="color:#666; display:block; margin-bottom:10px;">ROYAL HERITAGE</small>
+                <div class="block-item" onclick="insert('hero')"><i class="fas fa-crown"></i> Hero Header</div>
+                <div class="block-item" onclick="insert('jharokha')"><i class="fas fa-archway"></i> Jharokha Box</div>
+                <div class="block-item" onclick="insert('vanshawali')"><i class="fas fa-sitemap"></i> Vanshawali Tree</div>
+                <div class="block-item" onclick="insert('timeline')"><i class="fas fa-history"></i> Timeline Row</div>
+                
+                <small style="color:#666; display:block; margin:15px 0 10px;">LAYOUT & MEDIA</small>
+                <div class="block-item" onclick="insert('2col')"><i class="fas fa-columns"></i> 2 Columns</div>
+                <div class="block-item" onclick="insert('3col')"><i class="fas fa-th-large"></i> 3 Columns</div>
+                <div class="block-item" onclick="insert('image')"><i class="fas fa-image"></i> Image</div>
+                <div class="block-item" onclick="insert('video')"><i class="fab fa-youtube"></i> YouTube Video</div>
+                <div class="block-item" onclick="insert('text')"><i class="fas fa-paragraph"></i> Rich Text</div>
+                <div class="block-item" onclick="insert('divider')"><i class="fas fa-grip-lines"></i> Gold Divider</div>
+                <div class="block-item" onclick="insert('footer')"><i class="fas fa-shoe-prints"></i> Footer Section</div>
+            </div>
+
+            <div id="tab-layers" class="sidebar-content">
+                <div id="layerList">Loading Layers...</div>
+                <button class="action-btn" onclick="refreshLayers()" style="width:100%; margin-top:10px;">Refresh List</button>
+            </div>
+
+            <div id="tab-global" class="sidebar-content">
+                <div class="panel-section">
+                    <label class="prop-label">Browser Title</label>
+                    <input type="text" id="seoTitle" class="prop-input" oninput="updateMeta()">
+                </div>
+                <div class="panel-section">
+                    <label class="prop-label">Description</label>
+                    <textarea id="seoDesc" class="prop-input" rows="4"></textarea>
+                </div>
+                <div class="panel-section">
+                    <label class="prop-label">Background Color</label>
+                    <input type="color" id="bodyBg" class="prop-input" oninput="setGlobalStyle('background', this.value)">
+                </div>
+            </div>
+        </div>
+
+        <div class="canvas-area">
+            <iframe id="editorFrame" class="desktop"></iframe>
+            
+            <div id="codeOverlay">
+                <textarea id="codeTextarea" spellcheck="false"></textarea>
+                <div style="text-align:right; margin-top:10px;">
+                    <button class="action-btn primary" onclick="saveCode()">Apply Changes</button>
+                    <button class="action-btn" onclick="toggleCode()">Close</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar-right" id="propPanel">
+            <div style="padding:20px; text-align:center; color:#666;" id="noSel">Select an element to edit</div>
+            
+            <div id="props" style="display:none;">
+                <div class="panel-section">
+                    <div class="panel-title">Typography</div>
+                    <div class="prop-row">
+                        <label class="prop-label">Color</label>
+                        <input type="color" class="prop-input" oninput="styleEl('color', this.value)">
+                    </div>
+                    <div class="prop-row">
+                        <label class="prop-label">Size</label>
+                        <input type="number" class="prop-input" oninput="styleEl('fontSize', this.value+'px')">
+                    </div>
+                    <div class="prop-row">
+                        <label class="prop-label">Align</label>
+                        <select class="prop-input" onchange="styleEl('textAlign', this.value)">
+                            <option value="left">Left</option>
+                            <option value="center">Center</option>
+                            <option value="right">Right</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <div class="panel-title">Spacing (Padding/Margin)</div>
+                    <div class="prop-row">
+                        <span class="prop-label">Pad</span>
+                        <input type="range" max="100" class="prop-input" oninput="styleEl('padding', this.value+'px')">
+                    </div>
+                    <div class="prop-row">
+                        <span class="prop-label">Marg</span>
+                        <input type="range" max="100" class="prop-input" oninput="styleEl('margin', this.value+'px')">
+                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <div class="panel-title">Box Style</div>
+                    <div class="prop-row">
+                        <label class="prop-label">Bg Color</label>
+                        <input type="color" class="prop-input" oninput="styleEl('backgroundColor', this.value)">
+                    </div>
+                    <div class="prop-row">
+                        <label class="prop-label">Border</label>
+                        <select class="prop-input" onchange="styleEl('border', this.value)">
+                            <option value="none">None</option>
+                            <option value="1px solid #333">Solid Thin</option>
+                            <option value="2px solid #d4af37">Royal Gold</option>
+                            <option value="4px double #8B0000">Double Red</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="panel-section" id="imgProps" style="display:none;">
+                    <div class="panel-title">Image Source</div>
+                    <input type="text" class="prop-input" placeholder="https://..." onchange="attrEl('src', this.value)">
+                    <button class="action-btn" onclick="openGithubMedia()" style="width:100%; margin-top:5px;">Select from Library</button>
+                </div>
+                
+                <div class="panel-section" id="linkProps" style="display:none;">
+                    <div class="panel-title">Link URL</div>
+                    <input type="text" class="prop-input" placeholder="https://..." onchange="attrEl('href', this.value)">
+                </div>
+
+                <div class="panel-section">
+                    <button class="action-btn" style="background:#d32f2f; border-color:#b71c1c; width:100%; justify-content:center;" onclick="deleteSel()"><i class="fas fa-trash"></i> Remove Element</button>
+                    <div style="display:flex; gap:5px; margin-top:10px;">
+                        <button class="action-btn" style="flex:1;" onclick="moveSel('up')"><i class="fas fa-arrow-up"></i></button>
+                        <button class="action-btn" style="flex:1;" onclick="moveSel('down')"><i class="fas fa-arrow-down"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="publishModal" class="modal">
+        <div class="modal-content">
+            <h3 style="color:var(--gold); margin-top:0;">Publish to GitHub</h3>
+            <input type="text" id="ghFile" class="prop-input" placeholder="Filename (e.g. index.html)" style="margin-bottom:10px;">
+            <input type="password" id="ghToken" class="prop-input" placeholder="GitHub Token" style="margin-bottom:20px;">
+            <button class="action-btn primary" style="width:100%; justify-content:center;" onclick="executePublish()">Publish Now</button>
+            <button class="action-btn" style="width:100%; justify-content:center; margin-top:10px;" onclick="document.getElementById('publishModal').style.display='none'">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        const iframe = document.getElementById('editorFrame');
+        let doc; // Iframe document
+        let selEl = null; // Selected Element
+        let historyStack = [];
+        let historyIndex = -1;
+
+        // --- INIT ---
+        window.onload = function() {
+            doc = iframe.contentDocument || iframe.contentWindow.document;
+            resetCanvas();
+        };
+
+        function resetCanvas(content = null) {
+            // DEFAULT TEMPLATE WITH FOOTER
+            const tpl = `
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Yatra+One&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: #fffaf0; color: #333; font-family: 'Segoe UI', sans-serif; display:flex; flex-direction:column; min-height:100vh; }
+        h1, h2, h3, .navbar-brand { font-family: 'Rozha One', serif; color: #8B0000; }
+        .edit-sel { outline: 3px solid #d4af37; position: relative; z-index: 10; cursor: move; }
+        .hover-el { outline: 2px dashed #0d6efd; cursor: pointer; }
+        
+        /* ROYAL STYLES */
+        .royal-nav { background: linear-gradient(to right, #8B0000, #5c0000); padding: 15px; display:flex; justify-content:space-between; align-items:center; }
+        .royal-nav a { color: #d4af37; text-decoration: none; font-weight: bold; margin-left: 15px; }
+        .royal-footer { background: #1a1a1a; color: #d4af37; padding: 30px; text-align: center; margin-top: auto; border-top: 4px solid #8B0000; }
+        .jharokha { border: 4px double #d4af37; padding: 20px; background: #fff; text-align: center; border-radius: 15px 15px 0 0; margin: 20px 0; }
+        .vanshawali-node { background: #fff; border: 1px solid #d4af37; padding: 10px; display:inline-block; margin:5px; box-shadow: 2px 2px 5px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+    <nav class="royal-nav" id="mainNav">
+        <div class="navbar-brand"><i class="fas fa-shield-alt"></i> KASUMALGARH</div>
+        <div>
+            <a href="index.html">होम</a>
+            <a href="history.html">इतिहास</a>
+            <a href="vanshawali.html">वंशावली</a>
+        </div>
+    </nav>
+
+    <div id="mainContainer" class="container mt-4 mb-4">
+        ${content || `<div class="jharokha"><h2 contenteditable="true">स्वागत है</h2><p contenteditable="true">यहाँ क्लिक करके अपना इतिहास लिखना शुरू करें...</p></div>`}
+    </div>
+
+    <footer class="royal-footer" id="mainFooter">
+        <div contenteditable="true">
+            <h3>कसुमलगढ़</h3>
+            <p>&copy; 2025 Rathore Heritage | <i class="fab fa-facebook"></i> <i class="fab fa-instagram"></i></p>
+            <p style="font-size:0.8rem;">बनाया गया गजेसा द्वारा</p>
+        </div>
+    </footer>
+</body>
+</html>`;
+            doc.open(); doc.write(tpl); doc.close();
+            setTimeout(initListeners, 500);
+        }
+
+        function initListeners() {
+            // Click to Select
+            doc.body.addEventListener('click', (e) => {
+                e.preventDefault(); e.stopPropagation();
+                if(e.target.tagName === 'HTML' || e.target.tagName === 'BODY') return;
+                selectElement(e.target);
+            });
+            
+            // Hover Effect
+            doc.body.addEventListener('mouseover', (e) => e.target.classList.add('hover-el'));
+            doc.body.addEventListener('mouseout', (e) => e.target.classList.remove('hover-el'));
+
+            // Drag & Drop (Sortable)
+            const Sortable = window.Sortable;
+            const container = doc.getElementById('mainContainer');
+            if(Sortable && container) {
+                new Sortable(container, { animation: 150, onEnd: saveHistory });
+            }
+
+            // Mutation Observer for History
+            const observer = new MutationObserver(() => { /* debounced saveHistory could go here */ });
+            observer.observe(doc.body, { childList: true, subtree: true, characterData: true });
+
+            saveHistory(); // Initial State
+            refreshLayers();
+        }
+
+        // --- SELECTION & PROPERTIES ---
+        function selectElement(el) {
+            if(selEl) selEl.classList.remove('edit-sel');
+            selEl = el;
+            selEl.classList.add('edit-sel');
+            
+            // Show UI
+            document.getElementById('noSel').style.display = 'none';
+            document.getElementById('props').style.display = 'block';
+            
+            // Contextual Props
+            document.getElementById('imgProps').style.display = el.tagName === 'IMG' ? 'block' : 'none';
+            document.getElementById('linkProps').style.display = el.tagName === 'A' ? 'block' : 'none';
+        }
+
+        function styleEl(prop, val) {
+            if(selEl) { selEl.style[prop] = val; saveHistory(); }
+        }
+        function attrEl(attr, val) {
+            if(selEl) { selEl.setAttribute(attr, val); saveHistory(); }
+        }
+        function deleteSel() {
+            if(selEl && confirm('Delete?')) { selEl.remove(); selEl = null; saveHistory(); refreshLayers(); }
+        }
+        function moveSel(dir) {
+            if(!selEl) return;
+            if(dir === 'up' && selEl.previousElementSibling) selEl.parentNode.insertBefore(selEl, selEl.previousElementSibling);
+            if(dir === 'down' && selEl.nextElementSibling) selEl.parentNode.insertBefore(selEl.nextElementSibling, selEl);
+            saveHistory(); refreshLayers();
+        }
+
+        // --- BLOCKS INSERTION ---
+        function insert(type) {
+            const container = doc.getElementById('mainContainer');
+            let html = '';
+            
+            if(type === 'hero') html = `<div class="p-5 mb-4 rounded text-white text-center" style="background:#8B0000;"><h1 contenteditable="true">Title</h1><p contenteditable="true">Subtitle</p></div>`;
+            if(type === 'jharokha') html = `<div class="jharokha"><h3 contenteditable="true">Heading</h3><p contenteditable="true">Content...</p></div>`;
+            if(type === 'vanshawali') html = `<div class="text-center p-3 border"><div class="vanshawali-node" contenteditable="true">Father</div><br>|<br><div class="vanshawali-node" contenteditable="true">Son</div></div>`;
+            if(type === 'timeline') html = `<div style="border-left:4px solid #8B0000; padding-left:15px; margin:10px;"><strong contenteditable="true">18XX</strong> <p contenteditable="true">Event...</p></div>`;
+            if(type === 'text') html = `<p contenteditable="true">New paragraph text goes here.</p>`;
+            if(type === 'image') html = `<img src="https://via.placeholder.com/400x200" class="img-fluid mb-3">`;
+            if(type === '2col') html = `<div class="row"><div class="col-md-6 border p-2">Left</div><div class="col-md-6 border p-2">Right</div></div>`;
+            if(type === 'footer') html = `<footer class="royal-footer p-4 mt-4"><h4 contenteditable="true">New Footer</h4></footer>`;
+
+            if(html) {
+                // If editing specific section, append there, otherwise main container
+                (selEl && selEl.parentNode === container ? selEl : container).insertAdjacentHTML('afterend', html);
+                saveHistory(); refreshLayers();
+            }
+        }
+
+        // --- LAYERS PANEL ---
+        function refreshLayers() {
+            const list = document.getElementById('layerList');
+            const root = doc.getElementById('mainContainer');
+            if(!root) return;
+            
+            let html = '';
+            Array.from(root.children).forEach((el, idx) => {
+                let name = el.tagName;
+                if(el.className.includes('jharokha')) name = "Jharokha Box";
+                if(el.tagName === 'IMG') name = "Image";
+                if(el.tagName.match(/H[1-6]/)) name = "Heading " + el.innerText.substr(0,10);
+                
+                html += `<div class="layer-item" onclick="selectElement(doc.getElementById('mainContainer').children[${idx}])">${name}</div>`;
+            });
+            list.innerHTML = html;
+        }
+
+        // --- HISTORY (UNDO/REDO) ---
+        function saveHistory() {
+            // Simple snapshot of body content
+            const state = doc.body.innerHTML;
+            if(historyStack[historyIndex] !== state) {
+                historyIndex++;
+                historyStack = historyStack.slice(0, historyIndex);
+                historyStack.push(state);
+            }
+        }
+        function execCmd(cmd) {
+            if(cmd === 'undo' && historyIndex > 0) {
+                historyIndex--;
+                doc.body.innerHTML = historyStack[historyIndex];
+                initListeners(); // Re-bind events
+            }
+            if(cmd === 'redo' && historyIndex < historyStack.length - 1) {
+                historyIndex++;
+                doc.body.innerHTML = historyStack[historyIndex];
+                initListeners();
+            }
+        }
+
+        // --- DEVICE VIEW ---
+        function setDevice(mode) {
+            document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            iframe.className = mode;
+        }
+
+        // --- CODE & PUBLISH ---
+        function toggleCode() {
+            const overlay = document.getElementById('codeOverlay');
+            const txt = document.getElementById('codeTextarea');
+            if(overlay.style.display === 'block') {
+                overlay.style.display = 'none';
+            } else {
+                if(selEl) selEl.classList.remove('edit-sel'); // Clean UI before code view
+                txt.value = doc.documentElement.outerHTML;
+                overlay.style.display = 'block';
+            }
+        }
+        function saveCode() {
+            const val = document.getElementById('codeTextarea').value;
+            doc.open(); doc.write(val); doc.close();
+            setTimeout(initListeners, 500);
+            toggleCode();
+        }
+
+        function publishSite() { document.getElementById('publishModal').style.display='flex'; }
+        
+        async function executePublish() {
+            const file = document.getElementById('ghFile').value;
+            const token = document.getElementById('ghToken').value;
+            const user = "kasumalgarh"; const repo = "kasumalgarh.github.io";
+
+            if(!file || !token) return alert("Details missing!");
+            
+            if(selEl) selEl.classList.remove('edit-sel'); // Clean Selection
+            
+            // Clean contenteditable attributes for production
+            let cleanDoc = doc.documentElement.cloneNode(true);
+            cleanDoc.querySelectorAll('[contenteditable]').forEach(e => e.removeAttribute('contenteditable'));
+            
+            const content = btoa(unescape(encodeURIComponent(cleanDoc.outerHTML)));
+
+            try {
+                // Get SHA
+                let sha = null;
+                try {
+                    let r = await fetch(`https://api.github.com/repos/${user}/${repo}/contents/${file}`);
+                    if(r.ok) { let d = await r.json(); sha = d.sha; }
+                } catch(e){}
+
+                // Push
+                await fetch(`https://api.github.com/repos/${user}/${repo}/contents/${file}`, {
+                    method: "PUT",
+                    headers: {"Authorization": `token ${token}`, "Content-Type": "application/json"},
+                    body: JSON.stringify({ message:"Update via V3 Builder", content: content, sha: sha })
+                });
+                alert("Published Successfully!"); document.getElementById('publishModal').style.display='none';
+            } catch(e) { alert("Error: "+e.message); }
+        }
+
+        function switchTab(t) {
+            document.querySelectorAll('.sidebar-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active'));
+            document.getElementById('tab-'+t).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>

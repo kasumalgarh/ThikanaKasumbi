@@ -2,294 +2,311 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
-    <title>About Yuvraj | Thikana Kasumbi</title>
-    
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Playfair+Display:wght@400;700&family=Noto+Serif+Devanagari:wght@400;700&family=Berkshire+Swash&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>About Us - KASUMALGARH</title>
+    <link rel="canonical" href="https://kasumalgarh.site/about.html" />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;1,400&family=Yatra+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="royal_global.css">
+    
+    <link rel="stylesheet" href="mainstyle.css">
 
     <style>
-        /* Special Styles for About Page */
+        /* ✅ GLOBAL FIX */
+        * { box-sizing: border-box; }
+
+        /* --- Page Specific Styles --- */
         .about-header {
-            background-image: linear-gradient(rgba(3, 2, 48, 0.8), rgba(128, 0, 0, 0.8)), url('fort_kasumbi.png');
+            height: 400px;
+            background: linear-gradient(rgba(0,0,51,0.7), rgba(0,0,51,0.9)), url('1.jpg'); 
             background-size: cover;
             background-position: center;
-            padding: 140px 0 70px 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            color: #fff;
-            border-bottom: 4px solid #7A5D28;
-            box-shadow: inset 0 -20px 30px rgba(0,0,0,0.8);
+            color: white;
+            border-bottom: 5px solid #b38728;
         }
 
-        .royal-frame {
-            border: 10px double #d4af37;
-            padding: 8px;
-            background: #fff;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-            margin-bottom: 25px;
-            display: inline-block;
-            position: relative;
-        }
-
-        /* Crown Icon on Photo */
-        .royal-frame::before {
-            content: '\f521'; 
-            font-family: "Font Awesome 5 Free";
+        /* ✅ ROYAL MAROON STYLE (Matched with History Page) */
+        .about-title {
+            font-family: 'Cinzel', serif;
+            font-size: 4em;
             font-weight: 900;
-            position: absolute;
-            top: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 40px;
-            color: #d4af37;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            
+            /* शाही मरून रंग */
+            color: #600000; 
+            background: none;
+            -webkit-text-fill-color: initial;
+            
+            /* सुनहरी बॉर्डर और चमक */
+            -webkit-text-stroke: 1px #fcf6ba; 
+            text-shadow: 0 0 25px #bf953f; 
+            
+            margin: 0;
+            letter-spacing: 3px;
+            text-transform: uppercase;
         }
 
-        .about-text {
-            font-family: 'Noto Serif Devanagari', serif;
-            font-size: 1.15em;
-            line-height: 1.9;
-            color: #333;
+        .about-subtitle {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5em;
+            color: #fcf6ba;
+            margin-top: 10px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+        }
+
+        /* --- Main Content Layout --- */
+        .container { max-width: 1000px; margin: 0 auto; padding: 50px 20px; }
+
+        /* --- The Narrative Card (Our Story) --- */
+        .story-card {
+            background: var(--paper-bg);
+            padding: 40px;
+            border-radius: 10px;
+            border: 2px solid #b38728;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             text-align: justify;
-        }
-        
-        .highlight-text {
-            color: #800000;
-            font-weight: bold;
-        }
-
-        /* Emotional Quote Box */
-        .emotional-quote {
-            border-left: 5px solid #800000;
-            background: #fffbf0;
-            padding: 25px;
-            margin-top: 25px;
-            color: #444;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             position: relative;
-            border-radius: 0 10px 10px 0;
+            margin-bottom: 50px;
+        }
+        .story-card::before {
+            content: "⚜️"; position: absolute; top: -25px; left: 50%; transform: translateX(-50%);
+            font-size: 40px; background: #000033; padding: 0 10px; border-radius: 50%; border: 2px solid #b38728;
+        }
+        .drop-cap {
+            float: left; font-size: 4em; line-height: 0.8; padding-right: 15px; padding-top: 5px;
+            color: var(--maroon-text); font-family: 'Yatra One', serif;
         }
         
-        .emotional-quote i {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 40px;
-            color: rgba(128, 0, 0, 0.1);
+        /* --- 3 Pillars Section --- */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
         }
-
-        .quote-line {
-            display: block;
-            margin-bottom: 15px;
-            font-style: italic;
-            font-weight: 600;
-            border-bottom: 1px dashed #d4af37;
-            padding-bottom: 10px;
-        }
-
-        /* Helping Hand Section */
-        .help-note {
-            margin-top: 20px;
-            background: #091a3a;
-            color: #fff;
-            padding: 15px;
-            border-radius: 5px;
-            border: 1px solid #d4af37;
+        .pillar-card {
+            background: rgba(0, 0, 30, 0.8);
+            border: 1px solid #b38728;
+            padding: 30px 20px;
             text-align: center;
+            color: #e0e0e0;
+            transition: transform 0.3s;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
+        .pillar-card:hover { transform: translateY(-10px); background: rgba(0, 0, 50, 0.9); border-color: #fcf6ba; }
+        .pillar-icon { font-size: 2.5em; color: #fcf6ba; margin-bottom: 15px; }
+        .pillar-title { font-family: 'Cinzel', serif; font-size: 1.4em; color: #b38728; margin-bottom: 15px; text-transform: uppercase; }
+        .pillar-desc { font-size: 0.95em; line-height: 1.6; }
 
-        .info-card {
-            background: #fff;
-            border: 1px solid #e0c080;
-            padding: 15px;
+        /* --- Positive Message (Sandesh) --- */
+        .message-section {
             text-align: center;
-            border-radius: 5px;
-            height: 100%;
-            transition: 0.3s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            padding: 40px;
+            background: linear-gradient(135deg, #2c0a0a, #000);
+            border: 2px dashed #b38728;
+            color: #fcf6ba;
+            margin-top: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(179, 135, 40, 0.2);
         }
-        .info-card:hover {
-            background: #800000;
-            color: #fff;
-            border-color: #800000;
-            transform: translateY(-5px);
-        }
-        .info-card:hover h4, .info-card:hover p, .info-card:hover i {
-            color: #fff !important;
-        }
-        
-        @media (max-width: 768px) {
-            .about-text { text-align: left; }
-            .royal-frame img { width: 100%; }
+        .message-heading { font-family: 'Yatra One', serif; font-size: 2em; margin-bottom: 20px; color: #ff9933; }
+        .message-body { font-size: 1.2em; font-style: italic; line-height: 1.8; max-width: 800px; margin: 0 auto; }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            .about-title { font-size: 2.5em; }
+            .about-subtitle { font-size: 1.8em; }
+            .story-card { padding: 25px 15px; padding-top: 40px; }
+            .drop-cap { font-size: 3.5em; }
         }
     </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
 
-    <div class="navbar-wrapper">
-        <div class="container">
-            <nav class="navbar navbar-inverse">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-                        <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="index.html">
-                        <img src="menulogo.png" alt="Logo" class="menu-logo-img">
-                        KASUMALGARH
-                    </a>
-                </div>
-                <div id="navbar" class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="index.html">HOME</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">VANSHAWALI <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="vanshawali.html">Kasumalgarh</a></li>
-                                <li><a href="rathorevanshawali.html">Rathore</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="kasumbi_history.html">HISTORY</a></li>
-                        <li><a href="gallery.html">GALLERY</a></li>
-                        <li><a href="royalalliances.html">ROYAL ALLIANCES</a></li>
-                        <li class="active"><a href="about.html">ABOUT</a></li>
-                        <li><a href="contact.html">CONTACT</a></li>
-                    </ul>
-                </div>
-            </nav>
+    <div class="royal-frame">
+        <span></span> <span></span> <span></span> <span></span>
+    </div>
+
+    <nav class="navbar">
+        <div class="navbar-brand-container">
+            <img id="menu-logo" src="menulogo.png" alt="Kasumalgarh Logo"> 
+            <a class="navbar-brand" href="index.html">KASUMALGARH</a>
         </div>
+        
+        <div class="menu-toggle" onclick="toggleMobilePopup()">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+
+        <ul class="navbar-links">
+            <li><a href="index.html">HOME</a></li>
+            
+            <li class="dropdown">
+                <a href="index.html" class="brand-name" style="text-decoration:none; color:inherit; font-weight: bold; cursor: pointer;">VANSHAWALI</a>
+                <div class="dropdown-content">
+                    <a href="vanshawali.html">Kasumalgarh Vanshawali</a>
+                    <a href="rathorevanshawali.html">Rathore Vanshawali</a>
+                </div>
+            </li>
+
+            <li><a href="history.html">HISTORY</a></li>
+            <li><a href="gallery.html">GALLERY</a></li>
+            <li><a href="about.html" class="active">ABOUT</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+            
+            <li><button id="lang-btn" class="lang-btn" onclick="toggleLanguage()">🌐 EN</button></li>
+        </ul>
+    </nav>
+
+    <div id="mobile-popup" class="mobile-menu-overlay">
+        <ul class="mobile-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#" style="background:rgba(0,0,0,0.3); cursor:default;">-- Vanshawali --</a></li>
+            <li><a href="vanshawali.html" class="mobile-sub-link">Kasumalgarh Tree</a></li>
+            <li><a href="rathorevanshawali.html" class="mobile-sub-link">Rathore Chart</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            
+            
+        </ul>
     </div>
 
     <header class="about-header">
-        <div class="container">
-            <h1 class="shining-text" style="font-size: 3.5em;">|| मेरी जुबानी ||</h1>
-            <div style="font-family: 'Cinzel'; color: #d4af37; letter-spacing: 2px; font-size: 1.2em;">MY ROOTS • MY PASSION</div>
-        </div>
+        <div class="about-subtitle">The Soul of</div>
+        <h1 class="about-title">OUR HERITAGE</h1>
+        <div style="font-size: 30px; color: #bf953f; margin-top: 10px;">⚜️ ⚜️ ⚜️</div>
     </header>
 
-    <section class="cream-section">
-        <div class="container">
-            <div class="row royal-flex-row" style="align-items: center;">
-                
-                <div class="col-md-5 text-center royal-flex-col">
-                    <div style="margin-top: 20px;">
-                        <div class="royal-frame">
-                            <img src="YGSR.png" alt="Yuvraj Gajraj Singh" style="width: 100%; max-width: 320px; display: block;">
-                        </div>
-                        <h2 style="font-family: 'Cinzel'; color: #800000; margin-top: 15px; font-weight: bold; margin-bottom: 5px;">Yuvraj Gajraj Singh</h2>
-                        <div style="font-family: 'Noto Serif Devanagari'; font-size: 16px; color: #7A5D28; font-weight: bold;">(ठिकाना कसुम्बी - जाखला)</div>
-                        <img src="sign.png" alt="Signature" style="height: 50px; margin-top: 20px; opacity: 0.8;">
-                    </div>
-                </div>
+    <main class="container">
+        
+        <div class="story-card">
+            <h2 style="font-family: 'Cinzel', serif; text-align: center; color: var(--maroon-text); border-bottom: 2px solid #aa8c2c; padding-bottom: 10px; display: table; margin: 0 auto 20px auto;">
+                हम कौन हैं? (Who We Are)
+            </h2>
+            <p style="font-size: 1.1em; line-height: 1.8;">
+                <span class="drop-cap">ह</span>म <strong>'ठिकाना कसुम्बी'</strong> (Fort Kasumbi) के संरक्षक और सूर्यवंशी राठौड़ वंश की <strong>केशरी सिंघोत</strong> शाखा के वंशज हैं। हमारी पहचान केवल पत्थरों से बने गढ़ या जागीर से नहीं, बल्कि उन मूल्यों (Values) से है जो हमारे पूर्वजों ने अपने रक्त से सींचे हैं।
+                <br><br>
+                सन् <strong>1841 ई.</strong> में ठाकुर नारायण सिंह जी द्वारा स्थापित यह ठिकाना, वीरता, भक्ति और त्याग का साक्षी रहा है। जोधपुर दरबार की वफादारी और अपनी प्रजा की रक्षा हमारा परम धर्म रहा है। आज, हम उसी विरासत के आधुनिक प्रहरी (Guardians) हैं।
+            </p>
+        </div>
 
-                <div class="col-md-7 royal-flex-col">
-                    <div style="border-bottom: 2px solid #b8860b; padding-bottom: 10px; margin-bottom: 25px;">
-                        <h3 style="color: #091a3a; font-family: 'Cinzel'; font-weight: bold; margin: 0;">
-                            <i class="fas fa-feather-alt"></i> मेरा सफर : संघर्ष से स्वाभिमान तक
-                        </h3>
-                        <div style="color: #800000; font-family: 'Noto Serif Devanagari'; font-weight: bold; margin-top: 5px; font-size: 0.9em;">
-                            ( रील 'Reels' के दौर में, विरासत 'Real' की जिद्द )
-                        </div>
-                    </div>
-                    
-                    <div class="about-text">
-                        <p>
-                            <span style="font-size: 1.5em; color: #800000; font-family: 'Berkshire Swash';">खम्मा घणी सा!</span><br>
-                            मैं <strong>युवराज गजराज सिंह</strong>। मेरा बचपन <span class="highlight-text">जाखला</span> की सादगी में बीता। मेरी नींव किसी बड़े कॉन्वेंट में नहीं, बल्कि गाँव के <strong>सरकारी स्कूल (Govt. School)</strong> की टाट-पट्टियों पर पड़ी है। वहीं से 10वीं पास की, फिर <strong>जसवंतगढ़</strong> (11-12वीं) और अंततः <strong>सुजला कॉलेज (MGSU Bikaner)</strong> से <span class="highlight-text">M.Com</span> किया।
-                        </p>
-                        
-                        <p>
-                            मेरे पूर्वजों ने कोई युद्ध नहीं लड़े, पर उन्होंने खेतों और गृहस्थी में जो पसीना बहाया है, मेरे लिए वही शौर्य-गाथा है। 
-                        </p>
-                        
-                        <div class="emotional-quote">
-                            <i class="fas fa-quote-right"></i>
-                            <span class="quote-line">
-                                "आजकल दुनिया <strong>'Reels'</strong> बनाने में व्यस्त है, और मैं <strong>'Real'</strong> (विरासत) को संजोने में। यही फर्क है शौक और जिम्मेदारी में।"
-                            </span>
-                            
-                            <span class="quote-line" style="color:#800000;">
-                                "हो सकता है मैं अपने पूर्वजों जैसा पत्थरों का भव्य किला न बना सकूँ, लेकिन मैंने अपनी रातों की नींद और फुर्सत के पल देकर यह <strong>'डिजिटल कसुमलगढ़'</strong> खड़ा किया है।"
-                            </span>
-
-                            <span style="font-size: 14px; color: #333;">
-                                इस डिजिटल किले की एक-एक ईंट (Code) मैंने खुद रखी है। इसमें किसी और की मेहनत नहीं, सिर्फ मेरी तपस्या है।
-                            </span>
-                        </div>
-
-                        <div class="help-note">
-                            <i class="fas fa-hands-helping" style="color: #d4af37; font-size: 20px; margin-bottom: 5px;"></i><br>
-                            "मेरी सोच सिर्फ खुद तक सीमित नहीं है। <strong>अगर आप में से कोई भी अपनी विरासत, वंशावली या इतिहास को बचाकर रखना और संजोना चाहता है,</strong> तो मैं आपकी मदद करने के लिए सदैव तत्पर हूँ। आइये, मिलकर अपनी धरोहर को अमर करें।"
-                        </div>
-
-                    </div>
-                </div>
+        <div class="pillars-grid">
+            
+            <div class="pillar-card">
+                <div class="pillar-icon"><i class="fas fa-globe"></i></div>
+                <h3 class="pillar-title">उद्देश्य (Mission)</h3>
+                <p class="pillar-desc">
+                    समय की धूल में अक्सर इतिहास धुंधला हो जाता है। इस वेबसाइट का मुख्य उद्देश्य <strong>'डिजिटल संरक्षण'</strong> है। हम अपने बुजुर्गों के बलिदान, वंशावली और परंपराओं को इंटरनेट पर अमर करना चाहते हैं ताकि दुनिया के किसी भी कोने में बैठा हमारा भाई-बंधु अपनी जड़ों से जुड़ा रहे।
+                </p>
             </div>
 
-            <div class="row" style="margin-top: 50px;">
-                <div class="col-sm-4 col-xs-12" style="margin-bottom: 15px;">
-                    <div class="info-card">
-                        <i class="fas fa-school" style="font-size: 30px; color: #b8860b; margin-bottom: 10px;"></i>
-                        <h4 style="font-family: 'Cinzel'; font-weight: bold; color: #800000;">Foundation</h4>
-                        <p style="font-family: 'Noto Serif Devanagari'; color: #555;">Govt. School, Jakhala<br>(Primary Roots)</p>
-                    </div>
-                </div>
-                <div class="col-sm-4 col-xs-12" style="margin-bottom: 15px;">
-                    <div class="info-card">
-                        <i class="fas fa-user-graduate" style="font-size: 30px; color: #b8860b; margin-bottom: 10px;"></i>
-                        <h4 style="font-family: 'Cinzel'; font-weight: bold; color: #800000;">Education</h4>
-                        <p style="font-family: 'Noto Serif Devanagari'; color: #555;">M.Com (Accountancy)<br>Sujla College (MGSU)</p>
-                    </div>
-                </div>
-                <div class="col-sm-4 col-xs-12" style="margin-bottom: 15px;">
-                    <div class="info-card">
-                        <i class="fas fa-laptop-code" style="font-size: 30px; color: #b8860b; margin-bottom: 10px;"></i>
-                        <h4 style="font-family: 'Cinzel'; font-weight: bold; color: #800000;">Passion</h4>
-                        <p style="font-family: 'Noto Serif Devanagari'; color: #555;">History Seeker &<br>Web Developer</p>
-                    </div>
-                </div>
+            <div class="pillar-card">
+                <div class="pillar-icon"><i class="fas fa-eye"></i></div>
+                <h3 class="pillar-title">दृष्टिकोण (Vision)</h3>
+                <p class="pillar-desc">
+                    हमारा सपना एक ऐसे समाज का है जो <strong>'आधुनिक'</strong> होते हुए भी <strong>'संस्कारी'</strong> हो। हम चाहते हैं कि हमारी आने वाली पीढ़ियाँ (Next Generation) यह जानें कि उनके पूर्वज कौन थे, ताकि वे गर्व के साथ सिर उठा सकें और समाज में एक आदर्श नागरिक बन सकें।
+                </p>
+            </div>
+
+            <div class="pillar-card">
+                <div class="pillar-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                <h3 class="pillar-title">मूल्य (Values)</h3>
+                <p class="pillar-desc">
+                    हमारी विरासत हमें सिखाती है कि असली राजपुताना शान महलों में नहीं, बल्कि <strong>चरित्र (Character)</strong> में होती है।
+                    <br>
+                    <strong>सेवा, वचन और स्वाभिमान</strong>—यही कसुमलगढ़ का मूल मंत्र है।
+                </p>
             </div>
 
         </div>
-    </section>
+
+        <div class="message-section">
+            <h2 class="message-heading">|| समाज के लिए संदेश ||</h2>
+            <p class="message-body">
+                "वृक्ष वही हरा रहता है, जिसकी जड़ें गहरी हों। <br>
+                हमारा अतीत हमें बांधने के लिए नहीं, बल्कि हमें मजबूत बनाने के लिए है। <br>
+                आइए, हम अपनी विरासत (Heritage) को केवल 'प्रदर्शन' की वस्तु न समझें, <br>
+                बल्कि इसके वीरता और त्याग के गुणों को अपने जीवन में उतारें। <br>
+                एक-दूसरे का सहयोग करें, बड़ों का सम्मान करें और धर्म की रक्षा करें।"
+            </p>
+            <div style="margin-top: 20px; color: #b38728; font-weight: bold;">
+                — युवराज गजराज सिंह (कसुमलगढ़)
+            </div>
+        </div>
+
+    </main>
 
     <footer class="royal-footer">
-        <div class="container">
-            <div style="font-size: 0.9em; color: #ccc; letter-spacing: 1px;">Developed & Designed By:</div>
+        <address class="developer-info" style="font-style: normal;">
+            <div style="font-size: 0.9em; color: #888; margin-bottom: 5px;">Developed & Designed By:</div>
             
-            <div style="color:#d4af37; font-size:1.6rem; font-family: 'Cinzel', serif; margin: 10px 0; text-shadow: 1px 1px 2px #000;">
+            <span class="royal-name" translate="no" style="cursor: default;">
                 Yuvraj Gajraj Singh
-            </div>
+            </span>
             
-            <div class="footer-social-icons" style="margin: 20px 0;">
-                <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.kasumalgarh.site" target="_blank">
-                    <i class="fab fa-facebook"></i>
-                </a>
-                
-                <a href="https://www.instagram.com/gajsa.kasumbifort" target="_blank">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                
-                <a href="https://wa.me/?text=Check out Thikana Kasumbi: https://www.kasumalgarh.site" target="_blank">
-                    <i class="fab fa-whatsapp"></i>
-                </a>
-            </div>
-
-            <div style="font-size: 0.85em; color: #888; border-top: 1px solid #333; padding-top: 15px; width: 80%; margin: 0 auto;">
-                &copy; <span id="year">2026</span> Thikana Kasumbi | All Rights Reserved. | Vikram Samvat 2082
-                <a href="admin.html" style="color: #555; margin-left: 10px;"><i class="fas fa-lock"></i></a>
-            </div>
+            <a href="https://www.facebook.com/gajsa.kasumbi" target="_blank" rel="noopener noreferrer" class="fb-link">
+                <i class="fab fa-facebook"></i> Connect on Facebook
+            </a>
             
-            <div style="margin-top: 15px; font-size: 0.9rem; color: #b8860b;">
-                <i class="fas fa-users"></i> Total Royal Guests: <span id="visitor-count" style="color:#fff; font-weight:bold;">12,543</span>
+            <div style="font-size: 0.8em; margin-top: 15px; color: #666;">
+                © <span id="current-year">2025</span> | All Rights Reserved.
             </div>
-        </div>
+        </address>
     </footer>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="royal_global.js"></script>
+    <script type="module" src="mainscript.js"></script>
+
+    <script>
+        // 1. Auto Update Year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // 2. Mobile Popup Menu Toggle
+        function toggleMobilePopup() {
+            const menu = document.getElementById('mobile-popup');
+            if(menu.classList.contains('open')) {
+                menu.classList.remove('open');
+            } else {
+                menu.classList.add('open');
+            }
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('mobile-popup');
+            const toggleBtn = document.querySelector('.menu-toggle');
+            if (menu && menu.classList.contains('open')) {
+                if (!menu.contains(event.target) && !toggleBtn.contains(event.target)) {
+                    menu.classList.remove('open');
+                }
+            }
+        });
+
+        // 3. Language Toggle (UI Only)
+        let currentLang = localStorage.getItem('lang') || 'hi'; 
+        function updateLangButton() {
+            const btn = document.getElementById('lang-btn');
+            const mobileBtn = document.getElementById('mobile-lang-btn');
+            if(currentLang === 'hi') {
+                if(btn) btn.innerText = "🌐 EN";
+                if(mobileBtn) mobileBtn.innerText = "🌐 Switch to English";
+            } else {
+                if(btn) btn.innerText = "🌐 HI";
+                if(mobileBtn) mobileBtn.innerText = "🌐 Switch to Hindi";
+            }
+        }
+        function toggleLanguage() {
+            currentLang = currentLang === 'hi' ? 'en' : 'hi';
+            localStorage.setItem('lang', currentLang);
+            updateLangButton();
+        }
+        window.addEventListener('DOMContentLoaded', updateLangButton);
+    </script>
 </body>
 </html>

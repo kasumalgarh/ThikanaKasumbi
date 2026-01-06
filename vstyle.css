@@ -1,273 +1,849 @@
+/* =========================================
+   1. BASIC & LAYOUT
+   ========================================= */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: #f4f1ea; /* Royal Cream */
+    margin: 0;
+    padding: 0;
+    overflow: hidden; 
+}
 
-    /* =========================================
-       1. CORE & WATERMARK
-       ========================================= */
-    body { 
-        overflow-x: hidden; background: #fffbf0; 
-        -webkit-tap-highlight-color: transparent; 
-    }
+/* 🛡️ WATERMARK */
+.watermark {
+    position: fixed; top: 50%; left: 50%;
+    transform: translate(-50%, -50%) rotate(-30deg);
+    font-size: 80px; font-weight: bold;
+    color: rgba(0, 0, 0, 0.03); pointer-events: none;
+    z-index: 0; white-space: nowrap; text-transform: uppercase;
+}
 
-    /* Site Background Watermark */
-    body::before {
-        content: ''; position: fixed; top: 50%; left: 50%;
-        transform: translate(-50%, -50%); width: 60%; height: 60%;
-        background: url('klogo1.png') no-repeat center center;
-        background-size: contain; opacity: 0.05; z-index: -1;
-        pointer-events: none;
-    }
+/* =========================================
+   🌟 2. NAVIGATION MENU (Fixed Top)
+   ========================================= */
+.navbar {
+    background: #050528 url('footerbg.png') repeat top left;
+    background-size: 1%;
+    border-bottom: 3px solid #d4af37;
+    box-shadow: 0 4px 6px #cd7f32;
+    color: #fff;
+    padding: 0 15px;
+    height: 40px; /* Fixed Height */
+    display: flex; align-items: center; justify-content: space-between;
+    position: fixed; top: 0; left: 0; right: 0; 
+    z-index: 10000; /* Sabse upar */
+    border-radius: 0 0 15px 15px;
+}
 
-    /* Loading Animation */
-    #loadingOverlay {
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: #fffbf0; z-index: 50000; display: flex;
-        flex-direction: column; align-items: center; justify-content: center;
-    }
-    .breathing-logo { width: 100px; animation: breathe 2s infinite ease-in-out; margin-bottom: 20px; }
-    @keyframes breathe { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.1); opacity: 1; } }
+.logo {
+    font-size: 0.8rem; font-weight: bold; color: #96760d; 
+    text-transform: uppercase; letter-spacing: 1px;
+    display: flex; align-items: center; gap: 8px;
+}
 
-    /* =========================================
-       2. TREE CSS
-       ========================================= */
-    .tree-container {
-        padding: 20px 10px 100px 10px; min-height: 800px;
-        font-family: 'Noto Serif Devanagari', serif;
-        overflow: auto; cursor: grab; user-select: none;
-        opacity: 0; transition: opacity 1s ease-in;
-    }
-    .tree-container.loaded { opacity: 1; }
-    .tree-container:active { cursor: grabbing; }
+.nav-links {
+    list-style: none; display: flex; gap: 15px; margin: 0; padding: 0;
+}
+.nav-links li { position: relative; padding: 0; margin: 0; }
 
-    /* Expand Button */
-    .top-controls { text-align: center; margin-bottom: 30px; margin-top: 10px; }
-    .expand-main-btn {
-        background: #800000; color: #d4af37; border: 2px solid #d4af37;
-        padding: 8px 20px; font-family: 'Cinzel', serif; font-size: 14px;
-        border-radius: 30px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        transition: 0.3s;
-    }
-    .expand-main-btn:hover { transform: scale(1.05); background: #5a0000; }
+.nav-links a {
+    color: #fff; text-decoration: none; font-size: 13px; font-weight: 500;
+    transition: 0.3s; padding: 5px 10px; display: block;
+}
+.nav-links a:hover { color: #d4af37; }
 
-    .royal-tree ul { padding-left: 20px; list-style: none; position: relative; }
+/* Request Button Styling */
+.request-btn {
+    background-color: #d4af37;
+    color: #000 !important;
+    padding: 5px 15px !important;
+    border-radius: 20px;
+    font-weight: bold;
+}
+.request-btn:hover { background-color: #fff; color: #800000 !important; }
+
+/* Hamburger Icon */
+.hamburger { display: none; font-size: 20px; cursor: pointer; color: #5a4706; }
+
+/* Dropdown */
+.dropdown:hover .dropdown-content { display: block; }
+.dropdown-content {
+    display: none; position: absolute; background-color: rgba(5, 5, 40, 0.95);
+    min-width: 150px; top: 100%; left: 0;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    border-radius: 0 0 10px 10px; z-index: 2000;
+}
+.dropdown-content li { display: block; }
+.dropdown-content a { padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+
+.menu-search-btn {
+    background: #d4af37; color: #000; border: none;
+    padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; cursor: pointer;
+}
+.menu-search-btn:hover { background: #b59026; }
+
+/* =========================================
+   🌟 3. FOOTER (Fixed Bottom)
+   ========================================= */
+.footer {
+    background: #050528 url('footerbg.png') repeat top left;
+    background-size: 1%;
+    border-top: 3px solid #d4af37;
+    box-shadow: 0 -4px 6px #cd7f32;
+    color: #fff; text-align: center; padding: 10px;
+    position: fixed; bottom: 0; left: 0; right: 0; 
+    z-index: 9500; /* Panels se upar, lekin tools se niche */
+    font-size: 12px;
+    border-radius: 15px 15px 0 0;
+}
+.footer span { color: #d4af37; font-weight: bold; }
+
+.fb-btn {
+    display: inline-block; margin-top: 5px; margin-bottom: 5px;
+    color: #fff; text-decoration: none; background: #3b5998;
+    padding: 3px 10px; border-radius: 4px; font-size: 11px;
+}
+.fb-btn:hover { background: #4c70ba; }
+
+/* =========================================
+   4. TREE WRAPPER & STRUCTURE
+   ========================================= */
+.tree-scroll-wrapper {
+    margin-top: 50px; height: calc(100vh - 100px); /* Header+Footer space */
+    width: 100%; overflow: auto; padding: 20px; box-sizing: border-box;
+    text-align: center; scroll-behavior: smooth;
+}
+
+ul.tree-ul {
+    padding-left: 20px; list-style-type: none; margin: 0; padding-top: 0; padding-bottom: 0; position: relative;
+}
+.tree-li { position: relative; margin: 0; padding: 5px 0 5px 15px; box-sizing: border-box; }
+
+.tree-li::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    border-left-width: 2px; border-left-style: solid; height: 100%; z-index: 1;
+}
+.tree-li::after {
+    content: ''; position: absolute; top: 20px; left: 0;
+    width: 15px; border-top-width: 2px; border-top-style: solid; z-index: 1;
+}
+.tree-li:last-child::before { height: 21px; }
+.tree-li:last-child::after { top: 20px; }
+
+/* Generation Colors */
+.gen-2::before, .gen-2::after { border-color: #d63031; }
+.gen-3::before, .gen-3::after { border-color: #0984e3; }
+.gen-4::before, .gen-4::after { border-color: #00b894; }
+.gen-5::before, .gen-5::after { border-color: #6c5ce7; }
+.gen-6::before, .gen-6::after { border-color: #e17055; }
+.gen-7::before, .gen-7::after { border-color: #00cec9; }
+.gen-8::before, .gen-8::after { border-color: #e84393; }
+.gen-9::before, .gen-9::after { border-color: #8d6e63; }
+.gen-10::before, .gen-10::after { border-color: #2c3e50; }
+.gen-11::before, .gen-11::after { border-color: #827717; }
+.gen-12::before, .gen-12::after { border-color: #800000; }
+
+/* Name Box */
+.member-box {
+    display: inline-block; padding: 4px 10px;
+    background: #fff; border: 1px solid #999; border-radius: 4px;
+    font-size: 14px; font-weight: 600; color: #000;
+    position: relative; z-index: 5; min-height: 20px; line-height: 1.4;
+    cursor: pointer; transition: 0.2s;
+}
+.member-box:hover { background-color: #fff8e1; border-color: #000; }
+.highlight-green { background-color: #28a745 !important; color: #fff !important; }
+
+/* Root Node */
+.root-ul { padding-left: 0 !important; margin: 0 auto !important; display: inline-block; text-align: left; min-width: 300px; }
+.root-item { padding: 0 !important; margin: 0 !important; }
+.root-item::before, .root-item::after { display: none !important; }
+.root-box {
+    background-color: #2d3436; color: #fff; border: 1px solid #000;
+    font-size: 16px; margin-bottom: 5px; padding: 8px 15px; 
+}
+
+/* =========================================
+   ✅ 5. PANELS (Fixed Between Header/Footer)
+   ========================================= */
+/* =========================================
+   ✅ FIX: PANELS HIDDEN COMPLETELY
+   ========================================= */
+
+/* =========================================
+   ✅ FIX: PANELS BETWEEN HEADER & FOOTER
+   ========================================= */
+
+.sidebar-left, .sidebar-right {
+    position: fixed; 
     
-    /* CHANGE 1: Padding Increased to 35px to fix Dot Overlap */
-.royal-tree li { 
-        position: relative; 
-        padding-left: 35px; 
-        line-height: 1.5em; 
-        margin-bottom: 0;  /* Margin 0 कर दिया */
-        padding-bottom: 10px; /* Spacing के लिए Padding दी */
-    }
-    /* LINES (Base Grey) */
-    .royal-tree ul li::before { content: ''; position: absolute; left: 0; top: 0; border-left-width: 2px; border-left-style: solid; height: 100%; transition: border-color 0.3s; }
-    .royal-tree ul li::after { content: ''; position: absolute; left: 0; top: 0.75em; width: 25px; border-top-width: 2px; border-top-style: solid; transition: border-color 0.3s; }
-    .royal-tree ul li:last-child::before { height: 0.75em; }
-
-    /* ROOT FIX: Hide lines/buttons for Root */
-    .root-li::before, .root-li::after { display: none !important; border: none !important; }
-    .root-li > .tree-name-wrapper > .toggle-btn { display: none !important; }
-
-    /* CHANGE 2: Root UL Hidden by Default */
-    .root-ul { display: none; padding-left: 0 !important; }
-
-    /* GENERATION COLORS (Default) */
-    .gen-1 > ul > li::before, .gen-1 > ul > li::after { border-color: #800000; }
-    .gen-2 > ul > li::before, .gen-2 > ul > li::after { border-color: #d63031; }
-    .gen-3 > ul > li::before, .gen-3 > ul > li::after { border-color: #0984e3; }
-    .gen-4 > ul > li::before, .gen-4 > ul > li::after { border-color: #00b894; }
-    .gen-5 > ul > li::before, .gen-5 > ul > li::after { border-color: #6c5ce7; }
-    .gen-6 > ul > li::before, .gen-6 > ul > li::after { border-color: #e17055; }
-    .gen-7 > ul > li::before, .gen-7 > ul > li::after { border-color: #00cec9; }
-    .gen-8 > ul > li::before, .gen-8 > ul > li::after { border-color: #e84393; }
-    .gen-9 > ul > li::before, .gen-9 > ul > li::after { border-color: #2d3436; }
-    .gen-10 > ul > li::before, .gen-10 > ul > li::after { border-color: #fdcb6e; }
-    .gen-11 > ul > li::before, .gen-11 > ul > li::after { border-color: #636e72; }
-    .gen-12 > ul > li::before, .gen-12 > ul > li::after { border-color: #d4af37; }
-
-    /* --- GOLDEN PATH LOGIC (L-SHAPE FIX) --- */
-    li.is-ancestor::before { border-color: inherit !important; }
-    li.is-ancestor::after {
-        border-color: #FFD700 !important;
-        border-top: none !important;
-        border-bottom: 3px solid #FFD700 !important;
-        border-left: 3px solid #FFD700 !important;
-        top: 0 !important; height: 0.75em !important; z-index: 100;
-        box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
-    }
-
-    li.path-connector::before {
-        border-left-color: #FFD700 !important;
-        border-left-width: 3px !important;
-        z-index: 4;
-    }
-    li.path-connector::after { border-top-width: 2px !important; }
-
-    li.is-ancestor > .tree-name-wrapper > .tree-name { 
-        background: #fff5e6; 
-        border: 1px solid #FFD700; 
-        color: #800000 !important; 
-        font-weight: 900;
-        box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
-    }
-
-    /* MAIN LINEAGE STYLE (Permanent Bold) */
-    .main-lineage-node {
-        font-weight: 900 !important;
-        color: #5a0000 !important;
-        border: 2px solid #d4af37 !important;
-        background: #fffdf0;
-        box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
-    }
-
-    /* Layout */
-    .tree-name-wrapper { display: flex; align-items: center; gap: 5px; padding: 2px 0; flex-wrap: wrap; }
-    .tree-name {
-        font-size: 14px; color: #5a4a42; font-weight: bold;
-        padding: 2px 6px; border-radius: 4px; transition: 0.2s;
-        cursor: pointer; border: 1px solid transparent;
-        white-space: normal; max-width: 100%;
-    }
+    /* 1. Upar se Header ke niche (Header height ~45px h) */
+    top: 50px; 
     
-    /* Buttons */
-    .toggle-btn {
-        display: flex; align-items: center; justify-content: center;
-        width: 24px; height: 24px; border: 1px solid #800000; background: #fff;
-        color: #800000; font-size: 16px; cursor: pointer; border-radius: 4px; z-index: 10;
-        flex-shrink: 0;
-    }
+    /* 2. Niche se Footer ke upar (Footer height ~70px h) */
+    bottom: 80px; 
+    
+    /* 3. Height ko 'auto' karein taki wo top-bottom ke hisab se set ho */
+    height: auto !important; 
+    
+    width: 280px; 
+    background: #fffbf0; 
+    border: 2px solid #d4af37; 
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    z-index: 9000; 
+    
+    /* Animation & Layout */
+    transition: left 0.3s ease, right 0.3s ease;
+    display: flex; 
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 10px;
+}
 
-    /* CHANGE 3: Root Name - Distinct Royal Design */
-    .root-name {
-        font-family: 'Cinzel', serif; 
-        font-size: 20px; 
-        color: #fff !important; 
-        background: #800000;
-        border: 2px solid #d4af37;
-        padding: 10px 20px;
-        margin-bottom: 20px; 
-        display: inline-block; 
-        cursor: pointer;
-        border-radius: 8px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
+/* Hide Position (Screen se bahar) */
+.sidebar-left { left: -110%; }
+.sidebar-right { right: -110%; }
 
-    .children-group { display: none; }
+/* Open Position */
+.sidebar-left.open { left: 10px; }
+.sidebar-right.open { right: 10px; }
 
-    /* =========================================
-       3. PANELS & SEALS
-       ========================================= */
+/* Mobile Adjustments */
+@media (max-width: 768px) {
     .sidebar-left, .sidebar-right {
-        position: fixed; top: 0; bottom: 0; width: 320px; background: #fffbf0;
-        border: 2px solid #d4af37; box-shadow: 0 0 25px rgba(0,0,0,0.7);
-        z-index: 10001; transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        display: flex; flex-direction: column; padding-top: 50px;
+        width: 85% !important;
+        max-width: 320px;
+        
+        /* Mobile me thoda aur adjust karein agar jarurat ho */
+        top: 55px;
+        bottom: 85px; 
     }
-    @media (min-width: 769px) {
-        .sidebar-left { left: 0; transform: translateX(-100%); top: 52px; }
-        .sidebar-right { right: 0; transform: translateX(100%); top: 52px; }
-        .sidebar-left.open, .sidebar-right.open { transform: translateX(0); }
-    }
-    @media (max-width: 768px) {
-        .sidebar-left, .sidebar-right { width: 90%; max-width: 350px; }
-        .sidebar-left { left: 0; transform: translateX(-110%); }
-        .sidebar-right { right: 0; transform: translateX(110%); }
-        .sidebar-left.open, .sidebar-right.open { transform: translateX(0); }
-    }
-
-    .panel-header { background: #800000; color: #d4af37; padding: 12px; font-family: 'Cinzel', serif; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #d4af37; }
-    .panel-content { flex-grow: 1; overflow-y: auto; padding: 15px; }
-
-    /* Generation Seal */
-    .gen-seal {
-        width: 60px; height: 60px; border-radius: 50%;
-        background: radial-gradient(circle, #ffd700 0%, #daa520 100%);
-        border: 2px solid #800000; color: #800000;
-        display: flex; flex-direction: column;
-        align-items: center; justify-content: center;
-        font-weight: bold; font-family: 'Cinzel'; margin: 0 auto 5px auto;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-        line-height: 1.1;
-    }
-    .gen-label { font-size: 10px; color: #5a0000; text-transform: uppercase; }
-    .gen-number { font-size: 18px; font-weight: 900; }
-
-    /* Search */
-    .search-container { position: relative; width: 95%; margin: 10px auto; }
-    .search-box-panel { width: 100%; padding: 10px 35px 10px 10px; border: 2px solid #d4af37; border-radius: 4px; font-family: 'Noto Serif Devanagari'; font-size: 16px; }
-    .clear-search { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #800000; font-size: 18px; display: none; }
-    .index-list li { padding: 10px; border-bottom: 1px solid #ebd5a0; cursor: pointer; }
-
-    /* Path */
-    .path-node { padding-left: 25px; border-left: 3px solid #d4af37; position: relative; padding-bottom: 15px; font-family: 'Merriweather', serif; font-size: 13px; color: #333; }
-    .path-node::before { content: ''; position: absolute; left: -6px; top: 5px; width: 9px; height: 9px; background: #800000; border-radius: 50%; border: 1px solid #fff; }
-    .path-node:last-child { border-left: none; }
-
-    /* =========================================
-       4. TOOLS & FOOTER
-       ========================================= */
-    .fab-container { position: fixed; bottom: 30px; right: 20px; z-index: 10002; display: flex; flex-direction: column-reverse; align-items: center; gap: 10px; }
-    .main-fab { width: 55px; height: 55px; border-radius: 50%; background: #800000; color: #d4af37; border: 2px solid #d4af37; font-size: 24px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; transition: transform 0.3s; }
-    .main-fab.active { transform: rotate(45deg); }
-    .fab-options { display: flex; flex-direction: column-reverse; gap: 10px; opacity: 0; visibility: hidden; transform: translateY(20px); transition: all 0.3s; }
-    .fab-options.show { opacity: 1; visibility: visible; transform: translateY(0); }
-    .mini-fab { width: 45px; height: 45px; border-radius: 50%; background: #fff; color: #333; border: 2px solid #d4af37; cursor: pointer; font-size: 16px; box-shadow: 0 2px 5px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; }
     
-    @media (max-width: 768px) {
-        .main-fab { width: 45px; height: 45px; font-size: 20px; bottom: 20px; right: 15px; }
-        .mini-fab { width: 38px; height: 38px; font-size: 14px; }
-        .fab-container { bottom: 20px; right: 15px; }
-        .mobile-search-btn { position: absolute; top: 10px; right: 60px; font-size: 18px; color: #d4af37; cursor: pointer; padding: 5px; display: block; }
-        .navbar-brand { padding: 10px 15px; height: auto; line-height: 20px; }
-        .menu-logo-img { max-height: 40px; }
-        .navbar-header { min-height: 60px; padding-top: 5px; }
-    }
-    @media (min-width: 769px) { .mobile-search-btn { display: none; } }
+    .sidebar-left.open { left: 0; border-radius: 0 10px 10px 0; }
+    .sidebar-right.open { right: 0; border-radius: 10px 0 0 10px; }
+}
+.panel-header {
+    background: #800000; color: #d4af37;
+    padding: 10px 15px; border-bottom: 3px solid #d4af37;
+    display: flex; justify-content: space-between; align-items: center;
+}
+.close-btn { color: #d4af37; cursor: pointer; font-size: 24px; }
 
-    /* FOOTER (ROYAL NAVY BLUE) */
-    .royal-footer {
-    background-color: #091a3a;
-    background: linear-gradient(to bottom, #091a3a 0%, #2a4065 50%, #091a3a 100%);
-    color: #d4af37;
-    padding: 20px 10px; 
-    text-align: center;
-    border-top: 3px solid #7A5D28;
-    margin-top: 0;
-    border-radius: 15px 15px 0 0; 
-    box-shadow: 0 -5px 20px rgba(0,0,0,0.4);
+/* ✅ SEARCH BOX FIX */
+.search-wrapper {
+    width: 90%; 
+    margin: 15px auto;
+    position: relative;
+    box-sizing: border-box; /* Overflow Fix */
+}
+#search-box {
+    width: 100%; 
+    padding: 8px 35px 8px 10px; 
+    border: 2px solid #d4af37; background: #fff; color: #333;
+    border-radius: 20px; outline: none; font-size: 14px;
+    box-sizing: border-box; /* Overflow Fix */
+}
+.search-clear-btn {
+    position: absolute; right: 12px; top: 50%;
+    transform: translateY(-50%);
+    color: #d4af37; cursor: pointer; font-size: 14px; display: none;
 }
 
-/* --- UPDATED: FOOTER SOCIAL ICONS (Bade aur White) --- */
-.footer-social-icons a {
-    color: #ffffff !important; /* Default White */
-    font-size: 28px !important; /* Size increased */
-    margin: 0 15px;
-    display: inline-block;
+/* 1. Panel ko Flexbox banayein (Taki andar ke items adjust ho) */
+.sidebar-left {
+    display: flex !important;
+    flex-direction: column !important;
+    /* Height aur Position wahi purani rakhein (Top/Bottom wali) */
+}
+
+/* 2. List Area ko Scrollable banayein */
+/* =========================================
+   ✅ FORCE SCROLL FIX (List Area)
+   ========================================= */
+
+.sidebar-left {
+    display: flex !important;
+    flex-direction: column !important;
+    /* Iski height top/bottom se set honi chahiye jo pehle di thi */
+    overflow: hidden !important; /* Parent se bahar kuch na nikle */
+}
+
+.list-area {
+    /* 1. Bachi hui saari jagah le lo */
+    flex-grow: 1;
+    
+    /* 2. Height ko Parent ke barabar karo (Sabse Zaruri) */
+    height: 100%;
+    
+    /* 3. Ab Scroll chalu karo */
+    overflow-y: auto;
+    
+    /* 4. Padding taki last naam na kate */
+    padding-bottom: 80px;
+}
+
+/* Scrollbar dikhane ke liye */
+.list-area::-webkit-scrollbar {
+    width: 6px;
+}
+.list-area::-webkit-scrollbar-thumb {
+    background: #d4af37;
+    border-radius: 4px;
+}
+/* 3. Header aur Search box ko fix karein (Ye scroll nahi honge) */
+.panel-header, .search-wrapper {
+    flex-shrink: 0; /* Ye sikudenge nahi */
+}
+#index-list li { padding: 10px 15px; border-bottom: 1px solid #eee; cursor: pointer; }
+
+#hover-tooltip {
+    position: fixed; display: none; background: #333; color: #fff;
+    padding: 8px 12px; border-radius: 4px; font-size: 12px; z-index: 5000; pointer-events: none;
+}
+
+/* =========================================
+   ✅ 6. NEW SMART TOOLS (Collapsible)
+   ========================================= */
+.smart-tools-container {
+    position: fixed;
+    bottom: 30px; /* Footer ke thoda upar */
+    right: 20px;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column-reverse; /* Niche se upar khulega */
+    align-items: center;
+    gap: 10px;
+}
+
+/* Main Toggle Button */
+.tools-toggle-btn {
+    width: 50px; height: 50px;
+    background: #800000; color: #d4af37;
+    border: 2px solid #d4af37; border-radius: 50%;
+    font-size: 20px; cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    transition: transform 0.3s;
+    display: flex; align-items: center; justify-content: center;
+}
+.tools-toggle-btn:hover { transform: scale(1.1); }
+
+/* Hidden Menu Options */
+.smart-options {
+    display: flex; flex-direction: column; gap: 10px;
+    transform: translateY(20px); opacity: 0; visibility: hidden;
     transition: all 0.3s ease;
-    text-shadow: none;
+}
+.smart-options.show { transform: translateY(0); opacity: 1; visibility: visible; }
+
+/* Small Buttons */
+.smart-btn {
+    width: 40px; height: 40px; border-radius: 50%;
+    border: none; background: #fff; color: #333;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    cursor: pointer; font-size: 16px; transition: 0.2s;
+}
+.smart-btn:hover { background: #d4af37; color: #fff; }
+
+/* =========================================
+   7. EXTRAS (Scrollbar, Timeline, Mobile)
+   ========================================= */
+/* Royal Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f4f1ea; }
+::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 10px; }
+
+/* Ancestral Path Timeline */
+.timeline-list {
+    list-style: none; padding: 0 0 0 10px; margin: 0 0 0 10px;
+    border-left: 2px solid #d4af37;
+}
+.timeline-item { padding: 0 0 15px 15px; position: relative; font-size: 13px; color: #333; }
+.timeline-item::before {
+    content: ''; position: absolute; left: -6px; top: 0;
+    width: 10px; height: 10px; background: #800000;
+    border-radius: 50%; border: 2px solid #fff;
+}
+.timeline-item:last-child { border-left: 2px solid transparent; }
+
+/* Married Info */
+.married-info {
+    font-size: 11px; color: #886000; font-style: italic; margin-left: 8px; font-weight: normal;
 }
 
-.footer-social-icons a:hover {
-    color: #7A5D28 !important; /* Hover pe Royal Color */
-    transform: translateY(-3px); /* Thoda upar uthega */
-    text-shadow: 0 0 10px rgba(122, 93, 40, 0.5);
-}
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .hamburger { display: block !important; order: 3; margin-left: 10px; }
+    .menu-search-btn { order: 2; margin-left: auto; }
+    .logo { order: 1; }
 
-/* Normal links in footer */
-.royal-footer .fb-link { margin-top: 10px; margin-bottom: 10px; }
-.royal-footer a:not(.footer-social-icons a) { 
-    color: #fff !important; 
-    text-decoration: none; 
-    transition: 0.3s; 
-}
-.royal-footer a:not(.footer-social-icons a):hover { 
-    color: #d4af37 !important; 
-    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5); 
-}
-
-    .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 20000; }
-    .modal-box { background: #fffbf0; border: 3px solid #d4af37; width: 90%; max-width: 400px; margin: 20% auto; padding: 25px; border-radius: 10px; position: relative; }
-    .modal-input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #d4af37; border-radius: 4px; }
-    .gold-btn { background: #800000; color: #d4af37; border: 1px solid #d4af37; padding: 8px 15px; font-weight: bold; cursor: pointer; width: 100%; }
+    .nav-links {
+        display: none; position: absolute; top: 40px; left: 0; width: 100%;
+        background: #050528 url('footerbg.png') repeat top left;
+        background-size: 1%;
+        flex-direction: column; padding: 10px 0; text-align: center;
+        border-bottom: 3px solid #d4af37;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+    }
+    .nav-links.active { display: flex; }
     
-    #hoverTooltip { position: fixed; display: none; background: rgba(0,0,0,0.95); color: #fff; padding: 10px; border-radius: 4px; font-size: 12px; z-index: 20000; pointer-events: none; border: 1px solid #d4af37; max-width: 250px; }
+    /* Panel Fix for Mobile */
+    .sidebar-left, .sidebar-right { width: 85% !important; max-width: 320px; }
+    
+    /* Adjust Tools Position */
+    .smart-tools-container { bottom: 80px; right: 15px; }
+}
+/* =========================================
+   ✅ FIX: RIGHT PANEL SCROLL & MOBILE MENU
+   ========================================= */
+
+/* 1. Right Panel Scrolling Fix */
+#lineage-content {
+    flex-grow: 1;          /* Bachi hui jagah lega */
+    overflow-y: auto;      /* Scroll karega agar list lambi h */
+    padding-bottom: 50px;  /* Niche thodi jagah chodega */
+    max-height: calc(100vh - 150px); /* Mobile me height control */
+}
+
+/* 2. Scrollbar for Panels */
+#lineage-content::-webkit-scrollbar,
+.index-scroll-area::-webkit-scrollbar {
+    width: 5px;
+}
+#lineage-content::-webkit-scrollbar-thumb,
+.index-scroll-area::-webkit-scrollbar-thumb {
+    background: #d4af37; 
+    border-radius: 10px;
+}
+
+/* 3. Mobile Smart Button Position */
+@media (max-width: 768px) {
+    .smart-tools-container {
+        bottom: 15px; /* Footer se thoda upar */
+        right: 15px;
+    }
+}
+/* =========================================
+   ✅ FINAL SCROLL FIX (Right & Left Panels)
+   ========================================= */
+
+/* 1. Panel ko Flexbox banao taki andar calculation sahi ho */
+.sidebar-left, .sidebar-right {
+    display: flex !important;
+    flex-direction: column !important;
+    /* Height pehle se set hai, use waisa hi rahne dein */
+}
+
+/* 2. Headers ko Fix karo (Ye scroll nahi honge) */
+.search-container, 
+#panel-header, 
+.sidebar-right h4 {
+    flex-shrink: 0; /* Ye sikudenge nahi */
+}
+
+/* 3. LEFT PANEL SCROLL (Last naam ab dikhega) */
+.index-scroll-area {
+    flex-grow: 1;          /* Bachi hui sari jagah lega */
+    overflow-y: auto;      /* Scroll ON */
+    min-height: 0;         /* Flexbox bug fix */
+    padding-bottom: 100px !important; /* Last item ke liye extra jagah */
+}
+
+/* 4. RIGHT PANEL SCROLL (Ancestral Path ab pura dikhega) */
+#lineage-content {
+    flex-grow: 1;          /* Bachi hui sari jagah lega */
+    overflow-y: auto;      /* Scroll ON */
+    min-height: 0;         /* Flexbox bug fix */
+    padding-bottom: 100px !important; /* Niche extra jagah */
+    display: block;        /* List block ki tarah behave kare */
+    margin-bottom: 0;      /* Margin hata diya */
+}
+
+/* Scrollbar ko sundar banane ke liye */
+.index-scroll-area::-webkit-scrollbar,
+#lineage-content::-webkit-scrollbar {
+    width: 5px;
+}
+.index-scroll-area::-webkit-scrollbar-thumb,
+#lineage-content::-webkit-scrollbar-thumb {
+    background: #d4af37; 
+    border-radius: 10px;
+}
+/* =========================================
+   👑 FINAL ROYAL PANEL FIX (Font + Scroll)
+   ========================================= */
+
+/* 1. PANELS POSITION (Header aur Footer ke beech me) */
+.sidebar-left, .sidebar-right {
+    position: fixed !important;
+    top: 60px !important;    /* Navbar ke niche */
+    bottom: 70px !important; /* Footer ke upar (Ab nahi dabega) */
+    height: auto !important; /* Height top-bottom se decide hogi */
+    width: 300px !important;
+    
+    background: #fffbf0; /* Royal Cream */
+    border: 2px solid #d4af37; 
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    z-index: 9999;
+    
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    overflow: hidden; /* Bahar kuch na nikle */
+}
+
+/* 2. ROYAL FONTS (Headers) */
+.sidebar-left h3, 
+.sidebar-right h4, 
+#panel-header h2, 
+.panel-header {
+    font-family: 'Cinzel', serif !important; /* Royal Font */
+    color: #800000;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid #d4af37;
+    padding: 10px;
+    margin: 0;
+    background: #fff0d0; /* Halka Gold Header Bg */
+    text-align: center;
+}
+
+/* 3. ROYAL TEXT (Lists & Details) */
+.name-list li, 
+.lineage-item, 
+.lineage-details {
+    font-family: 'Merriweather', serif !important; /* Classy Reading Font */
+    font-size: 12px;
+    color: #333;
+}
+
+/* 4. SCROLLING AREA (Beech wala hissa scroll karega) */
+.index-scroll-area, 
+#lineage-content {
+    flex-grow: 1;           /* Bachi hui jagah lega */
+    overflow-y: auto;       /* Scroll karega */
+    padding: 10px;
+    padding-bottom: 60px;   /* Niche extra jagah taki last naam na kate */
+}
+
+/* 5. ANCESTRAL PATH STYLING (Sunder Line) */
+.lineage-item {
+    padding: 10px 0 10px 20px;
+    border-left: 3px solid #d4af37; /* Gold Line */
+    margin-left: 10px;
+    position: relative;
+}
+.lineage-item::before {
+    content: '⚜'; /* Royal Symbol (Fleur-de-lis) as Bullet */
+    position: absolute;
+    left: -10px; top: 8px;
+    color: #800000;
+    font-size: 2px;
+    background: #fffbf0;
+}
+.lineage-item strong {
+    color: #800000;
+}
+
+/* 6. MOBILE FIXES */
+@media (max-width: 768px) {
+    .sidebar-left, .sidebar-right {
+        width: 85% !important;
+        max-width: 320px;
+        top: 55px !important;
+        bottom: 75px !important; /* Mobile Footer ke liye jagah */
+    }
+    
+    /* Chhupane ke liye Left/Right */
+    .sidebar-left { left: -120%; transition: left 0.3s ease; }
+    .sidebar-right { right: -120%; transition: right 0.3s ease; }
+    
+    .sidebar-left.open { left: 10px; }
+    .sidebar-right.open { right: 10px; }
+}
+
+/* 7. SCROLLBAR DESIGN */
+.index-scroll-area::-webkit-scrollbar,
+#lineage-content::-webkit-scrollbar {
+    width: 6px;
+}
+.index-scroll-area::-webkit-scrollbar-thumb,
+#lineage-content::-webkit-scrollbar-thumb {
+    background: #d4af37; 
+    border-radius: 10px;
+}
+/* ✅ RIGHT PANEL SCROLL FIX (Short & Final) */
+#lineage-content {
+    height: 100% !important;       /* Poori height lega */
+    max-height: none !important;   /* Purani limit hata di */
+    overflow-y: auto !important;   /* Scroll ON */
+    padding-bottom: 150px !important; /* Niche jagah */
+}
+/* ✅ FINAL FIX: ID NAME CORRECTED */
+/* Dhyan dein: Yahan naam '#lineage-path' hai (HTML wala same ID) */
+#lineage-path {
+    display: block !important;
+    height: 100% !important;        /* Puri height lega */
+    flex-grow: 1 !important;        /* Bachi hui jagah lega */
+    overflow-y: auto !important;    /* Scroll ON */
+    padding-bottom: 150px !important; /* Footer se bachne ke liye jagah */
+}   
+/* =========================================
+   🌳 MINI TREE STYLE (Right Panel)
+   ========================================= */
+.mini-tree-box {
+    padding: 10px;
+    font-family: 'Merriweather', serif;
+}
+
+.mini-node {
+    position: relative;
+    padding: 5px 0 5px 25px; /* Text thoda aage */
+    border-left: 2px solid #d4af37; /* Khadi Line (Vertical) */
+    margin-left: 10px;
+    color: #333;
+    font-size: 13px;
+}
+
+/* Horizontal Line (L-Shape banane ke liye) */
+.mini-node::before {
+    content: '';
+    position: absolute;
+    left: 0; 
+    top: 15px; /* Line ki position */
+    width: 20px; 
+    height: 2px; 
+    background: #d4af37;
+}
+
+/* Selected Member (Jiska page khula h) */
+.active-node {
+    color: #800000;
+    font-weight: bold;
+    background: #fff0d0; /* Highlight Bg */
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #d4af37;
+    display: inline-block;
+}
+
+/* Siblings (Bhai-Behen) - Thoda halka dikhe */
+.sibling-node {
+    color: #555;
+    font-size: 12px;
+}
+.sibling-node::before {
+    border-top: 2px dashed #999; /* Bhaiyo ke liye dashed line */
+    background: transparent;
+    height: 0;
+}
+/* =========================================
+   ✅ FINAL FIX: STRAIGHT ANCESTRAL PATH
+   ========================================= */
+
+/* 1. Sabse upar wale (Root) ki line hatayein */
+#lineage-path .mini-tree-box > div:first-child > div[style*="width:2px"],
+#lineage-path .mini-tree-box > div:first-child > div[style*="width:20px"] {
+    display: none !important; /* Pehle naam ki dono line gayab */
+}
+
+/* 2. Root naam ko thoda piche khiskwayein taki jagah na bache */
+#lineage-path .mini-tree-box > div:first-child {
+    margin-left: 0 !important;
+    padding-left: 10px !important;
+}
+
+/* 3. Baaki sab naam ek sidh me (Vertical Line) */
+#lineage-path .mini-tree-box > div {
+    margin-left: 0 !important; /* Sabka left margin hataya */
+    padding-left: 30px !important; /* Sabko barabar jagah di */
+    border-left: 2px solid #d4af37; /* Ek lambi sidhi line banayi */
+}
+
+/* 4. Jo naam select hai, uska box thoda alag dikhe */
+#lineage-path .mini-tree-box > div span[style*="background:#fff0d0"] {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+/* 5. Siblings ki list ko bhi thoda saaf karein */
+#lineage-path .mini-tree-box > div[style*="font-size:11px"],
+#lineage-path .mini-tree-box > div[style*="border-top:1px dashed"] {
+    margin-left: 0 !important;
+    padding-left: 30px !important;
+    border-left: 2px solid #d4af37; /* Inki bhi line sidhi rahegi */
+}
+/* =========================================
+   ✅ FINAL LAYOUT FIX (Scrollable Page & Footer)
+   ========================================= */
+
+/* 1. Body ko scroll karne layak banayein */
+body {
+    overflow-y: auto !important; /* Page scroll ON */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Kam se kam puri screen height */
+}
+
+/* 2. Tree Wrapper ki height limit hatayein */
+.tree-scroll-wrapper {
+    height: auto !important; /* Fixed height hati */
+    overflow: visible !important; /* Scroll bar hata (ab body scroll karegi) */
+    flex-grow: 1; /* Bachi hui jagah lega taki footer niche rahe */
+    padding-bottom: 20px;
+}
+
+/* 3. Footer ko 'Fixed' se 'Normal' karein */
+.footer {
+    position: relative !important; /* Chipkna band */
+    bottom: auto !important;
+    width: 100%;
+    margin-top: auto; /* Agar content kam h to bhi niche rahe */
+    z-index: 100;
+}
+
+/* 4. Left/Right Panels ko ab 'Fixed' rahne dein par height adjust karein */
+.sidebar-left, .sidebar-right {
+    position: fixed !important; 
+    top: 60px !important;
+    bottom: 20px !important; /* Niche tak jagah le */
+    height: auto !important;
+    z-index: 9999;
+}
+/* ✅ FORCE PAGE SCROLL & FOOTER BOTTOM */
+html, body {
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow-y: auto !important; /* Body scroll ON */
+}
+
+.tree-scroll-wrapper {
+    height: auto !important;     /* Fixed height hatayi */
+    max-height: none !important; /* Koi limit nahi */
+    overflow: visible !important; /* Iska scroll band */
+}
+
+.footer {
+    position: relative !important; /* Chipkna band */
+    margin-top: 50px; /* Thoda gap */
+    width: 100%;
+}   
+/* =========================================
+   ✅ FINAL SCROLL FIX (Left-Right & Up-Down)
+   ========================================= */
+
+html, body {
+    /* "overflow-y" ki jagah sirf "overflow" likha hai */
+    /* Isse ab Left-Right slide bhi kaam karega */
+    overflow: auto !important; 
+    
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Wrapper ko failne dein taki scroll kaam kare */
+.tree-scroll-wrapper {
+    /* Jitna chouda ped (Tree) hai, utna wrapper fail jayega */
+    width: max-content; 
+    min-width: 100%;
+    
+    height: auto !important;
+    overflow: visible !important;
+}
+.footer {
+    /* 1. Padding ko width ke andar hi rakho */
+    box-sizing: border-box !important; 
+    
+    /* 2. Agar aap chahte hain ki footer screen se bahar na jaye */
+    /* (Lekin isse right side scroll karne par footer khatam ho jayega) */
+    /* width: 100vw !important; */  <-- Ye line mat lagana agar pura background chahiye
+}
+/* =========================================
+   👑 ROYAL FOOTER & GOLD BUTTON (Final Design)
+   ========================================= */
+
+.footer {
+    /* 1. Shahi Background (Deep Royal Maroon) */
+    background: #030230; 
+    background-image: url('footerbg.png');
+    background-repeat: repeat;
+    background-size: 2%;
+    
+    /* 2. Top Border: Gold Line with Shadow */
+    border-top: 3px solid #d4af37;
+    box-shadow: 0 -10px 20px rgba(0,0,0,0.8); /* Upar ki taraf gahra shadow */
+    
+    /* 3. Text & Layout */
+    color: #d4af37; /* Gold Text */
+    text-align: center;
+    padding: 0px 10px;
+    font-family: 'Cinzel', serif !important;
+    position: relative;
+    width: 100%;
+    margin-top: 50px;
+    box-sizing: border-box !important;
+    z-index: 100;
+}
+
+/* Developer Name & Info */
+.footer span {
+    color: #fff; /* White Text for Name */
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* Royal Symbol (Upar chhota sa taj) */
+.footer::before {
+    content: '⚜'; 
+    display: block;
+    font-size: 24px;
+    color: #d4af37;
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px #ffd700;
+}
+
+/* =========================================
+   🌟 ROYAL FACEBOOK BUTTON (Gold Style)
+   ========================================= */
+.fb-btn {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 10px;
+    
+    /* Shahi Gold Gradient Background */
+    background: linear-gradient(45deg, #b8860b, #ffd700, #b8860b);
+    
+    /* Text Color (Dark Maroon) */
+    color: #2a0a0a !important; 
+    
+    /* Shape & Size */
+    padding: 8px 25px;
+    border-radius: 50px; /* Pill Shape */
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 13px;
+    font-family: 'Merriweather', serif;
+    text-transform: uppercase;
+    
+    /* Border & Shadow */
+    border: 1px solid #fff;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+    
+    /* Margin */
+    margin-top: 15px;
+    transition: all 0.3s ease;
+}
+
+/* Hover Effect (Jab mouse upar jaye) */
+.fb-btn:hover {
+    transform: translateY(-3px); /* Thoda upar uthega */
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6); /* Chamak badhegi */
+    background: linear-gradient(45deg, #ffd700, #fff, #ffd700); /* Aur bright hoga */
+}
+
+/* Button Icon */
+.fb-btn i {
+    font-size: 16px;
+}

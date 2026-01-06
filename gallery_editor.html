@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal Admin - KASUMALGARH</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="mainstyle.css?v=2">
+
+    <style>
+        /* --- ADMIN SPECIFIC STYLES --- */
+        body { padding-bottom: 100px; }
+        
+        /* 🔒 Login Overlay (Royal) */
+        #login-overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: linear-gradient(rgba(0,0,51,0.95), rgba(0,0,51,0.98)), url('1.jpg'); 
+            background-size: cover; background-position: center;
+            z-index: 10000; display: flex; justify-content: center; align-items: center; 
+            flex-direction: column; 
+        }
+        .login-box { 
+            text-align: center; border: 4px double #b38728; padding: 40px; 
+            border-radius: 15px; background: rgba(0, 0, 34, 0.95); 
+            box-shadow: 0 0 30px rgba(179, 135, 40, 0.3); width: 90%; max-width: 350px; 
+        }
+        .pin-input { 
+            font-size: 2em; text-align: center; padding: 10px; width: 100%; 
+            background: #000; color: #b38728; border: 2px solid #b38728; 
+            margin-top: 20px; font-family: 'Cinzel', serif; letter-spacing: 5px;
+            border-radius: 5px;
+        }
+        .btn-unlock { 
+            margin-top: 20px; padding: 12px 30px; 
+            background: linear-gradient(to right, #bf953f, #aa771c); 
+            color: #000; border: 2px solid #fcf6ba; font-weight: 900; 
+            cursor: pointer; font-family: 'Cinzel'; width: 100%; 
+            font-size: 1.1em; border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        /* 🛠️ Editor UI */
+        .editor-container { 
+            max-width: 1000px; margin: 40px auto; padding: 20px; 
+            opacity: 0.1; pointer-events: none; transition: 0.5s; 
+        }
+        .editor-active { opacity: 1 !important; pointer-events: auto !important; }
+
+        .admin-card {
+            background: var(--paper-bg); 
+            padding: 30px; 
+            border: 3px double var(--maroon-text); 
+            border-radius: 15px; 
+            position: relative; 
+            box-shadow: 0 0 25px rgba(191, 149, 63, 0.3); 
+            margin-bottom: 30px;
+        }
+        .admin-card::before {
+            content: "⚜️"; position: absolute; top: -25px; left: 50%; transform: translateX(-50%);
+            font-size: 40px; background: #000033; padding: 0 10px; border-radius: 50%; border: 2px solid #b38728;
+        }
+
+        /* Inputs */
+        .config-input, .edit-input { 
+            background: #fff; border: 2px solid #b38728; color: #333; 
+            padding: 10px; width: 100%; box-sizing: border-box; margin-bottom: 10px; 
+            font-family: 'Playfair Display', serif; border-radius: 5px;
+        }
+        .config-input:focus, .edit-input:focus {
+            background: #fffbf0; outline: none; border-color: var(--maroon-text);
+        }
+
+        /* Toolbar Buttons */
+        .toolbar { 
+            display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; 
+        }
+        .full-width { grid-column: span 2; }
+        
+        .btn-base { 
+            border: 2px solid #b38728; padding: 12px; border-radius: 8px; 
+            cursor: pointer; font-weight: bold; font-family: 'Cinzel'; 
+            text-align: center; color: #fcf6ba; background: #000044; 
+            transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .btn-base:hover { transform: translateY(-3px); background: #b38728; color: #000; }
+        .btn-upload { background: linear-gradient(135deg, #004d00, #003300); border-color: #00ff00; }
+
+        /* List Items */
+        .list-item { 
+            background: rgba(255, 255, 255, 0.9); 
+            border: 2px solid #b38728; 
+            border-left: 8px solid var(--maroon-text); 
+            margin-bottom: 20px; padding: 15px; border-radius: 8px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .item-top { display: flex; gap: 15px; align-items: center; }
+        .img-preview { 
+            width: 100px; height: 100px; object-fit: cover; 
+            border: 2px solid #b38728; border-radius: 5px; 
+        }
+
+        /* Sticky Action Bar */
+        .sticky-footer-bar { 
+            position: fixed; bottom: 0; left: 0; width: 100%; 
+            background: #000033; border-top: 3px solid #b38728; 
+            padding: 15px; display: flex; gap: 15px; z-index: 2000; 
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+        }
+        .big-btn { 
+            flex: 1; padding: 15px; font-family: 'Cinzel'; font-weight: 900; 
+            border-radius: 50px; cursor: pointer; border: 2px solid #fcf6ba; 
+            font-size: 1.1em; text-transform: uppercase;
+        }
+        .btn-load { background: #000066; color: #fcf6ba; }
+        .btn-save { background: linear-gradient(to right, #bf953f, #aa771c); color: #000; }
+
+        /* Mobile Fixes */
+        @media (max-width: 600px) {
+            .item-top { flex-direction: column; text-align: center; }
+            .img-preview { width: 100%; height: 200px; }
+            .toolbar { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="login-overlay">
+        <div class="login-box">
+            <h2 style="font-family:'Cinzel'; color:#b38728; margin-bottom:10px;">ROYAL ADMIN</h2>
+            <div style="color:#fcf6ba; font-size:0.9em; margin-bottom:20px;">Fort Kasumbi Control Panel</div>
+            <input type="password" id="pin-input" class="pin-input" maxlength="4" placeholder="****">
+            <button class="btn-unlock" onclick="checkPin()">UNLOCK GATE</button>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="navbar-brand-container">
+            <img id="menu-logo" src="menulogo.png" alt="Logo"> 
+            <a class="navbar-brand" href="index.html">KASUMALGARH</a>
+        </div>
+        
+        <div class="menu-toggle" onclick="toggleMobilePopup()">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+
+        <ul class="navbar-links">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="vanshawali.html">VANSHAWALI</a></li>
+            <li><a href="history.html">HISTORY</a></li>
+            <li><a href="gallery.html">GALLERY</a></li>
+            <li><a href="#" class="active" style="color:#b38728;">ADMIN</a></li>
+        </ul>
+    </nav>
+
+    <div id="mobile-popup" class="mobile-menu-overlay">
+        <ul class="mobile-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="vanshawali.html">Vanshawali</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+        </ul>
+    </div>
+
+    <div id="editor-ui" class="editor-container">
+        
+        <div class="admin-card">
+            <h3 style="font-family:'Cinzel'; color:var(--maroon-text); text-align:center; margin-top:0;">
+                ⚙️ Configuration
+            </h3>
+            <input type="password" id="gh-token" class="config-input" placeholder="GitHub Token (ghp_...)">
+            <input type="text" id="gh-owner" class="config-input" placeholder="Username (kasumalgarh)">
+            <input type="text" id="gh-repo" class="config-input" placeholder="Repo Name (kasumalgarh.github.io)">
+        </div>
+
+        <div class="toolbar">
+            <button class="btn-base" onclick="openGitHubBrowser('select', '')">📂 Select Existing File</button>
+            <button class="btn-base" onclick="openGitHubBrowser('delete', '')" style="border-color:red; color:#ff9999;">🗑️ File Manager</button>
+            
+            <div class="full-width">
+                <input type="file" id="file-upload" style="display:none;" multiple onchange="handleFileUpload()">
+                <label for="file-upload" class="btn-base btn-upload" style="display:block;">
+                    ☁️ Upload New Photo/Video
+                </label>
+            </div>
+        </div>
+
+        <div id="list-area"></div>
+    </div>
+
+    <div class="sticky-footer-bar">
+        <button class="big-btn btn-load" onclick="fetchFromGitHub()">🔄 Load Data</button>
+        <button id="save-btn" class="big-btn btn-save" onclick="saveToGitHub()">💾 Save Changes</button>
+    </div>
+
+    <div id="gh-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:6000; justify-content:center; align-items:center;">
+        <div style="background:#000033; border:2px solid #b38728; width:90%; max-width:600px; max-height:80vh; overflow-y:auto; padding:20px; border-radius:10px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:15px; border-bottom:1px solid #b38728; padding-bottom:10px;">
+                <h3 id="modal-title" style="color:#b38728; margin:0; font-family:'Cinzel';">File Browser</h3>
+                <span style="font-size:2em; cursor:pointer; color:#fff;" onclick="closeModal()">&times;</span>
+            </div>
+            <div id="modal-path" style="font-size:0.8em; color:#888; margin-bottom:10px;">Path: /</div>
+            <div id="modal-list"></div>
+        </div>
+    </div>
+
+    <script src="mainscript.js"></script>
+    
+    <script>
+        // --- 1. ADMIN LOGIC ---
+        let galleryList = [], fileSha = "", isLoaded = false;
+        const FILE_PATH = "gallery-data.js";
+        const PIN = "2025";
+
+        function checkPin() {
+            if(document.getElementById('pin-input').value === PIN) {
+                document.getElementById('login-overlay').style.opacity = "0";
+                setTimeout(() => { 
+                    document.getElementById('login-overlay').style.display = "none"; 
+                    document.getElementById('editor-ui').classList.add('editor-active');
+                }, 500);
+                loadConfig();
+            } else { alert("Wrong PIN!"); }
+        }
+
+        function loadConfig() {
+            ['gh-token', 'gh-owner', 'gh-repo'].forEach(id => {
+                if(localStorage.getItem(id)) document.getElementById(id).value = localStorage.getItem(id);
+            });
+        }
+
+        // ✅ FETCH FUNCTION (With Fixes)
+        async function fetchFromGitHub() {
+            const token = document.getElementById('gh-token').value.trim();
+            const owner = document.getElementById('gh-owner').value.trim();
+            const repo = document.getElementById('gh-repo').value.trim();
+            
+            if(!token || !owner || !repo) return alert("Please fill all Config fields!");
+
+            localStorage.setItem('gh-token', token);
+            localStorage.setItem('gh-owner', owner);
+            localStorage.setItem('gh-repo', repo);
+
+            const btn = document.querySelector('.btn-load');
+            const originalText = btn.innerText;
+            btn.innerText = "Loading...";
+
+            try {
+                const url = `https://api.github.com/repos/${owner}/${repo}/contents/${FILE_PATH}`;
+                const res = await fetch(url, {
+                    headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+                });
+
+                if (res.status === 404) throw new Error("404 Error: gallery-data.js not found. Upload it first!");
+                if (res.status === 401) throw new Error("401 Error: Token Expired or Invalid.");
+                if (!res.ok) throw new Error(`GitHub Error: ${res.status}`);
+
+                const data = await res.json();
+                fileSha = data.sha;
+                
+                // ✅ FIX: Clean newlines before decoding
+                const cleanContent = data.content.replace(/\s/g, ''); 
+                const content = decodeURIComponent(atob(cleanContent).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+                
+                const jsonStr = content.replace(/const\s+galleryData\s*=\s*/, "").replace(/;\s*$/, "").trim();
+                
+                try {
+                    galleryList = JSON.parse(jsonStr);
+                } catch(parseErr) {
+                    console.error(parseErr);
+                    galleryList = JSON.parse(content); 
+                }
+                
+                isLoaded = true;
+                renderList();
+                alert("Data Loaded Successfully! ✅");
+
+            } catch (e) { alert("❌ " + e.message); } 
+            finally { btn.innerText = originalText; }
+        }
+
+        function renderList() {
+            const container = document.getElementById('list-area');
+            container.innerHTML = "";
+            const owner = localStorage.getItem('gh-owner');
+            const repo = localStorage.getItem('gh-repo');
+
+            galleryList.forEach((item, i) => {
+                let displaySrc = item.src;
+                if (!item.src.startsWith('http') && !item.src.startsWith('data:')) {
+                    displaySrc = `https://raw.githubusercontent.com/${owner}/${repo}/main/${item.src}`;
+                }
+
+                const div = document.createElement('div');
+                div.className = "list-item";
+                div.innerHTML = `
+                    <div class="item-top">
+                        <img src="${displaySrc}" class="img-preview" onerror="this.src='menulogo.png'">
+                        <div style="flex:1; width:100%;">
+                            <input type="text" class="edit-input" value="${item.caption || ''}" onchange="updateItem(${i}, 'caption', this.value)" placeholder="Caption">
+                            <input type="text" class="edit-input" value="${item.src || ''}" onchange="updateItem(${i}, 'src', this.value)" placeholder="Source Path">
+                            <select class="edit-input" onchange="updateItem(${i}, 'category', this.value)" style="margin-top:5px;">
+                                <option value="events" ${item.category === 'events' ? 'selected' : ''}>Events</option>
+                                <option value="history" ${item.category === 'history' ? 'selected' : ''}>History</option>
+                                <option value="other" ${item.category === 'other' ? 'selected' : ''}>Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="margin-top:10px; display:flex; gap:10px; justify-content: flex-end;">
+                        <button onclick="moveItem(${i}, -1)" class="btn-base" style="padding:5px 15px;">⬆️</button>
+                        <button onclick="moveItem(${i}, 1)" class="btn-base" style="padding:5px 15px;">⬇️</button>
+                        <button onclick="deleteItem(${i})" class="btn-base" style="background:red; color:white; border-color:red;">Delete</button>
+                    </div>`;
+                container.appendChild(div);
+            });
+        }
+
+        function updateItem(index, key, value) { galleryList[index][key] = value; }
+
+        async function saveToGitHub() {
+            if(!isLoaded) return alert("Load data first!");
+            const btn = document.getElementById('save-btn');
+            btn.innerText = "Saving...";
+            
+            const token = document.getElementById('gh-token').value;
+            const owner = document.getElementById('gh-owner').value;
+            const repo = document.getElementById('gh-repo').value;
+
+            try {
+                // Get latest SHA
+                const currentRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${FILE_PATH}`, {
+                    headers: { 'Authorization': `token ${token}` }
+                });
+                const currentData = await currentRes.json();
+                fileSha = currentData.sha;
+
+                const jsonStr = `const galleryData = ${JSON.stringify(galleryList, null, 4)};`;
+                const encoded = btoa(encodeURIComponent(jsonStr).replace(/%([0-9A-F]{2})/g, (match, p1) => String.fromCharCode('0x' + p1)));
+
+                const uploadRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${FILE_PATH}`, {
+                    method: 'PUT',
+                    headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: "Update Gallery via Royal Admin", content: encoded, sha: fileSha })
+                });
+
+                if(!uploadRes.ok) throw new Error("Write failed");
+                alert("Saved Successfully! ✅ Live in 1-2 mins.");
+            } catch(e) { alert("Save Failed: " + e.message); } 
+            finally { btn.innerText = "💾 Save Changes"; }
+        }
+
+        // --- Helper Functions ---
+        function moveItem(i, d) {
+            const target = i + d;
+            if(target >= 0 && target < galleryList.length) {
+                [galleryList[i], galleryList[target]] = [galleryList[target], galleryList[i]];
+                renderList();
+            }
+        }
+        function deleteItem(i) {
+            if(confirm("Remove this item?")) {
+                galleryList.splice(i, 1);
+                renderList();
+            }
+        }
+        
+        async function handleFileUpload() {
+            const fileInput = document.getElementById('file-upload');
+            const files = fileInput.files;
+            if (!files.length) return;
+            
+            alert("Upload started... Please wait.");
+            
+            const token = document.getElementById('gh-token').value;
+            const owner = document.getElementById('gh-owner').value;
+            const repo = document.getElementById('gh-repo').value;
+
+            for (let file of files) {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = async function () {
+                    const base64Content = reader.result.split(',')[1];
+                    const fileName = Date.now() + "_" + file.name; 
+                    
+                    try {
+                        await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${fileName}`, {
+                            method: 'PUT',
+                            headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ message: "Upload via Admin", content: base64Content })
+                        });
+                        
+                        galleryList.unshift({
+                            type: file.name.match(/\.(mp4)$/i) ? 'video' : 'image',
+                            category: 'events',
+                            src: fileName,
+                            caption: 'Uploaded Image'
+                        });
+                    } catch (e) { console.error("Upload failed", e); }
+                };
+            }
+            setTimeout(() => { renderList(); alert("Uploads Complete! Click 'Save Changes'."); }, 3000);
+        }
+
+        // --- GitHub Browser ---
+        async function openGitHubBrowser(mode, path = "") {
+            document.getElementById('gh-modal').style.display = "flex";
+            const list = document.getElementById('modal-list');
+            list.innerHTML = "<p style='color:#fff'>Loading...</p>";
+            document.getElementById('modal-path').innerText = "Path: /" + path;
+            
+            const token = document.getElementById('gh-token').value;
+            const owner = document.getElementById('gh-owner').value;
+            const repo = document.getElementById('gh-repo').value;
+
+            try {
+                const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
+                    headers: { 'Authorization': `token ${token}` }
+                });
+                const files = await res.json();
+                
+                list.innerHTML = path ? `<div style="padding:10px; border-bottom:1px solid #444; cursor:pointer; color:#fcf6ba;" onclick="openGitHubBrowser('${mode}', '${path.split('/').slice(0,-1).join('/')}')">🔙 Back</div>` : "";
+                
+                files.forEach(f => {
+                    if (f.type === 'dir' || f.name.match(/\.(jpg|jpeg|png|gif|mp4|webp)$/i)) {
+                        const icon = f.type === 'dir' ? "📁" : "📄";
+                        list.innerHTML += `
+                            <div style="padding:10px; border-bottom:1px solid #444; display:flex; justify-content:space-between; align-items:center;">
+                                <div onclick="${f.type==='dir' ? `openGitHubBrowser('${mode}', '${f.path}')` : mode==='select' ? `selectFile('${f.path}')` : ''}" style="cursor:pointer; color:#fff; flex:1;">
+                                    ${icon} ${f.name}
+                                </div>
+                                ${mode==='delete' && f.type!=='dir' ? `<button onclick="deleteFilePermanently('${f.path}', '${f.sha}')" style="background:red; color:white; border:none; padding:5px; cursor:pointer;">DEL</button>` : ''}
+                            </div>`;
+                    }
+                });
+            } catch(e) { list.innerHTML = `<p style='color:red'>Error loading files.</p>`; }
+        }
+
+        function closeModal() { document.getElementById('gh-modal').style.display = "none"; }
+        function selectFile(path) {
+            galleryList.unshift({ 
+                type: path.match(/\.(mp4|mov)$/i) ? 'video' : 'image', category: 'events', 
+                src: path, caption: 'New Entry' 
+            });
+            renderList(); closeModal();
+        }
+        
+        async function deleteFilePermanently(path, sha) {
+            if(!confirm("Permanently delete " + path + " from GitHub?")) return;
+            const token = document.getElementById('gh-token').value;
+            const owner = document.getElementById('gh-owner').value;
+            const repo = document.getElementById('gh-repo').value;
+            
+            await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: "Delete file via Admin", sha: sha })
+            });
+            alert("File deleted!"); closeModal();
+        }
+
+        // --- Mobile Menu ---
+        function toggleMobilePopup() {
+            const menu = document.getElementById('mobile-popup');
+            if(menu.classList.contains('open')) menu.classList.remove('open');
+            else menu.classList.add('open');
+        }
+    </script>
+</body>
+</html>

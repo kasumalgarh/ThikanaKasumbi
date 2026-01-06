@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Chhota Khush: Mahabali Adventure</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&display=swap');
+
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #87CEEB;
+            font-family: 'Baloo 2', cursive;
+            touch-action: none;
+            user-select: none;
+        }
+
+        /* --- UI और HUD --- */
+        #ui-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* दिन-रात का ओवरले */
+        #day-night-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,50,0);
+            pointer-events: none;
+            transition: background 1s;
+        }
+
+        .hud-top {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 25px;
+            text-shadow: 2px 2px 0 #5d4037;
+            z-index: 10;
+        }
+
+        .score-box {
+            font-size: 28px;
+            color: #FFD700;
+            font-weight: 800;
+            background: rgba(0,0,0,0.5);
+            padding: 5px 15px;
+            border-radius: 20px;
+            border: 2px solid #fff;
+        }
+
+        #powerup-bar {
+            position: absolute;
+            top: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 12px;
+            background: rgba(0,0,0,0.6);
+            border-radius: 10px;
+            display: none;
+            overflow: hidden;
+            border: 2px solid white;
+            z-index: 10;
+        }
+        #powerup-fill {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #ff0000, #ff8f00);
+            transition: width 0.1s linear;
+        }
+        #powerup-label {
+            position: absolute;
+            top: -25px;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            text-shadow: 1px 1px 0 #000;
+        }
+
+        /* --- सेटिंग्स पैनल (Start Screen) --- */
+        .screen {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(to bottom, #fff8e1, #ffecb3);
+            padding: 15px;
+            border-radius: 25px;
+            border: 5px solid #d84315;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+            pointer-events: auto;
+            width: 95%;
+            max-width: 480px;
+            z-index: 100;
+            max-height: 98vh;
+            overflow-y: auto;
+        }
+
+        h1 { margin: 0; color: #bf360c; font-size: 28px; }
+        h2 { margin: 0 0 8px 0; color: #e65100; font-size: 14px; }
+
+        .control-group {
+            background: white;
+            border: 2px solid #ffab91;
+            border-radius: 10px;
+            padding: 8px;
+            margin-bottom: 6px;
+            text-align: left;
+        }
+
+        .control-group h3 {
+            margin: 0 0 5px 0;
+            font-size: 13px;
+            color: #d84315;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .file-btn {
+            background: #ff9800; color: white; padding: 6px 12px;
+            border-radius: 8px; cursor: pointer; font-weight: bold;
+            display: inline-block; box-shadow: 0 2px 0 #e65100; font-size: 13px;
+        }
+
+        /* LIVE PREVIEW CANVAS */
+        #preview-canvas {
+            width: 90px; height: 90px;
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMUlEQVQ4T2N89uzZfwY8QFJSEp80A+OoAcMImMEDRo9AyBgM5eQhCxjDzYk0MGoAAQAxrBAyQvt6mAAAAABJRU5ErkJggg==');
+            border: 2px solid #333;
+            float: right;
+            border-radius: 8px;
+            margin-top: -5px;
+            background-size: 10px 10px;
+        }
+
+        label { display: block; font-size: 13px; color: #555; margin: 3px 0; cursor: pointer;}
+        input[type="range"] { width: 100%; accent-color: #d84315; height: 5px; }
+        input[type="checkbox"], input[type="radio"] { accent-color: #d84315; width: 14px; height: 14px; vertical-align: middle; }
+        input[type="color"] { border: none; width: 40px; height: 25px; vertical-align: middle; cursor: pointer; padding: 0; border-radius: 4px; }
+
+        .preset-btn {
+            padding: 4px 8px; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; font-size: 12px; background: #eee;
+        }
+        .preset-btn.active { border: 2px solid #d84315; background: #ffccbc; font-weight: bold; }
+
+        button.main-btn {
+            background: linear-gradient(#ff6f00, #d84315);
+            border: 3px solid #ffcc80; padding: 8px 30px;
+            font-size: 22px; font-family: 'Baloo 2', cursive; font-weight: 800;
+            color: white; border-radius: 50px; cursor: pointer;
+            box-shadow: 0 5px 0 #bf360c; width: 100%; margin-top: 5px;
+        }
+        button.main-btn:active { transform: translateY(4px); box-shadow: none; }
+        
+        .reset-btn {
+            background: none; border: none; color: #777; 
+            text-decoration: underline; cursor: pointer; font-size: 12px; margin-top: 5px;
+        }
+
+        #notification {
+            position: absolute;
+            top: 40%; left: 50%; transform: translate(-50%, -50%);
+            font-size: 40px; font-weight: 900; color: #FFD700;
+            text-shadow: 3px 3px 0 #bf360c; opacity: 0;
+            transition: opacity 0.3s; pointer-events: none; z-index: 20;
+            white-space: nowrap;
+        }
+
+        #source-video { display: none; }
+
+    </style>
+</head>
+<body>
+
+    <div id="day-night-overlay"></div>
+    <canvas id="gameCanvas"></canvas>
+
+    <div id="ui-layer">
+        <div class="hud-top">
+            <div class="score-box">🟠 <span id="score-val">0</span></div>
+            <div style="font-size:20px; color:white; font-weight:bold;">HI: <span id="hiscore-val">0</span></div>
+        </div>
+        
+        <div id="powerup-bar">
+            <div id="powerup-label">POWER</div>
+            <div id="powerup-fill"></div>
+        </div>
+        
+        <div id="notification">MAHABALI!</div>
+    </div>
+
+    <!-- सेटिंग्स स्क्रीन -->
+    <div id="start-screen" class="screen">
+        <h1>महाबली खुश</h1>
+        <h2>स्टूडियो सेटिंग्स <span style="font-size:10px; color:#555;">(Auto-Saved)</span></h2>
+        
+        <!-- 1. वीडियो और लाइव प्रीव्यू -->
+        <div class="control-group">
+            <h3>
+                <span>1. वीडियो (Video)</span>
+                <span style="color:red; font-size:10px;">LIVE PREVIEW ⮕</span>
+            </h3>
+            <canvas id="preview-canvas"></canvas>
+            
+            <label for="vid-up" class="file-btn">📂 वीडियो चुनें</label>
+            <input id="vid-up" type="file" accept="video/*" style="display:none;">
+            <video id="source-video" muted playsinline loop></video>
+            
+            <div style="margin-top:5px;">
+                <label style="font-size:12px;">शुरुआत काटें: <span id="trim-val" style="color:#d84315; font-weight:bold;">0s</span></label>
+                <input type="range" id="trim-slider" min="0" max="5" step="0.1" value="0">
+            </div>
+        </div>
+
+        <!-- 2. बैकग्राउंड रिमूवर (Presets + Custom) -->
+        <div class="control-group">
+            <h3>2. बैकग्राउंड कलर (Color Removal)</h3>
+            <div style="display:flex; align-items:center; gap:5px; margin-bottom:5px;">
+                <label style="margin:0; font-size:12px; margin-right: 5px;"><input type="checkbox" id="chroma-active"> ऑन (On)</label>
+                
+                <!-- Quick Buttons -->
+                <button class="preset-btn" onclick="setPreset('black')">⚫</button>
+                <button class="preset-btn" onclick="setPreset('white')">⚪</button>
+                <button class="preset-btn" onclick="setPreset('green')">🟢</button>
+                
+                <!-- Custom -->
+                <input type="color" id="chroma-color" value="#000000" title="Custom Color">
+            </div>
+            
+            <label style="font-size:12px;">सफाई (Sensitivity): <span id="sens-val">40</span></label>
+            <input type="range" id="sens-slider" min="1" max="150" value="40">
+            <small style="color:#777; font-size:10px;">(बाल कटें तो कम करें, धब्बे रहें तो बढ़ाएं)</small>
+        </div>
+
+        <!-- 3. वाटरमार्क फिक्स -->
+        <div class="control-group">
+            <h3>3. लोगो छिपाएं (Hide Logo)</h3>
+            <div style="display:flex; gap:10px; margin-bottom:5px;">
+                <label><input type="checkbox" id="mask-left"> ↖ बायां (L)</label>
+                <label><input type="checkbox" id="mask-right"> ↗ दायां (R)</label>
+            </div>
+            <label style="font-size:12px;">मास्क साइज: <span id="mask-size-val">50</span>px</label>
+            <input type="range" id="mask-size-slider" min="20" max="150" value="50">
+        </div>
+
+        <button class="main-btn" onclick="startGame()">▶ खेल शुरू करें</button>
+        <button class="reset-btn" onclick="resetSettings()">⚠️ सेटिंग्स रीसेट करें</button>
+    </div>
+
+    <!-- गेम ओवर -->
+    <div id="game-over-screen" class="screen" style="display: none;">
+        <h1 style="color: #c62828;">ओह नहीं!</h1>
+        <p>फिर से कोशिश करो, कैप्टन!</p>
+        <h2 style="font-size: 32px;">स्कोर: <span id="final-score">0</span></h2>
+        <button class="main-btn" onclick="startGame()">🔄 फिर खेलें</button>
+        <button class="reset-btn" onclick="location.reload()">⚙️ सेटिंग्स बदलें</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const offCanvas = document.createElement('canvas'); 
+        const offCtx = offCanvas.getContext('2d');
+
+        // Refs
+        const scoreEl = document.getElementById('score-val');
+        const hiScoreEl = document.getElementById('hiscore-val');
+        const finalScoreEl = document.getElementById('final-score');
+        const startScreen = document.getElementById('start-screen');
+        const gameOverScreen = document.getElementById('game-over-screen');
+        const notifEl = document.getElementById('notification');
+        const powerBar = document.getElementById('powerup-bar');
+        const powerFill = document.getElementById('powerup-fill');
+        const powerLabel = document.getElementById('powerup-label');
+        const dayNightOverlay = document.getElementById('day-night-overlay');
+
+        // Settings Input Refs
+        const fileInput = document.getElementById('vid-up');
+        const sourceVideo = document.getElementById('source-video');
+        const previewCanvas = document.getElementById('preview-canvas');
+        const previewCtx = previewCanvas.getContext('2d');
+        
+        const trimSlider = document.getElementById('trim-slider');
+        const trimValDisplay = document.getElementById('trim-val');
+        
+        const chromaActive = document.getElementById('chroma-active');
+        const chromaColor = document.getElementById('chroma-color');
+        const sensSlider = document.getElementById('sens-slider');
+        const sensValDisplay = document.getElementById('sens-val');
+        
+        const maskLeft = document.getElementById('mask-left');
+        const maskRight = document.getElementById('mask-right');
+        const maskSizeSlider = document.getElementById('mask-size-slider');
+        const maskSizeVal = document.getElementById('mask-size-val');
+
+        let gameState = {
+            running: false, score: 0, highScore: localStorage.getItem('khushMaxScore') || 0,
+            speed: 0, frames: 0, shake: 0, timeOfDay: 0
+        };
+
+        // Settings State (Default)
+        let settings = {
+            trim: 0,
+            chromaEnabled: false,
+            chromaHex: '#000000',
+            sensitivity: 40,
+            maskL: false,
+            maskR: false,
+            maskSize: 50
+        };
+
+        let userVideo = null;
+        let previewInterval;
+        
+        hiScoreEl.innerText = gameState.highScore;
+
+        // --- Load Settings ---
+        function loadSavedSettings() {
+            const saved = localStorage.getItem('khushSettingsFinal');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    settings = { ...settings, ...parsed };
+                    applySettingsToUI();
+                } catch(e) { console.log('Settings error', e); }
+            }
+        }
+
+        function applySettingsToUI() {
+            trimSlider.value = settings.trim;
+            trimValDisplay.innerText = settings.trim + 's';
+            
+            chromaActive.checked = settings.chromaEnabled;
+            chromaColor.value = settings.chromaHex;
+            sensSlider.value = settings.sensitivity;
+            sensValDisplay.innerText = settings.sensitivity;
+            
+            maskLeft.checked = settings.maskL;
+            maskRight.checked = settings.maskR;
+            maskSizeSlider.value = settings.maskSize;
+            maskSizeVal.innerText = settings.maskSize;
+        }
+
+        // --- Save Settings Helper ---
+        function saveSettings() {
+            localStorage.setItem('khushSettingsFinal', JSON.stringify(settings));
+        }
+        function resetSettings() {
+            localStorage.removeItem('khushSettingsFinal');
+            location.reload();
+        }
+
+        // --- Preset Logic ---
+        window.setPreset = function(colorName) {
+            settings.chromaEnabled = true;
+            chromaActive.checked = true;
+            
+            if (colorName === 'black') {
+                settings.chromaHex = '#000000';
+                settings.sensitivity = 40;
+            } else if (colorName === 'white') {
+                settings.chromaHex = '#FFFFFF';
+                settings.sensitivity = 40;
+            } else if (colorName === 'green') {
+                settings.chromaHex = '#00FF00';
+                settings.sensitivity = 60;
+            }
+            
+            applySettingsToUI();
+            saveSettings();
+        }
+
+        // --- Audio ---
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playSound(type) {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain); gain.connect(audioCtx.destination);
+            const now = audioCtx.currentTime;
+            
+            if (type === 'jump') {
+                osc.frequency.setValueAtTime(150, now); osc.frequency.linearRampToValueAtTime(300, now+0.1);
+                gain.gain.setValueAtTime(0.2, now); gain.gain.linearRampToValueAtTime(0, now+0.1);
+                osc.start(now); osc.stop(now+0.1);
+            } else if (type === 'collect') { 
+                osc.type = 'triangle'; osc.frequency.setValueAtTime(600, now);
+                gain.gain.setValueAtTime(0.1, now); gain.gain.linearRampToValueAtTime(0, now+0.1);
+                osc.start(now); osc.stop(now+0.1);
+            } else if (type === 'magnet') { 
+                osc.type = 'sine'; osc.frequency.setValueAtTime(200, now);
+                gain.gain.setValueAtTime(0.05, now); gain.gain.linearRampToValueAtTime(0, now+0.3);
+                osc.start(now); osc.stop(now+0.3);
+            } else if (type === 'giant') { 
+                osc.type = 'sawtooth'; osc.frequency.setValueAtTime(100, now); osc.frequency.linearRampToValueAtTime(400, now+0.5);
+                gain.gain.setValueAtTime(0.2, now); gain.gain.linearRampToValueAtTime(0, now+0.5);
+                osc.start(now); osc.stop(now+0.5);
+            }
+        }
+
+        // --- Event Listeners for Settings ---
+        
+        fileInput.addEventListener('change', e => {
+            if (e.target.files[0]) {
+                const url = URL.createObjectURL(e.target.files[0]);
+                sourceVideo.src = url;
+                sourceVideo.volume = 0; 
+                sourceVideo.play();
+                userVideo = sourceVideo;
+                if (!previewInterval) previewInterval = setInterval(updatePreview, 100);
+            }
+        });
+
+        trimSlider.addEventListener('input', e => {
+            settings.trim = parseFloat(e.target.value);
+            trimValDisplay.innerText = settings.trim + 's';
+            if (userVideo) { userVideo.currentTime = settings.trim; if(userVideo.paused) userVideo.play(); }
+            saveSettings();
+        });
+
+        chromaActive.addEventListener('change', e => { settings.chromaEnabled = e.target.checked; saveSettings(); });
+        chromaColor.addEventListener('input', e => { settings.chromaHex = e.target.value; saveSettings(); });
+        
+        sensSlider.addEventListener('input', e => {
+            settings.sensitivity = parseInt(e.target.value);
+            sensValDisplay.innerText = settings.sensitivity;
+            saveSettings();
+        });
+
+        maskLeft.addEventListener('change', e => { settings.maskL = e.target.checked; saveSettings(); });
+        maskRight.addEventListener('change', e => { settings.maskR = e.target.checked; saveSettings(); });
+        maskSizeSlider.addEventListener('input', e => {
+            settings.maskSize = parseInt(e.target.value);
+            maskSizeVal.innerText = settings.maskSize;
+            saveSettings();
+        });
+
+        // Initialize Settings
+        loadSavedSettings();
+
+
+        // --- Live Preview & Chroma Logic (Enhanced) ---
+        function hexToRgb(hex) {
+            var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? { r: parseInt(result[1], 16), g: parseInt(result[2], 16), b: parseInt(result[3], 16) } : {r:0,g:0,b:0};
+        }
+
+        function updatePreview() {
+            if (!userVideo || userVideo.paused) return;
+            if (userVideo.currentTime >= userVideo.duration - 0.1 || userVideo.currentTime >= settings.trim + 2) {
+                 userVideo.currentTime = settings.trim;
+            }
+
+            const pw = previewCanvas.width;
+            const ph = previewCanvas.height;
+            previewCtx.clearRect(0,0,pw,ph);
+            
+            // Draw Processed Frame
+            offCanvas.width = pw; offCanvas.height = ph;
+            offCtx.drawImage(userVideo, 0, 0, pw, ph);
+            let frame = offCtx.getImageData(0,0,pw,ph);
+            processChroma(frame);
+            offCtx.putImageData(frame, 0, 0);
+            
+            previewCtx.drawImage(offCanvas, 0, 0);
+            
+            // Show Mask Areas in Red
+            previewCtx.fillStyle = 'rgba(255,0,0,0.4)';
+            const maskW = (settings.maskSize / 100) * (pw/2); 
+            const maskH = (settings.maskSize / 100) * (ph/2);
+            if (settings.maskL) previewCtx.fillRect(0, 0, maskW, maskH);
+            if (settings.maskR) previewCtx.fillRect(pw - maskW, 0, maskW, maskH);
+        }
+
+        function processChroma(frame) {
+            if (!settings.chromaEnabled) return;
+            
+            const target = hexToRgb(settings.chromaHex);
+            const sens = settings.sensitivity;
+            // Weighted Euclidean distance for better color matching
+            const sensSq = sens * sens * 3; 
+            
+            let l = frame.data.length / 4;
+            for (let i = 0; i < l; i++) {
+                let r = frame.data[i*4], g = frame.data[i*4+1], b = frame.data[i*4+2];
+                
+                let distSq = (r - target.r)**2 + (g - target.g)**2 + (b - target.b)**2;
+                
+                if (distSq < sensSq) {
+                    frame.data[i*4+3] = 0; // Transparent
+                }
+            }
+        }
+
+
+        // --- Game Setup ---
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            groundY = canvas.height - 80;
+        }
+        let groundY;
+        window.addEventListener('resize', resize);
+        resize();
+
+        // --- Classes ---
+        class Layer {
+            constructor(color, speedMod, yOff, type) {
+                this.color = color; this.speedMod = speedMod; this.yOff = yOff; this.type = type;
+                this.objs = []; for(let i=0; i<6; i++) this.add(i * (canvas.width/4));
+            }
+            add(x) { this.objs.push({ x: x + Math.random()*100, y: canvas.height - this.yOff - Math.random()*50, s: 0.5+Math.random()*0.5 }); }
+            update() {
+                this.objs.forEach(o => o.x -= gameState.speed * this.speedMod);
+                if (this.objs[0].x < -300) { this.objs.shift(); this.add(this.objs[this.objs.length-1].x + 200); }
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                this.objs.forEach(o => {
+                    ctx.save(); ctx.translate(o.x, o.y); ctx.scale(o.s, o.s);
+                    if (this.type === 'cloud') {
+                        ctx.fillStyle = 'rgba(255,255,255,0.6)'; ctx.beginPath(); ctx.arc(0,0,30,0,Math.PI*2); ctx.arc(40,0,40,0,Math.PI*2); ctx.arc(80,0,30,0,Math.PI*2); ctx.fill();
+                    } else if (this.type === 'mtn') { ctx.beginPath(); ctx.moveTo(0,200); ctx.lineTo(150,-100); ctx.lineTo(300,200); ctx.fill(); } 
+                    else { ctx.fillStyle = '#4E342E'; ctx.fillRect(0,0,20,100); ctx.fillStyle = '#2E7D32'; ctx.beginPath(); ctx.arc(10,-20,40,0,Math.PI*2); ctx.fill(); }
+                    ctx.restore();
+                });
+            }
+        }
+        const layers = [ new Layer('#90CAF9', 0.1, 400, 'cloud'), new Layer('#9575CD', 0.2, 150, 'mtn'), new Layer('#66BB6A', 0.5, 80, 'tree') ];
+
+        const player = {
+            x: 80, y: 0, dy: 0, gravity: 0.6, jumpForce: 14, grounded: false,
+            scale: 1, isGiant: false, giantTimer: 0, hasMagnet: false, magnetTimer: 0,
+            draw() {
+                let targetScale = this.isGiant ? 2.0 : 1.0; this.scale += (targetScale - this.scale) * 0.1;
+                ctx.save(); ctx.translate(this.x, this.y); ctx.scale(this.scale, this.scale);
+                if (this.hasMagnet) { ctx.beginPath(); ctx.arc(0, -40, 60 + Math.sin(gameState.frames*0.2)*5, 0, Math.PI*2); ctx.strokeStyle = `rgba(255, 0, 0, 0.4)`; ctx.lineWidth = 3; ctx.stroke(); }
+                if (userVideo) {
+                    let vw = 100, vh = 100;
+                    if (userVideo.currentTime >= userVideo.duration - 0.1) { userVideo.currentTime = settings.trim; userVideo.play(); }
+                    
+                    offCanvas.width = vw; offCanvas.height = vh;
+                    offCtx.drawImage(userVideo, 0, 0, vw, vh);
+                    let frame = offCtx.getImageData(0, 0, vw, vh);
+                    processChroma(frame);
+                    offCtx.putImageData(frame, 0, 0);
+                    
+                    if (settings.maskL) offCtx.clearRect(0, 0, settings.maskSize, settings.maskSize);
+                    if (settings.maskR) offCtx.clearRect(vw - settings.maskSize, 0, settings.maskSize, settings.maskSize);
+                    
+                    ctx.drawImage(offCanvas, -vw/2, -vh + 10, vw, vh);
+                } else {
+                    ctx.fillStyle = 'orange'; ctx.fillRect(-10, -50, 20, 30); ctx.beginPath(); ctx.arc(0, -60, 15, 0, Math.PI*2); ctx.fill();
+                    let leg = Math.sin(gameState.frames * 0.2) * 10; ctx.fillRect(-10 + leg, -20, 8, 20); ctx.fillRect(2 - leg, -20, 8, 20);
+                }
+                ctx.restore();
+            },
+            update() {
+                this.y += this.dy;
+                if (this.y + 5 < groundY) { this.dy += this.gravity; this.grounded = false; } else { this.dy = 0; this.grounded = true; this.y = groundY - 5; }
+                if (this.isGiant) { this.giantTimer--; updatePowerBar(this.giantTimer, 600, 'GIANT MODE', '#FFD700'); if(this.giantTimer<=0) { this.isGiant=false; powerBar.style.display='none'; } } 
+                else if (this.hasMagnet) { this.magnetTimer--; updatePowerBar(this.magnetTimer, 600, 'MAGNET ON', '#FF0000'); if(this.magnetTimer<=0) { this.hasMagnet=false; powerBar.style.display='none'; } }
+            },
+            jump() { if (this.grounded) { this.dy = -this.jumpForce; playSound('jump'); } }
+        };
+
+        function updatePowerBar(val, max, text, color) { powerBar.style.display = 'block'; powerLabel.innerText = text; powerFill.style.background = color; powerFill.style.width = (val/max * 100) + '%'; }
+
+        let objects = [];
+        class Obj {
+            constructor() {
+                let r = Math.random(); this.type = r < 0.6 ? 'laddoo' : (r < 0.85 ? 'rock' : (r < 0.95 ? 'log' : 'magnet'));
+                if (Math.random() < 0.05) this.type = 'gold_laddoo';
+                this.x = canvas.width + 100; this.y = groundY - 40; this.w = 40; this.h = 40; this.del = false;
+                if (this.type.includes('laddoo') || this.type === 'magnet') { this.y = groundY - 50 - Math.random() * 100; }
+            }
+            update() {
+                this.x -= gameState.speed;
+                if (player.hasMagnet && (this.type.includes('laddoo'))) { let dx = player.x - this.x; let dy = (player.y - 40) - this.y; this.x += dx * 0.1; this.y += dy * 0.1; }
+                if (this.x < -100) this.del = true;
+            }
+            draw() {
+                ctx.save(); ctx.translate(this.x, this.y);
+                if (this.type === 'rock') { ctx.fillStyle = '#555'; ctx.beginPath(); ctx.moveTo(0,40); ctx.lineTo(20,0); ctx.lineTo(40,40); ctx.fill(); }
+                else if (this.type === 'log') { ctx.fillStyle = '#5D4037'; ctx.fillRect(0, 10, 50, 30); ctx.fillStyle = '#8D6E63'; ctx.beginPath(); ctx.arc(0, 25, 15, 0, Math.PI*2); ctx.fill(); }
+                else if (this.type === 'magnet') { ctx.fillStyle = 'red'; ctx.fillRect(0,0,10,30); ctx.fillRect(20,0,10,30); ctx.fillRect(0,20,30,10); ctx.fillStyle = 'silver'; ctx.fillRect(0,30,10,5); ctx.fillRect(20,30,10,5); }
+                else { let c = this.type === 'gold_laddoo' ? '#FFD700' : '#FF6F00'; if (this.type === 'gold_laddoo') { ctx.shadowBlur=15; ctx.shadowColor='gold'; } ctx.fillStyle = c; ctx.beginPath(); ctx.arc(20,20,15,0,Math.PI*2); ctx.fill(); ctx.fillStyle = 'rgba(255,255,255,0.4)'; ctx.beginPath(); ctx.arc(15,15,4,0,Math.PI*2); ctx.fill(); }
+                ctx.restore();
+            }
+        }
+
+        function checkCollisions() {
+            let pb = { x: player.x-20, y: player.y-80, w: 40*player.scale, h: 80*player.scale };
+            objects.forEach(o => {
+                if (pb.x < o.x+o.w && pb.x+pb.w > o.x && pb.y < o.y+o.h && pb.y+pb.h > o.y) {
+                    if (o.type === 'rock' || o.type === 'log') { if (player.isGiant) { playSound('giant'); o.del = true; gameState.shake = 10; } else { gameOver(); } }
+                    else if (o.type === 'magnet') { playSound('giant'); player.hasMagnet = true; player.magnetTimer = 600; o.del = true; showNotif("MAGNET POWER!"); }
+                    else { playSound('collect'); o.del = true; if (o.type === 'gold_laddoo') { player.isGiant = true; player.giantTimer = 600; showNotif("GIANT MODE!"); } else { gameState.score += 10; } }
+                }
+            });
+        }
+        function showNotif(txt) { notifEl.innerText = txt; notifEl.style.opacity = 1; setTimeout(() => notifEl.style.opacity = 0, 1500); }
+
+        function animate() {
+            if (!gameState.running) return;
+            requestAnimationFrame(animate);
+            if (gameState.shake > 0) { ctx.translate(Math.random()*gameState.shake - gameState.shake/2, Math.random()*gameState.shake - gameState.shake/2); gameState.shake *= 0.9; if(gameState.shake<0.5) gameState.shake=0; } else ctx.setTransform(1,0,0,1,0,0);
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            gameState.timeOfDay += 0.05; let alpha = (Math.sin(gameState.timeOfDay * 0.005) + 1) / 2 * 0.7; dayNightOverlay.style.background = `rgba(0,0,50, ${alpha})`;
+            layers.forEach(l => { l.update(); l.draw(); });
+            ctx.fillStyle = '#5D4037'; ctx.fillRect(0, groundY, canvas.width, canvas.height-groundY); ctx.fillStyle = '#7CB342'; ctx.fillRect(0, groundY, canvas.width, 15);
+            gameState.frames++; gameState.speed += 0.002;
+            if (gameState.frames % Math.floor(100 - gameState.speed*2) === 0) objects.push(new Obj());
+            objects.forEach(o => { o.update(); o.draw(); }); objects = objects.filter(o => !o.del);
+            player.update(); player.draw();
+            checkCollisions(); scoreEl.innerText = gameState.score;
+        }
+
+        function startGame() {
+            startScreen.style.display = 'none'; gameOverScreen.style.display = 'none';
+            if(previewInterval) clearInterval(previewInterval);
+            gameState.running = true; gameState.score = 0; gameState.speed = 5; gameState.frames = 0;
+            objects = []; player.y = 0; player.isGiant = false; player.hasMagnet = false;
+            if (userVideo) { userVideo.currentTime = settings.trim; userVideo.play(); if (audioCtx.state === 'suspended') audioCtx.resume(); }
+            animate();
+        }
+        function gameOver() {
+            gameState.running = false; if (gameState.score > gameState.highScore) { gameState.highScore = gameState.score; localStorage.setItem('khushMaxScore', gameState.highScore); }
+            hiScoreEl.innerText = gameState.highScore; finalScoreEl.innerText = gameState.score;
+            gameOverScreen.style.display = 'block'; if(userVideo) userVideo.pause();
+        }
+        function resetGame() { startGame(); }
+        const action = () => { if(gameState.running) player.jump(); };
+        window.addEventListener('keydown', e => { if(e.code==='Space' || e.code==='ArrowUp') action(); });
+        canvas.addEventListener('touchstart', e => { e.preventDefault(); action(); }, {passive:false});
+        canvas.addEventListener('mousedown', action);
+    </script>
+</body>
+</html>
